@@ -238,9 +238,10 @@ Wl ->> Adm : Suppression effectuée
 
 ### 2.2.5 - Change Filtre Diffusion
 
+- Scénario nominal
+
 ```mermaid
 sequenceDiagram
-  title Scénario nominal Change_Filtre_Diffusion
   actor A as Administrateur
   participant W as WallCaster
 
@@ -256,9 +257,10 @@ sequenceDiagram
 ```
 Ce premier diagramme présente le scénario où l'administrateur souhaite entrer des tags afin de filtrer les posts après s'être connecté au front end Web. L'administrateur peut aussi demander au système de modifier certains tags ou d'en supprimer.
 
+- Scénario alternatif : erreur de connexion au front-end
+
 ```mermaid
 sequenceDiagram
-  title Scénario alternatif Change_Filtre_Diffusion
   actor A as Administrateur
   participant W as WallCaster
 
@@ -273,11 +275,11 @@ sequenceDiagram
   W -->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
 ```
-Le scénario alternatif serait une erreur de connexion.
+
+- Scénario d'erreur : erreur de connexion au serveur
 
 ```mermaid
 sequenceDiagram
-  title Scénario d'erreur Change_Filtre_Diffusion
   actor A as Administrateur
   participant W as WallCaster
 
