@@ -220,6 +220,9 @@ sequenceDiagram
   A ->> W : Valide la configuration
   W ->> A : Indique que la configuration a été enregistrée
 ```
+
+> Ce diagrame représente le scénario dans lequel l'administarteur configure les paramètres de filtrage (mots clés, période de temps, etc.). Après avoir validé, il y a une confirmation de la part du système que la configuration a été enregistrée.
+
 - Scénario d'Exception
 
 ```mermaid
@@ -232,6 +235,8 @@ sequenceDiagram
   A ->> W : Valide la configuration
   W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
 ```
+
+> Ce diagrame représente un scénario similaire au précédent, mais dans lequel la configuration de l'administrateur n'est pas reconnu epar le système, et n'est pas enregistrée.
 
 <br/>
 
@@ -355,6 +360,7 @@ Then, the administrator wants to remove one of the images. For that, he just nee
 ### 2.3.2 - Extraire_Posts
 
 <br/>
+
 - En tant qu'APIs, nous souhaitons recevoir du serveur des requêtes bien formées afin de lui fournir en retour le contenu des réseaux sociaux demandé.
 
 ### 2.3.3 - Filtrage des posts
@@ -368,6 +374,7 @@ Then, the administrator wants to remove one of the images. For that, he just nee
 ### 2.3.4 - Sequence Supprimer post
 
 <br/>
+
 - As an admin I can delete posts that have already been displayed
 
 ### 2.3.5 - Change Filtre Diffusion
