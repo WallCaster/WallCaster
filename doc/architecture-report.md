@@ -30,11 +30,33 @@ class Config {
 }
 
 class Post {
-  TODO 
+  -String content
+  -String author
+  -String date
+  -String url
+  -PostImage image
+  -SocialNetwork source
+  +Post(String content, String author, String date, String url, PostImage image, SocialNetwork source)
+  +Post(String content, String author, String date, String url, SocialNetwork source)
+  +toString()
+}
+
+class PostImage {
+  -String url
+  +PostImage(String url)
+  +getURL()
+}
+
+class SocialNetwork {
+  <<enum>>
+  TWITTER
+  INSTAGRAM
+  FACEBOOK
+  LINKEDIN
 }
 
 class API {
-
+  TODO
 }
 
 class TwitterAPI {
