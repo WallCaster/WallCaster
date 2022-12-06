@@ -16,6 +16,11 @@
     - [2.2.4 - Sequence Supprimer post](#224---sequence-supprimer-post)
     - [2.2.5 - Change Filtre Diffusion](#225---change-filtre-diffusion)
   - [2.3 - User Story](#23---user-story)
+    - [2.3.1 - Manage photos](#231---manage-photos)
+    - [2.3.2 - Extraire\_Posts](#232---extraire_posts)
+    - [2.3.3 - Filtrage des posts](#233---filtrage-des-posts)
+    - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
+    - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
 - [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
 - [5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#5---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
@@ -221,9 +226,10 @@ Wl ->> Adm : Suppression effectuée
 
 ### 2.2.5 - Change Filtre Diffusion
 
+- Scénario nominal
+
 ```mermaid
 sequenceDiagram
-  title Scénario nominal Change_Filtre_Diffusion
   actor A as Administrateur
   participant W as WallCaster
 
@@ -239,9 +245,10 @@ sequenceDiagram
 ```
 Ce premier diagramme présente le scénario où l'administrateur souhaite entrer des tags afin de filtrer les posts après s'être connecté au front end Web. L'administrateur peut aussi demander au système de modifier certains tags ou d'en supprimer.
 
+- Scénario alternatif : erreur de connexion au front-end
+
 ```mermaid
 sequenceDiagram
-  title Scénario alternatif Change_Filtre_Diffusion
   actor A as Administrateur
   participant W as WallCaster
 
@@ -256,11 +263,11 @@ sequenceDiagram
   W -->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
 ```
-Le scénario alternatif serait une erreur de connexion.
+
+- Scénario d'erreur : erreur de connexion au serveur
 
 ```mermaid
 sequenceDiagram
-  title Scénario d'erreur Change_Filtre_Diffusion
   actor A as Administrateur
   participant W as WallCaster
 
