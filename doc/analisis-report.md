@@ -27,7 +27,8 @@
 # Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
 ## Use case diagram
-![Use case diagram](assets/usecase.png)
+
+![Use case diagram](assets/Use_Case_Diagram.png)
 
 ## Diagrame de Séquence Système
 
@@ -159,7 +160,31 @@ APIs --> Sys : Connection error. No media contents send.
 
 @enduml
 ```
+### Filtrage des posts
 
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Se connecte au frontend d'administration
+
+  A ->> W : Configure les paramètres de filtrage
+  A ->> W : Valide la configuration
+
+  W ->> A : Indique que la configuration a été enregistrée
+```
+
+### Sequence Supprimer post
+
+#### Scenario 1
+Supprime automatiquement des posts à partir de l'analyse des sentiments
+![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
+
+#### Scenario 2
+Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
+![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
