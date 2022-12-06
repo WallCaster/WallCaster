@@ -22,7 +22,9 @@ class Query {
 }
 
 class Socket {
-  TODO 
+  const socket
+  emit()
+  on() 
 }
 
 class Config {
