@@ -210,20 +210,20 @@ APIs ->> Sys : Connection error. No media contents send.
 
 > Set of scenarios corresponding to the filtering of the posts.
 
-- Scénario Nominatif
+- Nominative Scenario
 
-```mermaid
+``mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
-  A ->> W : Se connecte au frontend d'administration
-  W ->> A : Affiche la page d'administration
-  A ->> W : Configure les paramètres de filtrage
-  A ->> W : Valide la configuration
-  W ->> A : Indique que la configuration a été enregistrée
+  A ->> W : Connect to the administration frontend
+  W ->> A : Display the administration page
+  A ->> W : Configure filtering parameters
+  A ->> W : Validate the configuration
+  W ->> A: Indicates that the configuration has been saved
 ```
 
-> Ce diagrame représente le scénario dans lequel l'administarteur configure les paramètres de filtrage (mots clés, période de temps, etc.). Après avoir validé, il y a une confirmation de la part du système que la configuration a été enregistrée.
+> This diagram represents the scenario in which the administrator configures the filtering parameters (keywords, time period, etc.). After validating, there is a confirmation from the system that the configuration has been saved.
 
 > This diagram shows the scenario where the administrator configure the parameters of filtering (keyword, period of time, etc.). After validation, there is a configuration from the system that the configuration was registered.
 
@@ -246,23 +246,22 @@ sequenceDiagram
 
 ### 2.2.4 - Sequence Supprimer post
 
-- Scenario nominatif
+- Nominative Scenario
 
-Supprime automatiquement des posts à partir de l'analyse des sentiments
+Automatically delete posts based on sentiment analysis
 
-```mermaid
+mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
 
-  A ->> W : Choix supprimer les posts
-  W ->> A : demander type filtrage à effectuer
-  A ->> W : choix filtrage
-  W ->> A : Suppression effectuée
+  A ->> W : choose delete posts
+  W ->> A : ask type of filtering to be done
+  A ->> W : choose filtering
+  W ->> A : Delete done
 ```
-
-- Scenario Alternatif
-Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
+- Alternative Scenario
+Manually delete posts that have escaped sentiment analysis 
 
 ```mermaid
 sequenceDiagram
@@ -270,10 +269,10 @@ sequenceDiagram
 actor Adm as Administarteur
 participant Wl as WallCaster 
 
-Adm ->> Wl : choix listes des posts en db
-Wl ->> Adm : affiche liste posts
-Adm ->> Wl : choix type
-Wl ->> Adm : Suppression effectuée
+Adm ->> Wl : choose list of posts in db
+Wl ->> Adm : display list of posts
+Adm ->> Wl : choice type
+Wl ->> Adm : Delete done
 ```
 
 <br/>
