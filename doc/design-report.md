@@ -1,7 +1,14 @@
-# Principe de mise en œuvre de la solution (comment)
-# Règles d'architecture
-# Modèle statique : organisation des packages, descriptions des classes et de leurs
-responsabilités
-# Modèle dynamique : flux des événements, d'états
-# Explication de la prise en compte des contraintes d'analyse
-# Cadre de production : outils de dev, de configuration et de livraison.
+# Sprint 0
+
+
+## Expected Outcome
+
+- Finish the analysis report
+- Documentation of the project structure
+  - Choose the technologies
+  - Global structure
+- Set up the project work environment
+  - git
+  - CI
+  - collaboration
+  - tools
