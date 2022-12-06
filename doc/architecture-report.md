@@ -9,6 +9,11 @@
 ## Server Backend
 ```mermaid
 classDiagram
+API <|-- TwitterAPI
+API <|-- LinkedInAPI
+API <|-- InstagramAPI
+API <|-- FacebookAPI
+
 class App {
   -config : Config
   -filter : Filter
@@ -64,6 +69,16 @@ class Post {
   +toString()
 }
 
+class API {
+  <<abstract>>
+  -base_url : String
+  -api_key : String
+  -hashTag : String[]$
+  + API(base_url : String)*
+  + searchPostFromHashtag()* Post
+  + defineHashTag(hashtag : String[])$
+}
+
 class PostImage {
   -String url
   +PostImage(String url)
@@ -78,26 +93,26 @@ class SocialNetwork {
   LINKEDIN
 }
 
-class API {
-  TODO
-}
-
 class TwitterAPI {
-  TODO 
+  
 }
 
+class LinkedInAPI {
+  
+}
+
+class InstagramAPI {
+  
+}
+
+class FacebookAPI {
+   
+}
 
 App --o Filter
 App --o Socket
 App --o Config
-TwitterAPI --|> API
-InstagramAPI --|> API
-LinkedinAPI --|> API
-FacebookAPI --|> API
-App --o TwitterAPI
-App --o InstagramAPI
-App --o LinkedinAPI
-App --o FacebookAPI
+App --o API
 Post "*" --> "0..1" PostImage : image
 Post "1" --> "1" SocialNetwork : source
 Filter "1" --> "1" Config : config
