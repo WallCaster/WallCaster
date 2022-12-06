@@ -223,6 +223,16 @@ Wl -> Adm : Suppression effectuée
 
 @enduml
 ```
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
+```
 
 #### Scenario Alternatif
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
@@ -251,10 +261,10 @@ sequenceDiagram
   actor A as Admin
   participant W as WallCaster
 
-  A ->> W : Choix supprimer les posts
-  W ->> A : Demande type sentiments à conservé
+  A ->> W : choix listes des posts en db
+  W ->> A : affiche liste posts
   A ->> W : Choix type
-  W ->> A : Filtrage effectué
+  W ->> A : Suppression effectuée
 ```
 
 ### Change Filtre Diffusion
