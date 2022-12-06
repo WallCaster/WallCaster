@@ -98,37 +98,35 @@ sequenceDiagram
 #### Scenario exception : photo trop lourde
 
 
-```plantuml
-@startuml erreur_photo_a_afficher
-actor Admin
-participant WallCaster as S
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
 
 Admin -> S : Connection au frontend d'administration
 S --> Admin : Affiche la page d'administration
 Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué l'image est trop lourde
-@enduml
 ```
 
 #### Scenario exception : erreur de connexion
 
-```plantuml
-@startuml erreur_photo_a_afficher
-actor Admin
-participant WallCaster as S
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
 
 Admin -> S : Connection au frontend d'administration
 S --> Admin : Affiche la page d'administration
 Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué, erreur de connexion
-@enduml
 ```
 #### Scenario exception : not found
 
-```plantuml
-@startuml missing_photo_a_afficher
-actor Admin
-participant WallCaster as S
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
 
 Admin -> S : Connexion au frontend d'administration
 S --> Admin : Affiche la page d'administration
@@ -136,65 +134,53 @@ Admin -> S : Enlever la photo 2 de la liste
 S --> Admin : La photo n'existe pas
 Admin -> S : Quitte la page d'administration
 
-@enduml
 ```
 
 ### Extraire_Posts
 
 #### Scenario Nominatif
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
-Sys -> APIs : Ask media contents
-APIs --> Sys : Sends media contents asked by APIs 
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Sends media contents asked by APIs 
 
-
-@enduml
 ```
 
 #### Scenario exception : authentification token expired
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
 Sys -> APIs : Ask media contents
 APIs --> Sys : Authentification error, token out of date. No media contents send.
-
-
-@enduml
 ```
 
 #### Scenario exception : no contents found
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
 Sys -> APIs : Ask media contents
 APIs --> Sys : Error, no media contents found.
-
-
-@enduml
 ```
 
 #### Scenario exception : connection error
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
 Sys -> APIs : Ask media contents
 APIs --> Sys : Connection error. No media contents send.
-
-
-@enduml
 ```
 ### Filtrage des posts
 
