@@ -3,8 +3,12 @@
 
 ## Expected Outcome
 
-- A working prototype of the project
-  - ??
-- Set up the project structure
-- Set up the project work environment (git, CI, collaboration tools, etc.)
 - Finish the analysis report
+- Documentation of the project structure
+  - Choose the technologies
+  - Global structure
+- Set up the project work environment
+  - git
+  - CI
+  - collaboration
+  - tools
