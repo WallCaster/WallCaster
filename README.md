@@ -4,11 +4,11 @@
 
 [Backlog](doc/backlog.md)
 
-- 1 - [Analisis report](doc/analisis-report.md)
-- 2 - [Management report](doc/management-report.md)
-- 3 - [Architecture and conception report](doc/architecture-report.md)
-- 4 - [Test and validation report](doc/test-report.md)
-- 5 - [Post mortem](doc/post-mortem.md)
+- 1 - [Analisis Report](doc/analisis-report.md)
+- 3 - [Architecture and Design Report](doc/architecture-report.md)
+- 2 - [Project Management Report](doc/management-report.md)
+- 4 - [Test and validation Report](doc/test-report.md)
+- 5 - [Post Mortem](doc/post-mortem.md)
 
 # Installation
 
