@@ -133,6 +133,8 @@ Admin ->> S : Quitte la page d'administration
 
 ### 2.2.2 - Extraire_Posts
 
+Ensemble de scénarios correspondants aux requêtes du serveur vers les APIs des différents réseaux sociaux, afin de récupérer leur contenu (ou une erreur si requête mal formulée). 
+
 - Scenario Nominatif
 
 ```mermaid
@@ -312,6 +314,8 @@ sequenceDiagram
 ### 2.3.1 - Manage photos
 
 ### 2.3.2 - Extraire_Posts
+
+En tant qu'APIs, nous souhaitons recevoir du serveur des requêtes bien formées de la part du serveur afin de lui fournir en retour le contenu des réseaux sociaux demandé.
 
 ### 2.3.3 - Filtrage des posts
 
