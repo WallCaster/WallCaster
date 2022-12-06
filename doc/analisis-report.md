@@ -67,6 +67,8 @@
 
 ### 2.2.1 - Manage photos
 
+> The sequence system diagrams show several cases of management of the photos on the system.
+
 <br/>
 
 - Scenario Nominatif
@@ -152,7 +154,7 @@ Admin ->> S : Quitte la page d'administration
 
 ### 2.2.2 - Extraire_Posts
 
-Ensemble de scénarios correspondants aux requêtes du serveur vers les APIs des différents réseaux sociaux, afin de récupérer leur contenu (ou une erreur si requête mal formulée). 
+> Set of scenarios corresponding to server requests to the APIs of the different social networks, in order to retrieve their content (or an error if the request is badly formulated)
 
 - Scenario Nominatif
 
@@ -209,6 +211,7 @@ APIs ->> Sys : Connection error. No media contents send.
 
 ### 2.2.3 - Filtrage des posts
 
+> Set of scenarios corresponding to the filtering of the posts.
 
 - Scénario Nominatif
 
@@ -224,6 +227,8 @@ sequenceDiagram
 ```
 
 > Ce diagrame représente le scénario dans lequel l'administarteur configure les paramètres de filtrage (mots clés, période de temps, etc.). Après avoir validé, il y a une confirmation de la part du système que la configuration a été enregistrée.
+
+> This diagram shows the scenario where the administrator configure the parameters of filtering (keyword, period of time, etc.). After validation, there is a configuration from the system that the configuration was registered.
 
 - Scénario d'Exception
 
@@ -356,7 +361,7 @@ sequenceDiagram
 > The photographer give to the admin a list a pictures that he took. As an admin want to display them on the screens. To do that he upload the images on the server and now either a picture or a post can be displayed by the system.
 Then, I want to remove one of the images. For that, he just need to remove it from the system.
 
-### 2.3.2 - Extraire_Posts
+### 2.3.2 - Extraire Posts
 
 > The system want to send requests to the APIs and they answer it with the right contents.
 
