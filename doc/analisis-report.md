@@ -1,3 +1,35 @@
+- [Rappel du besoin et critères de succès](#rappel-du-besoin-et-critères-de-succès)
+  - [Specifications](#specifications)
+  - [Critères de succès](#critères-de-succès)
+- [Modèle du domaine métier : modèle UML des notions manipulées, relations et explications](#modèle-du-domaine-métier--modèle-uml-des-notions-manipulées-relations-et-explications)
+  - [Use case diagram](#use-case-diagram)
+  - [Diagrame de Séquence Système](#diagrame-de-séquence-système)
+    - [Manage photos](#manage-photos)
+      - [Scenario Nominatif](#scenario-nominatif)
+      - [Scenario alternatif](#scenario-alternatif)
+      - [Scenario exception : photo trop lourde](#scenario-exception--photo-trop-lourde)
+      - [Scenario exception : erreur de connexion](#scenario-exception--erreur-de-connexion)
+      - [Scenario exception : not found](#scenario-exception--not-found)
+    - [Extraire\_Posts](#extraire_posts)
+      - [Scenario Nominatif](#scenario-nominatif-1)
+      - [Scenario exception : authentification token expired](#scenario-exception--authentification-token-expired)
+      - [Scenario exception : no contents found](#scenario-exception--no-contents-found)
+      - [Scenario exception : connection error](#scenario-exception--connection-error)
+    - [Filtrage des posts](#filtrage-des-posts)
+    - [Sequence Supprimer post](#sequence-supprimer-post)
+      - [Scenario 1](#scenario-1)
+      - [Scenario 2](#scenario-2)
+  - [User Story](#user-story)
+- [Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
+      - [API Twitter :](#api-twitter-)
+      - [API LinkedIn :](#api-linkedin-)
+      - [Graph API Instagram Search hastag inclus dans le Facebook SDK:](#graph-api-instagram-search-hastag-inclus-dans-le-facebook-sdk)
+      - [Graph API Facebook :](#graph-api-facebook-)
+      - [API de filtrage des posts selon plusieurs critères](#api-de-filtrage-des-posts-selon-plusieurs-critères)
+      - [Raspberry PI :](#raspberry-pi-)
+      - [Serveur persistant :](#serveur-persistant-)
+- [Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
+
 
 # Rappel du besoin et critères de succès
 
@@ -123,7 +155,7 @@ APIs --> Sys : Sends media contents asked by APIs
 @enduml
 ```
 
-#### Scenario Exception, authentification token expired
+#### Scenario exception : authentification token expired
 
 ```plantuml
 @startuml
@@ -137,7 +169,7 @@ APIs --> Sys : Authentification error, token out of date. No media contents send
 @enduml
 ```
 
-#### Scenario Exception, no contents found
+#### Scenario exception : no contents found
 
 ```plantuml
 @startuml
@@ -151,7 +183,7 @@ APIs --> Sys : Error, no media contents found.
 @enduml
 ```
 
-#### Scenario Exception, connection error
+#### Scenario exception : connection error
 
 ```plantuml
 @startuml
