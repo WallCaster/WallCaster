@@ -30,14 +30,21 @@ class Socket {
 }
 
 class Config {
-  List[String] forbiddenWords
-  int numberOfScreens
-  int dateRange
-  bool allowSound
-  List[String] whiteListAuthors
-  List[String] whiteListHashtag
-  
 
+    -int numberOfScreens
+    -int dateRange
+    -List[String] forbiddenWords
+    -List[String] whiteListAuthors
+    -List[String] whiteListHashtags
+    -List[SocialNetwork] socialNetworkAccepted
+    -bool allowSound
+    -bool allowVideo
+    -bool allowImage
+  
+    bool writeConfigToFile(String nameFile)
+    bool readConfigFromFile(String nameFile)
+    bool save()
+    Config getInstance()
 }
 
 class Post {
