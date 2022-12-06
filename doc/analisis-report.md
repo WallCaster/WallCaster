@@ -34,22 +34,19 @@
 
 ### Filtrage des posts
 
-![Filtrage des posts](assets/Filtrage_des_posts.png)
 
-<!--
-```plantuml
-@startuml filtrage_des_posts
-actor "Admin" as A
-participant "WallCaster" as W
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
 
-A -> W : Se connecte au frontend d'administration
+  A ->> W : Se connecte au frontend d'administration
 
-A -> W : Configure les paramètres de filtrage
-A -> W : Valide la configuration
+  A ->> W : Configure les paramètres de filtrage
+  A ->> W : Valide la configuration
 
-W -> A : Indique que la configuration a été enregistrée
-
--->
+  W ->> A : Indique que la configuration a été enregistrée
+```
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
