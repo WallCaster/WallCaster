@@ -41,10 +41,11 @@ class Config {
     -bool allowVideo
     -bool allowImage
   
-    bool writeConfigToFile(String nameFile)
-    bool readConfigFromFile(String nameFile)
-    bool save()
-    Config getInstance()
+    -bool writeConfigToFile(String nameFile)
+    -bool readConfigFromFile(String nameFile)
+    +bool save()
+    +Config getInstance()
+    +String toString()
 }
 
 class Post {
