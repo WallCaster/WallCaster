@@ -4,10 +4,10 @@
 
 - [Analisis Report](#analisis-report)
 - [Table of contents](#table-of-contents)
-- [1 - Rappel du besoin et critères de succès](#1---rappel-du-besoin-et-critères-de-succès)
+- [1 - Reminder of the need and success criteria](#1---reminder-of-the-need-and-success-criteria)
   - [1.1 - Specifications](#11---specifications)
-  - [1.2 - Critères de succès](#12---critères-de-succès)
-- [2 - Modèle du domaine métier : modèle UML des notions manipulées, relations et explications](#2---modèle-du-domaine-métier--modèle-uml-des-notions-manipulées-relations-et-explications)
+  - [1.2 - Criteria for success](#12---criteria-for-success)
+- [2 - Model of the business domain : UML model of the manipulated notions, relations and explanations](#2---model-of-the-business-domain--uml-model-of-the-manipulated-notions-relations-and-explanations)
   - [2.1 - Use case diagram](#21---use-case-diagram)
   - [2.2 - Diagrame de Séquence Système](#22---diagrame-de-séquence-système)
     - [2.2.1 - Manage photos](#221---manage-photos)
@@ -28,7 +28,7 @@
 
 <br/>
 
-# 1 - Rappel du besoin et critères de succès
+# 1 - Reminder of the need and success criteria
 
 ## 1.1 - Specifications
 
@@ -38,15 +38,14 @@
   - Whitelist
   - Date range
   - Number monitor
-  - Allow image, sound video, video, audio (attention au volume de l'audio et à la pertinence de sa diffusion)
-  - Ne pas forcément diffuser le même contenu sur tous les écrans (paramètre random), à condition d'avoir suffisament de matériels visuels.
-- Modération automatique mais aussi possibilité d'intervenir en second temps pour modérer manuellement, apply spam filtering (pour éviter l'ambiguïté des mots, filtrer le contenu inutile et les fausses conférences, usurpant l'identité des personnes pour les faire payer). Filtrage par mots-clés/hastags/dates. 
-- Have a nice visualization. Eviter de diffuser trop peu d'images trop souvent et éviter la redondance. En début de conférence, s'il n'y a pas suffisament de matériel visuel, possibilité de prendre des posts sur les réseaux sociaux précédent la conférence (annonce des participants, rappels des thématiques).
-- Collect content according to given query and sources, for instance : LinkedIn, Instagram, Facebook/Meta, Twitter). 
+  - Allow image, sound video, video, audio (pay attention to the volume of the audio and the relevance of its broadcast)
+  - Do not necessarily broadcast the same content on all screens (random parameter), provided you have enough visual material.
+- Automatic moderation but also possibility to intervene in second time to moderate manually, apply spam filtering (to avoid ambiguity of words, filter useless content and fake conferences, impersonating people to make them pay) Filtering by keywords/hastags/dates. 
+- Have a nice visualization. Avoid showing too few images too often and avoid redundancy. At the beginning of the conference, if there is not enough visual material, possibility to take posts on social networks before the conference (announcement of participants, reminders of themes).
+- Collect content according to given query and sources, for instance: LinkedIn, Instagram, Facebook/Meta, Twitter). 
  
-**Bonus** : Si la conférence est sur plusieurs jours, possibilité que le photographe officiel puisse diffuser les images prises la veille sur les écrans. 
-
-## 1.2 - Critères de succès
+**Bonus**: If the conference is over several days, possibility for the official photographer to broadcast the images taken the day before on the screens. 
+## 1.2 - Criteria for success
 
 - La specification est completement effectuée
 - La deadline est respectée
@@ -55,7 +54,7 @@
 
 <br/>
 
-# 2 - Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
+# 2 - Model of the business domain : UML model of the manipulated notions, relations and explanations
 
 ## 2.1 - Use case diagram
 
@@ -67,6 +66,8 @@
 
 ### 2.2.1 - Manage photos
 
+> The sequence system diagrams show several cases of management of the photos on the system.
+
 <br/>
 
 - Scenario Nominatif
@@ -74,40 +75,39 @@
 ```mermaid
 sequenceDiagram
   actor Admin 
-  participant S as WallCaster
-  Admin ->> S : Connexion au frontend d'administration
-  S ->> Admin : Affiche la page d'administration
-  Admin ->> S : Upload une photo à ajouter à la liste
-  S ->> Admin : Upload réussi
-  Admin ->> S : Upload une deuxième photo à ajouter à la liste
-  S ->> Admin : Upload réussi
-  Admin ->> S : Quitte la page d'administration
+  participant S for WallCaster
+  Admin ->> S : Connection to the administration front-end
+  S ->> Admin : Display the administration page
+  Admin ->> S : Upload a picture to add to the list
+  S ->> Admin : Upload successful
+  Admin ->> S : Upload a second photo to add to the list
+  S ->> Admin : Upload successful
+  Admin ->> S : Exit the administration page
 ```
 
 <br/>
 
-- Scenario alternatif
+- Alternative scenario
 
 ```mermaid
 sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-  Admin ->> S : Connexion au frontend d'administration
-  S ->> Admin : Affiche la page d'administration
-  Admin ->> S : Enlever la photo 2 de la liste
-  S ->> Admin : Suppression réussi
-  Admin ->> S : Quitte la page d'administration
+  Admin ->> S : Connect to the administration frontend
+  S ->> Admin : Display the administration page
+  Admin ->> S : Remove picture 2 from the list
+  S ->> Admin : Deletion successful
+  Admin ->> S : Exit the administration page
 ```
-
 <br/>
 
-- Scenario exception : photo trop lourde
+- Scenario exception : Photo to large
 
 
 ```mermaid
 sequenceDiagram
-  actor Admin
+  actor Admin 
   participant S as WallCaster
 
 Admin ->> S : Connection au frontend d'administration
@@ -152,7 +152,7 @@ Admin ->> S : Quitte la page d'administration
 
 ### 2.2.2 - Extraire_Posts
 
-Ensemble de scénarios correspondants aux requêtes du serveur vers les APIs des différents réseaux sociaux, afin de récupérer leur contenu (ou une erreur si requête mal formulée). 
+> Set of scenarios corresponding to server requests to the APIs of the different social networks, in order to retrieve their content (or an error if the request is badly formulated)
 
 - Scenario Nominatif
 
@@ -209,6 +209,7 @@ APIs ->> Sys : Connection error. No media contents send.
 
 ### 2.2.3 - Filtrage des posts
 
+> Set of scenarios corresponding to the filtering of the posts.
 
 - Scénario Nominatif
 
@@ -224,6 +225,8 @@ sequenceDiagram
 ```
 
 > Ce diagrame représente le scénario dans lequel l'administarteur configure les paramètres de filtrage (mots clés, période de temps, etc.). Après avoir validé, il y a une confirmation de la part du système que la configuration a été enregistrée.
+
+> This diagram shows the scenario where the administrator configure the parameters of filtering (keyword, period of time, etc.). After validation, there is a configuration from the system that the configuration was registered.
 
 - Scénario d'Exception
 
@@ -358,7 +361,7 @@ sequenceDiagram
 > The photographer give to the admin a list a pictures that he took. As an admin want to display them on the screens. To do that he upload the images on the server and now either a picture or a post can be displayed by the system.
 Then, I want to remove one of the images. For that, he just need to remove it from the system.
 
-### 2.3.2 - Extraire_Posts
+### 2.3.2 - Extraire Posts
 
 > The system want to send requests to the APIs and they answer it with the right contents.
 
