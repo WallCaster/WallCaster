@@ -34,6 +34,9 @@
 
 ### Filtrage des posts
 
+![Filtrage des posts](assets/Filtrage_des_posts.png)
+
+<!--
 ```plantuml
 @startuml filtrage_des_posts
 actor "Admin" as A
@@ -48,6 +51,7 @@ W -> A : Indique que la configuration a été enregistrée
 
 @enduml
 ```
+-->
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
