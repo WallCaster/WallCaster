@@ -22,7 +22,7 @@
     - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
     - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
 - [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
-- [5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#5---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
+- [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
 
 # 1 - Rappel du besoin et critères de succès
@@ -179,17 +179,27 @@ APIs --> Sys : Connection error. No media contents send.
 ### 2.2.3 - Filtrage des posts
 
 
+- Scénario Nominatif
+
 ```mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
-
   A ->> W : Se connecte au frontend d'administration
-  W ->> A : Affiche la page d'administration
   A ->> W : Configure les paramètres de filtrage
   A ->> W : Valide la configuration
-
   W ->> A : Indique que la configuration a été enregistrée
+```
+- Scénario d'Exception
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+  A ->> W : Se connecte au frontend d'administration
+  A ->> W : Configure les paramètres de filtrage
+  A ->> W : Valide la configuration
+  W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
 ```
 
 ### 2.2.4 - Sequence Supprimer post
@@ -352,7 +362,7 @@ Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d
     - Avoir une connexion WiFi
 
 
-# 5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
+# 4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
 
 Our solution consist of a software and a hardware part. 
 The software part is a web application that will be used to configure the content to display dynamically.
