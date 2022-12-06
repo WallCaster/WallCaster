@@ -217,12 +217,47 @@ sequenceDiagram
 #### Scenario 1
 Supprime automatiquement des posts à partir de l'analyse des sentiments
 
-![Use case diagram](assets/sequence_SupprimerPosts_1.png)
+
+```plantuml
+@startuml
+
+actor Administarteur as Adm
+participant WallCaster as Wl 
+
+
+activate Adm
+activate Wl
+
+
+Adm -> Wl : choix supprimer post
+Wl -> Adm : demander type filtrage à effectuer
+Adm -> Wl : choix filtrage 
+Wl -> Adm : Suppression effectuée
+
+@enduml
+```
 
 #### Scenario 2
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
 
-![Use case diagram](assets/sequence_SupprimerPosts_1.png)
+```plantuml
+@startuml
+
+actor Administarteur as Adm
+participant WallCaster as Wl 
+
+
+activate Adm
+activate Wl
+
+
+Adm -> Wl : choix listes des posts en db
+Wl -> Adm : affiche liste posts
+Adm -> Wl : choix type
+Wl -> Adm : Suppression effectuée
+
+@enduml
+```
 
 ## User Story
 
