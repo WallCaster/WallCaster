@@ -70,7 +70,7 @@ sequenceDiagram
   S ->> Admin : Affiche la page d'administration
   Admin ->> S : Upload une photo à ajouter à la liste
   S ->> Admin : Upload réussi
-  Admin ->> S : Upload une photo à ajouter à la liste
+  Admin ->> S : Upload une deuxième photo à ajouter à la liste
   S ->> Admin : Upload réussi
   Admin ->> S : Quitte la page d'administration
 ```
