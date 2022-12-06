@@ -97,10 +97,10 @@ sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-Admin -> S : Connection au frontend d'administration
-S --> Admin : Affiche la page d'administration
-Admin -> S : Upload une photo à ajouter à la liste
-S --> Admin : L'upload a échoué l'image est trop lourde
+Admin ->> S : Connection au frontend d'administration
+S ->> Admin : Affiche la page d'administration
+Admin ->> S : Upload une photo à ajouter à la liste
+S ->> Admin : L'upload a échoué l'image est trop lourde
 ```
 
 - Scenario exception : erreur de connexion
@@ -110,10 +110,10 @@ sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-Admin -> S : Connection au frontend d'administration
-S --> Admin : Affiche la page d'administration
-Admin -> S : Upload une photo à ajouter à la liste
-S --> Admin : L'upload a échoué, erreur de connexion
+Admin ->> S : Connection au frontend d'administration
+S ->> Admin : Affiche la page d'administration
+Admin ->> S : Upload une photo à ajouter à la liste
+S ->> Admin : L'upload a échoué, erreur de connexion
 ```
 - Scenario exception : not found
 
@@ -122,11 +122,11 @@ sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-Admin -> S : Connexion au frontend d'administration
-S --> Admin : Affiche la page d'administration
-Admin -> S : Enlever la photo 2 de la liste
-S --> Admin : La photo n'existe pas
-Admin -> S : Quitte la page d'administration
+Admin ->> S : Connexion au frontend d'administration
+S ->> Admin : Affiche la page d'administration
+Admin ->> S : Enlever la photo 2 de la liste
+S ->> Admin : La photo n'existe pas
+Admin ->> S : Quitte la page d'administration
 
 ```
 
@@ -151,8 +151,8 @@ sequenceDiagram
   actor APIs
   participant Sys as WallCaster
 
-Sys -> APIs : Ask media contents
-APIs --> Sys : Authentification error, token out of date. No media contents send.
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Authentification error, token out of date. No media contents send.
 ```
 
 - Scenario exception : no contents found
@@ -162,8 +162,8 @@ sequenceDiagram
   actor APIs
   participant Sys as WallCaster
 
-Sys -> APIs : Ask media contents
-APIs --> Sys : Error, no media contents found.
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Error, no media contents found.
 ```
 
 - Scenario exception : connection error
@@ -173,8 +173,8 @@ sequenceDiagram
   actor APIs
   participant Sys as WallCaster
 
-Sys -> APIs : Ask media contents
-APIs --> Sys : Connection error. No media contents send.
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Connection error. No media contents send.
 ```
 ### 2.2.3 - Filtrage des posts
 
@@ -186,6 +186,7 @@ sequenceDiagram
   actor A as Admin
   participant W as WallCaster
   A ->> W : Se connecte au frontend d'administration
+  W ->> A : Affiche la page d'administration
   A ->> W : Configure les paramètres de filtrage
   A ->> W : Valide la configuration
   W ->> A : Indique que la configuration a été enregistrée
@@ -197,6 +198,7 @@ sequenceDiagram
   actor A as Admin
   participant W as WallCaster
   A ->> W : Se connecte au frontend d'administration
+  W ->> A : Affiche la page d'administration
   A ->> W : Configure les paramètres de filtrage
   A ->> W : Valide la configuration
   W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
