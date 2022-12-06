@@ -202,10 +202,12 @@ sequenceDiagram
 
 #### Scenario 1
 Supprime automatiquement des posts à partir de l'analyse des sentiments
+
 ![Use case diagram](assets/sequence_SupprimerPosts_1.png)
 
 #### Scenario 2
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
+
 ![Use case diagram](assets/sequence_SupprimerPosts_1.png)
 
 ## User Story
