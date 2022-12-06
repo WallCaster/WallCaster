@@ -6,6 +6,27 @@
 # Static model : packages organization, main classes descriptions and their responsabilities
 
 
+## Server Backend
+```mermaid
+classDiagram
+class App {
+  TODO 
+}
+
+class Filter {
+  TODO 
+}
+
+class Query {
+  TODO 
+}
+
+class Socket {
+  TODO 
+}
+```
+
+
 ## Frontend Clients
 
 ```mermaid
