@@ -17,7 +17,7 @@
       - [Scenario exception : connection error](#scenario-exception--connection-error)
     - [Filtrage des posts](#filtrage-des-posts)
     - [Sequence Supprimer post](#sequence-supprimer-post)
-      - [Scenario 1](#scenario-1)
+      - [Scenario Nominatif](#scenario-nominatif-2)
       - [Scenario 2](#scenario-2)
   - [User Story](#user-story)
 - [Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
@@ -200,15 +200,39 @@ sequenceDiagram
 
 ### Sequence Supprimer post
 
-#### Scenario 1
+#### Scenario Nominatif
+
 Supprime automatiquement des posts à partir de l'analyse des sentiments
 
 ![Use case diagram](assets/sequence_SupprimerPosts_1.png)
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
+```
+
 
 #### Scenario 2
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
 
 ![Use case diagram](assets/sequence_SupprimerPosts_1.png)
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
+```
 
 ## User Story
 
