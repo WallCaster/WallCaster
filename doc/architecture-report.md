@@ -10,7 +10,7 @@
 ```mermaid
 classDiagram
 class App {
-  TODO 
+  -Config config
 }
 
 class Filter {
@@ -24,6 +24,24 @@ class Query {
 class Socket {
   TODO 
 }
+
+class Config {
+  TODO 
+}
+
+class Post {
+  TODO 
+}
+
+class API {
+
+}
+
+class TwitterAPI {
+  TODO 
+}
+
+
 ```
 
 

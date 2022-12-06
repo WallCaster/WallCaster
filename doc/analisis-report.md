@@ -18,12 +18,12 @@
     - [2.2.6 - Set-up RaspberryPi](#226---set-up-raspberrypi)
   - [2.3 - User Story](#23---user-story)
     - [2.3.1 - Manage photos](#231---manage-photos)
-    - [2.3.2 - Extraire\_Posts](#232---extraire_posts)
+    - [2.3.2 - Extraire Posts](#232---extraire-posts)
     - [2.3.3 - Filtrage des posts](#233---filtrage-des-posts)
     - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
     - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
     - [2.3.6 - Set-up RaspberryPi](#236---set-up-raspberrypi)
-- [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
+- [3 - Description of the ecosystem: presentation of the elements with which the system will have to integrate, the constraints to be respected](#3---description-of-the-ecosystem-presentation-of-the-elements-with-which-the-system-will-have-to-integrate-the-constraints-to-be-respected)
 - [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
 <br/>
@@ -75,7 +75,7 @@
 ```mermaid
 sequenceDiagram
   actor Admin 
-  participant S for WallCaster
+  participant S as WallCaster
   Admin ->> S : Connection to the administration front-end
   S ->> Admin : Display the administration page
   Admin ->> S : Upload a picture to add to the list
@@ -210,59 +210,58 @@ APIs ->> Sys : Connection error. No media contents send.
 
 > Set of scenarios corresponding to the filtering of the posts.
 
-- Scénario Nominatif
+- Nominative Scenario
 
-```mermaid
+``mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
-  A ->> W : Se connecte au frontend d'administration
-  W ->> A : Affiche la page d'administration
-  A ->> W : Configure les paramètres de filtrage
-  A ->> W : Valide la configuration
-  W ->> A : Indique que la configuration a été enregistrée
+  A ->> W : Connect to the administration frontend
+  W ->> A : Display the administration page
+  A ->> W : Configure filtering parameters
+  A ->> W : Validate the configuration
+  W ->> A: Indicates that the configuration has been saved
 ```
 
-> Ce diagrame représente le scénario dans lequel l'administarteur configure les paramètres de filtrage (mots clés, période de temps, etc.). Après avoir validé, il y a une confirmation de la part du système que la configuration a été enregistrée.
+> This diagram represents the scenario in which the administrator configures the filtering parameters (keywords, time period, etc.). After validating, there is a confirmation from the system that the configuration has been saved.
 
 > This diagram shows the scenario where the administrator configure the parameters of filtering (keyword, period of time, etc.). After validation, there is a configuration from the system that the configuration was registered.
 
-- Scénario d'Exception
+- Exception Scenario
 
 ```mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
-  A ->> W : Se connecte au frontend d'administration
-  W ->> A : Affiche la page d'administration
-  A ->> W : Configure les paramètres de filtrage
-  A ->> W : Valide la configuration
-  W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
+  A ->> W : Connect to the administration frontend
+  W ->> A : Display the administration page
+  A ->> W : Configure filtering parameters
+  A ->> W : Validate the configuration
+  W ->> A : Indicates that the configuration is not valid and has not been saved
 ```
 
-> Ce diagrame représente un scénario similaire au précédent, mais dans lequel la configuration de l'administrateur n'est pas reconnu epar le système, et n'est pas enregistrée.
+> This diagram represents a scenario similar to the previous one, but in which the administrator's configuration is not recognized by the system, and is not saved.
 
 <br/>
 
 ### 2.2.4 - Sequence Supprimer post
 
-- Scenario nominatif
+- Nominative Scenario
 
-Supprime automatiquement des posts à partir de l'analyse des sentiments
+Automatically delete posts based on sentiment analysis
 
-```mermaid
+mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
 
-  A ->> W : Choix supprimer les posts
-  W ->> A : demander type filtrage à effectuer
-  A ->> W : choix filtrage
-  W ->> A : Suppression effectuée
+  A ->> W : choose delete posts
+  W ->> A : ask type of filtering to be done
+  A ->> W : choose filtering
+  W ->> A : Delete done
 ```
-
-- Scenario Alternatif
-Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
+- Alternative Scenario
+Manually delete posts that have escaped sentiment analysis 
 
 ```mermaid
 sequenceDiagram
@@ -270,10 +269,10 @@ sequenceDiagram
 actor Adm as Administarteur
 participant Wl as WallCaster 
 
-Adm ->> Wl : choix listes des posts en db
-Wl ->> Adm : affiche liste posts
-Adm ->> Wl : choix type
-Wl ->> Adm : Suppression effectuée
+Adm ->> Wl : choose list of posts in db
+Wl ->> Adm : display list of posts
+Adm ->> Wl : choice type
+Wl ->> Adm : Delete done
 ```
 
 <br/>
@@ -386,49 +385,49 @@ Then, I want to remove one of the images. For that, he just need to remove it fr
 <br/>
 
 
-# 3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
+# 3 - Description of the ecosystem: presentation of the elements with which the system will have to integrate, the constraints to be respected
 
 
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
-Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d'en récupérer les posts (textes et images) correpondants à un mot clé donné.
+Our system will have to communicate with various social network APIs in order to retrieve the posts (texts and images) corresponding to a given keyword.
 
-- API Twitter :
-  - Contraintes :
-    - Authentification via un compte développeur
+- Twitter API :
+  - Constraints:
+    - Authentication via a developer account
 
-- API LinkedIn : 
-  - Contraintes :
-    - Authentification via un compte développeur
+- LinkedIn API : 
+  - Constraints:
+    - Authentication via a developer account
 
-- Graph API Instagram Search hastag inclus dans le Facebook SDK:
-  - Processus : 
-    - Créer une application Facebook
-    - Configurer l'application et les différentes permissions requises afin d'en récupérer un Access token
-    - Authentification Instagram
-    - Requêtes de récupération de posts par #hashtag
-  - Contraintes :
-    - Avoir un compte développeur Facebook 
-    - Avoir un compte développeur Instagram
+- Graph API Instagram Search hastag included in the Facebook SDK:
+  - Process : 
+    - Create a Facebook application
+    - Configure the application and the different permissions required to get an Access token
+    - Instagram authentication
+    - Requests to retrieve posts by #hashtag
+  - Constraints:
+    - Have a Facebook developer account 
+    - Have an Instagram developer account
 
-- Graph API Facebook :
-  - Contraintes :
-    - Impossibilité de récupérer le feed public Facebook via le Facebook SDK donc trouver une alternative
+- Facebook Graph API:
+  - Constraints:
+    - Impossible to get the public Facebook feed via the Facebook SDK so find an alternative
 
-- API de filtrage des posts selon plusieurs critères
+- API to filter posts according to several criteria
 
-- Raspberry PI :
-  - Micro-ordinateur permettant d'afficher un contenu web 
-  - Chaque Raspberry PI est relié à un écran afin d'y afficher un contenu spécifique
-  - Connexion à tous les raspberry PI correspondant aux écrans de la conférence.
-  - Contraintes : 
-    - Avoir une connexion WiFi
+- Raspberry PI:
+  - Microcomputer allowing to display web content 
+  - Each Raspberry PI is connected to a screen to display a specific content
+  - Connection to all Raspberry PI corresponding to the screens of the conference.
+  - Constraints: 
+    - Have a WiFi connection
 
-- Serveur persistant :
-  - Hébergement sur les serveurs de l'IRISA afin qu'il puisse être accessible en dehors du campus.
-  - Stockage de la configuration de l'administration
-  - Stockage des posts à afficher
-  - Contraintes : 
-    - Avoir une connexion WiFi
+- Persistent server:
+  - Hosted on IRISA's servers so that it can be accessed off campus.
+  - Storage of the administration configuration
+  - Storage of posts to be displayed
+  - Constraints: 
+    - Have a WiFi connection
 
 <br/>
 
