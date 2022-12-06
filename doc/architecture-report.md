@@ -11,6 +11,13 @@
 classDiagram
 class App {
   -Config config
+  -Filter filter
+  -Socket socket
+  -Post[] cache
+  -API[] apis
+
+  +App()
+  +main()
 }
 
 class Filter {
@@ -34,13 +41,12 @@ class Post {
 }
 
 class API {
-
+  TODO
 }
 
 class TwitterAPI {
   TODO 
 }
-
 
 ```
 
