@@ -27,7 +27,8 @@
 # Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
 ## Use case diagram
-![Use case diagram](assets/usecase.png)
+
+![Use case diagram](assets/Use_Case_Diagram.png)
 
 ## Diagrame de Séquence Système
 
