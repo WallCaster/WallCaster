@@ -162,6 +162,7 @@ APIs --> Sys : Connection error. No media contents send.
 ```
 ### Filtrage des posts
 
+#### Scénario Nominatif
 
 ```mermaid
 sequenceDiagram
@@ -169,11 +170,26 @@ sequenceDiagram
   participant W as WallCaster
 
   A ->> W : Se connecte au frontend d'administration
-  W ->> A : Affiche la page d'administration
+
   A ->> W : Configure les paramètres de filtrage
   A ->> W : Valide la configuration
 
   W ->> A : Indique que la configuration a été enregistrée
+```
+
+#### Scénario d'Exception
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Se connecte au frontend d'administration
+
+  A ->> W : Configure les paramètres de filtrage
+  A ->> W : Valide la configuration
+
+  W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
 ```
 
 ### Sequence Supprimer post
