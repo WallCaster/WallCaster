@@ -15,9 +15,16 @@
     - [2.2.3 - Filtrage des posts](#223---filtrage-des-posts)
     - [2.2.4 - Sequence Supprimer post](#224---sequence-supprimer-post)
     - [2.2.5 - Change Filtre Diffusion](#225---change-filtre-diffusion)
+    - [2.2.6 - Set-up RaspberryPi](#226---set-up-raspberrypi)
   - [2.3 - User Story](#23---user-story)
+    - [2.3.1 - Manage photos](#231---manage-photos)
+    - [2.3.2 - Extraire\_Posts](#232---extraire_posts)
+    - [2.3.3 - Filtrage des posts](#233---filtrage-des-posts)
+    - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
+    - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
+    - [2.3.6 - Set-up RaspberryPi](#236---set-up-raspberrypi)
 - [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
-- [5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#5---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
+- [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
 <br/>
 
@@ -70,7 +77,7 @@ sequenceDiagram
   S ->> Admin : Affiche la page d'administration
   Admin ->> S : Upload une photo à ajouter à la liste
   S ->> Admin : Upload réussi
-  Admin ->> S : Upload une photo à ajouter à la liste
+  Admin ->> S : Upload une deuxième photo à ajouter à la liste
   S ->> Admin : Upload réussi
   Admin ->> S : Quitte la page d'administration
 ```
@@ -101,10 +108,10 @@ sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-Admin -> S : Connection au frontend d'administration
-S --> Admin : Affiche la page d'administration
-Admin -> S : Upload une photo à ajouter à la liste
-S --> Admin : L'upload a échoué l'image est trop lourde
+Admin ->> S : Connection au frontend d'administration
+S ->> Admin : Affiche la page d'administration
+Admin ->> S : Upload une photo à ajouter à la liste
+S ->> Admin : L'upload a échoué l'image est trop lourde
 ```
 
 <br/>
@@ -116,10 +123,10 @@ sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-Admin -> S : Connection au frontend d'administration
-S --> Admin : Affiche la page d'administration
-Admin -> S : Upload une photo à ajouter à la liste
-S --> Admin : L'upload a échoué, erreur de connexion
+Admin ->> S : Connection au frontend d'administration
+S ->> Admin : Affiche la page d'administration
+Admin ->> S : Upload une photo à ajouter à la liste
+S ->> Admin : L'upload a échoué, erreur de connexion
 ```
 
 <br/>
@@ -131,17 +138,19 @@ sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-Admin -> S : Connexion au frontend d'administration
-S --> Admin : Affiche la page d'administration
-Admin -> S : Enlever la photo 2 de la liste
-S --> Admin : La photo n'existe pas
-Admin -> S : Quitte la page d'administration
+Admin ->> S : Connexion au frontend d'administration
+S ->> Admin : Affiche la page d'administration
+Admin ->> S : Enlever la photo 2 de la liste
+S ->> Admin : La photo n'existe pas
+Admin ->> S : Quitte la page d'administration
 
 ```
 
 <br/>
 
 ### 2.2.2 - Extraire_Posts
+
+Ensemble de scénarios correspondants aux requêtes du serveur vers les APIs des différents réseaux sociaux, afin de récupérer leur contenu (ou une erreur si requête mal formulée). 
 
 - Scenario Nominatif
 
@@ -164,8 +173,8 @@ sequenceDiagram
   actor APIs
   participant Sys as WallCaster
 
-Sys -> APIs : Ask media contents
-APIs --> Sys : Authentification error, token out of date. No media contents send.
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Authentification error, token out of date. No media contents send.
 ```
 
 <br/>
@@ -177,8 +186,8 @@ sequenceDiagram
   actor APIs
   participant Sys as WallCaster
 
-Sys -> APIs : Ask media contents
-APIs --> Sys : Error, no media contents found.
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Error, no media contents found.
 ```
 
 <br/>
@@ -190,8 +199,8 @@ sequenceDiagram
   actor APIs
   participant Sys as WallCaster
 
-Sys -> APIs : Ask media contents
-APIs --> Sys : Connection error. No media contents send.
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Connection error. No media contents send.
 ```
 
 <br/>
@@ -199,17 +208,29 @@ APIs --> Sys : Connection error. No media contents send.
 ### 2.2.3 - Filtrage des posts
 
 
+- Scénario Nominatif
+
 ```mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
-
   A ->> W : Se connecte au frontend d'administration
   W ->> A : Affiche la page d'administration
   A ->> W : Configure les paramètres de filtrage
   A ->> W : Valide la configuration
-
   W ->> A : Indique que la configuration a été enregistrée
+```
+- Scénario d'Exception
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+  A ->> W : Se connecte au frontend d'administration
+  W ->> A : Affiche la page d'administration
+  A ->> W : Configure les paramètres de filtrage
+  A ->> W : Valide la configuration
+  W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
 ```
 
 <br/>
@@ -220,93 +241,59 @@ sequenceDiagram
 
 Supprime automatiquement des posts à partir de l'analyse des sentiments
 
-```plantuml
-@startuml
-
-actor Administarteur as Adm
-participant WallCaster as Wl 
-
-
-activate Adm
-activate Wl
-
-
-Adm -> Wl : choix supprimer post
-Wl -> Adm : demander type filtrage à effectuer
-Adm -> Wl : choix filtrage 
-Wl -> Adm : Suppression effectuée
-
-@enduml
-```
 ```mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
 
   A ->> W : Choix supprimer les posts
-  W ->> A : Demande type sentiments à conservé
-  A ->> W : Choix type
-  W ->> A : Filtrage effectué
+  W ->> A : demander type filtrage à effectuer
+  A ->> W : choix filtrage
+  W ->> A : Suppression effectuée
 ```
 
 - Scenario Alternatif
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
 
-```plantuml
-@startuml
-
-actor Administarteur as Adm
-participant WallCaster as Wl 
-
-
-activate Adm
-activate Wl
-
-
-Adm -> Wl : choix listes des posts en db
-Wl -> Adm : affiche liste posts
-Adm -> Wl : choix type
-Wl -> Adm : Suppression effectuée
-
-@enduml
-```
-
 ```mermaid
 sequenceDiagram
-  actor A as Admin
-  participant W as WallCaster
 
-  A ->> W : choix listes des posts en db
-  W ->> A : affiche liste posts
-  A ->> W : Choix type
-  W ->> A : Suppression effectuée
+actor Adm as Administarteur
+participant Wl as WallCaster 
+
+Adm ->> Wl : choix listes des posts en db
+Wl ->> Adm : affiche liste posts
+Adm ->> Wl : choix type
+Wl ->> Adm : Suppression effectuée
 ```
 
 <br/>
 
 ### 2.2.5 - Change Filtre Diffusion
 
+- Scénario nominal
+
 ```mermaid
 sequenceDiagram
-  title Scénario nominal Change_Filtre_Diffusion
   actor A as Administrateur
   participant W as WallCaster
 
   A ->> W : Connexion au front-end Web Administrateur
   W ->> A : Valider connexion admin
   A ->> W : Entrer les tags voulus
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
   A ->> W : Suppression des tags enregistrés
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
 
 ```
 Ce premier diagramme présente le scénario où l'administrateur souhaite entrer des tags afin de filtrer les posts après s'être connecté au front end Web. L'administrateur peut aussi demander au système de modifier certains tags ou d'en supprimer.
 
+- Scénario alternatif : erreur de connexion au front-end
+
 ```mermaid
 sequenceDiagram
-  title Scénario alternatif Change_Filtre_Diffusion
   actor A as Administrateur
   participant W as WallCaster
 
@@ -315,30 +302,45 @@ sequenceDiagram
   A ->> W : Connexion au front-end Web Administrateur
   W ->> A : Valider connexion admin
   A ->> W : Entrer les tags voulus
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
   A ->> W : Suppression des tags enregistrés
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
 ```
-Le scénario alternatif serait une erreur de connexion.
+
+- Scénario d'erreur : erreur de connexion au serveur
 
 ```mermaid
 sequenceDiagram
-  title Scénario d'erreur Change_Filtre_Diffusion
   actor A as Administrateur
   participant W as WallCaster
 
   A ->> W : Connexion au front-end Web Administrateur
   W ->> A : Valider connexion admin
   A ->> W : Entrer les tags voulus
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Erreur de connexion au serveur
   A ->> W : Tentative de connexion au serveur
   W ->> A : Impossible de se connecter au serveur
 ```
 Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
 
+### 2.2.6 - Set-up RaspberryPi
+
+```mermaid
+sequenceDiagram
+  actor Admin as Administrateur
+  participant Rasp as RaspberryPi 
+
+  Admin ->> Rasp : Insère la carte SD configurée
+  Admin ->> Rasp : Branche le RaspberryPi à l'alimentation
+  Admin ->> Rasp : Allume le RaspberryPi
+  Rasp ->> Rasp : Now connected to the wifi
+  Rasp ->> Rasp : Website browser launched on the correct page
+```
+
+> This scenario describes the process of setting up the RaspberryPi. It may change depending on the final implementation of the RaspberryPi.
 
 ## 2.3 - User Story
 
@@ -353,6 +355,7 @@ Then, the administrator wants to remove one of the images. For that, he just nee
 ### 2.3.2 - Extraire_Posts
 
 <br/>
+- En tant qu'APIs, nous souhaitons recevoir du serveur des requêtes bien formées afin de lui fournir en retour le contenu des réseaux sociaux demandé.
 
 ### 2.3.3 - Filtrage des posts
 
@@ -365,16 +368,19 @@ Then, the administrator wants to remove one of the images. For that, he just nee
 ### 2.3.4 - Sequence Supprimer post
 
 <br/>
+- As an admin I can delete posts that have already been displayed
 
 ### 2.3.5 - Change Filtre Diffusion
 
 - As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
 
---
+
+### 2.3.6 - Set-up RaspberryPi
 
 - As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
 
 <br/>
+
 
 # 3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 
@@ -422,7 +428,7 @@ Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d
 
 <br/>
 
-# 5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
+# 4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
 
 Our solution consist of a software and a hardware part. 
 The software part is a web application that will be used to configure the content to display dynamically.
