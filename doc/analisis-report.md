@@ -1,3 +1,36 @@
+- [Rappel du besoin et critères de succès](#rappel-du-besoin-et-critères-de-succès)
+  - [Specifications](#specifications)
+  - [Critères de succès](#critères-de-succès)
+- [Modèle du domaine métier : modèle UML des notions manipulées, relations et explications](#modèle-du-domaine-métier--modèle-uml-des-notions-manipulées-relations-et-explications)
+  - [Use case diagram](#use-case-diagram)
+  - [Diagrame de Séquence Système](#diagrame-de-séquence-système)
+    - [Manage photos](#manage-photos)
+      - [Scenario Nominatif](#scenario-nominatif)
+      - [Scenario alternatif](#scenario-alternatif)
+      - [Scenario exception : photo trop lourde](#scenario-exception--photo-trop-lourde)
+      - [Scenario exception : erreur de connexion](#scenario-exception--erreur-de-connexion)
+      - [Scenario exception : not found](#scenario-exception--not-found)
+    - [Extraire\_Posts](#extraire_posts)
+      - [Scenario Nominatif](#scenario-nominatif-1)
+      - [Scenario exception : authentification token expired](#scenario-exception--authentification-token-expired)
+      - [Scenario exception : no contents found](#scenario-exception--no-contents-found)
+      - [Scenario exception : connection error](#scenario-exception--connection-error)
+    - [Filtrage des posts](#filtrage-des-posts)
+    - [Sequence Supprimer post](#sequence-supprimer-post)
+      - [Scenario Nominatif](#scenario-nominatif-2)
+    - [Change Filtre Diffusion](#change-filtre-diffusion)
+      - [Scenario 2](#scenario-2)
+  - [User Story](#user-story)
+- [Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
+      - [API Twitter :](#api-twitter-)
+      - [API LinkedIn :](#api-linkedin-)
+      - [Graph API Instagram Search hastag inclus dans le Facebook SDK:](#graph-api-instagram-search-hastag-inclus-dans-le-facebook-sdk)
+      - [Graph API Facebook :](#graph-api-facebook-)
+      - [API de filtrage des posts selon plusieurs critères](#api-de-filtrage-des-posts-selon-plusieurs-critères)
+      - [Raspberry PI :](#raspberry-pi-)
+      - [Serveur persistant :](#serveur-persistant-)
+- [Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
+
 
 # Rappel du besoin et critères de succès
 
@@ -20,17 +53,170 @@
 ## Critères de succès
 
 - La specification est completement effectuée
-- La deadline est respecté
-- Le software fonctionne correctement (pas de bug)
-- Les critères de test sont validé
+- La deadline est respectée
+- Le software fonctionne correctement (pas de bogues)
+- Les critères de test sont validés
   
 # Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
 ## Use case diagram
-![Use case diagram](assets/usecase.png)
+
+![Use case diagram](assets/Use_Case_Diagram.png)
 
 ## Diagrame de Séquence Système
 
+### Manage photos
+
+#### Scenario Nominatif
+
+```mermaid
+sequenceDiagram
+  actor Admin 
+  participant S as WallCaster
+  Admin ->> S : Connexion au frontend d'administration
+  S ->> Admin : Affiche la page d'administration
+  Admin ->> S : Upload une photo à ajouter à la liste
+  S ->> Admin : Upload réussi
+  Admin ->> S : Upload une photo à ajouter à la liste
+  S ->> Admin : Upload réussi
+  Admin ->> S : Quitte la page d'administration
+```
+
+#### Scenario alternatif
+
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
+
+  Admin ->> S : Connexion au frontend d'administration
+  S ->> Admin : Affiche la page d'administration
+  Admin ->> S : Enlever la photo 2 de la liste
+  S ->> Admin : Suppression réussi
+  Admin ->> S : Quitte la page d'administration
+```
+
+#### Scenario exception : photo trop lourde
+
+
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
+
+Admin -> S : Connection au frontend d'administration
+S --> Admin : Affiche la page d'administration
+Admin -> S : Upload une photo à ajouter à la liste
+S --> Admin : L'upload a échoué l'image est trop lourde
+```
+
+#### Scenario exception : erreur de connexion
+
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
+
+Admin -> S : Connection au frontend d'administration
+S --> Admin : Affiche la page d'administration
+Admin -> S : Upload une photo à ajouter à la liste
+S --> Admin : L'upload a échoué, erreur de connexion
+```
+#### Scenario exception : not found
+
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
+
+Admin -> S : Connexion au frontend d'administration
+S --> Admin : Affiche la page d'administration
+Admin -> S : Enlever la photo 2 de la liste
+S --> Admin : La photo n'existe pas
+Admin -> S : Quitte la page d'administration
+
+```
+
+### Extraire_Posts
+
+#### Scenario Nominatif
+
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
+
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Sends media contents asked by APIs 
+
+```
+
+#### Scenario exception : authentification token expired
+
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
+
+Sys -> APIs : Ask media contents
+APIs --> Sys : Authentification error, token out of date. No media contents send.
+```
+
+#### Scenario exception : no contents found
+
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
+
+Sys -> APIs : Ask media contents
+APIs --> Sys : Error, no media contents found.
+```
+
+#### Scenario exception : connection error
+
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
+
+Sys -> APIs : Ask media contents
+APIs --> Sys : Connection error. No media contents send.
+```
+### Filtrage des posts
+
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Se connecte au frontend d'administration
+  W ->> A : Affiche la page d'administration
+  A ->> W : Configure les paramètres de filtrage
+  A ->> W : Valide la configuration
+
+  W ->> A : Indique que la configuration a été enregistrée
+```
+
+### Sequence Supprimer post
+
+#### Scenario Nominatif
+
+Supprime automatiquement des posts à partir de l'analyse des sentiments
+
+![Use case diagram](assets/sequence_SupprimerPosts_1.png)
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
+```
 ### Change Filtre Diffusion
 ```mermaid
 sequenceDiagram
@@ -86,9 +272,37 @@ sequenceDiagram
 Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
 
 
+#### Scenario 2
+Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
+
+![Use case diagram](assets/sequence_SupprimerPosts_1.png)
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
+```
+
+## User Story
+
+- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+
+- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+
+- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
+
+- As an admin I can manualy moderate content
+
+- As an admin I can choose to show different content on different screens
+
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
-Notre système va devoir communiquer avec divers API de réseaux sociaux afin d'en récupérer les posts (textes et images) correpondant à un mot clé donné.
+Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d'en récupérer les posts (textes et images) correpondants à un mot clé donné.
 
 #### API Twitter :
   - Contraintes :
@@ -136,7 +350,7 @@ The software part is a web application that will be used to configure the conten
 The hardware part are multiples RaspberryPi devices connected to the monitors to display the selected content.
 
 The content : 
-- It consist of a slideshow of images and text (with a nice visualization) fetched from a social network (Twitter, Instagram, Facebook, LinkedIn, etc.)
+- It consists of a slideshow of images and text (with a nice visualization) fetched from a social network (Twitter, Instagram, Facebook, LinkedIn, etc.)
 - The content can be filtered by a set of rules (blacklist, whitelist, date range, number of monitor, allow image, sound video, video, audio, has explicit content, negative emotion, etc...)
 - The content can be manually moderated by a human operator if needed.
 - The content will be fetched according to a given query and sources and updated dynamically.
@@ -145,16 +359,4 @@ The content :
 
 <!-- --- TODO je sais pas trop ou mettre ça ---
 
-
-# User Story
-
-- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
-
-- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
-
-- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
-
-- As an admin I can manualy moderate content
-
-- As an admin I can choose to show different content on different screens
 -->
