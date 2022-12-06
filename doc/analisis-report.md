@@ -222,6 +222,9 @@ sequenceDiagram
   A ->> W : Valide la configuration
   W ->> A : Indique que la configuration a été enregistrée
 ```
+
+> Ce diagrame représente le scénario dans lequel l'administarteur configure les paramètres de filtrage (mots clés, période de temps, etc.). Après avoir validé, il y a une confirmation de la part du système que la configuration a été enregistrée.
+
 - Scénario d'Exception
 
 ```mermaid
@@ -234,6 +237,8 @@ sequenceDiagram
   A ->> W : Valide la configuration
   W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
 ```
+
+> Ce diagrame représente un scénario similaire au précédent, mais dans lequel la configuration de l'administrateur n'est pas reconnu epar le système, et n'est pas enregistrée.
 
 <br/>
 
