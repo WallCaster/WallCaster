@@ -329,17 +329,28 @@ Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquan
 
 ## 2.3 - User Story
 
-- As 
+### 2.3.1 - Manage photos
 
-- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+### 2.3.2 - Extraire_Posts
 
-- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+### 2.3.3 - Filtrage des posts
 
 - As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
 
 - As an admin I can manualy moderate content
 
+### 2.3.4 - Sequence Supprimer post
+
+### 2.3.5 - Change Filtre Diffusion
+
+- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+
+--
+
+- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+
 - As an admin I can choose to show different content on different screens
+
 
 # 3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 
