@@ -26,8 +26,6 @@
   
 # Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
-# Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
-
 ## Use case diagram
 
 ![Use case diagram](assets/usecase.png)
@@ -50,14 +48,3 @@ The content :
 
 
 <!-- --- TODO je sais pas trop ou mettre ça ---
-
-# Problematics
-
-- How to filter : anti-spam, nsfw filter 
-- What to show ? Hashtag ? User ? Location ?
-
-
-# User Story
-
-- Setup the raspberry pi with wifi and correct origin -->
-
