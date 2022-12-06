@@ -26,6 +26,7 @@
 - [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
 - [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
+<br/>
 
 # 1 - Rappel du besoin et critères de succès
 
@@ -51,16 +52,22 @@
 - La deadline est respectée
 - Le software fonctionne correctement (pas de bogues)
 - Les critères de test sont validés
-  
+
+<br/>
+
 # 2 - Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
 ## 2.1 - Use case diagram
 
 ![Use case diagram](assets/Use_Case_Diagram.png)
 
+> This is the use case diagram. It shows what each actor are doing on the system. There are 3 actors, 2 primary and one secondary. The primarys are the administrator and the APIs. And the secondary are the spectator.
+
 ## 2.2 - Diagrame de Séquence Système
 
 ### 2.2.1 - Manage photos
+
+<br/>
 
 - Scenario Nominatif
 
@@ -77,6 +84,8 @@ sequenceDiagram
   Admin ->> S : Quitte la page d'administration
 ```
 
+<br/>
+
 - Scenario alternatif
 
 ```mermaid
@@ -90,6 +99,8 @@ sequenceDiagram
   S ->> Admin : Suppression réussi
   Admin ->> S : Quitte la page d'administration
 ```
+
+<br/>
 
 - Scenario exception : photo trop lourde
 
@@ -105,6 +116,8 @@ Admin ->> S : Upload une photo à ajouter à la liste
 S ->> Admin : L'upload a échoué l'image est trop lourde
 ```
 
+<br/>
+
 - Scenario exception : erreur de connexion
 
 ```mermaid
@@ -117,6 +130,9 @@ S ->> Admin : Affiche la page d'administration
 Admin ->> S : Upload une photo à ajouter à la liste
 S ->> Admin : L'upload a échoué, erreur de connexion
 ```
+
+<br/>
+
 - Scenario exception : not found
 
 ```mermaid
@@ -131,6 +147,8 @@ S ->> Admin : La photo n'existe pas
 Admin ->> S : Quitte la page d'administration
 
 ```
+
+<br/>
 
 ### 2.2.2 - Extraire_Posts
 
@@ -148,6 +166,8 @@ APIs ->> Sys : Sends media contents asked by APIs
 
 ```
 
+<br/>
+
 - Scenario exception : authentification token expired
 
 ```mermaid
@@ -158,6 +178,8 @@ sequenceDiagram
 Sys ->> APIs : Ask media contents
 APIs ->> Sys : Authentification error, token out of date. No media contents send.
 ```
+
+<br/>
 
 - Scenario exception : no contents found
 
@@ -170,6 +192,8 @@ Sys ->> APIs : Ask media contents
 APIs ->> Sys : Error, no media contents found.
 ```
 
+<br/>
+
 - Scenario exception : connection error
 
 ```mermaid
@@ -180,6 +204,9 @@ sequenceDiagram
 Sys ->> APIs : Ask media contents
 APIs ->> Sys : Connection error. No media contents send.
 ```
+
+<br/>
+
 ### 2.2.3 - Filtrage des posts
 
 
@@ -195,6 +222,9 @@ sequenceDiagram
   A ->> W : Valide la configuration
   W ->> A : Indique que la configuration a été enregistrée
 ```
+
+> Ce diagrame représente le scénario dans lequel l'administarteur configure les paramètres de filtrage (mots clés, période de temps, etc.). Après avoir validé, il y a une confirmation de la part du système que la configuration a été enregistrée.
+
 - Scénario d'Exception
 
 ```mermaid
@@ -207,6 +237,10 @@ sequenceDiagram
   A ->> W : Valide la configuration
   W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
 ```
+
+> Ce diagrame représente un scénario similaire au précédent, mais dans lequel la configuration de l'administrateur n'est pas reconnu epar le système, et n'est pas enregistrée.
+
+<br/>
 
 ### 2.2.4 - Sequence Supprimer post
 
@@ -239,6 +273,8 @@ Wl ->> Adm : affiche liste posts
 Adm ->> Wl : choix type
 Wl ->> Adm : Suppression effectuée
 ```
+
+<br/>
 
 ### 2.2.5 - Change Filtre Diffusion
 
@@ -317,29 +353,33 @@ sequenceDiagram
 
 ### 2.3.1 - Manage photos
 
+> The photographer give to the admin a list a pictures that he took. As an admin want to display them on the screens. To do that he upload the images on the server and now either a picture or a post can be displayed by the system.
+Then, I want to remove one of the images. For that, he just need to remove it from the system.
+
 ### 2.3.2 - Extraire_Posts
 
-- En tant qu'APIs, nous souhaitons recevoir du serveur des requêtes bien formées afin de lui fournir en retour le contenu des réseaux sociaux demandé.
+> The system want to send requests to the APIs and they answer it with the right contents.
 
 ### 2.3.3 - Filtrage des posts
 
-- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
+> As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
 
-- As an admin I can manualy moderate content
+> As an admin I can manualy moderate content
 
 ### 2.3.4 - Sequence Supprimer post
 
-- As an admin I can delete posts that have already been displayed
+> As an admin I can delete posts that have already been displayed
 
 ### 2.3.5 - Change Filtre Diffusion
 
-- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+> As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
 
 
 ### 2.3.6 - Set-up RaspberryPi
 
-- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+> As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
 
+<br/>
 
 
 # 3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
@@ -386,6 +426,7 @@ Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d
   - Contraintes : 
     - Avoir une connexion WiFi
 
+<br/>
 
 # 4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
 
