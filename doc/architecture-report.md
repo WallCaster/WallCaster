@@ -6,6 +6,27 @@
 # Modèle statique : organisation des packages, descriptions des classes principales et de leurs responsabilités
 
 
+## Server Backend
+```mermaid
+classDiagram
+class App {
+  TODO 
+}
+
+class Filter {
+  TODO 
+}
+
+class Query {
+  TODO 
+}
+
+class Socket {
+  TODO 
+}
+```
+
+
 ## Frontend Clients
 
 ```mermaid
