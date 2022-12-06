@@ -23,7 +23,7 @@
     - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
     - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
     - [2.3.6 - Set-up RaspberryPi](#236---set-up-raspberrypi)
-- [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
+- [3 - Description of the ecosystem: presentation of the elements with which the system will have to integrate, the constraints to be respected](#3---description-of-the-ecosystem-presentation-of-the-elements-with-which-the-system-will-have-to-integrate-the-constraints-to-be-respected)
 - [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
 <br/>
@@ -385,49 +385,49 @@ Then, I want to remove one of the images. For that, he just need to remove it fr
 <br/>
 
 
-# 3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
+# 3 - Description of the ecosystem: presentation of the elements with which the system will have to integrate, the constraints to be respected
 
 
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
-Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d'en récupérer les posts (textes et images) correpondants à un mot clé donné.
+Our system will have to communicate with various social network APIs in order to retrieve the posts (texts and images) corresponding to a given keyword.
 
-- API Twitter :
-  - Contraintes :
-    - Authentification via un compte développeur
+- Twitter API :
+  - Constraints:
+    - Authentication via a developer account
 
-- API LinkedIn : 
-  - Contraintes :
-    - Authentification via un compte développeur
+- LinkedIn API : 
+  - Constraints:
+    - Authentication via a developer account
 
-- Graph API Instagram Search hastag inclus dans le Facebook SDK:
-  - Processus : 
-    - Créer une application Facebook
-    - Configurer l'application et les différentes permissions requises afin d'en récupérer un Access token
-    - Authentification Instagram
-    - Requêtes de récupération de posts par #hashtag
-  - Contraintes :
-    - Avoir un compte développeur Facebook 
-    - Avoir un compte développeur Instagram
+- Graph API Instagram Search hastag included in the Facebook SDK:
+  - Process : 
+    - Create a Facebook application
+    - Configure the application and the different permissions required to get an Access token
+    - Instagram authentication
+    - Requests to retrieve posts by #hashtag
+  - Constraints:
+    - Have a Facebook developer account 
+    - Have an Instagram developer account
 
-- Graph API Facebook :
-  - Contraintes :
-    - Impossibilité de récupérer le feed public Facebook via le Facebook SDK donc trouver une alternative
+- Facebook Graph API:
+  - Constraints:
+    - Impossible to get the public Facebook feed via the Facebook SDK so find an alternative
 
-- API de filtrage des posts selon plusieurs critères
+- API to filter posts according to several criteria
 
-- Raspberry PI :
-  - Micro-ordinateur permettant d'afficher un contenu web 
-  - Chaque Raspberry PI est relié à un écran afin d'y afficher un contenu spécifique
-  - Connexion à tous les raspberry PI correspondant aux écrans de la conférence.
-  - Contraintes : 
-    - Avoir une connexion WiFi
+- Raspberry PI:
+  - Microcomputer allowing to display web content 
+  - Each Raspberry PI is connected to a screen to display a specific content
+  - Connection to all Raspberry PI corresponding to the screens of the conference.
+  - Constraints: 
+    - Have a WiFi connection
 
-- Serveur persistant :
-  - Hébergement sur les serveurs de l'IRISA afin qu'il puisse être accessible en dehors du campus.
-  - Stockage de la configuration de l'administration
-  - Stockage des posts à afficher
-  - Contraintes : 
-    - Avoir une connexion WiFi
+- Persistent server:
+  - Hosted on IRISA's servers so that it can be accessed off campus.
+  - Storage of the administration configuration
+  - Storage of posts to be displayed
+  - Constraints: 
+    - Have a WiFi connection
 
 <br/>
 
