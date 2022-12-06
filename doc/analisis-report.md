@@ -31,6 +31,10 @@
 ## Use case diagram
 ![Use case diagram](assets/usecase.png)
 
+## Diagrame de Séquence Système
+
+
+
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 
 
