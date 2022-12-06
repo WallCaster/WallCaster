@@ -73,40 +73,39 @@
 ```mermaid
 sequenceDiagram
   actor Admin 
-  participant S as WallCaster
-  Admin ->> S : Connexion au frontend d'administration
-  S ->> Admin : Affiche la page d'administration
-  Admin ->> S : Upload une photo à ajouter à la liste
-  S ->> Admin : Upload réussi
-  Admin ->> S : Upload une deuxième photo à ajouter à la liste
-  S ->> Admin : Upload réussi
-  Admin ->> S : Quitte la page d'administration
+  participant S for WallCaster
+  Admin ->> S : Connection to the administration front-end
+  S ->> Admin : Display the administration page
+  Admin ->> S : Upload a picture to add to the list
+  S ->> Admin : Upload successful
+  Admin ->> S : Upload a second photo to add to the list
+  S ->> Admin : Upload successful
+  Admin ->> S : Exit the administration page
 ```
 
 <br/>
 
-- Scenario alternatif
+- Alternative scenario
 
 ```mermaid
 sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-  Admin ->> S : Connexion au frontend d'administration
-  S ->> Admin : Affiche la page d'administration
-  Admin ->> S : Enlever la photo 2 de la liste
-  S ->> Admin : Suppression réussi
-  Admin ->> S : Quitte la page d'administration
+  Admin ->> S : Connect to the administration frontend
+  S ->> Admin : Display the administration page
+  Admin ->> S : Remove picture 2 from the list
+  S ->> Admin : Deletion successful
+  Admin ->> S : Exit the administration page
 ```
-
 <br/>
 
-- Scenario exception : photo trop lourde
+- Scenario exception : Photo to large
 
 
 ```mermaid
 sequenceDiagram
-  actor Admin
+  actor Admin 
   participant S as WallCaster
 
 Admin ->> S : Connection au frontend d'administration
