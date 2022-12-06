@@ -10,14 +10,16 @@
 ```mermaid
 classDiagram
 class App {
-  - Config config
+  -Config config
+  -Filter filter
+  -Socket socket
+  -Post[] cache
+  -API[] apis
+
+  +main()
 }
 
 class Filter {
-  TODO 
-}
-
-class Query {
   TODO 
 }
 
@@ -48,12 +50,12 @@ class Config {
 class Post {
   -String content
   -String author
-  -String date
+  -Date date
   -String url
   -PostImage image
   -SocialNetwork source
-  +Post(String content, String author, String date, String url, PostImage image, SocialNetwork source)
-  +Post(String content, String author, String date, String url, SocialNetwork source)
+  +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
+  +Post(String content, String author, Date date, String url, SocialNetwork source)
   +toString()
 }
 
@@ -79,6 +81,20 @@ class TwitterAPI {
   TODO 
 }
 
+
+App ..> Filter
+App ..> Socket
+App --o Config
+TwitterAPI --|> API
+InstagramAPI --|> API
+LinkedinAPI --|> API
+FacebookAPI --|> API
+App ..> TwitterAPI
+App ..> InstagramAPI
+App ..> LinkedinAPI
+App ..> FacebookAPI
+Post ..> PostImage
+Post ..> SocialNetwork
 
 ```
 
