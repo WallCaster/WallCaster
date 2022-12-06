@@ -24,20 +24,47 @@ class Filter {
   TODO 
 }
 
-class Query {
-  TODO 
-}
-
 class Socket {
-  TODO 
+  const socket
+  emit()
+  on() 
 }
 
 class Config {
-  TODO 
+  List[String] forbiddenWords
+  int numberOfScreens
+  int dateRange
+  bool allowSound
+  List[String] whiteListAuthors
+  List[String] whiteListHashtag
+  
+
 }
 
 class Post {
-  TODO 
+  -String content
+  -String author
+  -Date date
+  -String url
+  -PostImage image
+  -SocialNetwork source
+  +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
+  +Post(String content, String author, Date date, String url, SocialNetwork source)
+  +toString()
+}
+
+class PostImage {
+  -String url
+  +PostImage(String url)
+  +getURL()
+}
+
+class SocialNetwork {
+  <<enum>>
+  TWITTER
+  INSTAGRAM
+  FACEBOOK
+  LINKEDIN
 }
 
 class API {
@@ -47,6 +74,21 @@ class API {
 class TwitterAPI {
   TODO 
 }
+
+
+App ..> Filter
+App ..> Socket
+App --o Config
+TwitterAPI --|> API
+InstagramAPI --|> API
+LinkedinAPI --|> API
+FacebookAPI --|> API
+App ..> TwitterAPI
+App ..> InstagramAPI
+App ..> LinkedinAPI
+App ..> FacebookAPI
+Post ..> PostImage
+Post ..> SocialNetwork
 
 ```
 
