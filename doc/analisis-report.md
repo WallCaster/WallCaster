@@ -184,11 +184,23 @@ sequenceDiagram
 
 #### Scenario 1
 Supprime automatiquement des posts à partir de l'analyse des sentiments
-![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
+![Use case diagram](assets/sequence_SupprimerPosts_1.png)
 
 #### Scenario 2
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
-![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
+![Use case diagram](assets/sequence_SupprimerPosts_1.png)
+
+## User Story
+
+- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+
+- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+
+- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
+
+- As an admin I can manualy moderate content
+
+- As an admin I can choose to show different content on different screens
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
@@ -249,16 +261,4 @@ The content :
 
 <!-- --- TODO je sais pas trop ou mettre ça ---
 
-
-# User Story
-
-- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
-
-- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
-
-- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
-
-- As an admin I can manualy moderate content
-
-- As an admin I can choose to show different content on different screens
 -->
