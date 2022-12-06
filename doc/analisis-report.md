@@ -16,7 +16,7 @@
 
 ## Use case diagram
 
-![Use case diagram](assets/usecase.png)
+![Use case diagram](assets/Use_Case_Diagram.png)
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 
