@@ -18,7 +18,7 @@
     - [2.2.6 - Set-up RaspberryPi](#226---set-up-raspberrypi)
   - [2.3 - User Story](#23---user-story)
     - [2.3.1 - Manage photos](#231---manage-photos)
-    - [2.3.2 - Extraire\_Posts](#232---extraire_posts)
+    - [2.3.2 - Extraire Posts](#232---extraire-posts)
     - [2.3.3 - Filtrage des posts](#233---filtrage-des-posts)
     - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
     - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
@@ -227,20 +227,20 @@ sequenceDiagram
 
 > This diagram shows the scenario where the administrator configure the parameters of filtering (keyword, period of time, etc.). After validation, there is a configuration from the system that the configuration was registered.
 
-- Scénario d'Exception
+- Exception Scenario
 
 ```mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
-  A ->> W : Se connecte au frontend d'administration
-  W ->> A : Affiche la page d'administration
-  A ->> W : Configure les paramètres de filtrage
-  A ->> W : Valide la configuration
-  W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
+  A ->> W : Connect to the administration frontend
+  W ->> A : Display the administration page
+  A ->> W : Configure filtering parameters
+  A ->> W : Validate the configuration
+  W ->> A : Indicates that the configuration is not valid and has not been saved
 ```
 
-> Ce diagrame représente un scénario similaire au précédent, mais dans lequel la configuration de l'administrateur n'est pas reconnu epar le système, et n'est pas enregistrée.
+> This diagram represents a scenario similar to the previous one, but in which the administrator's configuration is not recognized by the system, and is not saved.
 
 <br/>
 
