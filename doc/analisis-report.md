@@ -17,7 +17,16 @@
  
 **Bonus** : Si la conférence est sur plusieurs jours, possibilité que le photographe officiel puisse diffuser les images prises la veille sur les écrans. 
 
- # Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
+## Critères de succès
+
+- La specification est completement effectuée
+- La deadline est respecté
+- Le software fonctionne correctement (pas de bug)
+- Les critères de test sont validé
+  
+# Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
+
+# Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
 ## Use case diagram
 
