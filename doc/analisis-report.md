@@ -193,66 +193,30 @@ sequenceDiagram
 
 Supprime automatiquement des posts à partir de l'analyse des sentiments
 
-```plantuml
-@startuml
-
-actor Administarteur as Adm
-participant WallCaster as Wl 
-
-
-activate Adm
-activate Wl
-
-
-Adm -> Wl : choix supprimer post
-Wl -> Adm : demander type filtrage à effectuer
-Adm -> Wl : choix filtrage 
-Wl -> Adm : Suppression effectuée
-
-@enduml
-```
 ```mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
 
   A ->> W : Choix supprimer les posts
-  W ->> A : Demande type sentiments à conservé
-  A ->> W : Choix type
-  W ->> A : Filtrage effectué
+  W ->> A : demander type filtrage à effectuer
+  A ->> W : choix filtrage
+  W ->> A : Suppression effectuée
 ```
 
 - Scenario Alternatif
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
 
-```plantuml
-@startuml
-
-actor Administarteur as Adm
-participant WallCaster as Wl 
-
-
-activate Adm
-activate Wl
-
-
-Adm -> Wl : choix listes des posts en db
-Wl -> Adm : affiche liste posts
-Adm -> Wl : choix type
-Wl -> Adm : Suppression effectuée
-
-@enduml
-```
-
 ```mermaid
 sequenceDiagram
-  actor A as Admin
-  participant W as WallCaster
 
-  A ->> W : choix listes des posts en db
-  W ->> A : affiche liste posts
-  A ->> W : Choix type
-  W ->> A : Suppression effectuée
+actor Adm as Administarteur
+participant Wl as WallCaster 
+
+Adm ->> Wl : choix listes des posts en db
+Wl ->> Adm : affiche liste posts
+Adm ->> Wl : choix type
+Wl ->> Adm : Suppression effectuée
 ```
 
 ### 2.2.5 - Change Filtre Diffusion
