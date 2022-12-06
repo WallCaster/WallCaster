@@ -17,7 +17,8 @@
       - [Scenario exception : connection error](#scenario-exception--connection-error)
     - [Filtrage des posts](#filtrage-des-posts)
     - [Sequence Supprimer post](#sequence-supprimer-post)
-      - [Scenario 1](#scenario-1)
+      - [Scenario Nominatif](#scenario-nominatif-2)
+    - [Change Filtre Diffusion](#change-filtre-diffusion)
       - [Scenario 2](#scenario-2)
   - [User Story](#user-story)
 - [Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
@@ -98,37 +99,35 @@ sequenceDiagram
 #### Scenario exception : photo trop lourde
 
 
-```plantuml
-@startuml erreur_photo_a_afficher
-actor Admin
-participant WallCaster as S
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
 
 Admin -> S : Connection au frontend d'administration
 S --> Admin : Affiche la page d'administration
 Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué l'image est trop lourde
-@enduml
 ```
 
 #### Scenario exception : erreur de connexion
 
-```plantuml
-@startuml erreur_photo_a_afficher
-actor Admin
-participant WallCaster as S
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
 
 Admin -> S : Connection au frontend d'administration
 S --> Admin : Affiche la page d'administration
 Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué, erreur de connexion
-@enduml
 ```
 #### Scenario exception : not found
 
-```plantuml
-@startuml missing_photo_a_afficher
-actor Admin
-participant WallCaster as S
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
 
 Admin -> S : Connexion au frontend d'administration
 S --> Admin : Affiche la page d'administration
@@ -136,68 +135,57 @@ Admin -> S : Enlever la photo 2 de la liste
 S --> Admin : La photo n'existe pas
 Admin -> S : Quitte la page d'administration
 
-@enduml
 ```
 
 ### Extraire_Posts
 
 #### Scenario Nominatif
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
-Sys -> APIs : Ask media contents
-APIs --> Sys : Sends media contents asked by APIs 
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Sends media contents asked by APIs 
 
-
-@enduml
 ```
 
 #### Scenario exception : authentification token expired
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
 Sys -> APIs : Ask media contents
 APIs --> Sys : Authentification error, token out of date. No media contents send.
-
-
-@enduml
 ```
 
 #### Scenario exception : no contents found
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
 Sys -> APIs : Ask media contents
 APIs --> Sys : Error, no media contents found.
-
-
-@enduml
 ```
 
 #### Scenario exception : connection error
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
 Sys -> APIs : Ask media contents
 APIs --> Sys : Connection error. No media contents send.
-
-
-@enduml
 ```
 ### Filtrage des posts
 
+#### Scénario Nominatif
 
 ```mermaid
 sequenceDiagram
@@ -205,16 +193,32 @@ sequenceDiagram
   participant W as WallCaster
 
   A ->> W : Se connecte au frontend d'administration
-  W ->> A : Affiche la page d'administration
+
   A ->> W : Configure les paramètres de filtrage
   A ->> W : Valide la configuration
 
   W ->> A : Indique que la configuration a été enregistrée
 ```
 
+#### Scénario d'Exception
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Se connecte au frontend d'administration
+
+  A ->> W : Configure les paramètres de filtrage
+  A ->> W : Valide la configuration
+
+  W ->> A : Indique que la configuration n'est pas valide et n'a pas été enregistrée
+```
+
 ### Sequence Supprimer post
 
-#### Scenario 1
+#### Scenario Nominatif
+
 Supprime automatiquement des posts à partir de l'analyse des sentiments
 
 
@@ -237,6 +241,71 @@ Wl -> Adm : Suppression effectuée
 @enduml
 ```
 
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
+```
+### Change Filtre Diffusion
+```mermaid
+sequenceDiagram
+  title Scénario nominal Change_Filtre_Diffusion
+  actor A as Administrateur
+  participant W as WallCaster
+
+  A ->> W : Connexion au front-end Web Administrateur
+  W ->> A : Valider connexion admin
+  A ->> W : Entrer les tags voulus
+  W -->> W : Récupération des posts
+  W ->> A : Confirmation des tags appliqués
+  A ->> W : Suppression des tags enregistrés
+  W -->> W : Récupération des posts
+  W ->> A : Confirmation des tags appliqués
+
+```
+Ce premier diagramme présente le scénario où l'administrateur souhaite entrer des tags afin de filtrer les posts après s'être connecté au front end Web. L'administrateur peut aussi demander au système de modifier certains tags ou d'en supprimer.
+
+```mermaid
+sequenceDiagram
+  title Scénario alternatif Change_Filtre_Diffusion
+  actor A as Administrateur
+  participant W as WallCaster
+
+  A ->> W : Connexion au front-end Web Administrateur
+  W ->> A : Erreur de connexion
+  A ->> W : Connexion au front-end Web Administrateur
+  W ->> A : Valider connexion admin
+  A ->> W : Entrer les tags voulus
+  W -->> W : Récupération des posts
+  W ->> A : Confirmation des tags appliqués
+  A ->> W : Suppression des tags enregistrés
+  W -->> W : Récupération des posts
+  W ->> A : Confirmation des tags appliqués
+```
+Le scénario alternatif serait une erreur de connexion.
+
+```mermaid
+sequenceDiagram
+  title Scénario d'erreur Change_Filtre_Diffusion
+  actor A as Administrateur
+  participant W as WallCaster
+
+  A ->> W : Connexion au front-end Web Administrateur
+  W ->> A : Valider connexion admin
+  A ->> W : Entrer les tags voulus
+  W -->> W : Récupération des posts
+  W ->> A : Erreur de connexion au serveur
+  A ->> W : Tentative de connexion au serveur
+  W ->> A : Impossible de se connecter au serveur
+```
+Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
+
+
 #### Scenario 2
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
 
@@ -257,6 +326,17 @@ Adm -> Wl : choix type
 Wl -> Adm : Suppression effectuée
 
 @enduml
+```
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
 ```
 
 ## User Story
