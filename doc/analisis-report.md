@@ -16,8 +16,13 @@
     - [2.2.4 - Sequence Supprimer post](#224---sequence-supprimer-post)
     - [2.2.5 - Change Filtre Diffusion](#225---change-filtre-diffusion)
   - [2.3 - User Story](#23---user-story)
+    - [2.3.1 - Manage photos](#231---manage-photos)
+    - [2.3.2 - Extraire\_Posts](#232---extraire_posts)
+    - [2.3.3 - Filtrage des posts](#233---filtrage-des-posts)
+    - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
+    - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
 - [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
-- [5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#5---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
+- [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
 
 # 1 - Rappel du besoin et critères de succès
@@ -345,7 +350,7 @@ Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d
     - Avoir une connexion WiFi
 
 
-# 5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
+# 4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
 
 Our solution consist of a software and a hardware part. 
 The software part is a web application that will be used to configure the content to display dynamically.
