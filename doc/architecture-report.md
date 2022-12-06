@@ -10,7 +10,13 @@
 ```mermaid
 classDiagram
 class App {
-  - Config config
+  -Config config
+  -Filter filter
+  -Socket socket
+  -Post[] cache
+  -API[] apis
+
+  +main()
 }
 
 class Filter {
@@ -18,20 +24,28 @@ class Filter {
 }
 
 class Socket {
-  const socket
-  emit()
-  on() 
+  -const socket
+  +emit()
+  +on() 
 }
 
 class Config {
-  List[String] forbiddenWords
-  int numberOfScreens
-  int dateRange
-  bool allowSound
-  List[String] whiteListAuthors
-  List[String] whiteListHashtag
-  
 
+    -int numberOfScreens
+    -int dateRange
+    -List[String] forbiddenWords
+    -List[String] whiteListAuthors
+    -List[String] whiteListHashtags
+    -List[SocialNetwork] socialNetworkAccepted
+    -bool allowSound
+    -bool allowVideo
+    -bool allowImage
+  
+    -bool writeConfigToFile(String nameFile)
+    -bool readConfigFromFile(String nameFile)
+    +bool save()
+    +Config getInstance()
+    +String toString()
 }
 
 class Post {
