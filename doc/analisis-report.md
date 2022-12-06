@@ -1,39 +1,23 @@
 # Analisis Report
 
-## Contents  
+# Table of contents 
 
-- [Rappel du besoin et critères de succès](#rappel-du-besoin-et-critères-de-succès)
-  - [Specifications](#specifications)
-  - [Critères de succès](#critères-de-succès)
-- [Modèle du domaine métier : modèle UML des notions manipulées, relations et explications](#modèle-du-domaine-métier--modèle-uml-des-notions-manipulées-relations-et-explications)
-  - [Use case diagram](#use-case-diagram)
-  - [Diagrame de Séquence Système](#diagrame-de-séquence-système)
-    - [Manage photos](#manage-photos)
-      - [Scenario Nominatif](#scenario-nominatif)
-      - [Scenario alternatif](#scenario-alternatif)
-      - [Scenario exception : photo trop lourde](#scenario-exception--photo-trop-lourde)
-      - [Scenario exception : erreur de connexion](#scenario-exception--erreur-de-connexion)
-      - [Scenario exception : not found](#scenario-exception--not-found)
-    - [Extraire\_Posts](#extraire_posts)
-      - [Scenario Nominatif](#scenario-nominatif-1)
-      - [Scenario exception : authentification token expired](#scenario-exception--authentification-token-expired)
-      - [Scenario exception : no contents found](#scenario-exception--no-contents-found)
-      - [Scenario exception : connection error](#scenario-exception--connection-error)
-    - [Filtrage des posts](#filtrage-des-posts)
-    - [Sequence Supprimer post](#sequence-supprimer-post)
-      - [Scenario Nominatif](#scenario-nominatif-2)
-      - [Scenario alternatif](#scenario-alternatif-1)
-    - [Change Filtre Diffusion](#change-filtre-diffusion)
-  - [User Story](#user-story)
-- [Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
-      - [API Twitter :](#api-twitter-)
-      - [API LinkedIn :](#api-linkedin-)
-      - [Graph API Instagram Search hastag inclus dans le Facebook SDK:](#graph-api-instagram-search-hastag-inclus-dans-le-facebook-sdk)
-      - [Graph API Facebook :](#graph-api-facebook-)
-      - [API de filtrage des posts selon plusieurs critères](#api-de-filtrage-des-posts-selon-plusieurs-critères)
-      - [Raspberry PI :](#raspberry-pi-)
-      - [Serveur persistant :](#serveur-persistant-)
-- [Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
+- [Analisis Report](#analisis-report)
+- [Table of contents](#table-of-contents)
+- [1 - Rappel du besoin et critères de succès](#1---rappel-du-besoin-et-critères-de-succès)
+  - [1.1 - Specifications](#11---specifications)
+  - [1.2 - Critères de succès](#12---critères-de-succès)
+- [2 - Modèle du domaine métier : modèle UML des notions manipulées, relations et explications](#2---modèle-du-domaine-métier--modèle-uml-des-notions-manipulées-relations-et-explications)
+  - [2.1 - Use case diagram](#21---use-case-diagram)
+  - [2.2 - Diagrame de Séquence Système](#22---diagrame-de-séquence-système)
+    - [2.2.1 - Manage photos](#221---manage-photos)
+    - [2.2.2 - Extraire\_Posts](#222---extraire_posts)
+    - [2.2.3 - Filtrage des posts](#223---filtrage-des-posts)
+    - [2.2.4 - Sequence Supprimer post](#224---sequence-supprimer-post)
+    - [2.2.5 - Change Filtre Diffusion](#225---change-filtre-diffusion)
+  - [2.3 - User Story](#23---user-story)
+- [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
+- [5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#5---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
 
 # 1 - Rappel du besoin et critères de succès
@@ -71,7 +55,7 @@
 
 ### 2.2.1 - Manage photos
 
-#### Scenario Nominatif
+- Scenario Nominatif
 
 ```mermaid
 sequenceDiagram
@@ -86,7 +70,7 @@ sequenceDiagram
   Admin ->> S : Quitte la page d'administration
 ```
 
-#### Scenario alternatif
+- Scenario alternatif
 
 ```mermaid
 sequenceDiagram
@@ -100,7 +84,7 @@ sequenceDiagram
   Admin ->> S : Quitte la page d'administration
 ```
 
-#### Scenario exception : photo trop lourde
+- Scenario exception : photo trop lourde
 
 
 ```mermaid
@@ -114,7 +98,7 @@ Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué l'image est trop lourde
 ```
 
-#### Scenario exception : erreur de connexion
+- Scenario exception : erreur de connexion
 
 ```mermaid
 sequenceDiagram
@@ -126,7 +110,7 @@ S --> Admin : Affiche la page d'administration
 Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué, erreur de connexion
 ```
-#### Scenario exception : not found
+- Scenario exception : not found
 
 ```mermaid
 sequenceDiagram
@@ -143,7 +127,7 @@ Admin -> S : Quitte la page d'administration
 
 ### 2.2.2 - Extraire_Posts
 
-#### Scenario Nominatif
+- Scenario Nominatif
 
 ```mermaid
 sequenceDiagram
@@ -155,7 +139,7 @@ APIs ->> Sys : Sends media contents asked by APIs
 
 ```
 
-#### Scenario exception : authentification token expired
+- Scenario exception : authentification token expired
 
 ```mermaid
 sequenceDiagram
@@ -166,7 +150,7 @@ Sys -> APIs : Ask media contents
 APIs --> Sys : Authentification error, token out of date. No media contents send.
 ```
 
-#### Scenario exception : no contents found
+- Scenario exception : no contents found
 
 ```mermaid
 sequenceDiagram
@@ -177,7 +161,7 @@ Sys -> APIs : Ask media contents
 APIs --> Sys : Error, no media contents found.
 ```
 
-#### Scenario exception : connection error
+- Scenario exception : connection error
 
 ```mermaid
 sequenceDiagram
@@ -205,7 +189,7 @@ sequenceDiagram
 
 ### 2.2.4 - Sequence Supprimer post
 
-#### Scenario nominatif
+- Scenario nominatif
 
 Supprime automatiquement des posts à partir de l'analyse des sentiments
 
@@ -238,7 +222,7 @@ sequenceDiagram
   W ->> A : Filtrage effectué
 ```
 
-#### Scenario Alternatif
+- Scenario Alternatif
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
 
 ```plantuml
@@ -358,15 +342,15 @@ Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquan
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
 Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d'en récupérer les posts (textes et images) correpondants à un mot clé donné.
 
-#### API Twitter :
+- API Twitter :
   - Contraintes :
     - Authentification via un compte développeur
 
-#### API LinkedIn : 
+- API LinkedIn : 
   - Contraintes :
     - Authentification via un compte développeur
 
-#### Graph API Instagram Search hastag inclus dans le Facebook SDK:
+- Graph API Instagram Search hastag inclus dans le Facebook SDK:
   - Processus : 
     - Créer une application Facebook
     - Configurer l'application et les différentes permissions requises afin d'en récupérer un Access token
@@ -376,20 +360,20 @@ Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d
     - Avoir un compte développeur Facebook 
     - Avoir un compte développeur Instagram
 
-#### Graph API Facebook :
+- Graph API Facebook :
   - Contraintes :
     - Impossibilité de récupérer le feed public Facebook via le Facebook SDK donc trouver une alternative
 
-#### API de filtrage des posts selon plusieurs critères
+- API de filtrage des posts selon plusieurs critères
 
-#### Raspberry PI :
+- Raspberry PI :
   - Micro-ordinateur permettant d'afficher un contenu web 
   - Chaque Raspberry PI est relié à un écran afin d'y afficher un contenu spécifique
   - Connexion à tous les raspberry PI correspondant aux écrans de la conférence.
   - Contraintes : 
     - Avoir une connexion WiFi
 
-#### Serveur persistant :
+- Serveur persistant :
   - Hébergement sur les serveurs de l'IRISA afin qu'il puisse être accessible en dehors du campus.
   - Stockage de la configuration de l'administration
   - Stockage des posts à afficher
