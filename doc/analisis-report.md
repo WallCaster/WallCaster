@@ -20,9 +20,9 @@
 ## Critères de succès
 
 - La specification est completement effectuée
-- La deadline est respecté
-- Le software fonctionne correctement (pas de bug)
-- Les critères de test sont validé
+- La deadline est respectée
+- Le software fonctionne correctement (pas de bogues)
+- Les critères de test sont validés
   
 # Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
@@ -32,6 +32,134 @@
 
 ## Diagrame de Séquence Système
 
+### Manage photos
+
+#### Scenario Nominatif
+
+```mermaid
+sequenceDiagram
+  actor Admin 
+  participant S as WallCaster
+  Admin ->> S : Connexion au frontend d'administration
+  S ->> Admin : Affiche la page d'administration
+  Admin ->> S : Upload une photo à ajouter à la liste
+  S ->> Admin : Upload réussi
+  Admin ->> S : Upload une photo à ajouter à la liste
+  S ->> Admin : Upload réussi
+  Admin ->> S : Quitte la page d'administration
+```
+
+#### Scenario alternatif
+
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
+
+  Admin ->> S : Connexion au frontend d'administration
+  S ->> Admin : Affiche la page d'administration
+  Admin ->> S : Enlever la photo 2 de la liste
+  S ->> Admin : Suppression réussi
+  Admin ->> S : Quitte la page d'administration
+```
+
+#### Scenario exception
+
+```plantuml
+@startuml erreur_photo_a_afficher
+actor Admin
+participant WallCaster as S
+
+Admin -> S : Connection au frontend d'administration
+S --> Admin : Affiche la page d'administration
+Admin -> S : Upload une photo à ajouter à la liste
+S --> Admin : L'upload a échoué l'image est trop lourde
+@enduml
+```
+
+```plantuml
+@startuml erreur_photo_a_afficher
+actor Admin
+participant WallCaster as S
+
+Admin -> S : Connection au frontend d'administration
+S --> Admin : Affiche la page d'administration
+Admin -> S : Upload une photo à ajouter à la liste
+S --> Admin : L'upload a échoué, erreur de connexion
+@enduml
+```
+
+```plantuml
+@startuml missing_photo_a_afficher
+actor Admin
+participant WallCaster as S
+
+Admin -> S : Connexion au frontend d'administration
+S --> Admin : Affiche la page d'administration
+Admin -> S : Enlever la photo 2 de la liste
+S --> Admin : La photo n'existe pas
+Admin -> S : Quitte la page d'administration
+
+@enduml
+```
+
+### Extraire_Posts
+
+#### Scenario Nominatif
+
+```plantuml
+@startuml
+actor APIs
+participant WallCaster as Sys
+
+Sys -> APIs : Ask media contents
+APIs --> Sys : Sends media contents asked by APIs 
+
+
+@enduml
+```
+
+#### Scenario Exception, authentification token expired
+
+```plantuml
+@startuml
+actor APIs
+participant WallCaster as Sys
+
+Sys -> APIs : Ask media contents
+APIs --> Sys : Authentification error, token out of date. No media contents send.
+
+
+@enduml
+```
+
+#### Scenario Exception, no contents found
+
+```plantuml
+@startuml
+actor APIs
+participant WallCaster as Sys
+
+Sys -> APIs : Ask media contents
+APIs --> Sys : Error, no media contents found.
+
+
+@enduml
+```
+
+#### Scenario Exception, connection error
+
+```plantuml
+@startuml
+actor APIs
+participant WallCaster as Sys
+
+Sys -> APIs : Ask media contents
+APIs --> Sys : Connection error. No media contents send.
+
+
+@enduml
+```
 ### Filtrage des posts
 
 
@@ -41,7 +169,7 @@ sequenceDiagram
   participant W as WallCaster
 
   A ->> W : Se connecte au frontend d'administration
-
+  W ->> A : Affiche la page d'administration
   A ->> W : Configure les paramètres de filtrage
   A ->> W : Valide la configuration
 
@@ -58,9 +186,21 @@ Supprime automatiquement des posts à partir de l'analyse des sentiments
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
 ![Use case diagram](assets/sequence_SupprimerPosts_1.png)
 
+## User Story
+
+- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+
+- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+
+- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
+
+- As an admin I can manualy moderate content
+
+- As an admin I can choose to show different content on different screens
+
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
-Notre système va devoir communiquer avec divers API de réseaux sociaux afin d'en récupérer les posts (textes et images) correpondant à un mot clé donné.
+Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d'en récupérer les posts (textes et images) correpondants à un mot clé donné.
 
 #### API Twitter :
   - Contraintes :
@@ -108,7 +248,7 @@ The software part is a web application that will be used to configure the conten
 The hardware part are multiples RaspberryPi devices connected to the monitors to display the selected content.
 
 The content : 
-- It consist of a slideshow of images and text (with a nice visualization) fetched from a social network (Twitter, Instagram, Facebook, LinkedIn, etc.)
+- It consists of a slideshow of images and text (with a nice visualization) fetched from a social network (Twitter, Instagram, Facebook, LinkedIn, etc.)
 - The content can be filtered by a set of rules (blacklist, whitelist, date range, number of monitor, allow image, sound video, video, audio, has explicit content, negative emotion, etc...)
 - The content can be manually moderated by a human operator if needed.
 - The content will be fetched according to a given query and sources and updated dynamically.
@@ -117,16 +257,4 @@ The content :
 
 <!-- --- TODO je sais pas trop ou mettre ça ---
 
-
-# User Story
-
-- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
-
-- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
-
-- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
-
-- As an admin I can manualy moderate content
-
-- As an admin I can choose to show different content on different screens
 -->
