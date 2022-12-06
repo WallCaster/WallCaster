@@ -32,18 +32,22 @@
 
 ## Diagrame de Séquence Système
 
-### Supprimer posts
+![Filtrage des posts](assets/Filtrage_des_posts.png)
 
-#### Scenario 1
-Suppression basé sur l'analyse des sentiments
+<!--
+```plantuml
+@startuml filtrage_des_posts
+actor "Admin" as A
+participant "WallCaster" as W
 
-![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
+A -> W : Se connecte au frontend d'administration
 
-#### Scenario 2
-Un élément à échapper à la suppression par analyse des sentiments et on le supprime manuellement
+A -> W : Configure les paramètres de filtrage
+A -> W : Valide la configuration
 
-![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_2.png)
+W -> A : Indique que la configuration a été enregistrée
 
+-->
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
