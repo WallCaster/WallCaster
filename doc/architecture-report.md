@@ -12,13 +12,14 @@ classDiagram
 
 
 class App {
-  -Config config
-  -Filter filter
-  -Socket socket
   -List~Post~ cache
   -List~API~ apis
 
   +App()
+  +addAPI(API api)
+  +removeAPI(API api)
+  +addPost(Post post)
+  +removePost(int id)
 }
 
 class Filter {
@@ -32,9 +33,13 @@ class Filter {
 }
 
 class Socket {
-  -const socket
-  +emit()
-  +on() 
+  +Socket()
+  +onConnect()
+  +onDisconnect()
+  +onNewPost()
+  +onNewConfig()
+  +sendPost(Post post)
+  +sendConfig(Config config)
 }
 
 class Config {
@@ -43,7 +48,6 @@ class Config {
   -List~String~ forbiddenWords
   -List~String~ whiteListAuthors
   -List~String~ whiteListHashtags
-  -List~SocialNetwork~ socialNetworkAccepted
   -bool allowSound
   -bool allowVideo
   -bool allowImage
@@ -56,12 +60,14 @@ class Config {
 }
 
 class Post {
+  -int id
   -String content
   -String author
   -Date date
   -String url
   +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
   +Post(String content, String author, Date date, String url, SocialNetwork source)
+  -getUniqueID() int
   +toString() String
 }
 
@@ -105,18 +111,21 @@ class FacebookAPI {
    
 }
 
-App --o Filter
-App --o Socket
-App --o Config
-App --o API
-Post "*" --> "0..1" PostImage : image
-Post "1" --> "1" SocialNetwork : source
+App "1" --o "1" Filter
+App "1" --o "1" Socket
+App "1" --o "1" API
 Filter "1" --> "1" Config : config
 Filter "1" --> "*" Post : postsFiltered
+Post "*" --> "0..1" PostImage : image
+Post "1" --> "1" SocialNetwork : source
+Config "1" --> "0..*" SocialNetwork : socialNetworkAccepted
+Socket "1" --> "1" Config : config
+API "1" --> "1" Config : config
 API <|-- TwitterAPI
 API <|-- LinkedInAPI
 API <|-- InstagramAPI
 API <|-- FacebookAPI
+
 
 ```
 
