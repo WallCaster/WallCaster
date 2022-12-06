@@ -32,6 +32,17 @@
 
 ## Diagrame de Séquence Système
 
+### Supprimer posts
+
+#### Scenario 1
+Suppression basé sur l'analyse des sentiments
+
+![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
+
+#### Scenario 2
+Un élément à échapper à la suppression par analyse des sentiments et on le supprime manuellement
+
+![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_2.png)
 
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
