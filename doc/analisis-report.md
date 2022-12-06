@@ -1,5 +1,6 @@
 
 # Rappel du besoin et critères de succès
+
 ## Specifications
 
 - Slideshow on interval of predefined images
@@ -13,10 +14,9 @@
 
 # Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
-# Use case diagram
+## Use case diagram
 
 ![Use case diagram](assets/usecase.png)
-
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 
