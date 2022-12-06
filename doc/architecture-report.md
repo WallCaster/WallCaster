@@ -32,8 +32,8 @@ class Filter {
   -removeVideos() List~Post~
 }
 
-class Socket {
-  +Socket()
+class SocketServer {
+  +SocketServer()
   +onConnect()
   +onDisconnect()
   +onNewPost()
@@ -112,14 +112,14 @@ class FacebookAPI {
 }
 
 App "1" --o "1" Filter
-App "1" --o "1" Socket
+App "1" --o "1" SocketServer
 App "1" --o "1" API
 Filter "1" --> "1" Config : config
 Filter "1" --> "*" Post : postsFiltered
 Post "*" --> "0..1" PostImage : image
 Post "1" --> "1" SocialNetwork : source
 Config "1" --> "0..*" SocialNetwork : socialNetworkAccepted
-Socket "1" --> "1" Config : config
+SocketServer "1" --> "1" Config : config
 API "1" --> "1" Config : config
 API <|-- TwitterAPI
 API <|-- LinkedInAPI
@@ -170,7 +170,11 @@ class App {
 - Git / GitHub
 - CI
 
+DEVELOPMENT RULES :
+- Naming conventions : [makecode.com/extensions/naming-conventions](https://makecode.com/extensions/naming-conventions)
+
 ## Configuration tools
+
 
 ## Deployment tools
 
