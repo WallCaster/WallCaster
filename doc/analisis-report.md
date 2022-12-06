@@ -49,8 +49,6 @@ A -> W : Valide la configuration
 
 W -> A : Indique que la configuration a été enregistrée
 
-@enduml
-```
 -->
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
