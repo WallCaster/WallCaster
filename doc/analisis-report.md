@@ -12,6 +12,13 @@
   - Allow image, sound video, video, audio
 - Manual moderation possibility
 
+## Critères de succès
+
+- La specification est completement effectuée
+- La deadline est respecté
+- Le software fonctionne correctement (pas de bug)
+- Les critères de test sont validé
+
 # Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
 ## Use case diagram
