@@ -1,6 +1,6 @@
 # Principe de mise en œuvre de la solution (comment)
 
-[Excalidraw diagram architecture](https://excalidraw.com/#room=d3c68b5d868bf31c6725,rgPCEXYY3Snqm5Z6OaEvHQ)
+![Excalidraw diagram architecture](assets/Architecture.excalidraw.svg)
 
 # Règles d'architecture
 # Modèle statique : organisation des packages, descriptions des classes principales et de leurs responsabilités
