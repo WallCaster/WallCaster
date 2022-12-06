@@ -340,8 +340,6 @@ sequenceDiagram
 
 - As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
 
--- 
-- As an admin I can choose to show different content on different screens
 
 
 # 3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
