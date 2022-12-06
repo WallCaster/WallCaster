@@ -16,7 +16,6 @@ class App {
   -Post[] cache
   -API[] apis
 
-  +App()
   +main()
 }
 
