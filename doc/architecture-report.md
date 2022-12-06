@@ -20,9 +20,6 @@ class App {
 }
 
 class Filter {
-  -Config config
-  -List~Post~ postsFiltered
-
   +filter() : List~Post~
   -filterByBlacklist() : List~Post~
   -filterByWhitelist() : List~Post~
@@ -103,6 +100,8 @@ App --o LinkedinAPI
 App --o FacebookAPI
 Post "*" --> "0..1" PostImage : image
 Post "1" --> "1" SocialNetwork : source
+Filter "1" --> "1" Config : config
+Filter "1" --> "N" Post : postsFiltered
 
 ```
 
