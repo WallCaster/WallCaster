@@ -15,6 +15,7 @@
     - [2.2.3 - Filtrage des posts](#223---filtrage-des-posts)
     - [2.2.4 - Sequence Supprimer post](#224---sequence-supprimer-post)
     - [2.2.5 - Change Filtre Diffusion](#225---change-filtre-diffusion)
+    - [2.2.6 - Set-up RaspberryPi](#226---set-up-raspberrypi)
   - [2.3 - User Story](#23---user-story)
     - [2.3.1 - Manage photos](#231---manage-photos)
     - [2.3.2 - Extraire\_Posts](#232---extraire_posts)
@@ -295,6 +296,18 @@ sequenceDiagram
 ```
 Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
 
+### 2.2.6 - Set-up RaspberryPi
+
+```mermaid
+sequenceDiagram
+  actor Admin as Administrateur
+  participant Rasp as RaspberryPi 
+
+  Admin ->> Rasp : ???
+  Rasp ->> Admin : Now connected to the wifi
+  Admin ->> Rasp : ???
+  Rasp ->> Admin : Website browser launched on the correct page
+```
 
 ## 2.3 - User Story
 
