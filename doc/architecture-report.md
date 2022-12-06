@@ -24,9 +24,9 @@ class Filter {
 }
 
 class Socket {
-  const socket
-  emit()
-  on() 
+  -const socket
+  +emit()
+  +on() 
 }
 
 class Config {
