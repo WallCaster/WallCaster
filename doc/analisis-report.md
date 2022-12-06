@@ -278,60 +278,62 @@ Wl ->> Adm : Suppression effectuée
 
 ### 2.2.5 - Change Filtre Diffusion
 
-- Scénario nominal
+- Nominal scenario
 
 ```mermaid
 sequenceDiagram
-  actor A as Administrateur
+  actor A as Administrator
   participant W as WallCaster
 
-  A ->> W : Connexion au front-end Web Administrateur
-  W ->> A : Valider connexion admin
-  A ->> W : Entrer les tags voulus
-  W ->> W : Récupération des posts
-  W ->> A : Confirmation des tags appliqués
-  A ->> W : Suppression des tags enregistrés
-  W ->> W : Récupération des posts
-  W ->> A : Confirmation des tags appliqués
+  A ->> W : Connect to front end Web Administrator
+  W ->> A : Validate admin connection
+  A ->> W : Enter tags
+  W ->> W : Recovery of posts
+  W ->> A : Confirmation of applied tags
+  A ->> W : Delete saved tags
+  W ->> W : Recovery of posts
+  W ->> A : Confirmation of applied tags
 
 ```
-Ce premier diagramme présente le scénario où l'administrateur souhaite entrer des tags afin de filtrer les posts après s'être connecté au front end Web. L'administrateur peut aussi demander au système de modifier certains tags ou d'en supprimer.
 
-- Scénario alternatif : erreur de connexion au front-end
+This first diagram shows the scenario where the administrator wants to enter tags in order to filter the posts after logging in to the web front end. The administrator can also ask the system to modify some tags or to delete them.
+
+- Alternative Scenario : connection error on front-end
 
 ```mermaid
 sequenceDiagram
-  actor A as Administrateur
+  actor A as Administrator
   participant W as WallCaster
 
-  A ->> W : Connexion au front-end Web Administrateur
-  W ->> A : Erreur de connexion
-  A ->> W : Connexion au front-end Web Administrateur
-  W ->> A : Valider connexion admin
-  A ->> W : Entrer les tags voulus
-  W ->> W : Récupération des posts
-  W ->> A : Confirmation des tags appliqués
-  A ->> W : Suppression des tags enregistrés
-  W ->> W : Récupération des posts
-  W ->> A : Confirmation des tags appliqués
+  A ->> W : Connect to front end Web Administrator
+  W ->> A : Error connection
+  A ->> W : Connect to front end Web Administrator
+  W ->> A : Validate admin connection
+  A ->> W : Enter tags
+  W ->> W : Recovery of posts
+  W ->> A : Confirmation of applied tags
+  A ->> W : Delete saved tags
+  W ->> W : Recovery of posts
+  W ->> A : Confirmation of applied tags
 ```
 
-- Scénario d'erreur : erreur de connexion au serveur
+- Error scenario : connection error on server
 
 ```mermaid
 sequenceDiagram
-  actor A as Administrateur
+  actor A as Administrator
   participant W as WallCaster
 
-  A ->> W : Connexion au front-end Web Administrateur
-  W ->> A : Valider connexion admin
-  A ->> W : Entrer les tags voulus
-  W ->> W : Récupération des posts
-  W ->> A : Erreur de connexion au serveur
-  A ->> W : Tentative de connexion au serveur
-  W ->> A : Impossible de se connecter au serveur
+  A ->> W : Connect to front end Web Administrator
+  W ->> A : Validate admin connection
+  A ->> W : Enter tags
+  W ->> W : Recovery of posts
+  W ->> A : Server connection error
+  A ->> W : Attempt to connect to the server
+  W ->> A : Inability to connect to server
 ```
-Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
+The error scenario considered is a server connection error involving an inability to apply or delete tags.
+
 
 ### 2.2.6 - Set-up RaspberryPi
 
