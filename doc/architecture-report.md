@@ -14,7 +14,16 @@ class App {
 }
 
 class Filter {
-  TODO 
+  -Config config
+  -List~Post~ postsFiltered
+
+  +filter() : List~Post~
+  -filterByBlacklist() : List~Post~
+  -filterByWhitelist() : List~Post~
+  -filterByDate() : List~Post~
+  -filterByNegativeEmotion() : List~Post~
+  -removeImages() : List~Post~
+  -removeVideos() : List~Post~
 }
 
 class Query {
@@ -34,7 +43,7 @@ class Post {
 }
 
 class API {
-
+  TODO
 }
 
 class TwitterAPI {
