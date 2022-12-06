@@ -1,6 +1,6 @@
 # Implementation principle of the solution (how)
 
-[Excalidraw diagram architecture](https://excalidraw.com/#room=d3c68b5d868bf31c6725,rgPCEXYY3Snqm5Z6OaEvHQ)
+![Excalidraw diagram architecture](assets/Architecture.excalidraw.svg)
 
 # Architecture rules
 # Static model : packages organization, main classes descriptions and their responsabilities
