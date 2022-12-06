@@ -201,10 +201,9 @@ sequenceDiagram
 
 ### Sequence Supprimer post
 
-#### Scenario Nominatif
+#### Scenario nominatif
 
 Supprime automatiquement des posts à partir de l'analyse des sentiments
-
 
 ```plantuml
 @startuml
@@ -235,6 +234,40 @@ sequenceDiagram
   A ->> W : Choix type
   W ->> A : Filtrage effectué
 ```
+
+#### Scenario Alternatif
+Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
+
+```plantuml
+@startuml
+
+actor Administarteur as Adm
+participant WallCaster as Wl 
+
+
+activate Adm
+activate Wl
+
+
+Adm -> Wl : choix listes des posts en db
+Wl -> Adm : affiche liste posts
+Adm -> Wl : choix type
+Wl -> Adm : Suppression effectuée
+
+@enduml
+```
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
+```
+
 ### Change Filtre Diffusion
 ```mermaid
 sequenceDiagram
@@ -289,39 +322,6 @@ sequenceDiagram
 ```
 Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
 
-
-#### Scenario 2
-Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
-
-```plantuml
-@startuml
-
-actor Administarteur as Adm
-participant WallCaster as Wl 
-
-
-activate Adm
-activate Wl
-
-
-Adm -> Wl : choix listes des posts en db
-Wl -> Adm : affiche liste posts
-Adm -> Wl : choix type
-Wl -> Adm : Suppression effectuée
-
-@enduml
-```
-
-```mermaid
-sequenceDiagram
-  actor A as Admin
-  participant W as WallCaster
-
-  A ->> W : Choix supprimer les posts
-  W ->> A : Demande type sentiments à conservé
-  A ->> W : Choix type
-  W ->> A : Filtrage effectué
-```
 
 ## User Story
 
