@@ -10,7 +10,7 @@
 ```mermaid
 classDiagram
 class App {
-  -Config config
+  - Config config
 }
 
 class Filter {
@@ -26,7 +26,14 @@ class Socket {
 }
 
 class Config {
-  TODO 
+  List[String] forbiddenWords
+  int numberOfScreens
+  int dateRange
+  bool allowSound
+  List[String] whiteListAuthors
+  List[String] whiteListHashtag
+  
+
 }
 
 class Post {
@@ -34,7 +41,7 @@ class Post {
 }
 
 class API {
-
+    TODO
 }
 
 class TwitterAPI {
