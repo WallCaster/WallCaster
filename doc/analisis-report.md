@@ -31,6 +31,59 @@
 
 ## Diagrame de Séquence Système
 
+### Change Filtre Diffusion
+```mermaid
+sequenceDiagram
+  title Scénario nominal Change_Filtre_Diffusion
+  actor A as Administrateur
+  participant W as WallCaster
+
+  A ->> W : Connexion au front-end Web Administrateur
+  W ->> A : Valider connexion admin
+  A ->> W : Entrer les tags voulus
+  W -->> W : Récupération des posts
+  W ->> A : Confirmation des tags appliqués
+  A ->> W : Suppression des tags enregistrés
+  W -->> W : Récupération des posts
+  W ->> A : Confirmation des tags appliqués
+
+```
+Ce premier diagramme présente le scénario où l'administrateur souhaite entrer des tags afin de filtrer les posts après s'être connecté au front end Web. L'administrateur peut aussi demander au système de modifier certains tags ou d'en supprimer.
+
+```mermaid
+sequenceDiagram
+  title Scénario alternatif Change_Filtre_Diffusion
+  actor A as Administrateur
+  participant W as WallCaster
+
+  A ->> W : Connexion au front-end Web Administrateur
+  W ->> A : Erreur de connexion
+  A ->> W : Connexion au front-end Web Administrateur
+  W ->> A : Valider connexion admin
+  A ->> W : Entrer les tags voulus
+  W -->> W : Récupération des posts
+  W ->> A : Confirmation des tags appliqués
+  A ->> W : Suppression des tags enregistrés
+  W -->> W : Récupération des posts
+  W ->> A : Confirmation des tags appliqués
+```
+Le scénario alternatif serait une erreur de connexion.
+
+```mermaid
+sequenceDiagram
+  title Scénario d'erreur Change_Filtre_Diffusion
+  actor A as Administrateur
+  participant W as WallCaster
+
+  A ->> W : Connexion au front-end Web Administrateur
+  W ->> A : Valider connexion admin
+  A ->> W : Entrer les tags voulus
+  W -->> W : Récupération des posts
+  W ->> A : Erreur de connexion au serveur
+  A ->> W : Tentative de connexion au serveur
+  W ->> A : Impossible de se connecter au serveur
+```
+Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
 
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
