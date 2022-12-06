@@ -61,6 +61,8 @@
 
 ![Use case diagram](assets/Use_Case_Diagram.png)
 
+> This is the use case diagram. It shows what each actor are doing on the system. There are 3 actors, 2 primary and one secondary. The primarys are the administrator and the APIs. And the secondary are the spectator.
+
 ## 2.2 - Diagrame de Séquence Système
 
 ### 2.2.1 - Manage photos
@@ -346,38 +348,31 @@ sequenceDiagram
 
 ### 2.3.1 - Manage photos
 
-<br/>
-The photographer give to the admin a list a pictures that he took. Now the admin want to display them on the screens. To do that he upload the images on the server and now either a picture or a post can be displayed by the system.
-Then, the administrator wants to remove one of the images. For that, he just need to remove it from the system.
-
-<br/>
+> The photographer give to the admin a list a pictures that he took. As an admin want to display them on the screens. To do that he upload the images on the server and now either a picture or a post can be displayed by the system.
+Then, I want to remove one of the images. For that, he just need to remove it from the system.
 
 ### 2.3.2 - Extraire_Posts
 
-<br/>
-- En tant qu'APIs, nous souhaitons recevoir du serveur des requêtes bien formées afin de lui fournir en retour le contenu des réseaux sociaux demandé.
+> The system want to send requests to the APIs and they answer it with the right contents.
 
 ### 2.3.3 - Filtrage des posts
 
-- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
+> As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
 
-- As an admin I can manualy moderate content
-
-<br/>
+> As an admin I can manualy moderate content
 
 ### 2.3.4 - Sequence Supprimer post
 
-<br/>
-- As an admin I can delete posts that have already been displayed
+> As an admin I can delete posts that have already been displayed
 
 ### 2.3.5 - Change Filtre Diffusion
 
-- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+> As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
 
 
 ### 2.3.6 - Set-up RaspberryPi
 
-- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+> As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
 
 <br/>
 
