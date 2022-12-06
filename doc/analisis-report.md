@@ -24,6 +24,16 @@
 # Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
 
 
+
+
+
+
+
+
+
+
+<!-- --- TODO je sais pas trop ou mettre ça ---
+
 # Problematics
 
 - How to filter : anti-spam, nsfw filter 
@@ -34,5 +44,5 @@
 
 # User Story
 
-- Setup the raspberry pi with wifi and correct origin
+- Setup the raspberry pi with wifi and correct origin -->
 
