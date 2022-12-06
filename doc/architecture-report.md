@@ -24,20 +24,28 @@ class Filter {
 }
 
 class Socket {
-  const socket
-  emit()
-  on() 
+  -const socket
+  +emit()
+  +on() 
 }
 
 class Config {
-  List[String] forbiddenWords
-  int numberOfScreens
-  int dateRange
-  bool allowSound
-  List[String] whiteListAuthors
-  List[String] whiteListHashtag
-  
 
+    -int numberOfScreens
+    -int dateRange
+    -List[String] forbiddenWords
+    -List[String] whiteListAuthors
+    -List[String] whiteListHashtags
+    -List[SocialNetwork] socialNetworkAccepted
+    -bool allowSound
+    -bool allowVideo
+    -bool allowImage
+  
+    -bool writeConfigToFile(String nameFile)
+    -bool readConfigFromFile(String nameFile)
+    +bool save()
+    +Config getInstance()
+    +String toString()
 }
 
 class Post {
@@ -45,8 +53,6 @@ class Post {
   -String author
   -Date date
   -String url
-  -PostImage image
-  -SocialNetwork source
   +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
   +Post(String content, String author, Date date, String url, SocialNetwork source)
   +toString()
@@ -75,19 +81,19 @@ class TwitterAPI {
 }
 
 
-App ..> Filter
-App ..> Socket
+App --o Filter
+App --o Socket
 App --o Config
 TwitterAPI --|> API
 InstagramAPI --|> API
 LinkedinAPI --|> API
 FacebookAPI --|> API
-App ..> TwitterAPI
-App ..> InstagramAPI
-App ..> LinkedinAPI
-App ..> FacebookAPI
-Post ..> PostImage
-Post ..> SocialNetwork
+App --o TwitterAPI
+App --o InstagramAPI
+App --o LinkedinAPI
+App --o FacebookAPI
+Post "*" --> "0..1" PostImage : image
+Post "1" --> "1" SocialNetwork : source
 
 ```
 
