@@ -63,7 +63,8 @@ sequenceDiagram
   Admin ->> S : Quitte la page d'administration
 ```
 
-#### Scenario exception
+#### Scenario exception : photo trop lourde
+
 
 ```plantuml
 @startuml erreur_photo_a_afficher
@@ -77,6 +78,8 @@ S --> Admin : L'upload a échoué l'image est trop lourde
 @enduml
 ```
 
+#### Scenario exception : erreur de connexion
+
 ```plantuml
 @startuml erreur_photo_a_afficher
 actor Admin
@@ -88,6 +91,7 @@ Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué, erreur de connexion
 @enduml
 ```
+#### Scenario exception : not found
 
 ```plantuml
 @startuml missing_photo_a_afficher
