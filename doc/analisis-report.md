@@ -52,11 +52,11 @@ sequenceDiagram
 
 #### Scenario 1
 Supprime automatiquement des posts à partir de l'analyse des sentiments
-![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
+![Use case diagram](assets/sequence_SupprimerPosts_1.png)
 
 #### Scenario 2
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
-![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
+![Use case diagram](assets/sequence_SupprimerPosts_1.png)
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
