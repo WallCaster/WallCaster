@@ -1,3 +1,35 @@
+- [Rappel du besoin et critères de succès](#rappel-du-besoin-et-critères-de-succès)
+  - [Specifications](#specifications)
+  - [Critères de succès](#critères-de-succès)
+- [Modèle du domaine métier : modèle UML des notions manipulées, relations et explications](#modèle-du-domaine-métier--modèle-uml-des-notions-manipulées-relations-et-explications)
+  - [Use case diagram](#use-case-diagram)
+  - [Diagrame de Séquence Système](#diagrame-de-séquence-système)
+    - [Manage photos](#manage-photos)
+      - [Scenario Nominatif](#scenario-nominatif)
+      - [Scenario alternatif](#scenario-alternatif)
+      - [Scenario exception : photo trop lourde](#scenario-exception--photo-trop-lourde)
+      - [Scenario exception : erreur de connexion](#scenario-exception--erreur-de-connexion)
+      - [Scenario exception : not found](#scenario-exception--not-found)
+    - [Extraire\_Posts](#extraire_posts)
+      - [Scenario Nominatif](#scenario-nominatif-1)
+      - [Scenario exception : authentification token expired](#scenario-exception--authentification-token-expired)
+      - [Scenario exception : no contents found](#scenario-exception--no-contents-found)
+      - [Scenario exception : connection error](#scenario-exception--connection-error)
+    - [Filtrage des posts](#filtrage-des-posts)
+    - [Sequence Supprimer post](#sequence-supprimer-post)
+      - [Scenario Nominatif](#scenario-nominatif-2)
+      - [Scenario 2](#scenario-2)
+  - [User Story](#user-story)
+- [Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
+      - [API Twitter :](#api-twitter-)
+      - [API LinkedIn :](#api-linkedin-)
+      - [Graph API Instagram Search hastag inclus dans le Facebook SDK:](#graph-api-instagram-search-hastag-inclus-dans-le-facebook-sdk)
+      - [Graph API Facebook :](#graph-api-facebook-)
+      - [API de filtrage des posts selon plusieurs critères](#api-de-filtrage-des-posts-selon-plusieurs-critères)
+      - [Raspberry PI :](#raspberry-pi-)
+      - [Serveur persistant :](#serveur-persistant-)
+- [Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
+
 
 # Rappel du besoin et critères de succès
 
@@ -63,36 +95,38 @@ sequenceDiagram
   Admin ->> S : Quitte la page d'administration
 ```
 
-#### Scenario exception
+#### Scenario exception : photo trop lourde
 
-```plantuml
-@startuml erreur_photo_a_afficher
-actor Admin
-participant WallCaster as S
+
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
 
 Admin -> S : Connection au frontend d'administration
 S --> Admin : Affiche la page d'administration
 Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué l'image est trop lourde
-@enduml
 ```
 
-```plantuml
-@startuml erreur_photo_a_afficher
-actor Admin
-participant WallCaster as S
+#### Scenario exception : erreur de connexion
+
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
 
 Admin -> S : Connection au frontend d'administration
 S --> Admin : Affiche la page d'administration
 Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué, erreur de connexion
-@enduml
 ```
+#### Scenario exception : not found
 
-```plantuml
-@startuml missing_photo_a_afficher
-actor Admin
-participant WallCaster as S
+```mermaid
+sequenceDiagram
+  actor Admin
+  participant S as WallCaster
 
 Admin -> S : Connexion au frontend d'administration
 S --> Admin : Affiche la page d'administration
@@ -100,65 +134,53 @@ Admin -> S : Enlever la photo 2 de la liste
 S --> Admin : La photo n'existe pas
 Admin -> S : Quitte la page d'administration
 
-@enduml
 ```
 
 ### Extraire_Posts
 
 #### Scenario Nominatif
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
-Sys -> APIs : Ask media contents
-APIs --> Sys : Sends media contents asked by APIs 
+Sys ->> APIs : Ask media contents
+APIs ->> Sys : Sends media contents asked by APIs 
 
-
-@enduml
 ```
 
-#### Scenario Exception, authentification token expired
+#### Scenario exception : authentification token expired
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
 Sys -> APIs : Ask media contents
 APIs --> Sys : Authentification error, token out of date. No media contents send.
-
-
-@enduml
 ```
 
-#### Scenario Exception, no contents found
+#### Scenario exception : no contents found
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
 Sys -> APIs : Ask media contents
 APIs --> Sys : Error, no media contents found.
-
-
-@enduml
 ```
 
-#### Scenario Exception, connection error
+#### Scenario exception : connection error
 
-```plantuml
-@startuml
-actor APIs
-participant WallCaster as Sys
+```mermaid
+sequenceDiagram
+  actor APIs
+  participant Sys as WallCaster
 
 Sys -> APIs : Ask media contents
 APIs --> Sys : Connection error. No media contents send.
-
-
-@enduml
 ```
 ### Filtrage des posts
 
@@ -194,13 +216,51 @@ sequenceDiagram
 
 ### Sequence Supprimer post
 
-#### Scenario 1
+#### Scenario Nominatif
+
 Supprime automatiquement des posts à partir de l'analyse des sentiments
-![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
+
+![Use case diagram](assets/sequence_SupprimerPosts_1.png)
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
+```
+
 
 #### Scenario 2
 Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
-![Use case diagram](assets/home/akai/sequence_SupprimerPosts/sequence_SupprimerPosts_1.png)
+
+![Use case diagram](assets/sequence_SupprimerPosts_1.png)
+
+```mermaid
+sequenceDiagram
+  actor A as Admin
+  participant W as WallCaster
+
+  A ->> W : Choix supprimer les posts
+  W ->> A : Demande type sentiments à conservé
+  A ->> W : Choix type
+  W ->> A : Filtrage effectué
+```
+
+## User Story
+
+- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+
+- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+
+- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
+
+- As an admin I can manualy moderate content
+
+- As an admin I can choose to show different content on different screens
 
 # Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
@@ -261,16 +321,4 @@ The content :
 
 <!-- --- TODO je sais pas trop ou mettre ça ---
 
-
-# User Story
-
-- As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
-
-- As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
-
-- As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
-
-- As an admin I can manualy moderate content
-
-- As an admin I can choose to show different content on different screens
 -->
