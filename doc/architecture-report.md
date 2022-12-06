@@ -10,11 +10,11 @@
 ```mermaid
 classDiagram
 class App {
-  -Config config
-  -Filter filter
-  -Socket socket
-  -Post[] cache
-  -API[] apis
+  -config : Config
+  -filter : Filter
+  -socket : Socket
+  -cache : Post[]
+  -apis : API[]
 
   +main()
 }
