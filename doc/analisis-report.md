@@ -19,6 +19,7 @@
 - [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
 - [5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#5---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
+<br/>
 
 # 1 - Rappel du besoin et critères de succès
 
@@ -44,7 +45,9 @@
 - La deadline est respectée
 - Le software fonctionne correctement (pas de bogues)
 - Les critères de test sont validés
-  
+
+<br/>
+
 # 2 - Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
 ## 2.1 - Use case diagram
@@ -54,6 +57,8 @@
 ## 2.2 - Diagrame de Séquence Système
 
 ### 2.2.1 - Manage photos
+
+<br/>
 
 - Scenario Nominatif
 
@@ -70,6 +75,8 @@ sequenceDiagram
   Admin ->> S : Quitte la page d'administration
 ```
 
+<br/>
+
 - Scenario alternatif
 
 ```mermaid
@@ -83,6 +90,8 @@ sequenceDiagram
   S ->> Admin : Suppression réussi
   Admin ->> S : Quitte la page d'administration
 ```
+
+<br/>
 
 - Scenario exception : photo trop lourde
 
@@ -98,6 +107,8 @@ Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué l'image est trop lourde
 ```
 
+<br/>
+
 - Scenario exception : erreur de connexion
 
 ```mermaid
@@ -110,6 +121,9 @@ S --> Admin : Affiche la page d'administration
 Admin -> S : Upload une photo à ajouter à la liste
 S --> Admin : L'upload a échoué, erreur de connexion
 ```
+
+<br/>
+
 - Scenario exception : not found
 
 ```mermaid
@@ -125,6 +139,8 @@ Admin -> S : Quitte la page d'administration
 
 ```
 
+<br/>
+
 ### 2.2.2 - Extraire_Posts
 
 - Scenario Nominatif
@@ -139,6 +155,8 @@ APIs ->> Sys : Sends media contents asked by APIs
 
 ```
 
+<br/>
+
 - Scenario exception : authentification token expired
 
 ```mermaid
@@ -149,6 +167,8 @@ sequenceDiagram
 Sys -> APIs : Ask media contents
 APIs --> Sys : Authentification error, token out of date. No media contents send.
 ```
+
+<br/>
 
 - Scenario exception : no contents found
 
@@ -161,6 +181,8 @@ Sys -> APIs : Ask media contents
 APIs --> Sys : Error, no media contents found.
 ```
 
+<br/>
+
 - Scenario exception : connection error
 
 ```mermaid
@@ -171,6 +193,9 @@ sequenceDiagram
 Sys -> APIs : Ask media contents
 APIs --> Sys : Connection error. No media contents send.
 ```
+
+<br/>
+
 ### 2.2.3 - Filtrage des posts
 
 
@@ -186,6 +211,8 @@ sequenceDiagram
 
   W ->> A : Indique que la configuration a été enregistrée
 ```
+
+<br/>
 
 ### 2.2.4 - Sequence Supprimer post
 
@@ -255,6 +282,8 @@ sequenceDiagram
   W ->> A : Suppression effectuée
 ```
 
+<br/>
+
 ### 2.2.5 - Change Filtre Diffusion
 
 ```mermaid
@@ -315,7 +344,15 @@ Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquan
 
 ### 2.3.1 - Manage photos
 
+<br/>
+The photographer give to the admin a list a pictures that he took. Now the admin want to display them on the screens. To do that he upload the images on the server and now either a picture or a post can be displayed by the system.
+Then, the administrator wants to remove one of the images. For that, he just need to remove it from the system.
+
+<br/>
+
 ### 2.3.2 - Extraire_Posts
+
+<br/>
 
 ### 2.3.3 - Filtrage des posts
 
@@ -323,7 +360,11 @@ Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquan
 
 - As an admin I can manualy moderate content
 
+<br/>
+
 ### 2.3.4 - Sequence Supprimer post
+
+<br/>
 
 ### 2.3.5 - Change Filtre Diffusion
 
@@ -333,8 +374,7 @@ Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquan
 
 - As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
 
-- As an admin I can choose to show different content on different screens
-
+<br/>
 
 # 3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
 
@@ -380,6 +420,7 @@ Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d
   - Contraintes : 
     - Avoir une connexion WiFi
 
+<br/>
 
 # 5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
 
