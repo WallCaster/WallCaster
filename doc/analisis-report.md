@@ -248,10 +248,10 @@ sequenceDiagram
   A ->> W : Connexion au front-end Web Administrateur
   W ->> A : Valider connexion admin
   A ->> W : Entrer les tags voulus
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
   A ->> W : Suppression des tags enregistrés
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
 
 ```
@@ -269,10 +269,10 @@ sequenceDiagram
   A ->> W : Connexion au front-end Web Administrateur
   W ->> A : Valider connexion admin
   A ->> W : Entrer les tags voulus
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
   A ->> W : Suppression des tags enregistrés
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Confirmation des tags appliqués
 ```
 
@@ -286,7 +286,7 @@ sequenceDiagram
   A ->> W : Connexion au front-end Web Administrateur
   W ->> A : Valider connexion admin
   A ->> W : Entrer les tags voulus
-  W -->> W : Récupération des posts
+  W ->> W : Récupération des posts
   W ->> A : Erreur de connexion au serveur
   A ->> W : Tentative de connexion au serveur
   W ->> A : Impossible de se connecter au serveur
