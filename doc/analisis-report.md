@@ -18,8 +18,8 @@
     - [Filtrage des posts](#filtrage-des-posts)
     - [Sequence Supprimer post](#sequence-supprimer-post)
       - [Scenario Nominatif](#scenario-nominatif-2)
+      - [Scenario alternatif](#scenario-alternatif-1)
     - [Change Filtre Diffusion](#change-filtre-diffusion)
-      - [Scenario 2](#scenario-2)
   - [User Story](#user-story)
 - [Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
       - [API Twitter :](#api-twitter-)
@@ -225,17 +225,32 @@ Wl -> Adm : Suppression effectuée
 @enduml
 ```
 
-```mermaid
-sequenceDiagram
-  actor A as Admin
-  participant W as WallCaster
 
-  A ->> W : Choix supprimer les posts
-  W ->> A : Demande type sentiments à conservé
-  A ->> W : Choix type
-  W ->> A : Filtrage effectué
+#### Scenario alternatif
+Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
+
+```plantuml
+@startuml
+
+actor Administarteur as Adm
+participant WallCaster as Wl 
+
+
+activate Adm
+activate Wl
+
+
+Adm -> Wl : choix listes des posts en db
+Wl -> Adm : affiche liste posts
+Adm -> Wl : choix type
+Wl -> Adm : Suppression effectuée
+
+@enduml
 ```
+
+
 ### Change Filtre Diffusion
+
 ```mermaid
 sequenceDiagram
   title Scénario nominal Change_Filtre_Diffusion
@@ -289,39 +304,6 @@ sequenceDiagram
 ```
 Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
 
-
-#### Scenario 2
-Supprime manuellement les posts qui ont echappé l'analyse des sentiments 
-
-```plantuml
-@startuml
-
-actor Administarteur as Adm
-participant WallCaster as Wl 
-
-
-activate Adm
-activate Wl
-
-
-Adm -> Wl : choix listes des posts en db
-Wl -> Adm : affiche liste posts
-Adm -> Wl : choix type
-Wl -> Adm : Suppression effectuée
-
-@enduml
-```
-
-```mermaid
-sequenceDiagram
-  actor A as Admin
-  participant W as WallCaster
-
-  A ->> W : Choix supprimer les posts
-  W ->> A : Demande type sentiments à conservé
-  A ->> W : Choix type
-  W ->> A : Filtrage effectué
-```
 
 ## User Story
 
