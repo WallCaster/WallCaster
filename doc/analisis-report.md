@@ -66,6 +66,8 @@
 
 ### 2.2.1 - Manage photos
 
+> The sequence system diagrams show several cases of management of the photos on the system.
+
 <br/>
 
 - Scenario Nominatif
@@ -149,7 +151,7 @@ S ->> Admin : Upload failed not found
 
 ### 2.2.2 - Extraire_Posts
 
-Ensemble de scénarios correspondants aux requêtes du serveur vers les APIs des différents réseaux sociaux, afin de récupérer leur contenu (ou une erreur si requête mal formulée). 
+> Set of scenarios corresponding to server requests to the APIs of the different social networks, in order to retrieve their content (or an error if the request is badly formulated)
 
 - Scenario Nominatif
 
@@ -206,6 +208,7 @@ APIs ->> Sys : Connection error. No media contents send.
 
 ### 2.2.3 - Filtrage des posts
 
+> Set of scenarios corresponding to the filtering of the posts.
 
 - Scénario Nominatif
 
@@ -221,6 +224,8 @@ sequenceDiagram
 ```
 
 > Ce diagrame représente le scénario dans lequel l'administarteur configure les paramètres de filtrage (mots clés, période de temps, etc.). Après avoir validé, il y a une confirmation de la part du système que la configuration a été enregistrée.
+
+> This diagram shows the scenario where the administrator configure the parameters of filtering (keyword, period of time, etc.). After validation, there is a configuration from the system that the configuration was registered.
 
 - Scénario d'Exception
 
@@ -275,60 +280,62 @@ Wl ->> Adm : Suppression effectuée
 
 ### 2.2.5 - Change Filtre Diffusion
 
-- Scénario nominal
+- Nominal scenario
 
 ```mermaid
 sequenceDiagram
-  actor A as Administrateur
+  actor A as Administrator
   participant W as WallCaster
 
-  A ->> W : Connexion au front-end Web Administrateur
-  W ->> A : Valider connexion admin
-  A ->> W : Entrer les tags voulus
-  W ->> W : Récupération des posts
-  W ->> A : Confirmation des tags appliqués
-  A ->> W : Suppression des tags enregistrés
-  W ->> W : Récupération des posts
-  W ->> A : Confirmation des tags appliqués
+  A ->> W : Connect to front end Web Administrator
+  W ->> A : Validate admin connection
+  A ->> W : Enter tags
+  W ->> W : Recovery of posts
+  W ->> A : Confirmation of applied tags
+  A ->> W : Delete saved tags
+  W ->> W : Recovery of posts
+  W ->> A : Confirmation of applied tags
 
 ```
-Ce premier diagramme présente le scénario où l'administrateur souhaite entrer des tags afin de filtrer les posts après s'être connecté au front end Web. L'administrateur peut aussi demander au système de modifier certains tags ou d'en supprimer.
 
-- Scénario alternatif : erreur de connexion au front-end
+This first diagram shows the scenario where the administrator wants to enter tags in order to filter the posts after logging in to the web front end. The administrator can also ask the system to modify some tags or to delete them.
+
+- Alternative Scenario : connection error on front-end
 
 ```mermaid
 sequenceDiagram
-  actor A as Administrateur
+  actor A as Administrator
   participant W as WallCaster
 
-  A ->> W : Connexion au front-end Web Administrateur
-  W ->> A : Erreur de connexion
-  A ->> W : Connexion au front-end Web Administrateur
-  W ->> A : Valider connexion admin
-  A ->> W : Entrer les tags voulus
-  W ->> W : Récupération des posts
-  W ->> A : Confirmation des tags appliqués
-  A ->> W : Suppression des tags enregistrés
-  W ->> W : Récupération des posts
-  W ->> A : Confirmation des tags appliqués
+  A ->> W : Connect to front end Web Administrator
+  W ->> A : Error connection
+  A ->> W : Connect to front end Web Administrator
+  W ->> A : Validate admin connection
+  A ->> W : Enter tags
+  W ->> W : Recovery of posts
+  W ->> A : Confirmation of applied tags
+  A ->> W : Delete saved tags
+  W ->> W : Recovery of posts
+  W ->> A : Confirmation of applied tags
 ```
 
-- Scénario d'erreur : erreur de connexion au serveur
+- Error scenario : connection error on server
 
 ```mermaid
 sequenceDiagram
-  actor A as Administrateur
+  actor A as Administrator
   participant W as WallCaster
 
-  A ->> W : Connexion au front-end Web Administrateur
-  W ->> A : Valider connexion admin
-  A ->> W : Entrer les tags voulus
-  W ->> W : Récupération des posts
-  W ->> A : Erreur de connexion au serveur
-  A ->> W : Tentative de connexion au serveur
-  W ->> A : Impossible de se connecter au serveur
+  A ->> W : Connect to front end Web Administrator
+  W ->> A : Validate admin connection
+  A ->> W : Enter tags
+  W ->> W : Recovery of posts
+  W ->> A : Server connection error
+  A ->> W : Attempt to connect to the server
+  W ->> A : Inability to connect to server
 ```
-Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
+The error scenario considered is a server connection error involving an inability to apply or delete tags.
+
 
 ### 2.2.6 - Set-up RaspberryPi
 
@@ -353,7 +360,7 @@ sequenceDiagram
 > The photographer give to the admin a list a pictures that he took. As an admin want to display them on the screens. To do that he upload the images on the server and now either a picture or a post can be displayed by the system.
 Then, I want to remove one of the images. For that, he just need to remove it from the system.
 
-### 2.3.2 - Extraire_Posts
+### 2.3.2 - Extraire Posts
 
 > The system want to send requests to the APIs and they answer it with the right contents.
 

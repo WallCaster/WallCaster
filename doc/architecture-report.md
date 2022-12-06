@@ -1,9 +1,9 @@
-# Principe de mise en œuvre de la solution (comment)
+# Implementation principle of the solution (how)
 
 [Excalidraw diagram architecture](https://excalidraw.com/#room=d3c68b5d868bf31c6725,rgPCEXYY3Snqm5Z6OaEvHQ)
 
-# Règles d'architecture
-# Modèle statique : organisation des packages, descriptions des classes principales et de leurs responsabilités
+# Architecture rules
+# Static model : packages organization, main classes descriptions and their responsabilities
 
 
 ## Server Backend
@@ -58,10 +58,17 @@ class App {
 }
 ```
 
-# Modèle dynamique : flux des événements, nominal et sur erreur, démarrage et arrêt
-# Explication de la prise en compte des contraintes d'analyse
-# Cadre de production : outils de dev, de configuration et de livraison.
+# Dynamic model : events streams, nominal and error-related, startup and shutdown
+# Explaination about analysis constrains consideration
+# Production frame : development, configuration and deployment tools.
+
+## Development tools
+
+- Git / GitHub
+- CI
+
+## Configuration tools
+
+## Deployment tools
 
 - Docker 
-- Git / Github
-- CI
