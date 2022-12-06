@@ -169,7 +169,7 @@ sequenceDiagram
   participant W as WallCaster
 
   A ->> W : Se connecte au frontend d'administration
-
+  W ->> A : Affiche la page d'administration
   A ->> W : Configure les paramètres de filtrage
   A ->> W : Valide la configuration
 
