@@ -10,7 +10,13 @@
 ```mermaid
 classDiagram
 class App {
-  -Config config
+  -config : Config
+  -filter : Filter
+  -socket : Socket
+  -cache : Post[]
+  -apis : API[]
+
+  +main()
 }
 
 class Filter {
@@ -26,20 +32,53 @@ class Filter {
   -removeVideos() : List~Post~
 }
 
-class Query {
-  TODO 
-}
-
 class Socket {
-  TODO 
+  -const socket
+  +emit()
+  +on() 
 }
 
 class Config {
-  TODO 
+
+    -int numberOfScreens
+    -int dateRange
+    -List[String] forbiddenWords
+    -List[String] whiteListAuthors
+    -List[String] whiteListHashtags
+    -List[SocialNetwork] socialNetworkAccepted
+    -bool allowSound
+    -bool allowVideo
+    -bool allowImage
+  
+    -bool writeConfigToFile(String nameFile)
+    -bool readConfigFromFile(String nameFile)
+    +bool save()
+    +Config getInstance()
+    +String toString()
 }
 
 class Post {
-  TODO 
+  -String content
+  -String author
+  -Date date
+  -String url
+  +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
+  +Post(String content, String author, Date date, String url, SocialNetwork source)
+  +toString()
+}
+
+class PostImage {
+  -String url
+  +PostImage(String url)
+  +getURL()
+}
+
+class SocialNetwork {
+  <<enum>>
+  TWITTER
+  INSTAGRAM
+  FACEBOOK
+  LINKEDIN
 }
 
 class API {
@@ -50,6 +89,20 @@ class TwitterAPI {
   TODO 
 }
 
+
+App --o Filter
+App --o Socket
+App --o Config
+TwitterAPI --|> API
+InstagramAPI --|> API
+LinkedinAPI --|> API
+FacebookAPI --|> API
+App --o TwitterAPI
+App --o InstagramAPI
+App --o LinkedinAPI
+App --o FacebookAPI
+Post "*" --> "0..1" PostImage : image
+Post "1" --> "1" SocialNetwork : source
 
 ```
 
