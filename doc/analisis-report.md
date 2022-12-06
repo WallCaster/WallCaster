@@ -75,7 +75,7 @@
 ```mermaid
 sequenceDiagram
   actor Admin 
-  participant S for WallCaster
+  participant S as WallCaster
   Admin ->> S : Connection to the administration front-end
   S ->> Admin : Display the administration page
   Admin ->> S : Upload a picture to add to the list
