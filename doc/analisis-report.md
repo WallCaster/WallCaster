@@ -302,7 +302,7 @@ Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquan
 
 ### 2.3.2 - Extraire_Posts
 
-En tant qu'APIs, nous souhaitons recevoir du serveur des requêtes bien formées de la part du serveur afin de lui fournir en retour le contenu des réseaux sociaux demandé.
+- En tant qu'APIs, nous souhaitons recevoir du serveur des requêtes bien formées afin de lui fournir en retour le contenu des réseaux sociaux demandé.
 
 ### 2.3.3 - Filtrage des posts
 
