@@ -9,10 +9,7 @@
 ## Server Backend
 ```mermaid
 classDiagram
-API <|-- TwitterAPI
-API <|-- LinkedInAPI
-API <|-- InstagramAPI
-API <|-- FacebookAPI
+
 
 class App {
   -config : Config
@@ -116,7 +113,11 @@ App --o API
 Post "*" --> "0..1" PostImage : image
 Post "1" --> "1" SocialNetwork : source
 Filter "1" --> "1" Config : config
-Filter "1" --> "N" Post : postsFiltered
+Filter "1" --> "*" Post : postsFiltered
+API <|-- TwitterAPI
+API <|-- LinkedInAPI
+API <|-- InstagramAPI
+API <|-- FacebookAPI
 
 ```
 
