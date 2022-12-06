@@ -108,25 +108,25 @@ sequenceDiagram
   actor Admin 
   participant S as WallCaster
 
-Admin ->> S : Connection au frontend d'administration
-S ->> Admin : Affiche la page d'administration
-Admin ->> S : Upload une photo à ajouter à la liste
-S ->> Admin : L'upload a échoué l'image est trop lourde
+Admin ->> S : Connect to the administration frontend
+S ->> Admin : Show the administration page
+Admin ->> S : Upload a picture to add to the list
+S ->> Admin : Upload failed the picture is too heavy
 ```
 
 <br/>
 
-- Scenario exception : erreur de connexion
+- Scenario exception : connection error
 
 ```mermaid
 sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-Admin ->> S : Connection au frontend d'administration
-S ->> Admin : Affiche la page d'administration
-Admin ->> S : Upload une photo à ajouter à la liste
-S ->> Admin : L'upload a échoué, erreur de connexion
+Admin ->> S : Connect to the administration frontend
+S ->> Admin : Show the administration page
+Admin ->> S : Upload a picture to add to the list
+S ->> Admin : Upload failed connexion error
 ```
 
 <br/>
@@ -138,11 +138,10 @@ sequenceDiagram
   actor Admin
   participant S as WallCaster
 
-Admin ->> S : Connexion au frontend d'administration
-S ->> Admin : Affiche la page d'administration
-Admin ->> S : Enlever la photo 2 de la liste
-S ->> Admin : La photo n'existe pas
-Admin ->> S : Quitte la page d'administration
+Admin ->> S : Connect to the administration frontend
+S ->> Admin : Show the administration page
+Admin ->> S : Upload a picture to add to the list
+S ->> Admin : Upload failed not found
 
 ```
 
