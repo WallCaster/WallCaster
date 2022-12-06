@@ -12,23 +12,23 @@ classDiagram
 
 
 class App {
-  -config : Config
-  -filter : Filter
-  -socket : Socket
-  -cache : Post[]
-  -apis : API[]
+  -Config config
+  -Filter filter
+  -Socket socket
+  -List~Post~ cache
+  -List~API~ apis
 
-  +main()
+  +App()
 }
 
 class Filter {
-  +filter() : List~Post~
-  -filterByBlacklist() : List~Post~
-  -filterByWhitelist() : List~Post~
-  -filterByDate() : List~Post~
-  -filterByNegativeEmotion() : List~Post~
-  -removeImages() : List~Post~
-  -removeVideos() : List~Post~
+  +filter() List~Post~
+  -filterByBlacklist() List~Post~
+  -filterByWhitelist() List~Post~
+  -filterByDate() List~Post~
+  -filterByNegativeEmotion() List~Post~
+  -removeImages() List~Post~
+  -removeVideos() List~Post~
 }
 
 class Socket {
@@ -38,22 +38,21 @@ class Socket {
 }
 
 class Config {
+  -int numberOfScreens
+  -int dateRange
+  -List~String~ forbiddenWords
+  -List~String~ whiteListAuthors
+  -List~String~ whiteListHashtags
+  -List~SocialNetwork~ socialNetworkAccepted
+  -bool allowSound
+  -bool allowVideo
+  -bool allowImage
 
-    -int numberOfScreens
-    -int dateRange
-    -List[String] forbiddenWords
-    -List[String] whiteListAuthors
-    -List[String] whiteListHashtags
-    -List[SocialNetwork] socialNetworkAccepted
-    -bool allowSound
-    -bool allowVideo
-    -bool allowImage
-  
-    -bool writeConfigToFile(String nameFile)
-    -bool readConfigFromFile(String nameFile)
-    +bool save()
-    +Config getInstance()
-    +String toString()
+  -writeConfigToFile(String nameFile) Boolean
+  -readConfigFromFile(String nameFile) Boolean
+  +save() Boolean
+  +getInstance() Config
+  +toString() String
 }
 
 class Post {
@@ -63,17 +62,17 @@ class Post {
   -String url
   +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
   +Post(String content, String author, Date date, String url, SocialNetwork source)
-  +toString()
+  +toString() String
 }
 
 class API {
   <<abstract>>
-  -base_url : String
-  -api_key : String
-  -hashTag : String[]$
-  + API(base_url : String)*
-  + searchPostFromHashtag()* Post
-  + defineHashTag(hashtag : String[])$
+  -String base_url
+  -String api_key
+  -List~String~ hashTag$
+  +API(String base_url)*
+  +searchPostFromHashtag()* Post
+  +defineHashTag(String hashtag)$
 }
 
 class PostImage {
