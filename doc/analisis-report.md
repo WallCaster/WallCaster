@@ -22,6 +22,7 @@
     - [2.3.3 - Filtrage des posts](#233---filtrage-des-posts)
     - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
     - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
+    - [2.3.6 - Set-up RaspberryPi](#236---set-up-raspberrypi)
 - [3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter](#3---description-de-lécosystème--présentation-des-éléments-avec-lesquels-le-système-va-devoir-sintégrer-des-contraintes-à-respecter)
 - [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
@@ -303,11 +304,14 @@ sequenceDiagram
   actor Admin as Administrateur
   participant Rasp as RaspberryPi 
 
-  Admin ->> Rasp : ???
-  Rasp ->> Admin : Now connected to the wifi
-  Admin ->> Rasp : ???
-  Rasp ->> Admin : Website browser launched on the correct page
+  Admin ->> Rasp : Insère la carte SD configurée
+  Admin ->> Rasp : Branche le RaspberryPi à l'alimentation
+  Admin ->> Rasp : Allume le RaspberryPi
+  Rasp ->> Rasp : Now connected to the wifi
+  Rasp ->> Rasp : Website browser launched on the correct page
 ```
+
+> This scenario describes the process of setting up the RaspberryPi. It may change depending on the final implementation of the RaspberryPi.
 
 ## 2.3 - User Story
 
@@ -325,14 +329,18 @@ En tant qu'APIs, nous souhaitons recevoir du serveur des requêtes bien formées
 
 ### 2.3.4 - Sequence Supprimer post
 
+- As an admin I can delete posts that have already been displayed
+
 ### 2.3.5 - Change Filtre Diffusion
 
 - As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
 
---
+
+### 2.3.6 - Set-up RaspberryPi
 
 - As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
 
+-- 
 - As an admin I can choose to show different content on different screens
 
 
