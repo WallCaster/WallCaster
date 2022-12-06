@@ -1,3 +1,7 @@
+# Analisis Report
+
+## Contents  
+
 - [Rappel du besoin et critères de succès](#rappel-du-besoin-et-critères-de-succès)
   - [Specifications](#specifications)
   - [Critères de succès](#critères-de-succès)
@@ -32,9 +36,9 @@
 - [Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
 
-# Rappel du besoin et critères de succès
+# 1 - Rappel du besoin et critères de succès
 
-## Specifications
+## 1.1 - Specifications
 
 - Slideshow on interval of predefined images
 - Configurable : 
@@ -50,22 +54,22 @@
  
 **Bonus** : Si la conférence est sur plusieurs jours, possibilité que le photographe officiel puisse diffuser les images prises la veille sur les écrans. 
 
-## Critères de succès
+## 1.2 - Critères de succès
 
 - La specification est completement effectuée
 - La deadline est respectée
 - Le software fonctionne correctement (pas de bogues)
 - Les critères de test sont validés
   
-# Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
+# 2 - Modèle du domaine métier : modèle UML des notions manipulées, relations et explications
 
-## Use case diagram
+## 2.1 - Use case diagram
 
 ![Use case diagram](assets/Use_Case_Diagram.png)
 
-## Diagrame de Séquence Système
+## 2.2 - Diagrame de Séquence Système
 
-### Manage photos
+### 2.2.1 - Manage photos
 
 #### Scenario Nominatif
 
@@ -137,7 +141,7 @@ Admin -> S : Quitte la page d'administration
 
 ```
 
-### Extraire_Posts
+### 2.2.2 - Extraire_Posts
 
 #### Scenario Nominatif
 
@@ -183,7 +187,7 @@ sequenceDiagram
 Sys -> APIs : Ask media contents
 APIs --> Sys : Connection error. No media contents send.
 ```
-### Filtrage des posts
+### 2.2.3 - Filtrage des posts
 
 
 ```mermaid
@@ -199,7 +203,7 @@ sequenceDiagram
   W ->> A : Indique que la configuration a été enregistrée
 ```
 
-### Sequence Supprimer post
+### 2.2.4 - Sequence Supprimer post
 
 #### Scenario nominatif
 
@@ -257,7 +261,7 @@ sequenceDiagram
   W ->> A : Filtrage effectué
 ```
 
-### Change Filtre Diffusion
+### 2.2.5 - Change Filtre Diffusion
 
 ```mermaid
 sequenceDiagram
@@ -313,7 +317,7 @@ sequenceDiagram
 Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquant une impossibilité d'appliquer ou de supprimer des tags.
 
 
-## User Story
+## 2.3 - User Story
 
 - As 
 
@@ -327,7 +331,9 @@ Le scénario d'erreur envisagé est une erreur de connexion au serveur impliquan
 
 - As an admin I can choose to show different content on different screens
 
-# Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
+# 3 - Description de l'écosystème : présentation des éléments avec lesquels le système va devoir s'intégrer, des contraintes à respecter
+
+
 4 Social Media API (Twitter, LinkedIn, Facebook, Instagram) 
 Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d'en récupérer les posts (textes et images) correpondants à un mot clé donné.
 
@@ -370,7 +376,7 @@ Notre système va devoir communiquer avec divers APIs de réseaux sociaux afin d
     - Avoir une connexion WiFi
 
 
-# Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
+# 5 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
 
 Our solution consist of a software and a hardware part. 
 The software part is a web application that will be used to configure the content to display dynamically.
@@ -382,8 +388,3 @@ The content :
 - The content can be manually moderated by a human operator if needed.
 - The content will be fetched according to a given query and sources and updated dynamically.
 - If there is not enough content to display, allow user to select a set of images to display.
-
-
-<!-- --- TODO je sais pas trop ou mettre ça ---
-
--->
