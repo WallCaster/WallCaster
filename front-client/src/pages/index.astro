@@ -1,11 +1,20 @@
 ---
 import { SocketTest } from '../components/SocketTest';
-import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title='Test for socket.io'>
-  <main class="p-5">
-    <h1 class="text-4xl py-4 font-bold">Test for socket.io</h1>
-		<SocketTest client:load />
-  </main>
-</Layout>
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <title>Socket io text</title>
+  </head>
+  <body>
+    <main class='p-5'>
+      <h1 class='text-4xl py-4 font-bold'>Test for socket.io</h1>
+      <SocketTest client:load />
+    </main>
+  </body>
+</html>

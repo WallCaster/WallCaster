@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useSocket from '../../hooks/useSocket';
 
-export const SocketTest = () => {
+export function SocketTest() {
   const [message, setMessage] = useState<string[]>([]);
-  const socket = useSocket('http://localhost:3001', (sock) => {
-    sock.on('message', (message) => {
+  const socket = useSocket('http://localhost:3001', (socket) => {
+    socket.on('message', (message) => {
       setMessage((prev) => [...prev, message]);
     });
   });
@@ -24,13 +24,11 @@ export const SocketTest = () => {
         Click to send msg to server (server has 1s delay)
       </button>
       <p>Messages from server: {message.length}</p>
-      <div>
+      <div className='font-mono'>
         {message.map((msg, index) => (
-          <p key={index} className='font-mono'>
-            {msg}
-          </p>
+          <p key={index}>{msg}</p>
         ))}
       </div>
     </div>
   );
-};
+}
