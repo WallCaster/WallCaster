@@ -28,9 +28,10 @@ export class Config {
         this._allowSound = false 
         this._allowVideo = false 
         this._allowImage = false
+        this.writeConfigToFile()
     }
 
-    public writeConfigToFile(fileName : string = "config.json") : void {
+    public writeConfigToFile(fileName : string = "settings.json") : void {
 
         let contentToWrite : any = JSON.stringify(this, null, " ") 
    
@@ -41,7 +42,7 @@ export class Config {
 
     }
 
-    public readConfigFromFile(fileName : string = "config.json") : void {
+    public readConfigFromFile(fileName : string = "settings.json") : void {
         
         let contentRead : Config = JSON.parse(readFileSync(join(__dirname, fileName), 'utf-8'));
         
