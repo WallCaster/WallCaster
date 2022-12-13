@@ -324,6 +324,8 @@ sequenceDiagram
 
 Each user story has a number of tasks associated with it. These tasks are the steps that must be taken to complete the user story.
 
+You can find the Kanban board [here](https://github.com/orgs/WallCaster/projects/1) with all the tasks associated with each user story.
+
 ### 2.3.1 - Manage photos
 
 > As an admin I want to display pictures taken on the screens. To do that I upload images on the server and now either a picture or a post can be displayed by the system.
