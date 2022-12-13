@@ -2,14 +2,12 @@
 
 ![Excalidraw diagram architecture](assets/Architecture.excalidraw.svg)
 
-# Architecture rules
 # Static model : packages organization, main classes descriptions and their responsabilities
 
 ## Component Diagram
 
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Component](assets/component.svg)
-<!--
 ```plantuml
 @startuml component
 node "Persistant Server"  {
@@ -29,18 +27,17 @@ node "Persistant Server"  {
   
 }
 
-portout -- > HTTP
-TwitterAPI -- > posts
-LinkedInAPI -- > posts
-FacebookAPI -- > posts
-InstagramAPI -- > posts
-LearningBehaviourAPI -- > S
+portout --> HTTP
+TwitterAPI --> posts
+LinkedInAPI --> posts
+FacebookAPI --> posts
+InstagramAPI --> posts
+LearningBehaviourAPI --> S
 
 HTTP - [Raspberry]
 
 @enduml
 ```
--->
 
 ## Deployment Diagram
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
@@ -116,10 +113,8 @@ class Config {
   -allowVideo : bool 
   -allowImage : bool 
 
-  -writeConfigToFile(String nameFile) Boolean
-  -readConfigFromFile(String nameFile) Boolean
-  +save() Boolean
-  +getInstance() Config
+  +writeConfigToFile(fileName : string) : void
+  +readConfigFromFile(fileName : string)) : void
   +toString() String
 }
 

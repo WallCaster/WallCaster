@@ -12,6 +12,6 @@ export class ApiTwitter extends Api {
     }
 
     public searchPostFromHashTag(): Post {
-        return new Post('trop stylée la conférence', 'Yanis', new Date(Date.now()), 'http://localhost:3000/twitter', ApiTwitter.origin)
+        return new Post('trop stylée la conférence', 'Yanis', Date.now(), 'http://localhost:3000/twitter', ApiTwitter.origin)
     }
 }
