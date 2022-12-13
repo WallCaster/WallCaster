@@ -1,4 +1,4 @@
-import { SocketServer } from './socket_server';
+import { SocketServer } from './socket-server';
 
 console.log('Starting server...');
 new SocketServer();
