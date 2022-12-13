@@ -54,30 +54,25 @@ HTML2 -- FC
 ```plantuml
 @startuml deployment
 node "server" <<device>> as srv {
-  node "server application" <<docker compose>> as cmp {
-    component "backend" <<docker>> as bck
-    component "client frontend" <<docker>> as cfr 
-    component "admin frontend" <<docker>> as afr
+  node "server application" <<docker>> as cmp {
+    component "backend" as bck
+    component "client frontend" as cfr 
+    component "admin frontend" as afr
+    component "filter" as flt
   }
 }
 
-node "Raspberry Pi" <<device>> as rpi
+node "Raspberry Pi" <<device>> as rpi {
+  component "web browser" as wb
+}
 
-cloud "Social Network API" as api
-
-cloud "Learning Behavior API" as lbr
-
-srv --(0 api: <<REST API>> "1..n"
-srv -(0 lbr: <<REST API>>
-srv 0)-- rpi: <<HTTP>> "1..n"
-bck #--# afr: <<Websocket>>
-bck #-# cfr: <<Websocket>>
+bck #--# afr: ""<<Websocket>>""
+bck #-# cfr: ""<<Websocket>>""
+wb #--# cfr: ""1..n\n<<HTTP>>""
+bck #--# flt: ""<<Websocket>>""
 @enduml
-``` 
+```
 -->
-
-
-
 ## Server Backend
 ```mermaid
 classDiagram
