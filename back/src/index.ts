@@ -1,8 +1,3 @@
-import { Config } from './config';
-import { SocketServer } from './socket_server';
+import { App } from './app';
 
-
-//console.log('Starting server...');
-//new SocketServer();
-
-new Config()
+new App();

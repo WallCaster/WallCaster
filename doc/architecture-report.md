@@ -2,7 +2,6 @@
 
 ![Excalidraw diagram architecture](assets/Architecture.excalidraw.svg)
 
-# Architecture rules
 # Static model : packages organization, main classes descriptions and their responsabilities
 
 ## Component Diagram
