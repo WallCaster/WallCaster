@@ -1,7 +1,8 @@
 import { Api } from "./api";
+import { Config } from "./config";
 import { Filter } from "./filter";
 import { Post } from "./post";
-import { SocketServer } from "./socket_server";
+import { SocketServer } from "./socket-server";
 
 export class App {
     private cache: Array<Post>;
@@ -9,15 +10,17 @@ export class App {
     private postsFiltered: Array<Post>;
     private socketServer: SocketServer;
     private filter: Filter;
+    private config: Config;
 
     constructor() {
         this.cache = new Array<Post>();
         this.apis = new Array<Api>();
         this.postsFiltered = new Array<Post>();
         this.filter = new Filter();
+        this.config = new Config();
 
         console.log('Starting server...');
-        this.socketServer = new SocketServer();
+        this.socketServer = new SocketServer(this.config);
     }
 
     public addAPI(api: Api) {
