@@ -90,13 +90,17 @@ class App {
 }
 
 class Filter {
-  +filter() List~Post~
-  -filterByBlacklist() List~Post~
-  -filterByWhitelist() List~Post~
-  -filterByDate() List~Post~
-  -filterByNegativeEmotion() List~Post~
-  -removeImages() List~Post~
-  -removeVideos() List~Post~
+  <<abstract>>
+  +Filter(Config config)
+  +apply(List~Post~ posts) List~Post~
+}
+class BanWordsFilter {
+  +BanWordsFilter(Config config)
+  +apply(List~Post~ posts) List~Post~
+}
+class NegativeFilter {
+  +NegativeFilter(Config config)
+  +apply(List~Post~ posts) List~Post~
 }
 
 class SocketServer {
@@ -130,7 +134,7 @@ class Post {
   -id : int 
   -content : String 
   -author : String 
-  -date :Date 
+  -date : Date 
   -url : String 
   +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
   +Post(String content, String author, Date date, String url, SocialNetwork source)
@@ -178,16 +182,19 @@ class FacebookAPI {
    
 }
 
-App "1" --o "1" Filter
+App "1" --o "*" Filter
 App "1" --o "1" SocketServer
 App "1" --o "1" API
+App "1" --> "*" Post : postsFiltered
 Filter "1" --> "1" Config : config
-Filter "1" --> "*" Post : postsFiltered
+Filter <|-- BanWordsFilter 
+Filter <|-- NegativeFilter
+
 Post "*" --> "0..1" PostImage : image
-Post "1" --> "1" SocialNetwork : source
 Config "1" --> "0..*" SocialNetwork : socialNetworkAccepted
 SocketServer "1" --> "1" Config : config
 API "1" --> "1" Config : config
+Post "1" --> "1" SocialNetwork : source
 API <|-- TwitterAPI
 API <|-- LinkedInAPI
 API <|-- InstagramAPI
@@ -229,7 +236,14 @@ class App {
 ```
 
 # Dynamic model : events streams, nominal and error-related, startup and shutdown
+
+
+
 # Explaination about analysis constrains consideration
+
+
+What we did that fit the constrains :
+
 # Production frame : development, configuration and deployment tools.
 
 ## Development tools
