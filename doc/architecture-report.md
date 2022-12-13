@@ -9,53 +9,76 @@
 ## Server Backend
 ```mermaid
 classDiagram
-class App {
-  -config : Config
-  -filter : Filter
-  -socket : Socket
-  -cache : Post[]
-  -apis : API[]
 
-  +main()
+
+class App {
+  -List~Post~ cache
+  -List~API~ apis
+
+  +App()
+  +addAPI(API api)
+  +removeAPI(API api)
+  +addPost(Post post)
+  +removePost(int id)
 }
 
 class Filter {
-  TODO 
+  +filter() List~Post~
+  -filterByBlacklist() List~Post~
+  -filterByWhitelist() List~Post~
+  -filterByDate() List~Post~
+  -filterByNegativeEmotion() List~Post~
+  -removeImages() List~Post~
+  -removeVideos() List~Post~
 }
 
-class Socket {
-  -const socket
-  +emit()
-  +on() 
+class SocketServer {
+  +SocketServer()
+  +onConnect()
+  +onDisconnect()
+  +onNewPost()
+  +onNewConfig()
+  +sendPost(Post post)
+  +sendConfig(Config config)
 }
 
 class Config {
+  -int numberOfScreens
+  -int dateRange
+  -List~String~ forbiddenWords
+  -List~String~ whiteListAuthors
+  -List~String~ whiteListHashtags
+  -bool allowSound
+  -bool allowVideo
+  -bool allowImage
 
-    -int numberOfScreens
-    -int dateRange
-    -List[String] forbiddenWords
-    -List[String] whiteListAuthors
-    -List[String] whiteListHashtags
-    -List[SocialNetwork] socialNetworkAccepted
-    -bool allowSound
-    -bool allowVideo
-    -bool allowImage
-  
-    -bool writeConfigToFile(String nameFile)
-    -bool readConfigFromFile(String nameFile)
-    +bool save()
-    +Config getInstance()
-    +String toString()
+  -writeConfigToFile(String nameFile) Boolean
+  -readConfigFromFile(String nameFile) Boolean
+  +save() Boolean
+  +getInstance() Config
+  +toString() String
 }
 
 class Post {
+  -int id
   -String content
   -String author
   -Date date
   -String url
   +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
   +Post(String content, String author, Date date, String url, SocialNetwork source)
-  +toString()
+  -getUniqueID() int
+  +toString() String
+}
+
+class API {
+  <<abstract>>
+  -String base_url
+  -String api_key
+  -List~String~ hashTag$
+  +API(String base_url)*
+  +searchPostFromHashtag()* Post
+  +defineHashTag(String hashtag)$
 }
 
 class PostImage {
@@ -72,28 +95,37 @@ class SocialNetwork {
   LINKEDIN
 }
 
-class API {
-  TODO
-}
-
 class TwitterAPI {
-  TODO 
+  
 }
 
+class LinkedInAPI {
+  
+}
 
-App --o Filter
-App --o Socket
-App --o Config
-TwitterAPI --|> API
-InstagramAPI --|> API
-LinkedinAPI --|> API
-FacebookAPI --|> API
-App --o TwitterAPI
-App --o InstagramAPI
-App --o LinkedinAPI
-App --o FacebookAPI
+class InstagramAPI {
+  
+}
+
+class FacebookAPI {
+   
+}
+
+App "1" --o "1" Filter
+App "1" --o "1" SocketServer
+App "1" --o "1" API
+Filter "1" --> "1" Config : config
+Filter "1" --> "*" Post : postsFiltered
 Post "*" --> "0..1" PostImage : image
 Post "1" --> "1" SocialNetwork : source
+Config "1" --> "0..*" SocialNetwork : socialNetworkAccepted
+SocketServer "1" --> "1" Config : config
+API "1" --> "1" Config : config
+API <|-- TwitterAPI
+API <|-- LinkedInAPI
+API <|-- InstagramAPI
+API <|-- FacebookAPI
+
 
 ```
 
@@ -138,7 +170,11 @@ class App {
 - Git / GitHub
 - CI
 
+DEVELOPMENT RULES :
+- Naming conventions : [makecode.com/extensions/naming-conventions](https://makecode.com/extensions/naming-conventions)
+
 ## Configuration tools
+
 
 ## Deployment tools
 
