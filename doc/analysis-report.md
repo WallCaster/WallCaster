@@ -11,18 +11,17 @@
   - [2.1 - Use case diagram](#21---use-case-diagram)
   - [2.2 - Diagrame de Séquence Système](#22---diagrame-de-séquence-système)
     - [2.2.1 - Manage photos](#221---manage-photos)
-    - [2.2.2 - Extraire\_Posts](#222---extraire_posts)
-    - [2.2.3 - Filtrage des posts](#223---filtrage-des-posts)
-    - [2.2.4 - Sequence Supprimer post](#224---sequence-supprimer-post)
-    - [2.2.5 - Change Filtre Diffusion](#225---change-filtre-diffusion)
-    - [2.2.6 - Set-up RaspberryPi](#226---set-up-raspberrypi)
+    - [2.2.2 - Fitler posts](#222---fitler-posts)
+    - [2.2.3 - Sequence Supprimer post](#223---sequence-supprimer-post)
+    - [2.2.4 - Change wanted contents](#224---change-wanted-contents)
+    - [2.2.5 - Set-up RaspberryPi](#225---set-up-raspberrypi)
   - [2.3 - User Story](#23---user-story)
     - [2.3.1 - Manage photos](#231---manage-photos)
-    - [2.3.2 - Exctrat posts](#232---exctrat-posts)
-    - [2.3.3 - Filter posts](#233---filter-posts)
-    - [2.3.4 - Sequence delete post](#234---sequence-delete-post)
-    - [2.3.5 - Change diffusion filter](#235---change-diffusion-filter)
-    - [2.3.6 - Set-up RaspberryPi](#236---set-up-raspberrypi)
+    - [2.3.2 - Filter posts](#232---filter-posts)
+    - [2.3.3 - Sequence delete post](#233---sequence-delete-post)
+    - [2.3.4 - Change wanted contents](#234---change-wanted-contents)
+    - [2.3.5 - Set-up RaspberryPi](#235---set-up-raspberrypi)
+    - [2.3.6 - Display posts / photos](#236---display-posts--photos)
 - [3 - Description of the ecosystem: presentation of the elements with which the system will have to integrate, the constraints to be respected](#3---description-of-the-ecosystem-presentation-of-the-elements-with-which-the-system-will-have-to-integrate-the-constraints-to-be-respected)
 - [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
@@ -323,6 +322,8 @@ sequenceDiagram
 
 ## 2.3 - User Story
 
+Each user story has a number of tasks associated with it. These tasks are the steps that must be taken to complete the user story.
+
 ### 2.3.1 - Manage photos
 
 > As an admin I want to display pictures taken on the screens. To do that I upload images on the server and now either a picture or a post can be displayed by the system.
@@ -331,8 +332,8 @@ Then, I want to delete one of the images. To do so, I just need to remove it fro
 ### 2.3.2 - Filter posts
 
 > As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
-  - Specific banwords
-  - Choose whether to filter "negative" posts or not
+> - Specific banwords
+> - Choose whether to filter "negative" posts or not
 
 ### 2.3.3 - Sequence delete post
 
@@ -341,13 +342,36 @@ Then, I want to delete one of the images. To do so, I just need to remove it fro
 ### 2.3.4 - Change wanted contents
 
 > As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
-  - Tags/Hashtags
-  - Authors
-  - Date range 
+> - Tags/Hashtags
+> - Authors
+> - Date range 
+
+Tasks :
+- Create a admin front-end
+- Create a server
+- Make the admin front-end connect to the server
+- Allow the admin to set the parameters
 
 ### 2.3.5 - Set-up RaspberryPi
 
 > As an admin I want to connect the client to the server.
+
+Tasks : 
+- Make the raspberryPi connect to the wifi
+- Make the raspberryPi connect to the website
+- Create a doc of instructions to set up the raspberryPi
+
+### 2.3.6 - Display posts / photos
+
+> As a spectator I want to see the informations displayed on the screen
+
+Tasks :
+- Create a front-end for the client
+- Create a server
+- Make the client frontend connect to the server
+- Make the server choose the posts to display
+- Make the server send the posts to the client
+- Make the client display the posts
 
 <br/>
 
