@@ -8,6 +8,7 @@
 
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Component](assets/component.svg)
+<!-- 
 ```plantuml
 @startuml component
 [Frontend Admin] as FA
@@ -46,7 +47,8 @@ HTML2 -- FC
 
 
 @enduml
-
+```
+-->
 ## Deployment Diagram
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Deployement](assets/deployment.svg)
@@ -73,6 +75,8 @@ bck #--# flt: ""<<Websocket>>""
 @enduml
 ```
 -->
+Le noeud d'exécution « docker » correspond à un Dockercompose qui permet de gérer les différents composants présent sur le serveur sous forme de conteneurs.
+
 ## Server Backend
 ```mermaid
 classDiagram
