@@ -2,11 +2,52 @@
 
 ![Excalidraw diagram architecture](assets/Architecture.excalidraw.svg)
 
+# Architecture rules
+# Static model : packages organization, main classes descriptions and their responsabilities
+
+## Component Diagram
+
+<!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
+![Component](assets/component.svg)
+<!--
+```plantuml
+@startuml component
+node "Persistant Server"  {
+  component "Server backend" as S {
+    portin posts
+  }
+  
+  component "Frontend Client" as FC {
+    portout portout
+  }
+  component "Frontend Admin" as FA {
+    portin connexion
+  }
+  FA - DataAccess
+  DataAccess - S
+  S - FC
+  
+}
+
+portout -- > HTTP
+TwitterAPI -- > posts
+LinkedInAPI -- > posts
+FacebookAPI -- > posts
+InstagramAPI -- > posts
+LearningBehaviourAPI -- > S
+
+HTTP - [Raspberry]
+
+@enduml
+```
+-->
+
+## Deployment Diagram
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Deployement](assets/deployment.svg)
 <!--
-```plantuml deployment
-@startuml
+```plantuml
+@startuml deployment
 node "server" <<device>> as srv {
   node "server application" <<docker compose>> as cmp {
     component "backend" <<docker>> as bck
@@ -24,14 +65,12 @@ cloud "Learning Behavior API" as lbr
 srv --(0 api: <<REST API>> "1..n"
 srv -(0 lbr: <<REST API>>
 srv 0)-- rpi: <<HTTP>> "1..n"
-bck #--# afr: <<Socket.IO>>
-bck #-# cfr: <<Socket.IO>>
+bck #--# afr: <<Websocket>>
+bck #-# cfr: <<Websocket>>
 @enduml
 ``` 
 -->
 
-# Architecture rules
-# Static model : packages organization, main classes descriptions and their responsabilities
 
 
 ## Server Backend
