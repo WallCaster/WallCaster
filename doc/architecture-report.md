@@ -47,18 +47,18 @@ node "Persistant Server"  {
   component "Frontend Admin" as FA {
     portin connexion
   }
-  FA - "Data Access"
-  "Data Access" - S
+  FA - DataAccess
+  DataAccess - S
   S - FC
   
 }
 
 portout --> HTTP
-"Twitter API" --> posts
-"LinkedIn API" --> posts
-"Facebook API" --> posts
-"Instagram API" --> posts
-"Learning Behaviour API" --> S
+TwitterAPI --> posts
+LinkedInAPI --> posts
+FacebookAPI --> posts
+InstagramAPI --> posts
+LearningBehaviourAPI --> S
 
 HTTP - [Raspberry]
 
