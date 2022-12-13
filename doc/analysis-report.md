@@ -18,7 +18,7 @@
   - [2.3 - User Story](#23---user-story)
     - [2.3.1 - Manage photos](#231---manage-photos)
     - [2.3.2 - Filter posts](#232---filter-posts)
-    - [2.3.3 - Sequence delete post](#233---sequence-delete-post)
+    - [2.3.3 - Sequence delete posts](#233---sequence-delete-posts)
     - [2.3.4 - Change wanted contents](#234---change-wanted-contents)
     - [2.3.5 - Set-up RaspberryPi](#235---set-up-raspberrypi)
     - [2.3.6 - Display posts / photos](#236---display-posts--photos)
@@ -329,9 +329,9 @@ You can find the Kanban board [here](https://github.com/orgs/WallCaster/projects
 ### 2.3.1 - Manage photos
 
 > As an admin I want to display pictures taken on the screens. To do that I upload images on the server and now either a picture or a post can be displayed by the system.
-Then, I want to delete one of the images. To do so, I just need to remove it from the system.
+> Then, I want to delete one of the images. To do so, I just need to remove it from the system.
 
-TODO List:
+Tasks :
   - Have an administrative frontend
   - Connect the frontend to the server
   - Implement the functionnality which allows the admin to add pictures.
@@ -345,7 +345,7 @@ TODO List:
 > - Specific banwords
 > - Choose whether to filter "negative" posts or not
 
-TODO List:
+Tasks :
   - Have an administrative frontend
   - Connect the frontend to the server
   - Create the "emotional" filter.
@@ -355,7 +355,8 @@ TODO List:
 ### 2.3.3 - Sequence delete posts
 
 > As an admin I can delete posts that have already been displayed
-TODO List:
+
+Tasks :
   - Have an administrative frontend
   - Connect the frontend to the server
   - Implement the functionnality which allows the admin to delete pictures.
