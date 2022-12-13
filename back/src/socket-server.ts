@@ -37,6 +37,9 @@ export class SocketServer {
     socket.onAny((event, ...args) => {
       console.log(`incoming event '${event}':`, args);
     });
+
+    console.log('new client connected');
+    
   }
 
   private onDisconnect(socket: io.Socket) {
@@ -54,6 +57,8 @@ export class SocketServer {
 
     // remove all listeners
     socket.removeAllListeners();
+
+    console.log('client disconnected');
   }
 
   // send post to all clients
