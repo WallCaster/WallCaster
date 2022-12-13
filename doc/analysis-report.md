@@ -328,15 +328,35 @@ sequenceDiagram
 > As an admin I want to display pictures taken on the screens. To do that I upload images on the server and now either a picture or a post can be displayed by the system.
 Then, I want to delete one of the images. To do so, I just need to remove it from the system.
 
+TODO List:
+  - Have an administrative frontend
+  - Connect the frontend to the server
+  - Implement the functionnality which allows the admin to add pictures.
+  - L'appliquer aux photos voulues. Apply it to desired pictures.
+  - Implement the functionnality which allows the admin to delete pictures already in the system.
+  - Apply it to desired pictures.
+
 ### 2.3.2 - Filter posts
 
 > As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
   - Specific banwords
   - Choose whether to filter "negative" posts or not
 
-### 2.3.3 - Sequence delete post
+TODO List:
+  - Have an administrative frontend
+  - Connect the frontend to the server
+  - Create the "emotional" filter.
+  - Create the "banned words" filters.
+  - Apply it to fetched posts.
+
+### 2.3.3 - Sequence delete posts
 
 > As an admin I can delete posts that have already been displayed
+TODO List:
+  - Have an administrative frontend
+  - Connect the frontend to the server
+  - Implement the functionnality which allows the admin to delete pictures.
+  - Apply it to existuing posts.
 
 ### 2.3.4 - Change wanted contents
 
