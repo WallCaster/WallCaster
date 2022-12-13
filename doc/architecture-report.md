@@ -2,6 +2,34 @@
 
 ![Excalidraw diagram architecture](assets/Architecture.excalidraw.svg)
 
+<!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
+![Deployement](assets/deployment.svg)
+<!--
+```plantuml deployment
+@startuml
+node "server" <<device>> as srv {
+  node "server application" <<docker compose>> as cmp {
+    component "backend" <<docker>> as bck
+    component "client frontend" <<docker>> as cfr 
+    component "admin frontend" <<docker>> as afr
+  }
+}
+
+node "Raspberry Pi" <<device>> as rpi
+
+cloud "Social Network API" as api
+
+cloud "Learning Behavior API" as lbr
+
+srv --(0 api: <<REST API>> "1..n"
+srv -(0 lbr: <<REST API>>
+srv 0)-- rpi: <<HTTP>> "1..n"
+bck #--# afr: <<Socket.IO>>
+bck #-# cfr: <<Socket.IO>>
+@enduml
+``` 
+-->
+
 # Architecture rules
 # Static model : packages organization, main classes descriptions and their responsabilities
 
