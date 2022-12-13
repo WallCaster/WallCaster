@@ -354,31 +354,31 @@ sequenceDiagram
 
 ### 2.3.1 - Manage photos
 
-> The photographer give to the admin a list a pictures that he took. As an admin want to display them on the screens. To do that he upload the images on the server and now either a picture or a post can be displayed by the system.
-Then, I want to remove one of the images. For that, he just need to remove it from the system.
+> As an admin I want to display pictures taken on the screens. To do that I upload images on the server and now either a picture or a post can be displayed by the system.
+Then, I want to remove one of the images. To do so, I just need to remove it from the system.
 
-### 2.3.2 - Extraire Posts
+### 2.3.2 - Exctrat posts
 
 > The system want to send requests to the APIs and they answer it with the right contents.
 
-### 2.3.3 - Filtrage des posts
+### 2.3.3 - Filter posts
 
 > As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
 
 > As an admin I can manualy moderate content
 
-### 2.3.4 - Sequence Supprimer post
+### 2.3.4 - Sequence delete post
 
 > As an admin I can delete posts that have already been displayed
 
-### 2.3.5 - Change Filtre Diffusion
+### 2.3.5 - Change diffusion filter
 
 > As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
 
 
 ### 2.3.6 - Set-up RaspberryPi
 
-> As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+> As an admin I want to connect the client to the server.
 
 <br/>
 
