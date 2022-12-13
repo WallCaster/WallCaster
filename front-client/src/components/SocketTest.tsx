@@ -4,7 +4,7 @@ import useSocket from '../../hooks/useSocket';
 export function SocketTest() {
   const [messages, setMessages] = useState<any[]>([]);
   const socket = useSocket('http://localhost:3001', (socket) => {
-    socket.on('message', (message) => {
+    socket.onAny((message) => {
       setMessages((prev) => [...prev, message]);
     });
   });
