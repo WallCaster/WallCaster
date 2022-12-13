@@ -2,6 +2,8 @@
 
 # Table of contents 
 
+- [Analysis Report](#analysis-report)
+- [Table of contents](#table-of-contents)
 - [1 - Reminder of the need and success criteria](#1---reminder-of-the-need-and-success-criteria)
   - [1.1 - Specifications](#11---specifications)
   - [1.2 - Criteria for success](#12---criteria-for-success)
@@ -56,7 +58,33 @@
 
 ## 2.1 - Use case diagram
 
-![Use case diagram](assets/Use_Case_Diagram.png)
+```mermaid
+flowchart LR
+    spec[fa:fa-user << secondary >> Spectator]
+    subgraph one
+    a1([Watch multiple informations])
+    a1-. include .->a2([Watch posts])
+    a1-. include .->a3([Watch photos])
+    a2-. include .-> a4([Choice display content])
+    a3-. include .-> a4([Choice display content])
+    a4-. include .-> a6([Delete posts])
+    a4-. include .-> a7([Change what to fetch])
+    a4-. include .-> a8([Change what to filter])
+    a4-. include .-> a9([Set-up RaspberryPi])
+    a4-. include .-> a5([Manage photos])
+    a4-. include .-> a10([Extract posts])
+    end
+    spec --- a1
+    a10---APis[fa:fa-user << actor >> APIs]
+    admin[fa:fa-user Administrator]
+    a3-. include .-> a5
+    a5---admin
+    a6---admin
+    a7---admin
+    a8---admin
+    a9---admin
+
+```
 
 > This is the use case diagram. It shows what each actor are doing on the system. There are 3 actors, 2 primary and one secondary. The primarys are the administrator and the APIs. And the secondary are the spectator.
 
