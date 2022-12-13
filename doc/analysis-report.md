@@ -332,12 +332,11 @@ You can find the Kanban board [here](https://github.com/orgs/WallCaster/projects
 > Then, I want to delete one of the images. To do so, I just need to remove it from the system.
 
 Tasks :
+  - Create a server
   - Have an administrative frontend
   - Connect the frontend to the server
   - Implement the functionnality which allows the admin to add pictures.
-  - Apply it to desired pictures.
   - Implement the functionnality which allows the admin to delete pictures already in the system.
-  - Apply it to desired pictures.
 
 ### 2.3.2 - Filter posts
 
@@ -346,21 +345,21 @@ Tasks :
 > - Choose whether to filter "negative" posts or not
 
 Tasks :
+  - Create a server
   - Have an administrative frontend
   - Connect the frontend to the server
   - Create the "emotional" filter.
   - Create the "banned words" filter.
-  - Apply them to fetched posts.
 
 ### 2.3.3 - Sequence delete posts
 
 > As an admin I can delete posts that have already been displayed
 
 Tasks :
+  - Create a server
   - Have an administrative frontend
   - Connect the frontend to the server
   - Implement the functionnality which allows the admin to delete pictures.
-  - Apply it to existing posts.
 
 ### 2.3.4 - Change wanted contents
 
@@ -370,7 +369,7 @@ Tasks :
 > - Date range 
 
 Tasks :
-- Create a admin front-end
+- Have an administrative frontend
 - Create a server
 - Make the admin front-end connect to the server
 - Allow the admin to set the parameters
