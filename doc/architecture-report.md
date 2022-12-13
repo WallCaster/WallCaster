@@ -65,6 +65,8 @@ bck #--# flt: ""<<Websocket>>""
 @enduml
 ```
 -->
+Le noeud d'exécution « docker » correspond à un Dockercompose qui permet de gérer les différents composants présent sur le serveur sous forme de conteneurs.
+
 ## Server Backend
 ```mermaid
 classDiagram
