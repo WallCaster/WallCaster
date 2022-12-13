@@ -2,11 +2,52 @@
 
 ![Excalidraw diagram architecture](assets/Architecture.excalidraw.svg)
 
+# Architecture rules
+# Static model : packages organization, main classes descriptions and their responsabilities
+
+## Component Diagram
+
+<!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
+![Component](assets/component.svg)
+<!--
+```plantuml
+@startuml component
+node "Persistant Server"  {
+  component "Server backend" as S {
+    portin posts
+  }
+  
+  component "Frontend Client" as FC {
+    portout portout
+  }
+  component "Frontend Admin" as FA {
+    portin connexion
+  }
+  FA - DataAccess
+  DataAccess - S
+  S - FC
+  
+}
+
+portout -- > HTTP
+TwitterAPI -- > posts
+LinkedInAPI -- > posts
+FacebookAPI -- > posts
+InstagramAPI -- > posts
+LearningBehaviourAPI -- > S
+
+HTTP - [Raspberry]
+
+@enduml
+```
+-->
+
+## Deployment Diagram
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Deployement](assets/deployment.svg)
 <!--
-```plantuml deployment
-@startuml
+```plantuml
+@startuml deployment
 node "server" <<device>> as srv {
   node "server application" <<docker compose>> as cmp {
     component "backend" <<docker>> as bck
@@ -30,40 +71,7 @@ bck #-# cfr: <<Websocket>>
 ``` 
 -->
 
-# Architecture rules
-# Static model : packages organization, main classes descriptions and their responsabilities
 
-## Component Diagram
-```plantuml
-@startuml
-node "Persistant Server"  {
-  component "Server backend" as S {
-    portin posts
-  }
-  
-  component "Frontend Client" as FC {
-    portout portout
-  }
-  component "Frontend Admin" as FA {
-    portin connexion
-  }
-  FA - DataAccess
-  DataAccess - S
-  S - FC
-  
-}
-
-portout --> HTTP
-TwitterAPI --> posts
-LinkedInAPI --> posts
-FacebookAPI --> posts
-InstagramAPI --> posts
-LearningBehaviourAPI --> S
-
-HTTP - [Raspberry]
-
-@enduml
-```
 
 ## Server Backend
 ```mermaid
@@ -71,8 +79,8 @@ classDiagram
 
 
 class App {
-  -List~Post~ cache
-  -List~API~ apis
+  -cache : List~Post~ 
+  -apis : List~API~ 
 
   +App()
   +addAPI(API api)
@@ -106,14 +114,14 @@ class SocketServer {
 }
 
 class Config {
-  -int numberOfScreens
-  -int dateRange
-  -List~String~ forbiddenWords
-  -List~String~ whiteListAuthors
-  -List~String~ whiteListHashtags
-  -bool allowSound
-  -bool allowVideo
-  -bool allowImage
+  -numberOfScreens : int
+  -dateRange : int
+  -forbiddenWords : List~String~
+  -whiteListAuthors : List~String~ 
+  -whiteListHashtags : List~String~ 
+  -allowSound : bool 
+  -allowVideo : bool 
+  -allowImage : bool 
 
   -writeConfigToFile(String nameFile) Boolean
   -readConfigFromFile(String nameFile) Boolean
@@ -123,11 +131,11 @@ class Config {
 }
 
 class Post {
-  -int id
-  -String content
-  -String author
-  -Date date
-  -String url
+  -id : int 
+  -content : String 
+  -author : String 
+  -date :Date 
+  -url : String 
   +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
   +Post(String content, String author, Date date, String url, SocialNetwork source)
   -getUniqueID() int
@@ -136,16 +144,16 @@ class Post {
 
 class API {
   <<abstract>>
-  -String base_url
-  -String api_key
-  -List~String~ hashTag$
+  -base_url : String 
+  -api_key : String 
+  -hashTag$ : List~String~ 
   +API(String base_url)*
   +searchPostFromHashtag()* Post
   +defineHashTag(String hashtag)$
 }
 
 class PostImage {
-  -String url
+  -url : String 
   +PostImage(String url)
   +getURL()
 }

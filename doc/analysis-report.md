@@ -180,7 +180,7 @@ S ->> Admin : Upload failed not found
 
 - Nominative Scenario
 
-``mermaid
+```mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
@@ -218,7 +218,7 @@ sequenceDiagram
 
 Automatically delete posts based on sentiment analysis
 
-mermaid
+```mermaid
 sequenceDiagram
   actor A as Admin
   participant W as WallCaster
