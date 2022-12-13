@@ -2,6 +2,8 @@
 
 # Table of contents 
 
+- [Analysis Report](#analysis-report)
+- [Table of contents](#table-of-contents)
 - [1 - Reminder of the need and success criteria](#1---reminder-of-the-need-and-success-criteria)
   - [1.1 - Specifications](#11---specifications)
   - [1.2 - Criteria for success](#12---criteria-for-success)
@@ -9,18 +11,17 @@
   - [2.1 - Use case diagram](#21---use-case-diagram)
   - [2.2 - Diagrame de Séquence Système](#22---diagrame-de-séquence-système)
     - [2.2.1 - Manage photos](#221---manage-photos)
-    - [2.2.2 - Extraire\_Posts](#222---extraire_posts)
-    - [2.2.3 - Filtrage des posts](#223---filtrage-des-posts)
-    - [2.2.4 - Sequence Supprimer post](#224---sequence-supprimer-post)
-    - [2.2.5 - Change Filtre Diffusion](#225---change-filtre-diffusion)
-    - [2.2.6 - Set-up RaspberryPi](#226---set-up-raspberrypi)
+    - [2.2.2 - Filter posts](#222---fitler-posts)
+    - [2.2.3 - Sequence Supprimer post](#223---sequence-supprimer-post)
+    - [2.2.4 - Change wanted contents](#224---change-wanted-contents)
+    - [2.2.5 - Set-up RaspberryPi](#225---set-up-raspberrypi)
   - [2.3 - User Story](#23---user-story)
     - [2.3.1 - Manage photos](#231---manage-photos)
-    - [2.3.2 - Extraire Posts](#232---extraire-posts)
-    - [2.3.3 - Filtrage des posts](#233---filtrage-des-posts)
-    - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
-    - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
-    - [2.3.6 - Set-up RaspberryPi](#236---set-up-raspberrypi)
+    - [2.3.2 - Filter posts](#232---filter-posts)
+    - [2.3.3 - Sequence delete posts](#233---sequence-delete-posts)
+    - [2.3.4 - Change wanted contents](#234---change-wanted-contents)
+    - [2.3.5 - Set-up RaspberryPi](#235---set-up-raspberrypi)
+    - [2.3.6 - Display posts / photos](#236---display-posts--photos)
 - [3 - Description of the ecosystem: presentation of the elements with which the system will have to integrate, the constraints to be respected](#3---description-of-the-ecosystem-presentation-of-the-elements-with-which-the-system-will-have-to-integrate-the-constraints-to-be-respected)
 - [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
 
@@ -56,9 +57,35 @@
 
 ## 2.1 - Use case diagram
 
-![Use case diagram](assets/Use_Case_Diagram.png)
+```mermaid
+flowchart LR
+    spec((fa:fa-user << secondary >> Spectator))
+    subgraph System
+    a1([Watch multiple informations])
+    a1-. << include >> .->a2([Watch posts])
+    a1-. << include >> .->a3([Watch photos])
+    a2-. << include >> .-> a4([Choice display content])
+    a3-. << include >> .-> a4([Choice display content])
+    a4-. << include >> .-> a6([Delete posts])
+    a4-. << include >> .-> a7([Change what to fetch])
+    a4-. << include >> .-> a8([Change what to filter])
+    a4-. << include >> .-> a9([Set-up RaspberryPi])
+    a4-. << include >> .-> a5([Manage photos])
+    a4-. << include >> .-> a10([Extract posts])
+    end
+    spec --- a1
+    a10---APis((fa:fa-user << actor >> APIs))
+    admin((fa:fa-user Administrator))
+    a3-. << include .>> .-> a5
+    a5---admin
+    a6---admin
+    a7---admin
+    a8---admin
+    a9---admin
+    
+```
 
-> This is the use case diagram. It shows what each actor are doing on the system. There are 3 actors, 2 primary and one secondary. The primarys are the administrator and the APIs. And the secondary are the spectator.
+> This is the use case diagram. It shows what each actor is doing on the system. There are 3 actors, 2 primary and 1 secondary. The primary ones are the administrator and the APIs. The secondary one is the spectator.
 
 ## 2.2 - Diagrame de Séquence Système
 
@@ -147,64 +174,7 @@ S ->> Admin : Upload failed not found
 
 <br/>
 
-### 2.2.2 - Extraire_Posts
-
-> Set of scenarios corresponding to server requests to the APIs of the different social networks, in order to retrieve their content (or an error if the request is badly formulated)
-
-- Scenario Nominatif
-
-```mermaid
-sequenceDiagram
-  actor APIs
-  participant Sys as WallCaster
-
-Sys ->> APIs : Ask media contents
-APIs ->> Sys : Sends media contents asked by APIs 
-
-```
-
-<br/>
-
-- Scenario exception : authentification token expired
-
-```mermaid
-sequenceDiagram
-  actor APIs
-  participant Sys as WallCaster
-
-Sys ->> APIs : Ask media contents
-APIs ->> Sys : Authentification error, token out of date. No media contents send.
-```
-
-<br/>
-
-- Scenario exception : no contents found
-
-```mermaid
-sequenceDiagram
-  actor APIs
-  participant Sys as WallCaster
-
-Sys ->> APIs : Ask media contents
-APIs ->> Sys : Error, no media contents found.
-```
-
-<br/>
-
-- Scenario exception : connection error
-
-```mermaid
-sequenceDiagram
-  actor APIs
-  participant Sys as WallCaster
-
-Sys ->> APIs : Ask media contents
-APIs ->> Sys : Connection error. No media contents send.
-```
-
-<br/>
-
-### 2.2.3 - Filtrage des posts
+### 2.2.2 - Fitler posts
 
 > Set of scenarios corresponding to the filtering of the posts.
 
@@ -242,7 +212,7 @@ sequenceDiagram
 
 <br/>
 
-### 2.2.4 - Sequence Supprimer post
+### 2.2.3 - Sequence Supprimer post
 
 - Nominative Scenario
 
@@ -275,7 +245,7 @@ Wl ->> Adm : Delete done
 
 <br/>
 
-### 2.2.5 - Change Filtre Diffusion
+### 2.2.4 - Change wanted contents
 
 - Nominal scenario
 
@@ -334,7 +304,7 @@ sequenceDiagram
 The error scenario considered is a server connection error involving an inability to apply or delete tags.
 
 
-### 2.2.6 - Set-up RaspberryPi
+### 2.2.5 - Set-up RaspberryPi
 
 ```mermaid
 sequenceDiagram
@@ -352,33 +322,78 @@ sequenceDiagram
 
 ## 2.3 - User Story
 
+Each user story has a number of tasks associated with it. These tasks are the steps that must be taken to complete the user story.
+
+You can find the Kanban board [here](https://github.com/orgs/WallCaster/projects/1) with all the tasks associated with each user story.
+
 ### 2.3.1 - Manage photos
 
-> The photographer give to the admin a list a pictures that he took. As an admin want to display them on the screens. To do that he upload the images on the server and now either a picture or a post can be displayed by the system.
-Then, I want to remove one of the images. For that, he just need to remove it from the system.
+> As an admin I want to display pictures taken on the screens. To do that I upload images on the server and now either a picture or a post can be displayed by the system.
+> Then, I want to delete one of the images. To do so, I just need to remove it from the system.
 
-### 2.3.2 - Extraire Posts
+Tasks :
+  - Create a server
+  - Have an administrative frontend
+  - Connect the frontend to the server
+  - Implement the functionnality which allows the admin to add pictures.
+  - Implement the functionnality which allows the admin to delete pictures already in the system.
 
-> The system want to send requests to the APIs and they answer it with the right contents.
+### 2.3.2 - Filter posts
 
-### 2.3.3 - Filtrage des posts
+> As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
+> - Specific banwords
+> - Choose whether to filter "negative" posts or not
 
-> As an admin I can add parameters (keywords, ...) to the filter to block unwanted content
+Tasks :
+  - Create a server
+  - Have an administrative frontend
+  - Connect the frontend to the server
+  - Create the "emotional" filter.
+  - Create the "banned words" filter.
 
-> As an admin I can manualy moderate content
-
-### 2.3.4 - Sequence Supprimer post
+### 2.3.3 - Sequence delete posts
 
 > As an admin I can delete posts that have already been displayed
 
-### 2.3.5 - Change Filtre Diffusion
+Tasks :
+  - Create a server
+  - Have an administrative frontend
+  - Connect the frontend to the server
+  - Implement the functionnality which allows the admin to delete pictures.
+
+### 2.3.4 - Change wanted contents
 
 > As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+> - Tags/Hashtags
+> - Authors
+> - Date range 
 
+Tasks :
+- Have an administrative frontend
+- Create a server
+- Make the admin front-end connect to the server
+- Allow the admin to set the parameters
 
-### 2.3.6 - Set-up RaspberryPi
+### 2.3.5 - Set-up RaspberryPi
 
-> As an admin I can setup the raspberry pi to connect to the right network so that it can access the website
+> As an admin I want to connect the client to the server.
+
+Tasks : 
+- Make the raspberryPi connect to the wifi
+- Make the raspberryPi connect to the website
+- Create a doc of instructions to set up the raspberryPi
+
+### 2.3.6 - Display posts / photos
+
+> As a spectator I want to see the informations displayed on the screen
+
+Tasks :
+- Create a front-end for the client
+- Create a server
+- Make the client frontend connect to the server
+- Make the server choose the posts to display
+- Make the server send the posts to the client
+- Make the client display the posts
 
 <br/>
 
