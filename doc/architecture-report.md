@@ -8,6 +8,7 @@
 
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Component](assets/component.svg)
+<!-- 
 ```plantuml
 @startuml component
 [Frontend Admin] as FA
@@ -46,7 +47,8 @@ HTML2 -- FC
 
 
 @enduml
-
+```
+-->
 ## Deployment Diagram
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Deployement](assets/deployment.svg)
