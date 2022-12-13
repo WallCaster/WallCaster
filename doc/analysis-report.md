@@ -335,7 +335,7 @@ Tasks :
   - Have an administrative frontend
   - Connect the frontend to the server
   - Implement the functionnality which allows the admin to add pictures.
-  - L'appliquer aux photos voulues. Apply it to desired pictures.
+  - Apply it to desired pictures.
   - Implement the functionnality which allows the admin to delete pictures already in the system.
   - Apply it to desired pictures.
 
