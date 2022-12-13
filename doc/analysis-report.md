@@ -61,7 +61,7 @@
 
 ```mermaid
 flowchart LR
-    spec[fa:fa-user-o << secondary >> Spectator]
+    spec((fa:fa-user << secondary >> Spectator))
     subgraph System
     a1([Watch multiple informations])
     a1-. << include >> .->a2([Watch posts])
@@ -76,8 +76,8 @@ flowchart LR
     a4-. << include >> .-> a10([Extract posts])
     end
     spec --- a1
-    a10---APis[fa:fa-user-o << actor >> APIs]
-    admin[fa:fa-user-o Administrator]
+    a10---APis((fa:fa-user << actor >> APIs))
+    admin((fa:fa-user Administrator))
     a3-. << include >> .-> a5
     a5---admin
     a6---admin
