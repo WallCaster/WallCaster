@@ -78,13 +78,13 @@ flowchart LR
     spec --- a1
     a10---APis((fa:fa-user << actor >> APIs))
     admin((fa:fa-user Administrator))
-    a3-. << include >> .-> a5
+    a3-. << include .>> .-> a5
     a5---admin
     a6---admin
     a7---admin
     a8---admin
     a9---admin
-
+    
 ```
 
 > This is the use case diagram. It shows what each actor is doing on the system. There are 3 actors, 2 primary and 1 secondary. The primary ones are the administrator and the APIs. The secondary one is the spectator.
@@ -176,64 +176,7 @@ S ->> Admin : Upload failed not found
 
 <br/>
 
-### 2.2.2 - Extraire_Posts
-
-> Set of scenarios corresponding to server requests to the APIs of the different social networks, in order to retrieve their content (or an error if the request is badly formulated)
-
-- Scenario Nominatif
-
-```mermaid
-sequenceDiagram
-  actor APIs
-  participant Sys as WallCaster
-
-Sys ->> APIs : Ask media contents
-APIs ->> Sys : Sends media contents asked by APIs 
-
-```
-
-<br/>
-
-- Scenario exception : authentification token expired
-
-```mermaid
-sequenceDiagram
-  actor APIs
-  participant Sys as WallCaster
-
-Sys ->> APIs : Ask media contents
-APIs ->> Sys : Authentification error, token out of date. No media contents send.
-```
-
-<br/>
-
-- Scenario exception : no contents found
-
-```mermaid
-sequenceDiagram
-  actor APIs
-  participant Sys as WallCaster
-
-Sys ->> APIs : Ask media contents
-APIs ->> Sys : Error, no media contents found.
-```
-
-<br/>
-
-- Scenario exception : connection error
-
-```mermaid
-sequenceDiagram
-  actor APIs
-  participant Sys as WallCaster
-
-Sys ->> APIs : Ask media contents
-APIs ->> Sys : Connection error. No media contents send.
-```
-
-<br/>
-
-### 2.2.3 - Filtrage des posts
+### 2.2.2 - Fitler posts
 
 > Set of scenarios corresponding to the filtering of the posts.
 
@@ -271,7 +214,7 @@ sequenceDiagram
 
 <br/>
 
-### 2.2.4 - Sequence Supprimer post
+### 2.2.3 - Sequence Supprimer post
 
 - Nominative Scenario
 
@@ -304,7 +247,7 @@ Wl ->> Adm : Delete done
 
 <br/>
 
-### 2.2.5 - Change Filtre Diffusion
+### 2.2.4 - Change wanted contents
 
 - Nominal scenario
 
@@ -363,7 +306,7 @@ sequenceDiagram
 The error scenario considered is a server connection error involving an inability to apply or delete tags.
 
 
-### 2.2.6 - Set-up RaspberryPi
+### 2.2.5 - Set-up RaspberryPi
 
 ```mermaid
 sequenceDiagram
@@ -384,28 +327,26 @@ sequenceDiagram
 ### 2.3.1 - Manage photos
 
 > As an admin I want to display pictures taken on the screens. To do that I upload images on the server and now either a picture or a post can be displayed by the system.
-Then, I want to remove one of the images. To do so, I just need to remove it from the system.
+Then, I want to delete one of the images. To do so, I just need to remove it from the system.
 
-### 2.3.2 - Exctrat posts
-
-> The system want to send requests to the APIs and they answer it with the right contents.
-
-### 2.3.3 - Filter posts
+### 2.3.2 - Filter posts
 
 > As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
+  - Specific banwords
+  - Choose whether to filter "negative" posts or not
 
-> As an admin I can manualy moderate content
-
-### 2.3.4 - Sequence delete post
+### 2.3.3 - Sequence delete post
 
 > As an admin I can delete posts that have already been displayed
 
-### 2.3.5 - Change diffusion filter
+### 2.3.4 - Change wanted contents
 
 > As an admin I can set parameters (keywords, date, ...) for the posts to be searched by the API and shown on the website
+  - Tags/Hashtags
+  - Authors
+  - Date range 
 
-
-### 2.3.6 - Set-up RaspberryPi
+### 2.3.5 - Set-up RaspberryPi
 
 > As an admin I want to connect the client to the server.
 
