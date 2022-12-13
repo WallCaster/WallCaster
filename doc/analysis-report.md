@@ -363,7 +363,7 @@ Then, I want to remove one of the images. For that, he just need to remove it fr
 
 ### 2.3.3 - Filtrage des posts
 
-> As an admin I can set parameters (keywords, ...) for the filter to block unwanted content
+> As an admin I can add parameters (keywords, ...) to the filter to block unwanted content
 
 > As an admin I can manualy moderate content
 
@@ -378,7 +378,7 @@ Then, I want to remove one of the images. For that, he just need to remove it fr
 
 ### 2.3.6 - Set-up RaspberryPi
 
-> As an admin I can setup the raspberry pi to connect to the right wifi network so that it can access the website
+> As an admin I can setup the raspberry pi to connect to the right network so that it can access the website
 
 <br/>
 
