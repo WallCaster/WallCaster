@@ -134,7 +134,7 @@ class Post {
   -id : int 
   -content : String 
   -author : String 
-  -date :Date 
+  -date : Date 
   -url : String 
   +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
   +Post(String content, String author, Date date, String url, SocialNetwork source)
