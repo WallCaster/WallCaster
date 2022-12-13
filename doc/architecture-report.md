@@ -24,8 +24,8 @@ cloud "Learning Behavior API" as lbr
 srv --(0 api: <<REST API>> "1..n"
 srv -(0 lbr: <<REST API>>
 srv 0)-- rpi: <<HTTP>> "1..n"
-bck #--# afr: <<Socket.IO>>
-bck #-# cfr: <<Socket.IO>>
+bck #--# afr: <<Websocket>>
+bck #-# cfr: <<Websocket>>
 @enduml
 ``` 
 -->
