@@ -202,9 +202,9 @@ API <|-- FacebookAPI
 ```mermaid
 classDiagram
 class App {
-  -Boolean isConnected
-  -Post currentPost
-  -Post previousPost
+  -isConnected : Boolean
+  -currentPost : Post
+  -previousPost : Post
   -onConnect()
   -onDisconnect()
   -onMount()
@@ -218,8 +218,8 @@ class App {
 ```mermaid
 classDiagram
 class App {
-  -Boolean isConnected
-  -Config config
+  -isConnected : Boolean
+  -config : Config
   -onConnect()
   -onDisconnect()
   -onMount()
