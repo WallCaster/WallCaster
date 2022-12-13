@@ -433,7 +433,7 @@ Our system will have to communicate with various social network APIs in order to
 
 Our solution consist of a software and a hardware part. 
 The software part is a web application that will be used to configure the content to display dynamically.
-The hardware part are multiples RaspberryPi devices connected to the monitors to display the selected content.
+The hardware part are multiples RaspberryPi devices that are connected to the monitors to display the selected content.
 
 The content : 
 - It consists of a slideshow of images and text (with a nice visualization) fetched from a social network (Twitter, Instagram, Facebook, LinkedIn, etc.)
