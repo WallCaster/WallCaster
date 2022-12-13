@@ -349,8 +349,8 @@ Tasks :
   - Have an administrative frontend
   - Connect the frontend to the server
   - Create the "emotional" filter.
-  - Create the "banned words" filters.
-  - Apply it to fetched posts.
+  - Create the "banned words" filter.
+  - Apply them to fetched posts.
 
 ### 2.3.3 - Sequence delete posts
 
@@ -360,7 +360,7 @@ Tasks :
   - Have an administrative frontend
   - Connect the frontend to the server
   - Implement the functionnality which allows the admin to delete pictures.
-  - Apply it to existuing posts.
+  - Apply it to existing posts.
 
 ### 2.3.4 - Change wanted contents
 
