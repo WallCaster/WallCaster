@@ -336,9 +336,7 @@ Tasks :
   - Have an administrative frontend
   - Connect the frontend to the server
   - Implement the functionnality which allows the admin to add pictures.
-  - Apply it to desired pictures.
   - Implement the functionnality which allows the admin to delete pictures already in the system.
-  - Apply it to desired pictures.
 
 ### 2.3.2 - Filter posts
 
@@ -352,7 +350,6 @@ Tasks :
   - Connect the frontend to the server
   - Create the "emotional" filter.
   - Create the "banned words" filter.
-  - Apply them to fetched posts.
 
 ### 2.3.3 - Sequence delete posts
 
@@ -363,7 +360,6 @@ Tasks :
   - Have an administrative frontend
   - Connect the frontend to the server
   - Implement the functionnality which allows the admin to delete pictures.
-  - Apply it to existing posts.
 
 ### 2.3.4 - Change wanted contents
 
