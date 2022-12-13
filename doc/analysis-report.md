@@ -86,7 +86,7 @@ flowchart LR
 
 ```
 
-> This is the use case diagram. It shows what each actor is doing on the system. There are 3 actors, 2 primary and 1 secondary. The primary are the administrator and the APIs. The secondary is the spectator.
+> This is the use case diagram. It shows what each actor is doing on the system. There are 3 actors, 2 primary and 1 secondary. The primary ones are the administrator and the APIs. The secondary one is the spectator.
 
 ## 2.2 - Diagrame de Séquence Système
 
