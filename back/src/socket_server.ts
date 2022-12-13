@@ -11,7 +11,7 @@ export class SocketServer {
         origin: '*',
       },
     });
-    
+
     // don't add any event listeners here
     // add them in the onConnect function
     this.server.on('connection', this.onConnect.bind(this));
@@ -24,7 +24,7 @@ export class SocketServer {
     socket.onAny((event, ...args) => {
       console.log(`incoming event '${event}':`, args);
     });
-    socket.on("message", this.onMessage.bind(this, socket));
+    socket.on('message', this.onMessage.bind(this, socket));
   }
 
   private onDisconnect(socket: io.Socket) {
@@ -34,7 +34,7 @@ export class SocketServer {
   private onMessage(socket: io.Socket, message: string) {
     setTimeout(() => {
       console.log('sending responce to client');
-      socket.emit('message', 'I am  the server and i received your message');
+      socket.emit('message', { hello: 'I am  the server and i received your message' });
     }, 1000);
   }
 }
