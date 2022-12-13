@@ -42,7 +42,7 @@ HTTP - [Raspberry]
 ## Deployment Diagram
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Deployement](assets/deployment.svg)
-
+<!--
 ```plantuml
 @startuml deployment
 node "server" <<device>> as srv {
@@ -50,6 +50,7 @@ node "server" <<device>> as srv {
     component "backend" as bck
     component "client frontend" as cfr 
     component "admin frontend" as afr
+    component "filter" as flt
   }
 }
 
@@ -60,9 +61,10 @@ node "Raspberry Pi" <<device>> as rpi {
 bck #--# afr: ""<<Websocket>>""
 bck #-# cfr: ""<<Websocket>>""
 wb #--# cfr: ""1..n\n<<HTTP>>""
+bck #--# flt: ""<<Websocket>>""
 @enduml
 ```
-
+-->
 ## Server Backend
 ```mermaid
 classDiagram
