@@ -33,6 +33,37 @@ bck #-# cfr: <<Websocket>>
 # Architecture rules
 # Static model : packages organization, main classes descriptions and their responsabilities
 
+## Component Diagram
+```plantuml
+@startuml
+node "Persistant Server"  {
+  component "Server backend" as S {
+    portin posts
+  }
+  
+  component "Frontend Client" as FC {
+    portout portout
+  }
+  component "Frontend Admin" as FA {
+    portin connexion
+  }
+  FA - "Data Access"
+  "Data Access" - S
+  S - FC
+  
+}
+
+portout --> HTTP
+"Twitter API" --> posts
+"LinkedIn API" --> posts
+"Facebook API" --> posts
+"Instagram API" --> posts
+"Learning Behaviour API" --> S
+
+HTTP - [Raspberry]
+
+@enduml
+```
 
 ## Server Backend
 ```mermaid
