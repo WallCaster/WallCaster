@@ -19,10 +19,10 @@
     - [2.2.6 - Set-up RaspberryPi](#226---set-up-raspberrypi)
   - [2.3 - User Story](#23---user-story)
     - [2.3.1 - Manage photos](#231---manage-photos)
-    - [2.3.2 - Extraire Posts](#232---extraire-posts)
-    - [2.3.3 - Filtrage des posts](#233---filtrage-des-posts)
-    - [2.3.4 - Sequence Supprimer post](#234---sequence-supprimer-post)
-    - [2.3.5 - Change Filtre Diffusion](#235---change-filtre-diffusion)
+    - [2.3.2 - Exctrat posts](#232---exctrat-posts)
+    - [2.3.3 - Filter posts](#233---filter-posts)
+    - [2.3.4 - Sequence delete post](#234---sequence-delete-post)
+    - [2.3.5 - Change diffusion filter](#235---change-diffusion-filter)
     - [2.3.6 - Set-up RaspberryPi](#236---set-up-raspberrypi)
 - [3 - Description of the ecosystem: presentation of the elements with which the system will have to integrate, the constraints to be respected](#3---description-of-the-ecosystem-presentation-of-the-elements-with-which-the-system-will-have-to-integrate-the-constraints-to-be-respected)
 - [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
@@ -61,24 +61,24 @@
 
 ```mermaid
 flowchart LR
-    spec[fa:fa-user << secondary >> Spectator]
-    subgraph one
+    spec[fa:fa-user-o << secondary >> Spectator]
+    subgraph System
     a1([Watch multiple informations])
-    a1-. include .->a2([Watch posts])
-    a1-. include .->a3([Watch photos])
-    a2-. include .-> a4([Choice display content])
-    a3-. include .-> a4([Choice display content])
-    a4-. include .-> a6([Delete posts])
-    a4-. include .-> a7([Change what to fetch])
-    a4-. include .-> a8([Change what to filter])
-    a4-. include .-> a9([Set-up RaspberryPi])
-    a4-. include .-> a5([Manage photos])
-    a4-. include .-> a10([Extract posts])
+    a1-. << include >> .->a2([Watch posts])
+    a1-. << include >> .->a3([Watch photos])
+    a2-. << include >> .-> a4([Choice display content])
+    a3-. << include >> .-> a4([Choice display content])
+    a4-. << include >> .-> a6([Delete posts])
+    a4-. << include >> .-> a7([Change what to fetch])
+    a4-. << include >> .-> a8([Change what to filter])
+    a4-. << include >> .-> a9([Set-up RaspberryPi])
+    a4-. << include >> .-> a5([Manage photos])
+    a4-. << include >> .-> a10([Extract posts])
     end
     spec --- a1
-    a10---APis[fa:fa-user << actor >> APIs]
-    admin[fa:fa-user Administrator]
-    a3-. include .-> a5
+    a10---APis[fa:fa-user-o << actor >> APIs]
+    admin[fa:fa-user-o Administrator]
+    a3-. << include >> .-> a5
     a5---admin
     a6---admin
     a7---admin
