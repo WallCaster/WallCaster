@@ -123,10 +123,8 @@ class Config {
   -allowVideo : bool 
   -allowImage : bool 
 
-  -writeConfigToFile(String nameFile) Boolean
-  -readConfigFromFile(String nameFile) Boolean
-  +save() Boolean
-  +getInstance() Config
+  +writeConfigToFile(fileName : string) : void
+  +readConfigFromFile(fileName : string)) : void
   +toString() String
 }
 
