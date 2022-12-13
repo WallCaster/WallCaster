@@ -79,8 +79,8 @@ classDiagram
 
 
 class App {
-  -List~Post~ cache
-  -List~API~ apis
+  -cache : List~Post~ 
+  -apis : List~API~ 
 
   +App()
   +addAPI(API api)
@@ -90,13 +90,17 @@ class App {
 }
 
 class Filter {
-  +filter() List~Post~
-  -filterByBlacklist() List~Post~
-  -filterByWhitelist() List~Post~
-  -filterByDate() List~Post~
-  -filterByNegativeEmotion() List~Post~
-  -removeImages() List~Post~
-  -removeVideos() List~Post~
+  <<abstract>>
+  +Filter(Config config)
+  +apply(List~Post~ posts) List~Post~
+}
+class BanWordsFilter {
+  +BanWordsFilter(Config config)
+  +apply(List~Post~ posts) List~Post~
+}
+class NegativeFilter {
+  +NegativeFilter(Config config)
+  +apply(List~Post~ posts) List~Post~
 }
 
 class SocketServer {
@@ -110,14 +114,14 @@ class SocketServer {
 }
 
 class Config {
-  -int numberOfScreens
-  -int dateRange
-  -List~String~ forbiddenWords
-  -List~String~ whiteListAuthors
-  -List~String~ whiteListHashtags
-  -bool allowSound
-  -bool allowVideo
-  -bool allowImage
+  -numberOfScreens : int
+  -dateRange : int
+  -forbiddenWords : List~String~
+  -whiteListAuthors : List~String~ 
+  -whiteListHashtags : List~String~ 
+  -allowSound : bool 
+  -allowVideo : bool 
+  -allowImage : bool 
 
   -writeConfigToFile(String nameFile) Boolean
   -readConfigFromFile(String nameFile) Boolean
@@ -127,11 +131,11 @@ class Config {
 }
 
 class Post {
-  -int id
-  -String content
-  -String author
-  -Date date
-  -String url
+  -id : int 
+  -content : String 
+  -author : String 
+  -date : Date 
+  -url : String 
   +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
   +Post(String content, String author, Date date, String url, SocialNetwork source)
   -getUniqueID() int
@@ -140,16 +144,16 @@ class Post {
 
 class API {
   <<abstract>>
-  -String base_url
-  -String api_key
-  -List~String~ hashTag$
+  -base_url : String 
+  -api_key : String 
+  -hashTag$ : List~String~ 
   +API(String base_url)*
   +searchPostFromHashtag()* Post
   +defineHashTag(String hashtag)$
 }
 
 class PostImage {
-  -String url
+  -url : String 
   +PostImage(String url)
   +getURL()
 }
@@ -178,16 +182,19 @@ class FacebookAPI {
    
 }
 
-App "1" --o "1" Filter
+App "1" --o "*" Filter
 App "1" --o "1" SocketServer
 App "1" --o "1" API
+App "1" --> "*" Post : postsFiltered
 Filter "1" --> "1" Config : config
-Filter "1" --> "*" Post : postsFiltered
+Filter <|-- BanWordsFilter 
+Filter <|-- NegativeFilter
+
 Post "*" --> "0..1" PostImage : image
-Post "1" --> "1" SocialNetwork : source
 Config "1" --> "0..*" SocialNetwork : socialNetworkAccepted
 SocketServer "1" --> "1" Config : config
 API "1" --> "1" Config : config
+Post "1" --> "1" SocialNetwork : source
 API <|-- TwitterAPI
 API <|-- LinkedInAPI
 API <|-- InstagramAPI
@@ -202,9 +209,9 @@ API <|-- FacebookAPI
 ```mermaid
 classDiagram
 class App {
-  -Boolean isConnected
-  -Post currentPost
-  -Post previousPost
+  -isConnected : Boolean
+  -currentPost : Post
+  -previousPost : Post
   -onConnect()
   -onDisconnect()
   -onMount()
@@ -218,8 +225,8 @@ class App {
 ```mermaid
 classDiagram
 class App {
-  -Boolean isConnected
-  -Config config
+  -isConnected : Boolean
+  -config : Config
   -onConnect()
   -onDisconnect()
   -onMount()
@@ -229,7 +236,14 @@ class App {
 ```
 
 # Dynamic model : events streams, nominal and error-related, startup and shutdown
+
+
+
 # Explaination about analysis constrains consideration
+
+
+What we did that fit the constrains :
+
 # Production frame : development, configuration and deployment tools.
 
 ## Development tools
