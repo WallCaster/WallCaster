@@ -10,34 +10,42 @@
 ![Component](assets/component.svg)
 ```plantuml
 @startuml component
-node "Persistant Server"  {
-  component "Server backend" as S {
-    portin posts
-  }
-  
-  component "Frontend Client" as FC {
-    portout portout
-  }
-  component "Frontend Admin" as FA {
-    portin connexion
-  }
-  FA - DataAccess
-  DataAccess - S
-  S - FC
-  
-}
+[Frontend Admin] as FA
+[Frontend Client] as FC
+[Twitter API] as TW
+[API Receiver] as API
+[Filter] as F
+[Server backend] as SB
+[Navigator Admin] as NA
+[Navigator Client] as NC
+() "JSON" as JSON
+() "Posts" as POSTS1
+() "Posts" as POSTS2
+() "Config" as CONFIG
+() "HTML" as HTML1
+() "HTML" as HTML2
+() "Post" as POST
 
-portout --> HTTP
-TwitterAPI --> posts
-LinkedInAPI --> posts
-FacebookAPI --> posts
-InstagramAPI --> posts
-LearningBehaviourAPI --> S
+JSON -- TW
+JSON <.. API
+API -- POSTS1
+POSTS1 <.. F
+POSTS2 -- F
+POSTS2 <.. SB
+CONFIG <.. SB
+FA -- CONFIG
+SB -- POST
+FC ..> POST
 
-HTTP - [Raspberry]
+
+HTML1 <.. NA 
+FA -- HTML1
+
+NC ..> HTML2
+HTML2 -- FC
+
 
 @enduml
-```
 
 ## Deployment Diagram
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
