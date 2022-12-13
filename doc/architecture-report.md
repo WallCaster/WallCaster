@@ -8,7 +8,6 @@
 
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Component](assets/component.svg)
-<!--
 ```plantuml
 @startuml component
 node "Persistant Server"  {
@@ -28,18 +27,17 @@ node "Persistant Server"  {
   
 }
 
-portout -- > HTTP
-TwitterAPI -- > posts
-LinkedInAPI -- > posts
-FacebookAPI -- > posts
-InstagramAPI -- > posts
-LearningBehaviourAPI -- > S
+portout --> HTTP
+TwitterAPI --> posts
+LinkedInAPI --> posts
+FacebookAPI --> posts
+InstagramAPI --> posts
+LearningBehaviourAPI --> S
 
 HTTP - [Raspberry]
 
 @enduml
 ```
--->
 
 ## Deployment Diagram
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
