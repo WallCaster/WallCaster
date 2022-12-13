@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Analysis Report
 
 # Table of contents 
