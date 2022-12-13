@@ -1,4 +1,3 @@
-import { SocketServer } from './socket_server';
+import { App } from './app';
 
-console.log('Starting server...');
-new SocketServer();
+new App();
