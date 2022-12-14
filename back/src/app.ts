@@ -1,29 +1,24 @@
-import { Api } from './api';
-import { ApiTwitter } from './api-twitter';
-import { Config } from './config';
+import { Api, ApiRandom } from './api';
+import { Config, defaultConfig } from './config';
 import { Filter } from './filter';
 import { Post } from './post';
 import { SocketServer } from './socket-server';
 
 export class App {
+  private config: Config;
   private cache: Array<Post>;
   private apis: Array<Api>;
-  private postsFiltered: Array<Post>;
   private socketServer: SocketServer;
-  private filter: Filter;
-  private config: Config;
+  private filters: Array<Filter>;
 
   constructor() {
-    console.log('Starting server...');
     this.cache = new Array<Post>();
     this.apis = new Array<Api>();
-    this.postsFiltered = new Array<Post>();
-    this.config = new Config();
-    this.filter = new Filter();
+    this.config = defaultConfig;
+    this.filters = new Array<Filter>();
     this.socketServer = new SocketServer(this.config);
-    this.run();
   }
-
+  
   public addAPI(api: Api) {
     if (!this.apis.includes(api)) {
       this.apis.push(api);
@@ -52,13 +47,13 @@ export class App {
   public run() {
     // call in 3 sec again
     this.send();
-    setTimeout(() => this.run(), 1000);
+    setTimeout(() => this.run(), 3000);
   }
 
   private send() {
-    const postsToSend = new ApiTwitter(this.config).searchPostFromHashTag();
+    const postsToSend = new ApiRandom(this.config).fetchPost();
     if (postsToSend != null) {
-      console.log('Sending post to all clients...');
+      console.log('Sending post to all clients... clients:' + this.socketServer.getNumberOfClients());
       this.socketServer.sendPostToAll(postsToSend);
     }
   }

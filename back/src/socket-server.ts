@@ -23,7 +23,7 @@ export class SocketServer {
     this.server.on('connection', this.onConnect.bind(this));
     this.server.on('disconnect', this.onDisconnect.bind(this));
     this.server.listen(LISTENING_PORT);
-    console.log('listening on port', LISTENING_PORT);
+    console.log('listening for connections on port', LISTENING_PORT);
   }
 
   private onConnect(socket: io.Socket) {
@@ -39,7 +39,6 @@ export class SocketServer {
     });
 
     console.log('new client connected');
-    
   }
 
   private onDisconnect(socket: io.Socket) {
@@ -66,6 +65,10 @@ export class SocketServer {
     this.rooms.forEach((_, room) => {
       this.server.to(room).emit('post', post);
     });
+  }
+
+  public getNumberOfClients(): number {
+    return this.clients.size;
   }
 
   // send post to a specific client
