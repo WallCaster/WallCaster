@@ -22,7 +22,7 @@ export class App {
   public run() {
     // call in 3 sec again
     this.send();
-    setTimeout(() => this.run(), 1000);
+    setTimeout(() => this.run(), 3000);
   }
 
   private send() {
