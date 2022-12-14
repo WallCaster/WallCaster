@@ -6,19 +6,33 @@ import { SocketServer } from './socket-server';
 
 export class App {
   private config: Config;
-  private cache: Array<Post>;
+  private posts: Array<Post>;
   private apis: Array<Api>;
   private socketServer: SocketServer;
   private filters: Array<Filter>;
 
   constructor() {
-    this.cache = new Array<Post>();
+    this.posts = new Array<Post>();
     this.apis = new Array<Api>();
     this.config = defaultConfig;
     this.filters = new Array<Filter>();
     this.socketServer = new SocketServer(this.config);
   }
-  
+
+  public run() {
+    // call in 3 sec again
+    this.send();
+    setTimeout(() => this.run(), 3000);
+  }
+
+  private send() {
+    const postsToSend = new ApiRandom(this.config).fetchPost();
+    if (postsToSend != null) {
+      console.log('Sending post to all clients... clients:' + this.socketServer.getNumberOfClients());
+      this.socketServer.sendPostToAll(postsToSend);
+    }
+  }
+
   public addAPI(api: Api) {
     if (!this.apis.includes(api)) {
       this.apis.push(api);
@@ -33,28 +47,14 @@ export class App {
   }
 
   public addPost(post: Post) {
-    if (!this.cache.includes(post)) {
-      this.cache.push(post);
+    if (!this.posts.includes(post)) {
+      this.posts.push(post);
     }
   }
 
   public removePost(id: number) {
     if (id > -1 && id < this.apis.length) {
       this.apis.splice(id, 1);
-    }
-  }
-
-  public run() {
-    // call in 3 sec again
-    this.send();
-    setTimeout(() => this.run(), 3000);
-  }
-
-  private send() {
-    const postsToSend = new ApiRandom(this.config).fetchPost();
-    if (postsToSend != null) {
-      console.log('Sending post to all clients... clients:' + this.socketServer.getNumberOfClients());
-      this.socketServer.sendPostToAll(postsToSend);
     }
   }
 }
