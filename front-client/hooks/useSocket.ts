@@ -9,27 +9,30 @@ import { useState, useEffect } from 'react';
 const useSocket = (url: string, callback?: (socket: io.Socket) => void) => {
   const [socket, setSocket] = useState<io.Socket | null>(null);
 
-  // This is called when the component is mounted
   useEffect(() => {
-    const socket = io.io(url, { autoConnect: true });
-    socket.on('connect', () => {
+    console.log('Connecting to socket server at', url);
+    if (socket) {
+      socket.disconnect();
+    }
+    const s = io.io(url, { autoConnect: true });
+    s.on('connect', () => {
       console.log('%cConnected to socket!', 'color: lightgreen');
-      setSocket(socket);
+      setSocket(s);
     });
-    socket.on('disconnect', () => {
+    s.on('disconnect', () => {
       console.log('%cDisconnected from socket, trying to reconnect...', 'color: red');
       setSocket(null);
     });
-    if (callback) callback(socket);
-    socket.onAny((event, ...args) => {
+    if (callback) callback(s);
+    s.onAny((event, ...args) => {
       console.log(`incoming event '${event}':`, args);
     });
 
     // This is called when the component is unmounted
     return () => {
-      socket.disconnect();
+      if (s) s.disconnect();
     };
-  }, []);
+  }, [url]);
 
   return socket;
 };
