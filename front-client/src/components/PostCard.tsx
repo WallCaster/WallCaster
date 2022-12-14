@@ -24,7 +24,7 @@ const TwitterPostCard = ({ post }: { post: WithId<Post> }) => {
   const likes = Math.round(Math.random() * 1000);
 
   return (
-    <div className='flex flex-col bg-white text-black p-7 rounded-xl shadow-xl border m-10 gap-4 overflow-hidden'>
+    <div className='flex flex-col bg-white text-black p-7 rounded-xl shadow-xl border my-5 md:m-10 gap-4 overflow-hidden'>
       <div className='flex gap-4'>
         <div className='avatar mask mask-circle h-12 w-12 shrink-0'>
           <img src={authorImage} alt='avatar' />
@@ -37,7 +37,7 @@ const TwitterPostCard = ({ post }: { post: WithId<Post> }) => {
       <div className='flex flex-col gap-4'>
         <p className='text-2xl'>{post.content.text}</p>
         <div className='text-gray-600 text-lg'>{time + ' · ' + date}</div>
-        <div className='flex gap-10 border-t pt-4'>
+        <div className='flex gap-5 border-t flex-wrap pt-4'>
           <p>
             <span className='font-bold'>{retweets.toLocaleString()}</span> Retweets
           </p>
