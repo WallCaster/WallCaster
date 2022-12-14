@@ -1,18 +1,18 @@
 import { Api, ApiRandom } from './api';
 import { Config, defaultConfig } from './config';
 import { Filter } from './filter';
-import { Post } from './post';
+import { Post, WithId } from './post';
 import { SocketServer } from './socket-server';
 
 export class App {
   private config: Config;
-  private posts: Array<Post>;
+  private posts: Array<WithId<Post>>;
   private apis: Array<Api>;
   private socketServer: SocketServer;
   private filters: Array<Filter>;
 
   constructor() {
-    this.posts = new Array<Post>();
+    this.posts = new Array<WithId<Post>>();
     this.apis = new Array<Api>();
     this.config = defaultConfig;
     this.filters = new Array<Filter>();
@@ -22,7 +22,7 @@ export class App {
   public run() {
     // call in 3 sec again
     this.send();
-    setTimeout(() => this.run(), 3000);
+    setTimeout(() => this.run(), 1000);
   }
 
   private send() {
@@ -46,7 +46,7 @@ export class App {
     }
   }
 
-  public addPost(post: Post) {
+  public addPost(post: WithId<Post>) {
     if (!this.posts.includes(post)) {
       this.posts.push(post);
     }

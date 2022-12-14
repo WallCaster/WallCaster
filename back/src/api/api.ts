@@ -1,5 +1,5 @@
 import { Config } from '../config';
-import { SocialNetwork, Post } from '../post';
+import { SocialNetwork, Post, WithId } from '../post';
 
 export abstract class Api {
   protected socialNetwork: SocialNetwork;
@@ -8,5 +8,5 @@ export abstract class Api {
     this.socialNetwork = socialNetwork;
   }
 
-  public abstract fetchPost(): Post;
+  public abstract fetchPost(): WithId<Post>;
 }
