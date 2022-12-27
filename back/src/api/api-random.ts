@@ -3,8 +3,8 @@ import { SocialNetwork, WithId, Post, postWithId } from '../post';
 import { Api } from './api';
 
 export class ApiRandom extends Api {
-  constructor(config: Config) {
-    super(config, SocialNetwork.TWITTER);
+  constructor() {
+    super(SocialNetwork.TWITTER);
   }
 
   public fetchPost(): WithId<Post> {
