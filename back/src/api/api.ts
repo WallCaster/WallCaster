@@ -1,11 +1,13 @@
 import { Config } from '../config';
-import { SocialNetwork, Post, WithId } from '../post';
+import { SocialNetworkType, Post, WithId } from '../post';
 
 export abstract class Api {
-  protected socialNetwork: SocialNetwork;
+  protected socialNetwork: SocialNetworkType;
+  protected config: Config;
 
-  constructor(config: Config, socialNetwork: SocialNetwork) {
+  constructor(socialNetwork: SocialNetworkType) {
     this.socialNetwork = socialNetwork;
+    this.config = Config.getInstance();
   }
 
   public abstract fetchPost(): WithId<Post>;
