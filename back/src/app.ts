@@ -1,23 +1,17 @@
 import { Api, ApiRandom } from './api';
-import { Config, defaultConfig } from './config';
 import { Filter } from './filter';
 import { Post, WithId } from './post';
 import { SocketServer } from './socket-server';
 
 export class App {
-  private config: Config;
-  private posts: Array<WithId<Post>>;
-  private apis: Array<Api>;
-  private socketServer: SocketServer;
-  private filters: Array<Filter>;
-
-  constructor() {
-    this.posts = new Array<WithId<Post>>();
-    this.apis = new Array<Api>();
-    this.config = defaultConfig;
-    this.filters = new Array<Filter>();
-    this.socketServer = new SocketServer(this.config);
-  }
+  /**
+   * the cache of posts
+   * first in first out
+   */
+  private posts: Array<WithId<Post>> = new Array<WithId<Post>>();
+  private socketServer: SocketServer = new SocketServer();
+  private apis: Array<Api> = [new ApiRandom()];
+  private filters: Array<Filter> = [];
 
   public run() {
     // call in 3 sec again
@@ -26,30 +20,33 @@ export class App {
   }
 
   private send() {
-    const postsToSend = new ApiRandom(this.config).fetchPost();
+    const postsToSend = new ApiRandom().fetchPost();
     if (postsToSend != null) {
       console.log('Sending post to all clients... clients:' + this.socketServer.getNumberOfClients());
       this.socketServer.sendPostToAll(postsToSend);
     }
   }
 
-  public addAPI(api: Api) {
-    if (!this.apis.includes(api)) {
-      this.apis.push(api);
-    }
-  }
-
-  public removeAPI(api: Api) {
-    const index: number = this.apis.indexOf(api);
-    if (index > -1) {
-      this.apis.splice(index, 1);
-    }
-  }
-
+  /**
+   * Adds a new post to the cache but in the front to prioritize it
+   */
   public addPost(post: WithId<Post>) {
-    if (!this.posts.includes(post)) {
+    this.posts.unshift(post);
+  }
+
+  /**
+   * Get the next post to send to the client
+   * It is the first post in the cache
+   * then add it back to the end of the cache
+   */
+  public getNextPost(): WithId<Post> | null {
+    if (this.posts.length > 0) {
+      const post = this.posts[0];
+      this.posts.splice(0, 1);
       this.posts.push(post);
+      return post;
     }
+    return null;
   }
 
   public removePost(id: number) {

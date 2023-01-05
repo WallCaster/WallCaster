@@ -12,8 +12,8 @@ export class SocketServer {
   private rooms: Map<string, SocketId[]>;
   private clients: Map<SocketId, io.Socket>;
 
-  constructor(config: Config) {
-    this.config = config;
+  constructor() {
+    this.config = Config.getInstance();
     this.server = new io.Server({ cors: { origin: '*' } });
     this.rooms = new Map();
     this.clients = new Map();

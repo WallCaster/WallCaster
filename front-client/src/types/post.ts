@@ -10,7 +10,7 @@ export type Post = {
   image?: PostImage;
   date: Date;
   originUrl: string;
-  socialNetwork: SocialNetwork;
+  socialNetwork: SocialNetworkType;
 };
 
 export type Content = {
@@ -24,9 +24,11 @@ export type Author = {
   image?: string;
 };
 
-export enum SocialNetwork {
-  TWITTER,
-  INSTAGRAM,
-  FACEBOOK,
-  LINKEDIN,
-}
+export type SocialNetworkType = typeof SocialNetwork[keyof typeof SocialNetwork];
+
+export const SocialNetwork = {
+  TWITTER: 'twitter',
+  INSTAGRAM: 'instagram',
+  FACEBOOK: 'facebook',
+  LINKEDIN: 'linkedin',
+} as const;
