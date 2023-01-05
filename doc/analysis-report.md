@@ -46,10 +46,10 @@
 **Bonus**: If the conference is over several days, possibility for the official photographer to broadcast the images taken the day before on the screens. 
 ## 1.2 - Criteria for success
 
-- La specification est completement effectuée
-- La deadline est respectée
-- Le software fonctionne correctement (pas de bogues)
-- Les critères de test sont validés
+- The specification is fully done
+- The deadline is respected
+- The software works fine (no bugs)
+- The test criterias are validated
 
 <br/>
 

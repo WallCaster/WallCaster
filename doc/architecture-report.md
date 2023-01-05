@@ -259,8 +259,17 @@ The sequence diagram above shows how the different objets and classes communic t
 
 # Explaination about analysis constrains consideration
 
-
 What we did that fit the constrains :
+
+- We have a Filter Interface and its son classes to filter posts
+
+- The class Post has a Image class to store a picture
+
+- There is the possibility to request different APIs thank's to the API class and its son classes
+
+- An interface for the backend will be developed to allow the admin to manage the configuration (Tags/hashtags, authors, date range, etc) and the content that will be send to the frontend.
+
+- The posts will be send to the front thank's to the Socket class.
 
 # Production frame : development, configuration and deployment tools.
 
@@ -280,6 +289,12 @@ What we did that fit the constrains :
 
 ### Frontend
 - Astro
+
+### Test tools
+
+- Static test : ESLint
+
+- Dynamic test (unit testing & integration test) : Jest
 
 DEVELOPMENT RULES :
 - Naming conventions : [makecode.com/extensions/naming-conventions](https://makecode.com/extensions/naming-conventions)
