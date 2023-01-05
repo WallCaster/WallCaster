@@ -1,0 +1,21 @@
+version: '3.0'
+services:
+  back:
+    image: node:18-alpine
+    volumes:
+      - ./back:/app
+    working_dir: /app
+    command: yarn start
+    ports:
+      - 3001:3001
+  front:
+    image: node:18-alpine
+    restart: always
+    ports:
+      - 80:3000
+    depends_on:
+      - back
+    volumes:
+      - ./front-client:/app
+    command: yarn start
+    working_dir: /app

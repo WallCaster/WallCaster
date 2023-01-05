@@ -14,7 +14,9 @@ const useSocket = (url: string, callback?: (socket: io.Socket) => void) => {
     if (socket) {
       socket.disconnect();
     }
-    const s = io.io(url, { autoConnect: true });
+    const s = io.io(url, {
+      autoConnect: true,  
+    });
     s.on('connect', () => {
       console.log('%cConnected to socket!', 'color: lightgreen');
       setSocket(s);
