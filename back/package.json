@@ -10,7 +10,7 @@
   "scripts": {
     "start": "nodemon --watch src --exec ts-node src/index.ts --ignore ./src/settings.json",
     "dev": "nodemon --watch src --exec ts-node src/index.ts",
-    "build": "tsc -p",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
