@@ -1,0 +1,21 @@
+version: '3.0'
+services:
+  back:
+    build: # "context" and "dockerfile" fields have to be under "build"
+      context: back
+      dockerfile: Dockerfile
+    container_name: back
+    restart: always
+    #ports:
+    #  - 3001:3001
+
+  front:
+    build: # "context" and "dockerfile" fields have to be under "build"
+      context: front-client
+      dockerfile: Dockerfile
+    container_name: front-client
+    restart: always
+    ports:
+      - 80:3000
+    depends_on:
+      - back
