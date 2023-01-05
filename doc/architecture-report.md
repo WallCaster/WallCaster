@@ -1,7 +1,3 @@
-# Implementation principle of the solution (how)
-
-![Excalidraw diagram architecture](assets/Architecture.excalidraw.svg)
-
 # Static model : packages organization, main classes descriptions and their responsabilities
 
 ## Component Diagram
@@ -277,7 +273,7 @@ What we did that fit the constrains :
 
 ### Versionning code tool
 
-- Git / GitHub
+- Git (GitHub)
 
 ### Continous development
 
@@ -296,20 +292,21 @@ What we did that fit the constrains :
 
 #### Frontend
 
-- Astro (NodeJS) & React
+- Astro (NodeJS)
+- React
 
 ### Test tools
 
-- Static test : ESLint & Code Review
+- Static test : 
+  - ESLint 
+  - Code Review
 
 - Dynamic test (unit testing & integration test) : Jest
-
-Development rules :
-- Naming conventions : [makecode.com/extensions/naming-conventions](https://makecode.com/extensions/naming-conventions)
 
 ## Deployment tools
 
 - Docker / Docker Compose
+- Naming conventions : [link](https://makecode.com/extensions/naming-conventions)
 
 ## Coloboratoin tools
 
