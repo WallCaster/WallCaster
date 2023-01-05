@@ -1,3 +1,27 @@
+# Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Static model : packages organization, main classes descriptions and their responsabilities](#static-model--packages-organization-main-classes-descriptions-and-their-responsabilities)
+  - [Component Diagram](#component-diagram)
+  - [Deployment Diagram](#deployment-diagram)
+  - [Server Backend](#server-backend)
+  - [Frontend Clients](#frontend-clients)
+  - [Frontend Administration](#frontend-administration)
+- [Dynamic model : events streams, nominal and error-related, startup and shutdown](#dynamic-model--events-streams-nominal-and-error-related-startup-and-shutdown)
+- [Explaination about analysis constrains consideration](#explaination-about-analysis-constrains-consideration)
+- [Production frame : development, configuration and deployment tools.](#production-frame--development-configuration-and-deployment-tools)
+  - [Development tools](#development-tools)
+    - [Versionning code tool](#versionning-code-tool)
+    - [Continous development](#continous-development)
+    - [Language](#language)
+    - [Framework](#framework)
+      - [Backend](#backend)
+      - [Frontend](#frontend)
+    - [Test tools](#test-tools)
+  - [Deployment tools](#deployment-tools)
+  - [Coloboratoin tools](#coloboratoin-tools)
+
+
 # Static model : packages organization, main classes descriptions and their responsabilities
 
 ## Component Diagram
@@ -78,7 +102,7 @@ bck #--# flt: ""<<Websocket>>""
 ```
 -->
 
-The execution node « docker » correspond to a DockerCompose which allow to manage the different components present on the server in a container form.
+The execution node "docker" correspond to a DockerCompose which allow to manage the different components present on the server in a container form.
 
 ## Server Backend
 
@@ -88,7 +112,8 @@ This diagram represents the UML diagram of the backend.
 One of the class is called "Config" and represent all the parameter of the application. This class is a singleton because only one configuration is nessecary.
 The class "Socket" allows to send informations to the back.
 
-<!--```mermaid
+<!--
+```mermaid
 classDiagram
 
 
@@ -213,7 +238,8 @@ API <|-- InstagramAPI
 API <|-- FacebookAPI
 
 
-``` -->
+``` 
+-->
 
 
 ## Frontend Clients
@@ -257,15 +283,20 @@ The sequence diagram above shows how the different objets and classes communic t
 
 What we did that fit the constrains :
 
-- We have a Filter Interface and its son classes to filter posts
+- We have a `Filter` Interface and its child classes to filter posts
 
-- The class Post has a Image class to store a picture
+- The `Post` class  has a Image class to store a picture
 
-- There is the possibility to request different APIs thank's to the API class and its son classes
+- There is the possibility to request different APIs thanks to the `API` class and its child classes
 
 - An interface for the backend will be developed to allow the admin to manage the configuration (Tags/hashtags, authors, date range, etc) and the content that will be send to the frontend.
 
-- The posts will be send to the front thank's to the Socket class.
+- The posts will be send to the front thanks to the `Socket` class.
+
+- The project is dockerized and can be deployed on a dedicated server to be used by multiple clients.
+
+- The frontend client is a web application that can be used on any device that has a browser (PC, tablet, smartphone, raspberry pi, etc).
+
 
 # Production frame : development, configuration and deployment tools.
 
@@ -301,12 +332,14 @@ What we did that fit the constrains :
   - ESLint 
   - Code Review
 
-- Dynamic test (unit testing & integration test) : Jest
+- Dynamic test (unit testing & integration test) : 
+  - Jest
 
 ## Deployment tools
 
 - Docker / Docker Compose
-- Naming conventions : [link](https://makecode.com/extensions/naming-conventions)
+- Naming conventions :
+  - [Microsoft TypeScript conventions](https://makecode.com/extensions/naming-conventions)
 
 ## Coloboratoin tools
 

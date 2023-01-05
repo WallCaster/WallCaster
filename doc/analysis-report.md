@@ -11,7 +11,7 @@
   - [2.1 - Use case diagram](#21---use-case-diagram)
   - [2.2 - Diagrame de Séquence Système](#22---diagrame-de-séquence-système)
     - [2.2.1 - Manage photos](#221---manage-photos)
-    - [2.2.2 - Filter posts](#222---fitler-posts)
+    - [2.2.2 - Fitler posts](#222---fitler-posts)
     - [2.2.3 - Sequence Supprimer post](#223---sequence-supprimer-post)
     - [2.2.4 - Change wanted contents](#224---change-wanted-contents)
     - [2.2.5 - Set-up RaspberryPi](#225---set-up-raspberrypi)
@@ -44,6 +44,7 @@
 - Collect content according to given query and sources, for instance: LinkedIn, Instagram, Facebook/Meta, Twitter). 
  
 **Bonus**: If the conference is over several days, possibility for the official photographer to broadcast the images taken the day before on the screens. 
+
 ## 1.2 - Criteria for success
 
 - The specification is fully done
@@ -51,7 +52,6 @@
 - The software works fine (no bugs)
 - The test criterias are validated
 
-<br/>
 
 # 2 - Model of the business domain : UML model of the manipulated notions, relations and explanations
 
