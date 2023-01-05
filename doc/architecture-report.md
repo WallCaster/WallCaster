@@ -281,26 +281,37 @@ What we did that fit the constrains :
 
 ### Continous development
 
-- CI
+- Github Actions 
+- DockerCompose
 
 ### Language
 
+- TypeScript
+
+### Framework 
+
+#### Backend
+
 - NodeJS
 
-### Frontend
-- Astro
+#### Frontend
+
+- Astro (NodeJS) & React
 
 ### Test tools
 
-- Static test : ESLint
+- Static test : ESLint & Code Review
 
 - Dynamic test (unit testing & integration test) : Jest
 
-DEVELOPMENT RULES :
+Development rules :
 - Naming conventions : [makecode.com/extensions/naming-conventions](https://makecode.com/extensions/naming-conventions)
-
-## Configuration tools
 
 ## Deployment tools
 
-- Docker 
+- Docker / Docker Compose
+
+## Coloboratoin tools
+
+- Github kanban (for backlogs)
+- Discord
