@@ -49,6 +49,12 @@ HTML2 -- FC
 @enduml
 ```
 -->
+
+This component diagram shows us the different interactions between each component of our system. Indeed, our server is the central component since it communicates with the different interfaces.
+Our backend server retrieves Posts items from the Filter component which retrieves them from the Receiver API. As for the API Receiver component, it retrieves the JSON files corresponding to the Twitter API posts.
+Additionally, our client frontend fetches each Post through the backend server.
+Finally, our frontend Admin brings the necessary configuration (Config) to the backend server.
+
 ## Deployment Diagram
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Deployement](assets/deployment.svg)
