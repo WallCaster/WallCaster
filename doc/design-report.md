@@ -1,8 +1,8 @@
 # Sprint 0
-Durant ce sprint 0, nous avons définis les bases du projet afin de s'accorder sur la solution envisagée au problème.
-Pour cela nous avons commencé par analyser le système et les différentes intéractions avec les acteurs à l'aide de use case diagram et de user stories.
-Dans un second temps, nous avons détaillé l'architecture que prendra notre projet à l'aide de diagrammes de composants et de déploiement. Puis, nous avons spécifié chaque service par un diagramme de classe et un diagramme de séquence correspondant. Nous avons aussi défini les outils de développement et de gestion de projet qu'on utilisera tout au long du projet.
-Enfin, la dernière partie de ce sprint a été consacré à la création d'un prototype du projet afin de le présenter au product owner.
+During this sprint 0, we defined the bases of the project in order to agree on the solution envisaged to the problem.
+For this we started by analyzing the system and the different interactions with the actors using use case diagram and user stories.
+Secondly, we detailed the architecture that our project will take using component and deployment diagrams. Then, we specified each service by a class diagram and a corresponding sequence diagram. We have also defined the development and project management tools that we will use throughout the project.
+Finally, the last part of this sprint was devoted to the creation of a prototype of the project in order to present it to the product owner.
 
 ## Expected Outcome
 
