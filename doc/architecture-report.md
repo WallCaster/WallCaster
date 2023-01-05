@@ -81,10 +81,18 @@ bck #--# flt: ""<<Websocket>>""
 @enduml
 ```
 -->
-Le noeud d'exécution « docker » correspond à un Dockercompose qui permet de gérer les différents composants présent sur le serveur sous forme de conteneurs.
+
+The execution node « docker » correspond to a DockerCompose which allow to manage the different components present on the server in a container form.
 
 ## Server Backend
-```mermaid
+
+![image](assets/Class%20Diagram%20Back.png)
+
+This diagram represents the UML diagram of the backend.
+One of the class is called "Config" and represent all the parameter of the application. This class is a singleton because only one configuration is nessecary.
+The class "Socket" allows to send informations to the back.
+
+<!--```mermaid
 classDiagram
 
 
@@ -193,23 +201,23 @@ class FacebookAPI {
 App "1" --o "*" Filter
 App "1" --o "1" SocketServer
 App "1" --o "1" API
-App "1" --> "*" Post : postsFiltered
-Filter "1" --> "1" Config : config
+App "1" - -> "*" Post : postsFiltered
+Filter "1" - -> "1" Config : config
 Filter <|-- BanWordsFilter 
 Filter <|-- NegativeFilter
 
-Post "*" --> "0..1" PostImage : image
-Config "1" --> "0..*" SocialNetwork : socialNetworkAccepted
-SocketServer "1" --> "1" Config : config
-API "1" --> "1" Config : config
-Post "1" --> "1" SocialNetwork : source
+Post "*" - -> "0..1" PostImage : image
+Config "1" - -> "0..*" SocialNetwork : socialNetworkAccepted
+SocketServer "1" - -> "1" Config : config
+API "1" - -> "1" Config : config
+Post "1" - -> "1" SocialNetwork : source
 API <|-- TwitterAPI
 API <|-- LinkedInAPI
 API <|-- InstagramAPI
 API <|-- FacebookAPI
 
 
-```
+``` -->
 
 
 ## Frontend Clients
@@ -245,7 +253,9 @@ class App {
 
 # Dynamic model : events streams, nominal and error-related, startup and shutdown
 
+![image](assets/Sequence%20Diagram%20WallCaster.png)
 
+The sequence diagram above shows how the different objets and classes communic to refresh the posts store and send them to the backend. That is represented thank's to two parrallel actions : Methods "run()" and "updateCache()".
 
 # Explaination about analysis constrains consideration
 
@@ -256,14 +266,25 @@ What we did that fit the constrains :
 
 ## Development tools
 
+### Versionning code tool
+
 - Git / GitHub
+
+### Continous development
+
 - CI
+
+### Language
+
+- NodeJS
+
+### Frontend
+- Astro
 
 DEVELOPMENT RULES :
 - Naming conventions : [makecode.com/extensions/naming-conventions](https://makecode.com/extensions/naming-conventions)
 
 ## Configuration tools
-
 
 ## Deployment tools
 
