@@ -95,7 +95,7 @@ flowchart LR
 
 <br/>
 
-- Scenario Nominatif
+- Nominative Scenario
 
 ```mermaid
 sequenceDiagram
