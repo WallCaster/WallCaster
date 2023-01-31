@@ -114,6 +114,32 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
                   setValue={(b) => setTemp({ ...temp, query: { ...temp.query, useWhitelistAuthors: b } })}
                   desc='Only show tweets from the authors in the whitelist'
                 />
+                <Input
+                  className='col-span-1'
+                  id='dateFrom'
+                  label='Date from'
+                  value={temp.query.dateRange.start}
+                  setValue={(s) =>
+                    setTemp({
+                      ...temp,
+                      query: { ...temp.query, dateRange: { ...temp.query.dateRange, start: new Date(s) } },
+                    })
+                  }
+                  type='date'
+                />
+                <Input
+                  className='col-span-1'
+                  id='dateTo'
+                  label='Date to'
+                  value={temp.query.dateRange.end}
+                  setValue={(s) =>
+                    setTemp({
+                      ...temp,
+                      query: { ...temp.query, dateRange: { ...temp.query.dateRange, end: new Date(s) } },
+                    })
+                  }
+                  type='date'
+                />
               </div>
             </div>
             <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>

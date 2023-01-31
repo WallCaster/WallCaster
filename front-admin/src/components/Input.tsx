@@ -11,7 +11,7 @@ export default function Input({
   label: string;
   className?: string;
   type: string;
-  value: number;
+  value: number | Date | string;
   setValue: (value: string) => void;
   args?: any;
 }) {
