@@ -56,7 +56,7 @@ export class App {
   }
 
   public sendToFilter() : void {
-    fetch()
+    // fetch()
   }
 
 }
