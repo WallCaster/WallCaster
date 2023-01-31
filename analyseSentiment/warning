@@ -1,0 +1,11 @@
+Tout d'abord,install the NLTK package avec le gestionnaire de packagespip: 
+**pip install nltk==3.3**
+
+Commencez par démarrer une session interactive Python en exécutant la commande suivante: 
+**python3**
+
+Ensuite, importez le modulenltk dans l'interpréteur python. 
+**import nltk**
+
+Téléchargez les exemples de tweets à partir du package NLTK: 
+**nltk.download('twitter_samples')**
