@@ -7,8 +7,8 @@ export class ApiRandom extends Api {
     super(SocialNetwork.TWITTER);
   }
 
-  public fetchPost(): WithId<Post> {
-    return postWithId({
+  public fetchPosts(): WithId<Post>[] {
+    return [postWithId({
       content: {
         text:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vitae ultricies lacinia, nunc nisl ultricies nunc' +
@@ -22,7 +22,7 @@ export class ApiRandom extends Api {
       date: new Date(Date.now()),
       originUrl: 'http://localhost:3000/twitter',
       socialNetwork: this.socialNetwork,
-    });
+    })];
   }
 }
 
