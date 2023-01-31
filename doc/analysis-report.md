@@ -444,7 +444,7 @@ Our system will have to communicate with various social network APIs in order to
 
 <br/>
 
-# 4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)
+# 4 - Solution principle: external description of the proposed solution (the what, not the how)
 
 Our solution consist of a software and a hardware part. 
 The software part is a web application that will be used to configure the content to display dynamically.
