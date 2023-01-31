@@ -54,9 +54,4 @@ export class App {
       this.apis.splice(id, 1);
     }
   }
-
-  public sendToFilter() : void {
-    // fetch()
-  }
-
 }
