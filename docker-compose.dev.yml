@@ -8,7 +8,8 @@ services:
     command: yarn start
     ports:
       - 3001:3001
-  front:
+      
+  front-client:
     image: node:18-alpine
     restart: always
     ports:
@@ -17,5 +18,17 @@ services:
       - back
     volumes:
       - ./front-client:/app
+    command: yarn start
+    working_dir: /app
+
+  front-admin:
+    image: node:18-alpine
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - back
+    volumes:
+      - ./front-admin:/app
     command: yarn start
     working_dir: /app
