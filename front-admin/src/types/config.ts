@@ -1,19 +1,21 @@
 
-/**
- * The config class
- * Singleton
- * @note The config is saved in a file called settings.json
- */
 export type Config = {
-   _numberOfScreens: number;
-   _dataRange: DateRange;
-   _forbiddenWords: string[];
-   _whitelistAuthors: string[];
-   _whitelistHashtags: string[];
-   _allowSound: boolean;
-   _allowVideo: boolean;
-   _allowImage: boolean;
-}
+  numberOfScreens: number;
+  query: {
+    dateRange: DateRange;
+    whitelistHashtags: string[];
+    useWhitelistHashtags: boolean;
+    whitelistAuthors: string[];
+    useWhitelistAuthors: boolean;
+  }
+  filters: {
+    forbiddenWords: string[];
+    allowSound: boolean;
+    allowVideo: boolean;
+    allowImage: boolean;
+  }
+};
+
 
 export type DateRange = {
   start: Date;
