@@ -9,3 +9,6 @@ Ensuite, importez le modulenltk dans l'interpréteur python.
 
 Téléchargez les exemples de tweets à partir du package NLTK: 
 **nltk.download('twitter_samples')**
+
+Pour lancez le script, exécutez la commande suivante:
+**python3 nlp_test.py**
