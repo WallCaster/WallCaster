@@ -20,4 +20,4 @@ def helloworld():
 @app.post("/filter")
 def callFilter():
     print(request.form['text']);
-    return true;
+    return True;
