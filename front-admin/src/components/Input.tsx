@@ -15,6 +15,30 @@ export default function Input({
   setValue: (value: string) => void;
   args?: any;
 }) {
+  if (type === 'date')
+    return (
+      <div className={`${className}`}>
+        <label htmlFor={id} className='block text-sm font-medium text-gray-700'>
+          {label}
+        </label>
+        <div className='mt-1'>
+          <input
+            type='date'
+            value={new Date(value)}
+            onChange={(e) => {
+              console.log(value);
+              console.log(new Date(value));
+              console.log(e.target.value);
+              setValue(e.target.value);
+            }}
+            name={id}
+            id={id}
+            {...args}
+            className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
+          />
+        </div>
+      </div>
+    );
   return (
     <div className={`${className}`}>
       <label htmlFor={id} className='block text-sm font-medium text-gray-700'>

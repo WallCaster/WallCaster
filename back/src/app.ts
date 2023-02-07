@@ -11,7 +11,6 @@ export class App {
   private posts: Array<WithId<Post>> = new Array<WithId<Post>>();
   private socketServer: SocketServer = new SocketServer();
   private apis: Array<Api> = [new ApiRandom()];
-  private filters: Array<Filter> = [];
 
   public run() {
     const post = new ApiRandom().fetchPost();
