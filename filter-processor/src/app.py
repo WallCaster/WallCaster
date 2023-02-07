@@ -1,18 +1,15 @@
-# import os
+from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
 
-# from flask import Flask
-# app = Flask(__name__)
-
-# import filter
-
-# Import flask module
-from flask import Flask
- 
 app = Flask(__name__)
- 
-@app.route('/')
-def index():
-    return 'Hello to Flask!'
+cors = CORS(app, supports_credentials=True)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+@app.post("/filter")
+@cross_origin()
+def callFilter():
+    print(request)
+    return jsonify({"result":True})
  
 # main driver function
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 from src import app
 
-from markupsafe import escape
-from flask import Flask
-from flask import url_for
-from flask import render_template
-from flask import request
+# from markupsafe import escape
+# from flask import Flask
+# from flask import url_for
+# from flask import render_template
+# from flask import request
 
 
 # app = Flask(__name__)
@@ -17,7 +17,7 @@ from flask import request
 def helloworld():
     return 'Hello World'
 
-@app.post("/filter")
-def callFilter():
-    print(request.form['text']);
-    return true;
+# @app.post("/filter")
+# def callFilter():
+#     print(request.form['text']);
+#     return true;
