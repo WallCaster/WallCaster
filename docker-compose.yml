@@ -19,3 +19,14 @@ services:
       - 80:3000
     depends_on:
       - back
+  
+  filter-processor:
+    build:
+      context: filter-processor
+      dockerfile: Dockerfile
+    container_name: filter-processor
+    restart: always
+    ports:
+      - 5000:5000
+    depends_on:
+      - back

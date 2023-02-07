@@ -13,6 +13,9 @@ export class App {
   private apis: Array<Api> = [new ApiRandom()];
 
   public run() {
+    const post = new ApiRandom().fetchPost();
+    this.filterPost(post);
+
     // call in 3 sec again
     this.send();
     setTimeout(() => this.run(), 3000);
@@ -52,5 +55,24 @@ export class App {
     if (id > -1 && id < this.apis.length) {
       this.apis.splice(id, 1);
     }
+  }
+
+  public async filterPost(post: WithId<Post>) {
+    const myUrl = "http://filter-processor:5000/filter";
+    const response = await fetch(myUrl, {
+      method: 'POST',
+      body: JSON.stringify(post),
+      headers: {'Content-Type': 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data['result'] === true) {
+        console.log("Post accepté");
+      }
+      else {
+        console.log("Post refusé");
+      }
+    })
+    .catch(error => console.error(error));
   }
 }
