@@ -5,6 +5,7 @@ from nltk.tokenize import word_tokenize
 from nltk import FreqDist, classify, NaiveBayesClassifier
 
 import re, string, random
+import pickle
 
 # this function will remove noise from the tweets such as hyperlinks, mentions, 
 # and special characters using regular expressions and lemmatize the words
@@ -64,7 +65,7 @@ if __name__ == "__main__":
     all_pos_words = get_all_words(positive_cleaned_tokens_list)
 
     freq_dist_pos = FreqDist(all_pos_words)
-    print(freq_dist_pos.most_common(10))
+    #print(freq_dist_pos.most_common(10))
 
     positive_tokens_for_model = get_tweets_for_model(positive_cleaned_tokens_list)
     negative_tokens_for_model = get_tweets_for_model(negative_cleaned_tokens_list)
@@ -84,13 +85,10 @@ if __name__ == "__main__":
 
     classifier = NaiveBayesClassifier.train(train_data)
 
-    print("Accuracy is:", classify.accuracy(classifier, test_data))
+    #print("Accuracy is:", classify.accuracy(classifier, test_data))
 
-    print(classifier.show_most_informative_features(10))
+    #print(classifier.show_most_informative_features(10))
 
-    custom_tweet = "hello world"
-    while custom_tweet != 'exit':
-        custom_tweet = input("Enter your tweet: ")
-        custom_tweet_tokens = remove_noise(word_tokenize(custom_tweet))
-
-        print(custom_tweet, classifier.classify(dict([token, True] for token in custom_tweet_tokens)))
+    # save the classifier
+    with open('classifier.pickle', 'wb') as f:
+        pickle.dump(classifier, f)

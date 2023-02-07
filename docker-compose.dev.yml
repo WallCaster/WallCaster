@@ -9,7 +9,8 @@ services:
     command: yarn start
     ports:
       - 3001:3001
-      
+    depends_on:
+      - filter-processor
   front-client:
     image: node:18-alpine
     container_name: front-client
@@ -34,7 +35,7 @@ services:
       - ./front-admin:/app
     command: yarn start
     working_dir: /app
-    
+
   filter-processor:
     image: python:3.8-alpine
     container_name: filter-processor
