@@ -10,5 +10,5 @@ export abstract class Api {
     this.config = Config.getInstance();
   }
 
-  public abstract fetchPosts(): WithId<Post>[];
+  public abstract fetchPosts(): Promise<WithId<Post>[]>;
 }
