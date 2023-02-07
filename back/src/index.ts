@@ -1,8 +1,4 @@
 import { App } from './app';
-import { ApiTwitter } from './api/api-twitter';
-
-// const api = new ApiTwitter();
-// api.fetchPosts();
 
 const blue = '\u001b[34m';
 const reset = '\u001b[0m';
