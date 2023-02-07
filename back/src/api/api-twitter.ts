@@ -1,5 +1,6 @@
 import { WithId, Post, SocialNetwork, postWithId } from "../post";
 import { Api } from "./api";
+import * as https from 'https';
 
 export class ApiTwitter extends Api{
 
@@ -11,7 +12,7 @@ export class ApiTwitter extends Api{
 
         // Hashtags
         //let hashtags : string[] = this.config.whitelistHashtags;
-        let hashtags : string[] = ["figaro", "domingo", "rennes"];
+        let hashtags : string[] = ["figaro", "rennes"];
 
         // Result
         let result : WithId<Post>[] = [];
@@ -26,11 +27,14 @@ export class ApiTwitter extends Api{
         let lang : string = "fr";
 
         // Hashtag search
-        let search : string = "";
+        let search : string = "(";
         for(let i = 0; i < hashtags.length-1; i++){
             search += "#"+hashtags[i]+" OR ";
         }
-        search += "#"+hashtags[hashtags.length-1];
+        search += "#"+hashtags[hashtags.length-1]+")";
+
+        // Exclude retweets and replies
+        search += " -is:retweet -is:reply";
 
         // Build search part
         search = search + " lang:" + lang;
@@ -38,7 +42,7 @@ export class ApiTwitter extends Api{
         // Build url
         url = url + encodeURIComponent(search) +
             "&max_results=" + max_results + // Max results
-            "&expansions=referenced_tweets.id,author_id" // Expansions -> referenced tweets, author id
+            "&expansions=author_id" // Expansions -> referenced tweets, author id
             + "&tweet.fields=created_at" // Tweet fields -> creation date
             + "&user.fields=name,username,profile_image_url"; // User fields -> name, username, profile image
 
@@ -46,7 +50,7 @@ export class ApiTwitter extends Api{
         let BearerToken = "AAAAAAAAAAAAAAAAAAAAAJEylgEAAAAAxkdNxil3XDR%2FtKLvaBb71e%2FA7q8%3Du2crw3ChPNn3SiIG4ZCVgXnaqfSW58vNtQYdmGsJD6hBhBtyG2";
 
         // Import https -> https://nodejs.org/api/https.html
-        const https = require('https');
+      
 
         // Set the headers
         const options = {
@@ -56,17 +60,23 @@ export class ApiTwitter extends Api{
         };
 
         // Start the request
-        https.get(url, options, (res : any) => {
-          
+        https.get(url, options, async (res : any) => {
+            
+            let data_ = '';
+
             res.on('data', (data : any) => {
 
-                process.stdout.write(data);
+                data_ += data;
+                
+            });
+
+            res.on('end', () => {
 
                 // Get the tweets
-                let tweet = JSON.parse(data)["includes"]["tweets"];
+                let tweet = JSON.parse(data_)["data"];
 
                 // Get the users
-                let user = JSON.parse(data)["includes"]["users"];
+                let user = JSON.parse(data_)["includes"]["users"];
 
                 for(let i = 0; i < tweet.length; i++){
 
@@ -79,10 +89,18 @@ export class ApiTwitter extends Api{
                     let image_url = "";
 
                     for(let i = 0; i < user.length; i++){
+
                         if(user[i]["id"] == id_author){
+
                             name = user[i]["name"];
                             username = user[i]["username"];
                             image_url = user[i]["profile_image_url"];
+
+                            console.log("name : " + name);
+                            console.log("username : " + username);
+                            console.log("image_url : " + image_url);
+
+                            break;
                         }
                     }
 
@@ -93,6 +111,8 @@ export class ApiTwitter extends Api{
                     console.log("username : " + username);
                     console.log("name : " + name);
                     console.log("image_url : " + image_url);
+                    console.log("url tweet : "+"https://twitter.com/"+username+"/status/"+id_tweet);
+                    console.log("\n\n")
 
                     // Push the post on the result array
                     result.push(postWithId({
@@ -107,7 +127,7 @@ export class ApiTwitter extends Api{
 
             });
 
-        });
+        })
 
         // Display the result
         console.log(result.length);
