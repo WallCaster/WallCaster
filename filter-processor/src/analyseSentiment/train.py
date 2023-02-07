@@ -90,5 +90,5 @@ if __name__ == "__main__":
     #print(classifier.show_most_informative_features(10))
 
     # save the classifier
-    with open('classifier.pickle', 'wb') as f:
+    with open('trained_data.pickle', 'wb') as f:
         pickle.dump(classifier, f)

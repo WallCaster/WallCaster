@@ -1,9 +1,9 @@
 from nltk.tokenize import word_tokenize
-from nlp_test import remove_noise
+from analyseSentiment.train import remove_noise
 
 import pickle
 
-with open('classifier.pickle', 'rb') as file:
+with open('trained_data.pickle', 'rb') as file:
     classifier = pickle.load(file)
 
 # test the classifier
