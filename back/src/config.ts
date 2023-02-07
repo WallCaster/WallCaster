@@ -2,20 +2,30 @@ import { join } from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 
 export type Config = {
-  numberOfScreens: number;
+  maxStoreSize: number;
   query: {
-    dateRange: DateRange;
-    whitelistHashtags: string[];
-    useWhitelistHashtags: boolean;
-    whitelistAuthors: string[];
-    useWhitelistAuthors: boolean;
-  }
-  filters: {
+    useTwitterApi: boolean;
+    twitter: {
+      fetchInterval: number;
+      fetchQuantity: number;
+      dateRange: DateRange;
+      useWhitelistHashtags: boolean;
+      whitelistHashtags: string[];
+      useWhitelistAuthors: boolean;
+      whitelistAuthors: string[];
+    };
+    useRandomApi: boolean;
+    random: {
+      fetchInterval: number;
+    };
+  };
+  filter: {
+    useEnglishSentiment: boolean;
+    useForbiddenWords: boolean;
     forbiddenWords: string[];
-    allowSound: boolean;
     allowVideo: boolean;
     allowImage: boolean;
-  }
+  };
 };
 
 export type DateRange = {
@@ -29,30 +39,38 @@ export type DateRange = {
  * @note The config is saved in a file called settings.json
  */
 class ConfigManager {
-  config : Config = {
-    numberOfScreens: 1,
+  config: Config = {
+    maxStoreSize: 100,
     query: {
-      dateRange:{
-        start: new Date(2020, 0, 1),
-        end: new Date(),
+      useTwitterApi: true,
+      twitter: {
+        fetchInterval: 30,
+        fetchQuantity: 10,
+        dateRange: {
+          start: new Date(2020, 0, 1),
+          end: new Date(),
+        },
+        useWhitelistHashtags: false,
+        whitelistHashtags: [],
+        useWhitelistAuthors: false,
+        whitelistAuthors: [],
       },
-      whitelistAuthors: [],
-      useWhitelistAuthors: false,
-      whitelistHashtags: [],
-      useWhitelistHashtags: false,
+      useRandomApi: false,
+      random: {
+        fetchInterval: 10,
+      },
     },
-    filters: {
+    filter: {
+      useEnglishSentiment: true,
+      useForbiddenWords: false,
       forbiddenWords: [],
-      allowSound: true,
       allowVideo: false,
       allowImage: true,
     },
-  }
-
+  };
   public constructor() {
     this.readConfigFromFile();
   }
-
 
   /**
    * Writes the config to a file

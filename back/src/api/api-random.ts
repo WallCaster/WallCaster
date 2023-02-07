@@ -1,15 +1,16 @@
-import { Config } from '../config';
-import { SocialNetwork, WithId, Post, postWithId } from '../post';
+import { ApiName, Post } from '../post';
+import { getUUID } from '../utils/post-helper';
 import { Api } from './api';
 
 export class ApiRandom extends Api {
   constructor() {
-    super(SocialNetwork.TWITTER);
+    super(ApiName.TWITTER);
   }
 
-  public async fetchPosts(): Promise<WithId<Post>[]> {
-    const value = [
-      postWithId({
+  public async fetchPosts(): Promise<Post[]> {
+    const posts: Post[] = [
+      {
+        id: getUUID(),
         content: {
           text:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vitae ultricies lacinia, nunc nisl ultricies nunc' +
@@ -22,10 +23,10 @@ export class ApiRandom extends Api {
         },
         date: new Date(Date.now()),
         originUrl: 'http://localhost:3000/twitter',
-        socialNetwork: this.socialNetwork,
-      }),
+        api: ApiName.RANDOM,
+      },
     ];
-    return Promise.resolve(value);
+    return Promise.resolve(posts);
   }
 }
 
