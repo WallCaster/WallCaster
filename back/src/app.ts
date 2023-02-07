@@ -57,22 +57,17 @@ export class App {
     }
   }
 
-  public async filterPost(post: WithId<Post>) {
-    const myUrl = "http://filter-processor:5000/filter";
-    const response = await fetch(myUrl, {
+  public filterPost(post: WithId<Post>) {
+    const myUrl = 'http://filter-processor:5000/filter';
+    fetch(myUrl, {
       method: 'POST',
       body: JSON.stringify(post),
-      headers: {'Content-Type': 'application/json; charset=UTF-8'}
+      headers: { 'Content-Type': 'application/json; charset=UTF-8' },
     })
-    .then(res => res.json())
-    .then(data => {
-      if(data['result'] === true) {
-        console.log("Post accepté");
-      }
-      else {
-        console.log("Post refusé");
-      }
-    })
-    .catch(error => console.error(error));
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => console.error(error));
   }
 }
