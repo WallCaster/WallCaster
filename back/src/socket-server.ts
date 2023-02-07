@@ -1,4 +1,5 @@
 import * as io from 'socket.io';
+import { App } from './app';
 import configManager, { Config } from './config';
 import { Post } from './post';
 
@@ -8,16 +9,13 @@ type SocketId = string;
 
 export class SocketServer {
   private server: io.Server;
-  private rooms: Map<string, SocketId[]>;
-  private clients: Map<SocketId, io.Socket>;
+  private rooms: Map<string, SocketId[]> = new Map();
+  private clients: Map<SocketId, io.Socket> = new Map();
+  private app: App;
 
-  constructor() {
+  constructor(app: App) {
+    this.app = app;
     this.server = new io.Server({ cors: { origin: '*' } });
-    this.rooms = new Map();
-    this.clients = new Map();
-
-    // don't add any event listeners here
-    // add them in the onConnect function
     this.server.on('connection', this.onConnect.bind(this));
     this.server.on('disconnect', this.onDisconnect.bind(this));
     this.server.listen(LISTENING_PORT);
@@ -43,7 +41,6 @@ export class SocketServer {
     socket.on('setConfig', (config: Config) => {
       this.onSetConfig(socket, config);
     });
-    
 
     console.log('new client connected');
   }
@@ -54,6 +51,8 @@ export class SocketServer {
 
   private onSetConfig(socket: io.Socket, config: Config) {
     configManager.config = config;
+    configManager.writeConfigToFile();
+    this.app.restart();
     socket.emit('config', configManager.config);
   }
 
@@ -78,6 +77,8 @@ export class SocketServer {
 
   // send post to all clients
   public sendPostToAll(post: Post) {
+    console.log('sending post to all clients : ' + post.id );
+    
     this.rooms.forEach((_, room) => {
       this.server.to(room).emit('post', post);
     });

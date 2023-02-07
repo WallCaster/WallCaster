@@ -1,21 +1,30 @@
 
 export type Config = {
-  numberOfScreens: number;
+  maxStoreSize: number;
   query: {
-    dateRange: DateRange;
-    whitelistHashtags: string[];
-    useWhitelistHashtags: boolean;
-    whitelistAuthors: string[];
-    useWhitelistAuthors: boolean;
-  }
-  filters: {
+    useTwitterApi: boolean;
+    twitter: {
+      fetchInterval: number;
+      fetchQuantity: number;
+      dateRange: DateRange;
+      useWhitelistHashtags: boolean;
+      whitelistHashtags: string[];
+      useWhitelistAuthors: boolean;
+      whitelistAuthors: string[];
+    };
+    useRandomApi: boolean;
+    random: {
+      fetchInterval: number;
+    };
+  };
+  filter: {
+    useEnglishSentiment: boolean;
+    useForbiddenWords: boolean;
     forbiddenWords: string[];
-    allowSound: boolean;
     allowVideo: boolean;
     allowImage: boolean;
-  }
+  };
 };
-
 
 export type DateRange = {
   start: Date;

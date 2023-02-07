@@ -37,12 +37,13 @@ export type DateRange = {
  * The config class
  * Singleton
  * @note The config is saved in a file called settings.json
+ * @note intervals are in seconds
  */
 class ConfigManager {
   config: Config = {
     maxStoreSize: 100,
     query: {
-      useTwitterApi: true,
+      useTwitterApi: false,
       twitter: {
         fetchInterval: 30,
         fetchQuantity: 10,
@@ -55,13 +56,13 @@ class ConfigManager {
         useWhitelistAuthors: false,
         whitelistAuthors: [],
       },
-      useRandomApi: false,
+      useRandomApi: true,
       random: {
-        fetchInterval: 10,
+        fetchInterval: 2,
       },
     },
     filter: {
-      useEnglishSentiment: true,
+      useEnglishSentiment: false,
       useForbiddenWords: false,
       forbiddenWords: [],
       allowVideo: false,

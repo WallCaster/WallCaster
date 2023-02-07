@@ -1,3 +1,4 @@
+import configManager from '../config';
 import { ApiName, Post } from '../post';
 import { getUUID } from '../utils/post-helper';
 import { Api } from './api';
@@ -27,6 +28,10 @@ export class ApiRandom extends Api {
       },
     ];
     return Promise.resolve(posts);
+  }
+
+  protected getInterval(): number {
+    return configManager.config.query.random.fetchInterval;
   }
 }
 

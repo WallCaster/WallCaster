@@ -1,5 +1,5 @@
 import configManager from '../config';
-import { ApiName, Author, Post } from '../post';
+import { ApiName, Post } from '../post';
 import { Api } from './api';
 
 export class ApiTwitter extends Api {
@@ -41,32 +41,43 @@ export class ApiTwitter extends Api {
         Authorization: 'Bearer ' + BearerToken,
       },
     };
-    const response = await fetch(fetchUrl, options);
-    const json = await response.json();
-    let tweets = json.data;
-    let user = json.includes.users;
+    try {
+      const response = await fetch(fetchUrl, options);
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const json = await response.json();
 
-    for (let i = 0; i < tweets.length; i++) {
-      const tweet = tweets[i];
-      const author_id = tweet.author_id;
-      const author = user.find((user: any) => user.id === author_id);
-      const post: Post = {
-        id: tweet.id,
-        author: {
-          name: author.name,
-          username: author.username,
-          image: author.profile_image_url,
-        },
-        content: { text: tweet.text },
-        date: new Date(tweet.created_at),
-        originUrl: `https://twitter.com/${author.username}/status/${tweet.id}`,
-        api: ApiName.TWITTER,
-      };
+      let tweets = json.data;
+      let user = json.includes.users;
 
-      // Push the post on the result array
-      result.push(post);
+      for (let i = 0; i < tweets.length; i++) {
+        const tweet = tweets[i];
+        const author_id = tweet.author_id;
+        const author = user.find((user: any) => user.id === author_id);
+        const post: Post = {
+          id: tweet.id,
+          author: {
+            name: author.name,
+            username: author.username,
+            image: author.profile_image_url,
+          },
+          content: { text: tweet.text },
+          date: new Date(tweet.created_at),
+          originUrl: `https://twitter.com/${author.username}/status/${tweet.id}`,
+          api: ApiName.TWITTER,
+        };
+
+        // Push the post on the result array
+        result.push(post);
+      }
+    } catch (error) {
+      console.error(error);
     }
-
     return result;
+  }
+
+  protected getInterval(): number {
+    return configManager.config.query.twitter.fetchInterval;
   }
 }
