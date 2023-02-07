@@ -1,4 +1,5 @@
 import { Api, ApiRandom } from './api';
+import { ApiTwitter } from './api/api-twitter';
 import { Filter } from './filter';
 import { Post, WithId } from './post';
 import { SocketServer } from './socket-server';
@@ -13,8 +14,8 @@ export class App {
   private apis: Array<Api> = [new ApiRandom()];
 
   public run() {
-    const post = new ApiRandom().fetchPost();
-    this.filterPost(post);
+    const posts = new ApiRandom().fetchPosts();
+    // this.filterPost(posts);
 
     // call in 3 sec again
     this.send();
@@ -22,11 +23,17 @@ export class App {
   }
 
   private send() {
-    const postsToSend = new ApiRandom().fetchPost();
-    if (postsToSend != null) {
-      console.log('Sending post to all clients... clients:' + this.socketServer.getNumberOfClients());
-      this.socketServer.sendPostToAll(postsToSend);
-    }
+    new ApiTwitter().fetchPosts().then((posts) => {
+      if (posts != null) {
+        console.log('Sending post to all clients... clients:' + this.socketServer.getNumberOfClients());
+        // for (const post of posts) {
+        //   this.socketServer.sendPostToAll(post);
+        // }
+        // randomly pick a post in the posts array
+        const post = posts[Math.floor(Math.random() * posts.length)];
+        this.socketServer.sendPostToAll(post);
+      }
+    });
   }
 
   /**
