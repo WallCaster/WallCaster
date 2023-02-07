@@ -1,5 +1,5 @@
 from nltk.tokenize import word_tokenize
-from nlp_test import remove_noise, get_all_words, get_tweets_for_model
+from nlp_test import remove_noise
 
 import pickle
 
