@@ -7,7 +7,7 @@ with open('classifier.pickle', 'rb') as file:
     classifier = pickle.load(file)
 
 # test the classifier
-    custom_tweet = "hello world"
+    custom_tweet = "hello"
     while custom_tweet != 'exit':
         custom_tweet = input("Enter your tweet: ")
         custom_tweet_tokens = remove_noise(word_tokenize(custom_tweet))
