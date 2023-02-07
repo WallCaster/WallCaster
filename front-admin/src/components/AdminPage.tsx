@@ -1,5 +1,5 @@
 import { ArrowLeftOnRectangleIcon, CloudArrowDownIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSocket from '../../hooks/useSocket';
 import type { Config } from '../types/config';
 import AdminForm from './Form';
@@ -14,10 +14,16 @@ const AdminPage = () => {
     });
   });
 
-  function updateConfig() {
+  function getConfig() {
     if (!socket) return;
     socket.emit('getConfig');
   }
+
+ function sendConfig(config: Config) {
+    if (!socket) return;
+    socket.emit('setConfig', config);
+  }
+
 
   if (!socket?.connected || !config)
     return (
@@ -47,7 +53,7 @@ const AdminPage = () => {
         <div className='mx-auto'></div>
         <button
           className='p-2 text-gray-900 hover:bg-gray-200 rounded-lg'
-          onClick={updateConfig}
+          onClick={getConfig}
           title='Overwrite with server configuration'
         >
           <CloudArrowDownIcon className='h-6 w-6' />
@@ -63,7 +69,7 @@ const AdminPage = () => {
           <ArrowLeftOnRectangleIcon className='h-6 w-6' />
         </button>
       </div>
-      <AdminForm config={config} setConfig={(c) => setConfig(c)} />
+      <AdminForm config={config} setConfig={(c) => sendConfig(c)} />
     </div>
   );
 };

@@ -37,10 +37,24 @@ export class SocketServer {
     });
 
     socket.on('getConfig', () => {
-      socket.emit('config', configManager.config);
+      this.onGetConfig(socket);
     });
 
+    socket.on('setConfig', (config: Config) => {
+      this.onSetConfig(socket, config);
+    });
+    
+
     console.log('new client connected');
+  }
+
+  private onGetConfig(socket: io.Socket) {
+    socket.emit('config', configManager.config);
+  }
+
+  private onSetConfig(socket: io.Socket, config: Config) {
+    configManager.config = config;
+    socket.emit('config', configManager.config);
   }
 
   private onDisconnect(socket: io.Socket) {

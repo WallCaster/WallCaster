@@ -15,7 +15,7 @@
   ```
 */
 import { MagnifyingGlassIcon, AdjustmentsHorizontalIcon, FunnelIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
 import Checkbox from './Checkbox';
 import Input from './Input';
@@ -32,6 +32,17 @@ function classNames(...classes: (boolean | undefined | string)[]) {
 
 export default function AdminForm({ config, setConfig }: { config: Config; setConfig: (config: Config) => void }) {
   const [temp, setTemp] = useState(config);
+
+  useEffect(() => {
+    setTemp(config);
+  }, [config]);
+  
+
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setConfig(temp);
+  }
+
   return (
     <div className='lg:grid lg:grid-cols-12 lg:gap-x-5'>
       <aside className='py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3'>
@@ -64,7 +75,7 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
       </aside>
 
       <div className='space-y-6 sm:px-6 lg:px-0 lg:col-span-9'>
-        <form onSubmit={(e) => e.preventDefault()} id='general'>
+        <form onSubmit={onSubmit} id='general'>
           <div className='shadow sm:rounded-md sm:overflow-hidden'>
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
@@ -97,7 +108,7 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
           </div>
         </form>
 
-        <form onSubmit={(e) => e.preventDefault()} id='query'>
+        <form onSubmit={onSubmit} id='query'>
           <div className='shadow sm:rounded-md sm:overflow-hidden'>
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
@@ -153,7 +164,7 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
           </div>
         </form>
 
-        <form onSubmit={(e) => e.preventDefault()} id='filter'>
+        <form onSubmit={onSubmit} id='filter'>
           <div className='shadow sm:rounded-md sm:overflow-hidden'>
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
