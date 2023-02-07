@@ -14,8 +14,8 @@ export class App {
   private apis: Array<Api> = [new ApiRandom()];
 
   public run() {
-    const post = new ApiRandom().fetchPost();
-    this.filterPost(post);
+    const posts = new ApiRandom().fetchPosts();
+    // this.filterPost(posts);
 
     // call in 3 sec again
     this.send();
@@ -26,9 +26,12 @@ export class App {
     new ApiTwitter().fetchPosts().then((posts) => {
       if (posts != null) {
         console.log('Sending post to all clients... clients:' + this.socketServer.getNumberOfClients());
-        for (const post of posts) {
-          this.socketServer.sendPostToAll(post);
-        }
+        // for (const post of posts) {
+        //   this.socketServer.sendPostToAll(post);
+        // }
+        // randomly pick a post in the posts array
+        const post = posts[Math.floor(Math.random() * posts.length)];
+        this.socketServer.sendPostToAll(post);
       }
     });
   }
