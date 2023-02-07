@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import useSocket from '../../hooks/useSocket';
-import type { Post, WithId } from '../types/post';
+import type { Post } from '../types/post';
 import { PostCard } from './PostCard';
 
 export const PostsDisplayer = () => {
-  const [posts, setPosts] = useState<WithId<Post>[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   const socket = useSocket(serverIp, (socket) => {
     socket.on('post', (post) => {

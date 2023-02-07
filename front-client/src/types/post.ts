@@ -1,21 +1,20 @@
-export type PostImage = {
-  url: string;
-};
-
-export type WithId<T> = T & { id: number };
 
 export type Post = {
+  id: string;
   author: Author;
   content: Content;
-  image?: PostImage;
   date: Date;
   originUrl: string;
-  socialNetwork: SocialNetworkType;
+  api: ApiType;
 };
 
 export type Content = {
   text: string;
   images?: PostImage[];
+};
+
+export type PostImage = {
+  url: string;
 };
 
 export type Author = {
@@ -24,11 +23,12 @@ export type Author = {
   image?: string;
 };
 
-export type SocialNetworkType = typeof SocialNetwork[keyof typeof SocialNetwork];
+export type ApiType = typeof ApiName[keyof typeof ApiName];
 
-export const SocialNetwork = {
+export const ApiName = {
   TWITTER: 'twitter',
   INSTAGRAM: 'instagram',
   FACEBOOK: 'facebook',
   LINKEDIN: 'linkedin',
+  RANDOM: 'random',
 } as const;
