@@ -1,5 +1,5 @@
 import * as io from 'socket.io';
-import { Config } from './config';
+import configManager, { Config } from './config';
 import { Post } from './post';
 
 const LISTENING_PORT = 3001;
@@ -7,13 +7,11 @@ const LISTENING_PORT = 3001;
 type SocketId = string;
 
 export class SocketServer {
-  private config: Config;
   private server: io.Server;
   private rooms: Map<string, SocketId[]>;
   private clients: Map<SocketId, io.Socket>;
 
   constructor() {
-    this.config = Config.getInstance();
     this.server = new io.Server({ cors: { origin: '*' } });
     this.rooms = new Map();
     this.clients = new Map();
@@ -38,7 +36,25 @@ export class SocketServer {
       console.log(`incoming event '${event}':`, args);
     });
 
+    socket.on('getConfig', () => {
+      this.onGetConfig(socket);
+    });
+
+    socket.on('setConfig', (config: Config) => {
+      this.onSetConfig(socket, config);
+    });
+    
+
     console.log('new client connected');
+  }
+
+  private onGetConfig(socket: io.Socket) {
+    socket.emit('config', configManager.config);
+  }
+
+  private onSetConfig(socket: io.Socket, config: Config) {
+    configManager.config = config;
+    socket.emit('config', configManager.config);
   }
 
   private onDisconnect(socket: io.Socket) {

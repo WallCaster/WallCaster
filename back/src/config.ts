@@ -1,36 +1,58 @@
 import { join } from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 
+export type Config = {
+  numberOfScreens: number;
+  query: {
+    dateRange: DateRange;
+    whitelistHashtags: string[];
+    useWhitelistHashtags: boolean;
+    whitelistAuthors: string[];
+    useWhitelistAuthors: boolean;
+  }
+  filters: {
+    forbiddenWords: string[];
+    allowSound: boolean;
+    allowVideo: boolean;
+    allowImage: boolean;
+  }
+};
+
+export type DateRange = {
+  start: Date;
+  end: Date;
+};
+
 /**
  * The config class
  * Singleton
  * @note The config is saved in a file called settings.json
  */
-export class Config {
-  private _numberOfScreens: number = 1;
-  private _dataRange: DateRange = {
-    start: new Date(2020, 0, 1),
-    end: new Date(),
-  };
-  private _forbiddenWords: string[] = [];
-  private _whitelistAuthors: string[] = [];
-  private _whitelistHashtags: string[] = [];
-  private _allowSound: boolean = true;
-  private _allowVideo: boolean = false;
-  private _allowImage: boolean = true;
+class ConfigManager {
+  config : Config = {
+    numberOfScreens: 1,
+    query: {
+      dateRange:{
+        start: new Date(2020, 0, 1),
+        end: new Date(),
+      },
+      whitelistAuthors: [],
+      useWhitelistAuthors: false,
+      whitelistHashtags: [],
+      useWhitelistHashtags: false,
+    },
+    filters: {
+      forbiddenWords: [],
+      allowSound: true,
+      allowVideo: false,
+      allowImage: true,
+    },
+  }
 
-  private static instance: Config;
-
-  private constructor() {
+  public constructor() {
     this.readConfigFromFile();
   }
 
-  public static getInstance(): Config {
-    if (!Config.instance) {
-      Config.instance = new Config();
-    }
-    return Config.instance;
-  }
 
   /**
    * Writes the config to a file
@@ -39,7 +61,7 @@ export class Config {
    * @note overwrites the file if it already exists
    */
   public writeConfigToFile(fileName: string = 'settings.json'): void {
-    let contentToWrite: any = JSON.stringify(this, null, ' ');
+    let contentToWrite: any = JSON.stringify(this.config, null, 2);
     writeFileSync(join(__dirname, fileName), contentToWrite, {
       flag: 'w',
     });
@@ -52,63 +74,12 @@ export class Config {
   public readConfigFromFile(fileName: string = 'settings.json'): void {
     try {
       const content = readFileSync(join(__dirname, fileName), 'utf8');
-      const config = JSON.parse(content);
-      this._numberOfScreens = config.numberOfScreens;
-      this._dataRange = config.dataRange;
-      this._forbiddenWords = config.forbiddenWords;
-      this._whitelistAuthors = config.whitelistAuthors;
-      this._whitelistHashtags = config.whitelistHashtags;
-      this._allowSound = config.allowSound;
-      this._allowVideo = config.allowVideo;
-      this._allowImage = config.allowImage;
+      this.config = JSON.parse(content);
     } catch (e) {
       console.log('No config file found. Using default config.');
     }
   }
-
-  public set(configObject: Partial<Config>): void {
-    this._numberOfScreens = configObject.numberOfScreens ?? this.numberOfScreens;
-    this._dataRange = configObject.dataRange ?? this.dataRange;
-    this._forbiddenWords = configObject.forbiddenWords ?? this.forbiddenWords;
-    this._whitelistAuthors = configObject.whitelistAuthors ?? this.whitelistAuthors;
-    this._whitelistHashtags = configObject.whitelistHashtags ?? this.whitelistHashtags;
-    this._allowSound = configObject.allowSound ?? this.allowSound;
-    this._allowVideo = configObject.allowVideo ?? this.allowVideo;
-    this._allowImage = configObject.allowImage ?? this.allowImage;
-  }
-
-  public get dataRange(): DateRange {
-    return this._dataRange;
-  }
-  public get numberOfScreens(): number {
-    return this._numberOfScreens;
-  }
-  public get forbiddenWords(): string[] {
-    return this._forbiddenWords;
-  }
-
-  public get whitelistAuthors(): string[] {
-    return this._whitelistAuthors;
-  }
-
-  public get whitelistHashtags(): string[] {
-    return this._whitelistHashtags;
-  }
-
-  public get allowSound(): boolean {
-    return this._allowSound;
-  }
-
-  public get allowVideo(): boolean {
-    return this._allowVideo;
-  }
-
-  public get allowImage(): boolean {
-    return this._allowImage;
-  }
 }
 
-export type DateRange = {
-  start: Date;
-  end: Date;
-};
+const configManager = new ConfigManager();
+export default configManager;
