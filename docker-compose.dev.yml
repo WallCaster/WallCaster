@@ -2,15 +2,18 @@ version: '3.0'
 services:
   back:
     image: node:18-alpine
+    container_name: back
     volumes:
       - ./back:/app
     working_dir: /app
     command: yarn start
     ports:
       - 3001:3001
-      
+    depends_on:
+      - filter-processor
   front-client:
     image: node:18-alpine
+    container_name: front-client
     restart: always
     ports:
       - 80:3000
@@ -32,3 +35,17 @@ services:
       - ./front-admin:/app
     command: yarn start
     working_dir: /app
+
+  filter-processor:
+    image: python:3.8-alpine
+    container_name: filter-processor
+    restart: always
+    ports:
+      - 5000:5000
+    volumes:
+      - ./filter-processor:/app
+    working_dir: /app
+    command: >
+      sh -c "pip install flask &&
+             pip install flask_cors &&
+             flask --app src/app.py run --host 0.0.0.0 --port 5000"
