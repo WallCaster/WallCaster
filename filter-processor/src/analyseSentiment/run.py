@@ -1,15 +1,15 @@
 from nltk.tokenize import word_tokenize
-from analyseSentiment.train import remove_noise
-
+from train import remove_noise
+from pathlib import Path
 import pickle
 
-with open('trained_data.pickle', 'rb') as file:
+path = Path(__file__).parent / "trained_data.pickle"
+with path.open("rb") as file:
     classifier = pickle.load(file)
 
-# test the classifier
-    custom_tweet = "hello"
-    while custom_tweet != 'exit':
-        custom_tweet = input("Enter your tweet: ")
-        custom_tweet_tokens = remove_noise(word_tokenize(custom_tweet))
+def is_positive(txt: str):
+    tokens = remove_noise(word_tokenize(txt))
+    return classifier.classify(dict([token, True] for token in tokens))
 
-        print(custom_tweet, classifier.classify(dict([token, True] for token in custom_tweet_tokens)))
+if __name__ == "__main__":
+    print(is_positive("I love you"))

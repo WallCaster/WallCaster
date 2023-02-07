@@ -1,11 +1,11 @@
-# Setup
+# How to train
 ```
-pip install -r requirements.txt
 python setup.py
+python train.py
 ```
 
 
 # Run
 ```
-python nlp_test.py
+python run.py
 ```

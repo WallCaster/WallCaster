@@ -1,9 +1,8 @@
+from pathlib import Path
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import twitter_samples, stopwords
 from nltk.tag import pos_tag
-from nltk.tokenize import word_tokenize
-from nltk import FreqDist, classify, NaiveBayesClassifier
-
+from nltk import FreqDist, NaiveBayesClassifier
 import re, string, random
 import pickle
 
@@ -90,5 +89,6 @@ if __name__ == "__main__":
     #print(classifier.show_most_informative_features(10))
 
     # save the classifier
-    with open('trained_data.pickle', 'wb') as f:
-        pickle.dump(classifier, f)
+    path = Path(__file__).parent / "trained_data.pickle"
+    with path.open("wb") as file:
+        pickle.dump(classifier, file)
