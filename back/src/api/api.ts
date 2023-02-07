@@ -8,5 +8,5 @@ export abstract class Api {
     this.socialNetwork = socialNetwork;
   }
 
-  public abstract fetchPost(): WithId<Post>;
+  public abstract fetchPosts(): Promise<WithId<Post>[]>;
 }
