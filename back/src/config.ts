@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync } from 'fs';
 
 export type Config = {
   maxStoreSize: number;
+  rotationInterval: number;
   query: {
     useTwitterApi: boolean;
     twitter: {
@@ -42,6 +43,7 @@ export type DateRange = {
 class ConfigManager {
   config: Config = {
     maxStoreSize: 100,
+    rotationInterval: 1,
     query: {
       useTwitterApi: true,
       twitter: {

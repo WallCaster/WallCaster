@@ -3,20 +3,22 @@
   "query": {
     "useTwitterApi": false,
     "twitter": {
-      "fetchInterval": 30,
+      "fetchInterval": 60,
       "fetchQuantity": 10,
       "dateRange": {
         "start": "2020-01-01T00:00:00.000Z",
         "end": "2023-02-14T07:12:41.609Z"
       },
       "useWhitelistHashtags": false,
-      "whitelistHashtags": [],
+      "whitelistHashtags": [
+        "OVNIS"
+      ],
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
     "useRandomApi": true,
     "random": {
-      "fetchInterval": 1.7
+      "fetchInterval": 20
     }
   },
   "filter": {
@@ -24,6 +26,7 @@
     "useForbiddenWords": false,
     "forbiddenWords": [],
     "allowVideo": false,
-    "allowImage": true
-  }
+    "allowImage": false
+  },
+  "rotationInterval": 1.4
 }
