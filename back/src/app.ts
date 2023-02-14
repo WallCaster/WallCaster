@@ -34,6 +34,7 @@ export class App {
     if (!this.posts_ids.has(post.id)) {
       this.posts_ids.add(post.id);
       // Filter here
+      this.filterPost(post);
       this.posts_unfiltered.unshift(post);
       this.socket.sendPostToAll(post)
     }
