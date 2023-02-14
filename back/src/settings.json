@@ -1,7 +1,7 @@
 {
-  "maxStoreSize": 105,
+  "maxStoreSize": 103,
   "query": {
-    "useTwitterApi": true,
+    "useTwitterApi": false,
     "twitter": {
       "fetchInterval": 30,
       "fetchQuantity": 10,
@@ -14,13 +14,13 @@
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
-    "useRandomApi": false,
+    "useRandomApi": true,
     "random": {
-      "fetchInterval": 2
+      "fetchInterval": 1.7
     }
   },
   "filter": {
-    "useEnglishSentiment": false,
+    "useEnglishSentiment": true,
     "useForbiddenWords": false,
     "forbiddenWords": [],
     "allowVideo": false,
