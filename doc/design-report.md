@@ -24,10 +24,13 @@ The sprint review and the retrospective will allow us to check our progress and 
 
 ## Expected Outcome
 
-- As an administrator, I can log in the admin server (created beforehand) to change configuration.
-- As an administrator, I can choose to allow picture broadcast. (à mieux faire)
-- As an administrator, I can change the number of screens to which send social media contents. (à mieux faire)
-- As an admnisitrator, I can choose to apply (or not) the "feeling" filter (created beforehand) in order to avoid degrading content.
-- As a viewer, I can see on a screen (a fake one, not connected to a Raspberry Pi) a post comming from a social media.
+- [x] As an administrator, I can log in the admin server (created beforehand)
+- [x] As an administrator, I can query Tweets from Twitter with a specific hashtag.
+- [x] As an administrator, I can select the interval of time between two queries to the Twitter API.
+- [x] As an administrator, I can select the rotation interval of posts on the screen.
+- [ ] As an administrator, I can choose to allow picture broadcast. (à mieux faire)
+- [ ] As an administrator, I can change the number of screens to which send social media contents. (à mieux faire)
+- [x] As an admnisitrator, I can choose apply a filter (english sentiment filter) on the posts to display.
+- [x] As a viewer, I can see on displays, posts comming from Twitter that rotate at a given interval.
 
 Sprint 1 ends Tuesday **02/14/2023.**
