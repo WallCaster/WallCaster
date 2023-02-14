@@ -1,5 +1,3 @@
-# Sprint 0 sumary
+# Link to the dashboard with the different tasks
 
-Start date : 21/11/2022
-End date : 
-
+[WallCaster issues](https://github.com/WallCaster/WallCaster/issues)

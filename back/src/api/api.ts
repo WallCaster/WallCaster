@@ -1,12 +1,30 @@
-import { Config } from '../config';
-import { SocialNetworkType, Post, WithId } from '../post';
+import { App } from '../app';
+import { ApiType, Post } from '../post';
 
 export abstract class Api {
-  protected socialNetwork: SocialNetworkType;
+  protected apiName: ApiType;
+  protected running: boolean = false;
 
-  constructor(socialNetwork: SocialNetworkType) {
-    this.socialNetwork = socialNetwork;
+  constructor(apiName: ApiType) {
+    this.apiName = apiName;
   }
 
-  public abstract fetchPost(): WithId<Post>;
+  public abstract fetchPosts(): Promise<Post[]>;
+
+  protected abstract getInterval(): number;
+
+  public start(app: App): void {
+    this.running = true;
+    setInterval(() => {
+      if (this.running) {
+        this.fetchPosts().then((posts) => {
+          app.addPosts(posts);
+        });
+      }
+    }, this.getInterval() * 1000);
+  }
+
+  public stop() {
+    this.running = false;
+  }
 }

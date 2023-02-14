@@ -1,39 +1,51 @@
-import { Api, ApiRandom } from './api';
-import { Filter } from './filter';
-import { Post, WithId } from './post';
+import { Api } from './api/api';
+import { ApiRandom } from './api/api-random';
+import { ApiTwitter } from './api/api-twitter';
+import configManager from './config';
+import { ApiType, Post } from './post';
 import { SocketServer } from './socket-server';
 
 export class App {
-  /**
-   * the cache of posts
-   * first in first out
-   */
-  private posts: Array<WithId<Post>> = new Array<WithId<Post>>();
-  private socketServer: SocketServer = new SocketServer();
-  private apis: Array<Api> = [new ApiRandom()];
+  // the set of all posts ids (filtered and unfiltered)
+  private posts_ids: Set<string> = new Set();
+  // the list of incoming posts from the api (first stage)
+  private posts_unfiltered: Post[] = [];
+  private socket: SocketServer;
+  private apis: Partial<Record<ApiType, Api>>;
 
-  public run() {
-    const post = new ApiRandom().fetchPost();
-    this.filterPost(post);
-
-    // call in 3 sec again
-    this.send();
-    setTimeout(() => this.run(), 3000);
+  constructor() {
+    this.socket = new SocketServer(this);
+    this.apis = { twitter: new ApiTwitter(), random: new ApiRandom() };
+    this.restart();
   }
 
-  private send() {
-    const postsToSend = new ApiRandom().fetchPost();
-    if (postsToSend != null) {
-      console.log('Sending post to all clients... clients:' + this.socketServer.getNumberOfClients());
-      this.socketServer.sendPostToAll(postsToSend);
+  public restart() {
+    const query = configManager.config.query;
+    if (query.useTwitterApi && this.apis.twitter) this.apis.twitter.start(this);
+    else if (this.apis.twitter) this.apis.twitter.stop();
+    if (query.useRandomApi && this.apis.random) this.apis.random.start(this);
+    else if (this.apis.random) this.apis.random.stop();
+  }
+
+  /**
+   * Adds a new post to the cache but in the front to prioritize it
+   */
+  public addPost(post: Post) {
+    if (!this.posts_ids.has(post.id)) {
+      this.posts_ids.add(post.id);
+      // Filter here
+      this.posts_unfiltered.unshift(post);
+      this.socket.sendPostToAll(post)
     }
   }
 
   /**
    * Adds a new post to the cache but in the front to prioritize it
    */
-  public addPost(post: WithId<Post>) {
-    this.posts.unshift(post);
+  public addPosts(posts: Post[]) {
+    posts.forEach((post) => {
+      this.addPost(post);
+    });
   }
 
   /**
@@ -41,27 +53,30 @@ export class App {
    * It is the first post in the cache
    * then add it back to the end of the cache
    */
-  public getNextPost(): WithId<Post> | null {
-    if (this.posts.length > 0) {
-      const post = this.posts[0];
-      this.posts.splice(0, 1);
-      this.posts.push(post);
+  public getNextPost(): Post | null {
+    if (this.posts_unfiltered.length > 0) {
+      const post = this.posts_unfiltered[0];
+      this.posts_unfiltered.splice(0, 1);
+      this.posts_unfiltered.push(post);
       return post;
     }
     return null;
   }
 
-  public removePost(id: number) {
-    if (id > -1 && id < this.apis.length) {
-      this.apis.splice(id, 1);
-    }
+  public removePost(id: string) {
+    this.posts_ids.delete(id);
+    this.posts_unfiltered = this.posts_unfiltered.filter((post) => post.id !== id);
   }
 
-  public filterPost(post: WithId<Post>) {
+  public filterPost(post: Post) {
+    const message = {
+      post: post,
+      filter_config: configManager.config.filter,
+    };
     const myUrl = 'http://filter-processor:5000/filter';
     fetch(myUrl, {
       method: 'POST',
-      body: JSON.stringify(post),
+      body: JSON.stringify(message),
       headers: { 'Content-Type': 'application/json; charset=UTF-8' },
     })
       .then((res) => res.json())

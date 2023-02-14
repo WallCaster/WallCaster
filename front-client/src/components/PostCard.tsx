@@ -1,11 +1,11 @@
-import { Post, SocialNetwork, WithId } from '../types/post';
+import { Post, ApiName, } from '../types/post';
 
-export const PostCard = ({ post }: { post: WithId<Post> }) => {
-  if (post.socialNetwork === SocialNetwork.TWITTER) return <TwitterPostCard post={post} />;
-  else return <p>Social network not supported yet ({post.socialNetwork})</p>;
+export const PostCard = ({ post }: { post: Post }) => {
+  if (post.api === ApiName.TWITTER) return <TwitterPostCard post={post} />;
+  else return <p>Social network not supported yet ({post.api})</p>;
 };
 
-const TwitterPostCard = ({ post }: { post: WithId<Post> }) => {
+const TwitterPostCard = ({ post }: { post: Post }) => {
   let authorImage = post.author.image;
   if (authorImage === undefined)
     authorImage = 'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png';

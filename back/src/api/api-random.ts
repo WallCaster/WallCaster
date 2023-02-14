@@ -1,28 +1,37 @@
-import { Config } from '../config';
-import { SocialNetwork, WithId, Post, postWithId } from '../post';
+import configManager from '../config';
+import { ApiName, Post } from '../post';
+import { getUUID } from '../utils/post-helper';
 import { Api } from './api';
 
 export class ApiRandom extends Api {
   constructor() {
-    super(SocialNetwork.TWITTER);
+    super(ApiName.TWITTER);
   }
 
-  public fetchPost(): WithId<Post> {
-    return postWithId({
-      content: {
-        text:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vitae ultricies lacinia, nunc nisl ultricies nunc' +
-          randomString(10),
+  public async fetchPosts(): Promise<Post[]> {
+    const posts: Post[] = [
+      {
+        id: getUUID(),
+        content: {
+          text:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vitae ultricies lacinia, nunc nisl ultricies nunc' +
+            randomString(10),
+        },
+        author: {
+          name: 'Random User ' + randomString(3),
+          username: '@random_user_' + randomString(3),
+          image: 'https://placeimg.com/192/192/people',
+        },
+        date: new Date(Date.now()),
+        originUrl: 'http://localhost:3000/twitter',
+        api: ApiName.RANDOM,
       },
-      author: {
-        name: 'Random User ' + randomString(3),
-        username: '@random_user_' + randomString(3),
-        image: 'https://placeimg.com/192/192/people',
-      },
-      date: new Date(Date.now()),
-      originUrl: 'http://localhost:3000/twitter',
-      socialNetwork: this.socialNetwork,
-    });
+    ];
+    return Promise.resolve(posts);
+  }
+
+  protected getInterval(): number {
+    return configManager.config.query.random.fetchInterval;
   }
 }
 
