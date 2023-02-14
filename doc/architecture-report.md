@@ -341,7 +341,7 @@ What we did that fit the constrains :
 - Naming conventions :
   - [Microsoft TypeScript conventions](https://makecode.com/extensions/naming-conventions)
 
-## Coloboratoin tools
+## Coloboration tools
 
 - Github kanban (for backlogs)
 - Discord

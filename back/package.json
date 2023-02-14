@@ -11,7 +11,7 @@
     "start": "nodemon --watch src --exec ts-node src/index.ts --ignore ./src/settings.json",
     "dev": "nodemon --watch src --exec ts-node src/index.ts",
     "build": "tsc -p .",
-    "test": "jest"
+    "test": "jest --runInBand --force-exit"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
