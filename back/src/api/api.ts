@@ -4,6 +4,7 @@ import { ApiType, Post } from '../post';
 export abstract class Api {
   protected apiName: ApiType;
   protected running: boolean = false;
+  private interval : NodeJS.Timer | null = null;
 
   constructor(apiName: ApiType) {
     this.apiName = apiName;
@@ -15,7 +16,8 @@ export abstract class Api {
 
   public start(app: App): void {
     this.running = true;
-    setInterval(() => {
+    if (this.interval) clearInterval(this.interval);
+    this.interval = setInterval(() => {
       if (this.running) {
         this.fetchPosts().then((posts) => {
           app.addPosts(posts);
