@@ -41,13 +41,14 @@ export class ApiTwitter extends Api {
         Authorization: 'Bearer ' + BearerToken,
       },
     };
-    try {
+    try {      
       const response = await fetch(fetchUrl, options);
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
       const json = await response.json();
 
+      if (!response.ok) {
+        throw new Error('Error while fetching tweets: ' + JSON.stringify(json, null, 2));
+      }
+      
       let tweets = json.data;
       let user = json.includes.users;
 
