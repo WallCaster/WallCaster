@@ -44,3 +44,5 @@ Sprint 1 ends Tuesday **02/14/2023.**
 - Autoriser l'affichage de photos/vidéos sur les écrans. (3h)
 - Meilleure gestion interne des posts en mémoire. (4h)
 - Supprimer posts déjà présents dans le système (passés à travers le filtre). (1h)
+
+Sprint 2 ends Tuesday **03/28/2023.**
