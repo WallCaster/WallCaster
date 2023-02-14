@@ -24,9 +24,9 @@ The sprint review and the retrospective will allow us to check our progress and 
 
 ## Expected Outcome
 
-- As an administrator, I can log in the admin server (created beforehand) to change configuration/
-- As an administrator, I can choose to allow picture broadcast.
-- As an administrator, I can change the number of screens to which send social media contents.
+- As an administrator, I can log in the admin server (created beforehand) to change configuration.
+- As an administrator, I can choose to allow picture broadcast. (à mieux faire)
+- As an administrator, I can change the number of screens to which send social media contents. (à mieux faire)
 - As an admnisitrator, I can choose to apply (or not) the "feeling" filter (created beforehand) in order to avoid degrading content.
 - As a viewer, I can see on a screen (a fake one, not connected to a Raspberry Pi) a post comming from a social media.
 
