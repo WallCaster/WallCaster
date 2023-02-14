@@ -18,13 +18,13 @@ export default function InputTags({
   return (
     <div className={`${className} flex gap-3 flex-col`}>
       <label htmlFor={id} className='block text-sm font-medium text-gray-700'>
-        {label}
+        {label} (comma separated)
       </label>
       <div className='mt-1'>
         <input
           type={'text'}
-          value={value.join(', ')}
-          onChange={(e) => setValue(e.target.value.split(/,| /))}
+          value={value.join(',')}
+          onChange={(e) => setValue(e.target.value.split(','))}
           name={id}
           id={id}
           {...args}
