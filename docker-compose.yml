@@ -1,5 +1,7 @@
 version: '3.0'
 services:
+
+  # Container of the backend
   back:
     build: # "context" and "dockerfile" fields have to be under "build"
       context: back
@@ -9,6 +11,7 @@ services:
     #ports:
     #  - 3001:3001
 
+  # Container of the frontend
   front:
     build: # "context" and "dockerfile" fields have to be under "build"
       context: front-client
@@ -20,6 +23,7 @@ services:
     depends_on:
       - back
   
+  # Container of the filters
   filter-processor:
     build:
       context: filter-processor
