@@ -19,15 +19,15 @@ Finally, the last part of this sprint was devoted to the creation of a prototype
 
 # Sprint 1
 
-Le sprint 1 marque le début du développement de notre projet et de son implémentation. Nous avons choisi plusieurs histoires utilisateurs qui définissent l'ensemble des fonctionnalités du produit qui sera démontré aux clients à la fin du sprint. Nous en dédurions les différentes tâches à réaliser ainsi que la manière de tester ce que nous avons créés. Elles seront implémentées les semaines suivantes. Nous obtiendrons donc une seconde version du produit plus enrichie que la précédente.
-La revue de sprint et la rétrospective nous permettront de valider notre avancement et définir les actions à effectuer lors du sprint 2, ainsi que d'identifier les bonnes ou mauvaises pratiques qu'il y a eues, afin de les corriger le cas échéant.  
+Sprint 1 is the beginning of our project development and implementation. We have chosen many user stories that define the set of functionalities of our product. It will be shown to our customers at the end of the sprint. We will deduce other tasks to do and also the way to test and and check what whe have created. They will be implemented the next weeks. In the end we will obtain a second version of our product, more valuable than before.
+The sprint review and the retrospective will allow us to check our progress and define new actions to achieve during sprint 2 and to identify the good or bad manners there have been, in order to fix them if necessary.  
 
 ## Expected Outcome
 
-- En tant qu'administrateur, je peux me connecter au serveur d'administration (préalablement créé) pour changer la configuration.
-- En tant qu'administrateur, je peux choisir d'autoriser ou non la diffusion de photos.
-- En tant qu'administrateur, je peux changer le nombre d'écrans sur lesquels envoyer le contenu des différents réseaux sociaux.
-- En tant qu'administrateur, je peux choisir d'appliquer ou non le filtre "sentiment" pour filtrer le contenu trop négatif (qui aura été préalablement créé).
-- En tant que spectateur, je peux visualiser sur un écran (de test, non connecté à un Raspberry Pi) un post provenant d'un réseau social.
+- As an administrator, I can log in the admin server (created beforehand) to change configuration/
+- As an administrator, I can choose to allow picture broadcast.
+- As an administrator, I can change the number of screens to which send social media contents.
+- As an admnisitrator, I can choose to apply (or not) the "feeling" filter (created beforehand) in order to avoid degrading content.
+- As a viewer, I can see on a screen (a fake one, not connected to a Raspberry Pi) a post comming from a social media.
 
-La date de fin du sprint est fixée au **mardi 14 février 2023**.
+Sprint 1 ends Tuesday **02/14/2023.**
