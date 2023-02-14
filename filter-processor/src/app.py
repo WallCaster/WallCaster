@@ -10,9 +10,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def callFilter():
     # return jsonify({"result": request.json})
-    return jsonify({"result": request.json})
-    return jsonify(request.json)
-    print("Le Post : ", request.json["post"])
     post = request.json["post"]
     filter_config = request.json["filter_config"]
     txt = post["content"]["text"]
