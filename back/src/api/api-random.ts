@@ -24,7 +24,7 @@ export class ApiRandom extends Api {
         },
         date: new Date(Date.now()),
         originUrl: 'http://localhost:3000/twitter',
-        api: ApiName.RANDOM,
+        api: ApiName.TWITTER,
       },
     ];
     return Promise.resolve(posts);
