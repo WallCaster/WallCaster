@@ -1,0 +1,29 @@
+{
+  "maxStoreSize": 105,
+  "query": {
+    "useTwitterApi": true,
+    "twitter": {
+      "fetchInterval": 30,
+      "fetchQuantity": 10,
+      "dateRange": {
+        "start": "2020-01-01T00:00:00.000Z",
+        "end": "2023-02-14T07:12:41.609Z"
+      },
+      "useWhitelistHashtags": false,
+      "whitelistHashtags": [],
+      "useWhitelistAuthors": false,
+      "whitelistAuthors": []
+    },
+    "useRandomApi": false,
+    "random": {
+      "fetchInterval": 2
+    }
+  },
+  "filter": {
+    "useEnglishSentiment": false,
+    "useForbiddenWords": false,
+    "forbiddenWords": [],
+    "allowVideo": false,
+    "allowImage": true
+  }
+}
