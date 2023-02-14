@@ -95,6 +95,15 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
                   type='number'
                   args={{ min: 1, max: 1000 }}
                 />
+                <Input
+                  className='col-span-2'
+                  id='rotationInterval'
+                  label='Rotation interval'
+                  value={temp.rotationInterval}
+                  setValue={(s) => setTemp({ ...temp, rotationInterval: parseFloat(s) })}
+                  type='number'
+                  args={{ min: 0.1, max: 1000, step: 0.1 }}
+                />
               </div>
             </div>
             <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
@@ -220,7 +229,7 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
                       })
                     }
                     type='number'
-                    args={{ min: 1, max: 100 }}
+                    args={{ min: 10, max: 100 }}
                   />
                   <Input
                     className='col-span-1'

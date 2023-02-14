@@ -12,6 +12,7 @@ export class App {
   private posts_unfiltered: Post[] = [];
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
+  private rotationInterval: NodeJS.Timeout | null = null;
 
   constructor() {
     this.socket = new SocketServer(this);
@@ -25,6 +26,12 @@ export class App {
     else if (this.apis.twitter) this.apis.twitter.stop();
     if (query.useRandomApi && this.apis.random) this.apis.random.start(this);
     else if (this.apis.random) this.apis.random.stop();
+
+    if (this.rotationInterval) clearInterval(this.rotationInterval);
+    this.rotationInterval = setInterval(() => {
+      const post = this.getNextPost();
+      if (post) this.socket.sendPostToAll(post);
+    }, configManager.config.rotationInterval * 1000);
   }
 
   /**
@@ -34,9 +41,9 @@ export class App {
     if (!this.posts_ids.has(post.id)) {
       this.posts_ids.add(post.id);
       // Filter here
-      this.filterPost(post);
+      // this.filterPost(post);
       this.posts_unfiltered.unshift(post);
-      this.socket.sendPostToAll(post)
+      this.socket.sendPostToAll(post);
     }
   }
 
@@ -84,6 +91,6 @@ export class App {
       .then((data) => {
         console.log(data);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error during filter :', error));
   }
 }

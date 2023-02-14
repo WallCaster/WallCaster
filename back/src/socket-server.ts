@@ -30,9 +30,9 @@ export class SocketServer {
     this.clients.set(socket.id, socket);
 
     // add listeners
-    socket.onAny((event, ...args) => {
-      console.log(`incoming event '${event}':`, args);
-    });
+    // socket.onAny((event, ...args) => {
+    //   console.log(`incoming event '${event}':`, args);
+    // });
 
     socket.on('getConfig', () => {
       this.onGetConfig(socket);
