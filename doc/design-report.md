@@ -34,3 +34,16 @@ The sprint review and the retrospective will allow us to check our progress and 
 - [x] As a viewer, I can see on displays, posts comming from Twitter that rotate at a given interval.
 
 Sprint 1 ends Tuesday **02/14/2023.**
+
+# Sprint 2
+
+ 
+
+## Expected Outcome
+
+- [ ] Appliquer le filtre sur les posts. (2h)
+- [ ] Ajouter nouveaux filtres (liste mots bannis, un autre). (10h)
+- [ ] Afficher les posts (du moins un log de posts) dans le pannel administration. (5h)
+- [ ] Autoriser l'affichage de photos/vidéos sur les écrans. (3h)
+- [ ] Meilleure gestion interne des posts en mémoire. (4h)
+- [ ] Supprimer posts déjà présents dans le système (passés à travers le filtre). (1h)
