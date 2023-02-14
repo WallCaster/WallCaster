@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
 import Checkbox from './Checkbox';
 import Input from './Input';
+import InputTags from './InputTags';
 
 const navigation = [
   { name: 'General', href: '#general', icon: AdjustmentsHorizontalIcon, current: true },
@@ -147,7 +148,7 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
                       })
                     }
                     type='number'
-                    args={{ min: .1, max: 1000, step: 0.1 }}
+                    args={{ min: 0.1, max: 1000, step: 0.1 }}
                   />
                 </div>
                 <Checkbox
@@ -163,6 +164,24 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
                     !temp.query.useTwitterApi && 'pointer-events-none opacity-20'
                   }`}
                 >
+                  <InputTags
+                    className='col-span-3'
+                    id='whitelistHashtags'
+                    label='Whitelisted Hashtags'
+                    value={temp.query.twitter.whitelistHashtags}
+                    setValue={(s) =>
+                      setTemp({
+                        ...temp,
+                        query: {
+                          ...temp.query,
+                          twitter: {
+                            ...temp.query.twitter,
+                            whitelistHashtags: s,
+                          },
+                        },
+                      })
+                    }
+                  />
                   <Input
                     className='col-span-1'
                     id='fetchInterval'
