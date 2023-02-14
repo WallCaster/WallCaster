@@ -117,51 +117,131 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
 
               <div className='grid grid-cols-3 gap-6'>
                 <Checkbox
-                  className='col-span-3'
+                  className='col-span-3 border-t pt-6'
                   id='useRandomApi'
                   label='Use random API'
                   value={temp.query.useRandomApi}
                   setValue={(b) => setTemp({ ...temp, query: { ...temp.query, useRandomApi: b } })}
-                  desc='Use random API instead of the default one'
+                  desc='Use the randomly generated posts API for testing purposes'
                 />
-                <Input
-                  className='col-span-1'
-                  id='dateFrom'
-                  label='Date from'
-                  value={temp.query.twitter.dateRange.start}
-                  setValue={(s) =>
-                    setTemp({
-                      ...temp,
-                      query: {
-                        ...temp.query,
-                        twitter: {
-                          ...temp.query.twitter,
-                          dateRange: { ...temp.query.twitter.dateRange, start: new Date(s) },
+                <div
+                  className={`grid grid-cols-3 gap-6 col-span-3 ${
+                    !temp.query.useRandomApi && 'pointer-events-none opacity-20'
+                  }`}
+                >
+                  <Input
+                    className='col-span-1'
+                    id='fetchInterval'
+                    label='Fetch interval (in seconds)'
+                    value={temp.query.random.fetchInterval}
+                    setValue={(s) =>
+                      setTemp({
+                        ...temp,
+                        query: {
+                          ...temp.query,
+                          random: {
+                            ...temp.query.random,
+                            fetchInterval: parseFloat(s),
+                          },
                         },
-                      },
-                    })
-                  }
-                  type='date'
+                      })
+                    }
+                    type='number'
+                    args={{ min: .1, max: 1000, step: 0.1 }}
+                  />
+                </div>
+                <Checkbox
+                  className='col-span-3 border-t pt-6'
+                  id='useTwitterApi'
+                  label='Use Twitter API'
+                  value={temp.query.useTwitterApi}
+                  setValue={(b) => setTemp({ ...temp, query: { ...temp.query, useTwitterApi: b } })}
+                  desc='Allow requests to Twitter API'
                 />
-                <Input
-                  className='col-span-1'
-                  id='dateTo'
-                  label='Date to'
-                  value={temp.query.twitter.dateRange.end}
-                  setValue={(s) =>
-                    setTemp({
-                      ...temp,
-                      query: {
-                        ...temp.query,
-                        twitter: {
-                          ...temp.query.twitter,
-                          dateRange: { ...temp.query.twitter.dateRange, end: new Date(s) },
+                <div
+                  className={`grid grid-cols-3 gap-6 col-span-3 ${
+                    !temp.query.useTwitterApi && 'pointer-events-none opacity-20'
+                  }`}
+                >
+                  <Input
+                    className='col-span-1'
+                    id='fetchInterval'
+                    label='Fetch interval (in seconds)'
+                    value={temp.query.twitter.fetchInterval}
+                    setValue={(s) =>
+                      setTemp({
+                        ...temp,
+                        query: {
+                          ...temp.query,
+                          twitter: {
+                            ...temp.query.twitter,
+                            fetchInterval: parseFloat(s),
+                          },
                         },
-                      },
-                    })
-                  }
-                  type='date'
-                />
+                      })
+                    }
+                    type='number'
+                    args={{ min: 5, max: 1000, step: 0.1 }}
+                  />
+                  <Input
+                    className='col-span-2'
+                    id='fetchQuantity'
+                    label='Fetch quantity'
+                    value={temp.query.twitter.fetchQuantity}
+                    setValue={(s) =>
+                      setTemp({
+                        ...temp,
+                        query: {
+                          ...temp.query,
+                          twitter: {
+                            ...temp.query.twitter,
+                            fetchQuantity: parseInt(s),
+                          },
+                        },
+                      })
+                    }
+                    type='number'
+                    args={{ min: 1, max: 100 }}
+                  />
+                  <Input
+                    className='col-span-1'
+                    id='dateFrom'
+                    label='Date from'
+                    value={temp.query.twitter.dateRange.start}
+                    setValue={(s) =>
+                      setTemp({
+                        ...temp,
+                        query: {
+                          ...temp.query,
+                          twitter: {
+                            ...temp.query.twitter,
+                            dateRange: { ...temp.query.twitter.dateRange, start: new Date(s) },
+                          },
+                        },
+                      })
+                    }
+                    type='date'
+                  />
+                  <Input
+                    className='col-span-1'
+                    id='dateTo'
+                    label='Date to'
+                    value={temp.query.twitter.dateRange.end}
+                    setValue={(s) =>
+                      setTemp({
+                        ...temp,
+                        query: {
+                          ...temp.query,
+                          twitter: {
+                            ...temp.query.twitter,
+                            dateRange: { ...temp.query.twitter.dateRange, end: new Date(s) },
+                          },
+                        },
+                      })
+                    }
+                    type='date'
+                  />
+                </div>
               </div>
             </div>
             <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
@@ -185,6 +265,22 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
                 </p>
               </div>
               <div className='grid grid-cols-3 gap-6'>
+                <Checkbox
+                  className='col-span-3'
+                  id='useEnglishSentiment'
+                  label='Filter by sentiment (Only in English)'
+                  value={temp.filter.useEnglishSentiment}
+                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useEnglishSentiment: b } })}
+                  desc='Filter out tweets with negative sentiment'
+                />
+                <Checkbox
+                  className='col-span-3'
+                  id='useForbiddenWords'
+                  label='Filter Forbidden Words'
+                  value={temp.filter.useForbiddenWords}
+                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useForbiddenWords: b } })}
+                  desc='Filter out tweets containing forbidden words'
+                />
                 <Checkbox
                   className='col-span-3'
                   id='allowVideo'
