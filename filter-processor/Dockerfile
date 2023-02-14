@@ -8,6 +8,10 @@ COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 
+# Install punkt dependency
+COPY punkt_install.py ./
+RUN python punkt_install.py
+
 # Bundle app source
 COPY . .
 
