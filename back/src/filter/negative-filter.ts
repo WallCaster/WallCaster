@@ -1,4 +1,4 @@
-import { Filter } from '.';
+import { Filter } from './filter';
 
 export class NegativeFilter extends Filter {
   constructor() {
