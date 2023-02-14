@@ -24,11 +24,14 @@ The sprint review and the retrospective will allow us to check our progress and 
 
 ## Expected Outcome
 
-- As an administrator, I can log in the admin server (created beforehand) to change configuration.
-- As an administrator, I can choose to allow picture broadcast. (à mieux faire)
-- As an administrator, I can change the number of screens to which send social media contents. (à mieux faire)
-- As an admnisitrator, I can choose to apply (or not) the "feeling" filter (created beforehand) in order to avoid degrading content.
-- As a viewer, I can see on a screen (a fake one, not connected to a Raspberry Pi) a post comming from a social media (à reformuler).
+- [x] As an administrator, I can log in the admin server (created beforehand)
+- [x] As an administrator, I can query Tweets from Twitter with a specific hashtag.
+- [x] As an administrator, I can select the interval of time between two queries to the Twitter API.
+- [x] As an administrator, I can select the rotation interval of posts on the screen.
+- [ ] As an administrator, I can choose to allow picture broadcast. (à mieux faire)
+- [ ] As an administrator, I can change the number of screens to which send social media contents. (à mieux faire)
+- [x] As an admnisitrator, I can choose apply a filter (english sentiment filter) on the posts to display.
+- [x] As a viewer, I can see on displays, posts comming from Twitter that rotate at a given interval.
 
 Sprint 1 ends Tuesday **02/14/2023.**
 
@@ -38,11 +41,9 @@ Sprint 1 ends Tuesday **02/14/2023.**
 
 ## Expected Outcome
 
-- Appliquer le filtre sur les posts. (2h)
-- Ajouter nouveaux filtres (liste mots bannis, un autre). (10h)
-- Afficher les posts (du moins un log de posts) dans le pannel administration. (5h)
-- Autoriser l'affichage de photos/vidéos sur les écrans. (3h)
-- Meilleure gestion interne des posts en mémoire. (4h)
-- Supprimer posts déjà présents dans le système (passés à travers le filtre). (1h)
-
-Sprint 2 ends Tuesday **03/28/2023.**
+- [ ] Appliquer le filtre sur les posts. (2h)
+- [ ] Ajouter nouveaux filtres (liste mots bannis, un autre). (10h)
+- [ ] Afficher les posts (du moins un log de posts) dans le pannel administration. (5h)
+- [ ] Autoriser l'affichage de photos/vidéos sur les écrans. (3h)
+- [ ] Meilleure gestion interne des posts en mémoire. (4h)
+- [ ] Supprimer posts déjà présents dans le système (passés à travers le filtre). (1h)

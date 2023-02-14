@@ -33,51 +33,59 @@ describe('App', () => {
     }
   })
 
-  it('should return null if there are no posts in the cache', () => {
-    expect(app.getNextPost()).toBeNull();
-  });
+  describe('getNextPost', () => {
+    it('should return null if there are no posts in the cache', () => {
+      expect(app.getNextPost()).toBeNull();
+    });
+  })
 
-  it('should return the next post in the cache', () => {
-    app.addPost(post);
-    expect(app.getNextPost()).toEqual(post);
-  });
+  describe('addPost', () => {
+    it('should return the next post in the cache', () => {
+      app.addPost(post);
+      expect(app.getNextPost()).toEqual(post);
+    });
+  
+    it('should return the last post in the cache', () => {
+      app.addPost(post);
+      app.addPost(post);
+      expect(app.getNextPost()).toEqual(post);
+    });
 
-  it('should return the last post in the cache', () => {
-    app.addPost(post);
-    app.addPost(post);
-    expect(app.getNextPost()).toEqual(post);
-  });
+    it('should return the last post in the cache', () => {
+      app.addPost(post);
+      app.addPost(post);
+      expect(app.getNextPost()).toEqual(post);
+    });
+  })
 
-  it('should remove a post from the cache', () => {
-    app.addPost(post);
-    app.removePost('0');
-    expect(app.getNextPost()).toBeNull();
-  });
+  describe('removePost', () => {
+    it('should remove a post from the cache', () => {
+      app.addPost(post);
+      app.removePost('0');
+      expect(app.getNextPost()).toBeNull();
+    });
+  
+    it('should return null if there are no posts to remove in the cache', () => {
+      app.removePost('0');
+      expect(app.getNextPost()).toBeNull();
+    });
+  })
 
-  it('should return null if there are no posts to remove in the cache', () => {
-    app.removePost('0');
-    expect(app.getNextPost()).toBeNull();
-  });
-
-  it('should return null if there are no posts added in the cache', () => {
-    app.addPosts([])
-    expect(app.getNextPost()).toBeNull()
-  });
-
-  it('should return the next post in the cache', () => {
-    app.addPosts([post])
-    expect(app.getNextPost()).toEqual(post)
-  });
-
-  it('should return the next post in the cache', () => {
-    app.addPosts([post, post])
-    expect(app.getNextPost()).toEqual(post)
-  });
-
-  it('should return the last post in the cache', () => {
-    app.addPost(post);
-    app.addPost(post);
-    expect(app.getNextPost()).toEqual(post);
-  });
+  describe('addPosts', () => {
+    it('should return null if there are no posts added in the cache', () => {
+      app.addPosts([])
+      expect(app.getNextPost()).toBeNull()
+    });
+  
+    it('should return the next post in the cache', () => {
+      app.addPosts([post])
+      expect(app.getNextPost()).toEqual(post)
+    });
+  
+    it('should return the next post in the cache', () => {
+      app.addPosts([post, post])
+      expect(app.getNextPost()).toEqual(post)
+    });
+  })
   
 });
