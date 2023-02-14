@@ -28,6 +28,19 @@ The sprint review and the retrospective will allow us to check our progress and 
 - As an administrator, I can choose to allow picture broadcast. (à mieux faire)
 - As an administrator, I can change the number of screens to which send social media contents. (à mieux faire)
 - As an admnisitrator, I can choose to apply (or not) the "feeling" filter (created beforehand) in order to avoid degrading content.
-- As a viewer, I can see on a screen (a fake one, not connected to a Raspberry Pi) a post comming from a social media.
+- As a viewer, I can see on a screen (a fake one, not connected to a Raspberry Pi) a post comming from a social media (à reformuler).
 
 Sprint 1 ends Tuesday **02/14/2023.**
+
+# Sprint 2
+
+ 
+
+## Expected Outcome
+
+- Appliquer le filtre sur les posts. (2h)
+- Ajouter nouveaux filtres (liste mots bannis, un autre). (10h)
+- Afficher les posts (du moins un log de posts) dans le pannel administration. (5h)
+- Autoriser l'affichage de photos/vidéos sur les écrans. (3h)
+- Meilleure gestion interne des posts en mémoire. (4h)
+- Supprimer posts déjà présents dans le système (passés à travers le filtre). (1h)

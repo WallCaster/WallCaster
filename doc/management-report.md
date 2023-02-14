@@ -124,4 +124,15 @@ Faire les tests à chaque sprint, sur les fonctionnalités implémentées.
 Définir la date de fin de sprint (impérativement), quoiqu'il arrive. Le but est de pouvoir s'évaluer. L'objectif est de bien gérer le projet.
 Attention tâches (dev) != fonctionnalités (clients).
 
+### 02/14/2023 with Johann BOURCIER
+
+Aujourd'hui réunion fin de sprint : 
+- démo
+- retrospective (ce qui a marché, pas marché, à faire entre nous) pour en ressortir deux ou trois actions
+- plannification du prochain sprint (envoyer les objectifs par mail)
+
+Définir date de fin sprint 2
+
+Attention réfléchir en détails à l'histoire utilisateur pour pouvoir connecter plusieurs écrans (au niveau du panel utilisateur).
+
 # Description et gestion des exigences
