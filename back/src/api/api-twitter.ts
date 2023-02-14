@@ -72,7 +72,9 @@ export class ApiTwitter extends Api {
         result.push(post);
       }
     } catch (error) {
-      console.error(error);
+      const red = '\x1b[31m';
+      const reset = '\x1b[0m';
+      console.error(red + 'Error while fetching tweets: ' + error + reset);
     }
     return result;
   }
