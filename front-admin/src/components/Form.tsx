@@ -36,7 +36,6 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
   useEffect(() => {
     setTemp(config);
   }, [config]);
-  
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -88,12 +87,12 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
               <div className='grid grid-cols-3 gap-6'>
                 <Input
                   className='col-span-2'
-                  id='numberOfScreens'
-                  label='Number of screens'
-                  value={temp.numberOfScreens}
-                  setValue={(s) => setTemp({ ...temp, numberOfScreens: parseInt(s) })}
+                  id='maxStoreSize'
+                  label='Maximum store size'
+                  value={temp.maxStoreSize}
+                  setValue={(s) => setTemp({ ...temp, maxStoreSize: parseInt(s) })}
                   type='number'
-                  args={{ min: 1, max: 10 }}
+                  args={{ min: 1, max: 1000 }}
                 />
               </div>
             </div>
@@ -119,21 +118,27 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
               <div className='grid grid-cols-3 gap-6'>
                 <Checkbox
                   className='col-span-3'
-                  id='useWhitelistAuthors'
-                  label='Use whitelist authors'
-                  value={temp.query.useWhitelistAuthors}
-                  setValue={(b) => setTemp({ ...temp, query: { ...temp.query, useWhitelistAuthors: b } })}
-                  desc='Only show tweets from the authors in the whitelist'
+                  id='useRandomApi'
+                  label='Use random API'
+                  value={temp.query.useRandomApi}
+                  setValue={(b) => setTemp({ ...temp, query: { ...temp.query, useRandomApi: b } })}
+                  desc='Use random API instead of the default one'
                 />
                 <Input
                   className='col-span-1'
                   id='dateFrom'
                   label='Date from'
-                  value={temp.query.dateRange.start}
+                  value={temp.query.twitter.dateRange.start}
                   setValue={(s) =>
                     setTemp({
                       ...temp,
-                      query: { ...temp.query, dateRange: { ...temp.query.dateRange, start: new Date(s) } },
+                      query: {
+                        ...temp.query,
+                        twitter: {
+                          ...temp.query.twitter,
+                          dateRange: { ...temp.query.twitter.dateRange, start: new Date(s) },
+                        },
+                      },
                     })
                   }
                   type='date'
@@ -142,11 +147,17 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
                   className='col-span-1'
                   id='dateTo'
                   label='Date to'
-                  value={temp.query.dateRange.end}
+                  value={temp.query.twitter.dateRange.end}
                   setValue={(s) =>
                     setTemp({
                       ...temp,
-                      query: { ...temp.query, dateRange: { ...temp.query.dateRange, end: new Date(s) } },
+                      query: {
+                        ...temp.query,
+                        twitter: {
+                          ...temp.query.twitter,
+                          dateRange: { ...temp.query.twitter.dateRange, end: new Date(s) },
+                        },
+                      },
                     })
                   }
                   type='date'
@@ -174,31 +185,20 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
                 </p>
               </div>
               <div className='grid grid-cols-3 gap-6'>
-                {/* allowSound: true,
-      allowVideo: false,
-      allowImage: true, */}
-                <Checkbox
-                  className='col-span-3'
-                  id='allowSound'
-                  label='Allow sound'
-                  value={temp.filters.allowSound}
-                  setValue={(b) => setTemp({ ...temp, filters: { ...temp.filters, allowSound: b } })}
-                  desc='Allow tweets with sound'
-                />
                 <Checkbox
                   className='col-span-3'
                   id='allowVideo'
                   label='Allow video'
-                  value={temp.filters.allowVideo}
-                  setValue={(b) => setTemp({ ...temp, filters: { ...temp.filters, allowVideo: b } })}
+                  value={temp.filter.allowVideo}
+                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, allowVideo: b } })}
                   desc='Allow tweets with video'
                 />
                 <Checkbox
                   className='col-span-3'
                   id='allowImage'
                   label='Allow image'
-                  value={temp.filters.allowImage}
-                  setValue={(b) => setTemp({ ...temp, filters: { ...temp.filters, allowImage: b } })}
+                  value={temp.filter.allowImage}
+                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, allowImage: b } })}
                   desc='Allow tweets with image'
                 />
               </div>

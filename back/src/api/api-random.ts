@@ -1,6 +1,6 @@
 import configManager from '../config';
 import { ApiName, Post } from '../post';
-import { getUUID } from '../utils/post-helper';
+import { randomUUID} from 'crypto';
 import { Api } from './api';
 
 export class ApiRandom extends Api {
@@ -11,7 +11,7 @@ export class ApiRandom extends Api {
   public async fetchPosts(): Promise<Post[]> {
     const posts: Post[] = [
       {
-        id: getUUID(),
+        id: randomUUID(),
         content: {
           text:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vitae ultricies lacinia, nunc nisl ultricies nunc' +

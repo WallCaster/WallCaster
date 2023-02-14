@@ -43,7 +43,7 @@ class ConfigManager {
   config: Config = {
     maxStoreSize: 100,
     query: {
-      useTwitterApi: false,
+      useTwitterApi: true,
       twitter: {
         fetchInterval: 30,
         fetchQuantity: 10,
@@ -56,7 +56,7 @@ class ConfigManager {
         useWhitelistAuthors: false,
         whitelistAuthors: [],
       },
-      useRandomApi: true,
+      useRandomApi: false,
       random: {
         fetchInterval: 2,
       },

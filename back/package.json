@@ -27,6 +27,7 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "socket.io": "^4.5.4"
+    "socket.io": "^4.5.4",
+    "crypto": "1.0.1"
   }
 }
