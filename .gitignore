@@ -135,3 +135,4 @@ dist
 build
 
 __pycache__
+filter-processor/src/__pycache__/app.cpython-38.pyc
