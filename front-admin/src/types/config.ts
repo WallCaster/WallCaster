@@ -1,6 +1,7 @@
 
 export type Config = {
   maxStoreSize: number;
+  rotationInterval: number;
   query: {
     useTwitterApi: boolean;
     twitter: {

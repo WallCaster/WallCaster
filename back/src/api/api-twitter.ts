@@ -41,13 +41,14 @@ export class ApiTwitter extends Api {
         Authorization: 'Bearer ' + BearerToken,
       },
     };
-    try {
+    try {      
       const response = await fetch(fetchUrl, options);
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
       const json = await response.json();
 
+      if (!response.ok) {
+        throw new Error('Error while fetching tweets: ' + JSON.stringify(json, null, 2));
+      }
+      
       let tweets = json.data;
       let user = json.includes.users;
 
@@ -72,7 +73,9 @@ export class ApiTwitter extends Api {
         result.push(post);
       }
     } catch (error) {
-      console.error(error);
+      const red = '\x1b[31m';
+      const reset = '\x1b[0m';
+      console.error(red + 'Error while fetching tweets: ' + error + reset);
     }
     return result;
   }

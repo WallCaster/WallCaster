@@ -13,7 +13,52 @@ For the progress of the project, we use the agile project management method usin
 
 # Description des rôles et des responsabilités
 
-TODO for Louis-Gabriel
+## Week 1 (11/29/2022)
+
+- Kilian : veille API Twitter
+- Yanis : veille Raspberry PI
+- Louis-Gabriel : veille API LinkedIn
+- Bastien : veille API Facebook/Intagram
+- Kouame : veille filtrage IA
+- Cody : veille technologique
+
+## Week 2 (12/06/2022)
+
+Documents d'analyse et d'architecture :
+
+- Kilian : modèle statique (visual paradigm), modèle dynamique, cadre de production
+- Yanis : modèle du domaine métier
+- Louis-Gabriel : rappel du besoin, diagramme de séquence système "API extraire post"
+- Bastien : description de l'écosystème
+- Kouame : critères de succès, diagramme de séquence système "Supprimer POST"
+- Cody : principe de solution
+
+## Week 3 (12/13/2022)
+
+To complete !
+
+## "Bonus" day (01/05/2023)
+
+Préparation oral :
+
+- Kilian : fin corrections diagrammes et préparation des slides
+- Yanis : correction documentation, dockerisation projet pour permettre une démo pendant l'oral, slides 
+- Louis-Gabriel : correction documentation, préparation des slides et écriture de l'introduction
+- Bastien : correction documentation et préparation des slides
+- Kouame : préparation des slides
+- Cody : dockerisation et mise en ligne des différents conteneurs, préparation des slides
+
+## Week 4 (01/06/2023)
+
+Oral presentation
+
+## Week 5 (01/31/2023)
+
+- Kilian : intégration API Twitter
+- Louis-Gabriel : création filtres en Python, premières recherches, tutoriel Flask
+- Bastien : création filtres en Python, premières recherches, tutoriel Flask
+- Kouame : recherches, entraînement modèle
+- Cody : frontend administration
 
 # Gestion du déroulement du projet (suivi du planning, comptes rendus de réunions...)
 
@@ -78,5 +123,16 @@ Faire les tests à chaque sprint, sur les fonctionnalités implémentées.
 Être précis sur les fonctionnalités attendues car elles seront revues à la revue de sprint.
 Définir la date de fin de sprint (impérativement), quoiqu'il arrive. Le but est de pouvoir s'évaluer. L'objectif est de bien gérer le projet.
 Attention tâches (dev) != fonctionnalités (clients).
+
+### 02/14/2023 with Johann BOURCIER
+
+Aujourd'hui réunion fin de sprint : 
+- démo
+- retrospective (ce qui a marché, pas marché, à faire entre nous) pour en ressortir deux ou trois actions
+- plannification du prochain sprint (envoyer les objectifs par mail)
+
+Définir date de fin sprint 2
+
+Attention réfléchir en détails à l'histoire utilisateur pour pouvoir connecter plusieurs écrans (au niveau du panel utilisateur).
 
 # Description et gestion des exigences
