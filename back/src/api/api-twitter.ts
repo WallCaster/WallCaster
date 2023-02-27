@@ -52,14 +52,14 @@ export class ApiTwitter extends Api {
       let user = json.includes.users;
       
       let hasMedia : boolean = false;
-      let medias = [];
-      let medias_ = json.includes.media;
+      let medias = []; // List of media that will be keep (only photos)
+      let medias_ = json.includes.media; // All the media (videos and photos)
 
       if(medias_ != undefined){
-        hasMedia = true;
+        hasMedia = true; // Set a true presence of media
         for(let i = 0 ; i < medias_.length ; i++){
           const media = medias_[i];
-          if(media.type === "photo"){
+          if(media.type === "photo"){ // If the medium is a photo then keep it in the final list
             medias.push(media);
           }
         }
@@ -68,7 +68,7 @@ export class ApiTwitter extends Api {
       for (let i = 0; i < tweets.length; i++) {
         const tweet = tweets[i];
 
-        let image_urls = [];
+        let image_urls = []; // List of url. Stay empty if there is no media.
 
         if(hasMedia){
           let keys;
