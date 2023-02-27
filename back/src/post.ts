@@ -11,15 +11,12 @@ export type Post = {
 export type FilterData = {
   passedSentiment?: boolean;
   passedBanwords?: boolean;
+  filterDate : Date;
 }
 
 export type Content = {
   text: string;
-  images?: PostImage[];
-};
-
-export type PostImage = {
-  url: string;
+  images?: string[];
 };
 
 export type Author = {

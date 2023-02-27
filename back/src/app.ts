@@ -9,7 +9,7 @@ export class App {
   // the set of all posts ids (filtered and unfiltered)
   private posts_ids: Set<string> = new Set();
   // the list of incoming posts from the api (first stage)
-  private posts_unfiltered: Post[] = [];
+  private posts: (Post & FilterData)[] = [];
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
@@ -40,30 +40,27 @@ export class App {
   /**
    * Adds a new post to the cache but in the front to prioritize it
    */
-  public addPost(post: Post) {
-    if (!this.posts_ids.has(post.id)) {
-      this.posts_ids.add(post.id);
-      // Filter here
-      // this.filterPost(post);
-      // if filter is ok {
-      this.posts_unfiltered.unshift(post);
-      this.socket.sendCacheToAdmin();
-      // }
-    }
-  }
-
-  /**
-   * Adds a new post to the cache but in the front to prioritize it
-   */
   public addPosts(posts: Post[]) {
     // TODO filter in batch for optimization
     posts.forEach((post) => {
-      this.addPost(post);
+      if (!this.posts_ids.has(post.id)) {
+        this.posts_ids.add(post.id);
+        // Filter here
+        // this.filterPost(post);
+        // if filter is ok {
+        const filterData: FilterData = {
+          filterDate: new Date(),
+        };
+        this.posts.unshift({ ...post, ...filterData });
+        this.clampCache();
+        this.socket.sendCacheToAdmin();
+        // }
+      }
     });
   }
 
   public getCache(): (Post & FilterData)[] {
-    return this.posts_unfiltered;
+    return this.posts;
   }
 
   /**
@@ -72,19 +69,27 @@ export class App {
    * then add it back to the end of the cache
    */
   public getNextPost(): Post | null {
-    if (this.posts_unfiltered.length > 0) {
-      const post = this.posts_unfiltered[0];
-      this.posts_unfiltered.splice(0, 1);
-      this.posts_unfiltered.push(post);
+    if (this.posts.length > 0) {
+      const post = this.posts[0];
+      this.posts.splice(0, 1);
+      this.posts.push(post);
+      this.clampCache();
       this.socket.sendCacheToAdmin();
       return post;
     }
     return null;
   }
 
+  private clampCache() {
+    const max = configManager.config.maxStoreSize;
+    if (this.posts.length > max) {
+      this.posts.splice(max, this.posts.length - max);
+    }
+  }
+
   public removePost(id: string) {
     this.posts_ids.delete(id);
-    this.posts_unfiltered = this.posts_unfiltered.filter((post) => post.id !== id);
+    this.posts = this.posts.filter((post) => post.id !== id);
     this.socket.sendCacheToAdmin();
   }
 

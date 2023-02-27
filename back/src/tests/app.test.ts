@@ -41,26 +41,26 @@ describe('App', () => {
 
   describe('addPost', () => {
     it('should return the next post in the cache', () => {
-      app.addPost(post);
+      app.addPosts([post]);
       expect(app.getNextPost()).toEqual(post);
     });
   
     it('should return the last post in the cache', () => {
-      app.addPost(post);
-      app.addPost(post);
+      app.addPosts([post]);
+      app.addPosts([post]);
       expect(app.getNextPost()).toEqual(post);
     });
 
     it('should return the last post in the cache', () => {
-      app.addPost(post);
-      app.addPost(post);
+      app.addPosts([post]);
+      app.addPosts([post]);
       expect(app.getNextPost()).toEqual(post);
     });
   })
 
   describe('removePost', () => {
     it('should remove a post from the cache', () => {
-      app.addPost(post);
+      app.addPosts([post]);
       app.removePost('0');
       expect(app.getNextPost()).toBeNull();
     });

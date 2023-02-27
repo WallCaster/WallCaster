@@ -11,6 +11,7 @@ export type Post = {
 export type FilterData = {
   passedSentiment?: boolean;
   passedBanwords?: boolean;
+  filterDate : Date;
 }
 
 export type Content = {
