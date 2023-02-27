@@ -1,6 +1,6 @@
 import configManager from '../config';
 import { ApiName, Post } from '../post';
-import { randomUUID} from 'crypto';
+import { randomUUID } from 'crypto';
 import { Api } from './api';
 
 export class ApiRandom extends Api {
@@ -19,9 +19,9 @@ export class ApiRandom extends Api {
           images: [ 'https://placeimg.com/192/192/people' ],
         },
         author: {
-          name: 'Random User ' + randomString(3),
-          username: '@random_user_' + randomString(3),
-          image: 'https://placeimg.com/192/192/people',
+          name: 'Rand ' + randomString(3),
+          username: '@random_' + randomString(5),
+          image: 'https://i.pravatar.cc/300',
         },
         date: new Date(Date.now()),
         originUrl: 'http://localhost:3000/twitter',

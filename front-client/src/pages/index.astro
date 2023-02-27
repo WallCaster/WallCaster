@@ -1,9 +1,8 @@
 ---
-import { PostsDisplayer } from '../components/PostsDisplayer';
+import { App } from '../components/App';
 ---
 
-<!DOCTYPE html>
-<html lang='en' data-theme="light">
+<html lang='en' data-theme='light' class='h-full' style="font-size: 28px;">
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
@@ -11,10 +10,7 @@ import { PostsDisplayer } from '../components/PostsDisplayer';
     <meta name='generator' content={Astro.generator} />
     <title>WallCaster</title>
   </head>
-  <body>
-    <main class='p-5'>
-      <h1 class='text-4xl py-4 font-bold'>Demo receive fake Tweet</h1>
-      <PostsDisplayer client:load />
-    </main>
+  <body class='h-full'>
+    <App client:only="react"  />
   </body>
 </html>
