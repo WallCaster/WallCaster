@@ -12,7 +12,7 @@ export const PostsDisplayer = () => {
     });
   });
   return (
-    <div style={{width:"50%", height:"50%", overflow:"hidden"}}>
+    <div style={{width:"100%", height:"50%", overflow:"hidden"}}>
       <div className='form-control w-full max-w-xs mb-4 opacity-50'>
         <label className='label'>
           <span className='label-text leading-3'>What is the Server ip</span>

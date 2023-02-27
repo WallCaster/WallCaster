@@ -38,7 +38,7 @@ const TwitterPostCard = ({ post }: { post: Post }) => {
       </div>
       <div className='flex flex-col gap-4'>
         <p className='text-2xl'>{post.content.text}</p>
-        <img src={post.content.images?.at(0)?.url} alt='image' className='square bg-primary rounded' style={{height:"20%", width:"50%"}}/>
+        <img src={post.content.images?.at(0)} alt='image' className='square bg-primary rounded' style={{height:"20%", width:"100%"}}/>
         {/* <div className='square bg-primary rounded'>
           <img src={post.content.images?.at(0)?.url} alt='image'/>
         </div> */}

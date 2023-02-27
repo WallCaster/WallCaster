@@ -10,11 +10,7 @@ export type Post = {
 
 export type Content = {
   text: string;
-  images?: PostImage[];
-};
-
-export type PostImage = {
-  url: string;
+  images?: string[];
 };
 
 export type Author = {
