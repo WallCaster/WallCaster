@@ -1,14 +1,15 @@
-import { Post, ApiName, } from '../types/post';
+import { Post, ApiName } from '../types/post';
+import MdiTwitter from './icons/MdiTwitter';
 
-export const PostCard = ({ post }: { post: Post }) => {
-  if (post.api === ApiName.TWITTER) return <TwitterPostCard post={post} />;
+export const PostCard = ({ post, className }: { post: Post; className?: string }) => {
+  if (post.api === ApiName.TWITTER) return <TwitterPostCard post={post} className={className} />;
   else return <p>Social network not supported yet ({post.api})</p>;
 };
 
-const TwitterPostCard = ({ post }: { post: Post }) => {
+const TwitterPostCard = ({ post, className }: { post: Post; className?: string }) => {
   let authorImage = post.author.image;
   if (authorImage === undefined)
-    authorImage = 'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png';
+    authorImage = 'https://i.pravatar.cc/300';
 
   const time: string = new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
@@ -24,9 +25,10 @@ const TwitterPostCard = ({ post }: { post: Post }) => {
   const likes = Math.round(Math.random() * 1000);
 
   return (
-    <div className='flex flex-col bg-white text-black p-7 rounded-xl shadow-xl border my-5 md:m-10 gap-4 overflow-hidden'>
+    <div className={`flex flex-col bg-white text-black p-7 shadow-xl gap-4 overflow-hidden relative ${className}`}>
+      <MdiTwitter className='h-8 w-8 text-blue-500 absolute top-7 right-7' />
       <div className='flex gap-4'>
-        <div className='avatar mask mask-circle h-12 w-12 shrink-0'>
+        <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden'>
           <img src={authorImage} alt='avatar' />
         </div>
         <div className='flex flex-col justify-center'>

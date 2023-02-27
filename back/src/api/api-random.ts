@@ -20,7 +20,7 @@ export class ApiRandom extends Api {
         author: {
           name: 'Rand ' + randomString(3),
           username: '@random_' + randomString(5),
-          image: 'https://placeimg.com/192/192/people',
+          image: 'https://i.pravatar.cc/300',
         },
         date: new Date(Date.now()),
         originUrl: 'http://localhost:3000/twitter',
