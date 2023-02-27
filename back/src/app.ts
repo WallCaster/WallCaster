@@ -2,7 +2,7 @@ import { Api } from './api/api';
 import { ApiRandom } from './api/api-random';
 import { ApiTwitter } from './api/api-twitter';
 import configManager from './config';
-import { ApiType, Post } from './post';
+import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
 
 export class App {
@@ -45,8 +45,9 @@ export class App {
       this.posts_ids.add(post.id);
       // Filter here
       // this.filterPost(post);
+      // if filter is ok {
       this.posts_unfiltered.unshift(post);
-      this.socket.sendPostToAll(post);
+      // }
     }
   }
 
@@ -54,9 +55,14 @@ export class App {
    * Adds a new post to the cache but in the front to prioritize it
    */
   public addPosts(posts: Post[]) {
+    // TODO filter in batch for optimization
     posts.forEach((post) => {
       this.addPost(post);
     });
+  }
+
+  public getCache(): (Post & FilterData)[] {
+    return this.posts_unfiltered;
   }
 
   /**

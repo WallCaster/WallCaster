@@ -34,30 +34,29 @@ export class SocketServer {
     this.clients.set(socket.id, socket);
 
     // add listeners
+
+
     // socket.onAny((event, ...args) => {
     //   console.log(`incoming event '${event}':`, args);
     // });
 
     socket.on('getConfig', () => {
-      this.onGetConfig(socket);
+      socket.emit('config', configManager.config);
     });
 
     socket.on('setConfig', (config: Config) => {
-      this.onSetConfig(socket, config);
+      configManager.config = config;
+      configManager.writeConfigToFile();
+      this.app.restart();
+      socket.emit('config', configManager.config);
     });
 
+    socket.on('setadmin', ()=>{
+      socket.join('admin');
+      this.sendCacheToAdmin();
+    })
+
     console.log('new client connected');
-  }
-
-  private onGetConfig(socket: io.Socket) {
-    socket.emit('config', configManager.config);
-  }
-
-  private onSetConfig(socket: io.Socket, config: Config) {
-    configManager.config = config;
-    configManager.writeConfigToFile();
-    this.app.restart();
-    socket.emit('config', configManager.config);
   }
 
   private onDisconnect(socket: io.Socket) {
@@ -81,15 +80,15 @@ export class SocketServer {
 
   // send post to all clients
   public sendPostToAll(post: Post) {
-    console.log('sending post to all clients : ' + post.id );
-    
+    console.log('sending post to all clients : ' + post.id);
+
     this.rooms.forEach((_, room) => {
       this.server.to(room).emit('post', post);
     });
   }
 
   public sendPostToRoom(room: string, post: Post) {
-    console.log('sending post to room ' + room + ' : ' + post.id );
+    console.log('sending post to room ' + room + ' : ' + post.id);
     this.server.to(room).emit('post', post);
   }
 
@@ -100,5 +99,9 @@ export class SocketServer {
   // send post to a specific client
   public sendPostTo(clientId: SocketId, post: Post) {
     if (this.clients.has(clientId)) this.clients.get(clientId)!.emit('post', post);
+  }
+
+  public sendCacheToAdmin() {
+    this.server.to('admin').emit('cache', this.app.getCache());
   }
 }
