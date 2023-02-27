@@ -14,15 +14,23 @@
   }
   ```
 */
-import { MagnifyingGlassIcon, AdjustmentsHorizontalIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import {
+  MagnifyingGlassIcon,
+  AdjustmentsHorizontalIcon,
+  FunnelIcon,
+  ListBulletIcon,
+} from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
+import type { FilterData, Post } from '../types/post';
+import CacheCard from './CacheCard';
 import Checkbox from './Checkbox';
 import Input from './Input';
 import InputTags from './InputTags';
 
 const navigation = [
-  { name: 'General', href: '#general', icon: AdjustmentsHorizontalIcon, current: true },
+  { name: 'Cache', href: '#cache', icon: ListBulletIcon, current: false },
+  { name: 'General', href: '#general', icon: AdjustmentsHorizontalIcon, current: false },
   { name: 'Query', href: '#query', icon: MagnifyingGlassIcon, current: false },
   { name: 'Filter', href: '#filter', icon: FunnelIcon, current: false },
 ];
@@ -31,7 +39,17 @@ function classNames(...classes: (boolean | undefined | string)[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function AdminForm({ config, setConfig }: { config: Config; setConfig: (config: Config) => void }) {
+export default function AdminForm({
+  config,
+  cache,
+  setConfig,
+  cacheDelete,
+}: {
+  config: Config;
+  cache: (Post & FilterData)[];
+  setConfig: (config: Config) => void;
+  cacheDelete: (id: string) => void;
+}) {
   const [temp, setTemp] = useState(config);
 
   useEffect(() => {
@@ -46,7 +64,7 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
   return (
     <div className='lg:grid lg:grid-cols-12 lg:gap-x-5'>
       <aside className='py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3'>
-        <nav className='space-y-1'>
+        <nav className='space-y-1 sticky top-10'>
           {navigation.map((item) => (
             <a
               key={item.name}
@@ -75,14 +93,29 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
       </aside>
 
       <div className='space-y-6 sm:px-6 lg:px-0 lg:col-span-9'>
+        <form onSubmit={onSubmit} id='cache'>
+          <div className='shadow sm:rounded-md sm:overflow-hidden'>
+            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
+              <div>
+                <h3 className='text-lg leading-6 font-medium text-gray-900'>Server posts cache</h3>
+                <p className='mt-1 text-sm text-gray-500'>
+                  The posts that are currently cached on the server. You can delete them from the server cache.
+                </p>
+              </div>
+              <div className='flex flex-col gap-2 max-h-80 overflow-y-auto'>
+                {cache.map((post) => (
+                  <CacheCard key={post.id} post={post} cacheDelete={cacheDelete} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </form>
         <form onSubmit={onSubmit} id='general'>
           <div className='shadow sm:rounded-md sm:overflow-hidden'>
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
                 <h3 className='text-lg leading-6 font-medium text-gray-900'>General Settings</h3>
-                <p className='mt-1 text-sm text-gray-500'>
-                  This information will be displayed publicly so be careful what you share.
-                </p>
+                <p className='mt-1 text-sm text-gray-500'>Settings that affect the server in general.</p>
               </div>
 
               <div className='grid grid-cols-3 gap-6'>
@@ -122,7 +155,7 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
                 <h3 className='text-lg leading-6 font-medium text-gray-900'>Query</h3>
-                <p className='mt-1 text-sm text-gray-500'>Use a permanent address where you can recieve mail.</p>
+                <p className='mt-1 text-sm text-gray-500'>Settings related to searching post through multiple APIs.</p>
               </div>
 
               <div className='grid grid-cols-3 gap-6'>
@@ -289,7 +322,7 @@ export default function AdminForm({ config, setConfig }: { config: Config; setCo
               <div>
                 <h3 className='text-lg leading-6 font-medium text-gray-900'>Filters</h3>
                 <p className='mt-1 text-sm text-gray-500'>
-                  Provide basic informtion about the job. Be specific with the job title.
+                  Filter out posts that don't meet your criteria before they are displayed.
                 </p>
               </div>
               <div className='grid grid-cols-3 gap-6'>

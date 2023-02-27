@@ -7,7 +7,6 @@ from nltk.tag import pos_tag
 import re, string
 import pickle
 
-
 path = Path(__file__).parent / "trained_data.pickle"
 with path.open("rb") as file:
     classifier = pickle.load(file)
@@ -50,4 +49,8 @@ def is_positive(txt: str) -> bool:
 
 
 if __name__ == "__main__":
-    print(is_positive("I love you"))
+    print("Ready to process sentences. (Ctrl+C to exit)\n")
+
+    while True:
+        txt = input("Enter a sentence: ")
+        print("The result is: ", is_positive(txt), end="\n\n")

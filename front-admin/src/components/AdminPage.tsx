@@ -2,13 +2,21 @@ import { ArrowLeftOnRectangleIcon, CloudArrowDownIcon } from '@heroicons/react/2
 import { useEffect, useState } from 'react';
 import useSocket from '../../hooks/useSocket';
 import type { Config } from '../types/config';
+import type { FilterData, Post } from '../types/post';
 import AdminForm from './Form';
 
 const AdminPage = () => {
   const [config, setConfig] = useState<null | Config>(null);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
+  const [cache, setCache] = useState<(Post & FilterData)[]>([]);
   const socket = useSocket(serverIp, (socket) => {
-    socket.emit('getConfig');
+    socket.on('connect', () => {
+      socket.emit('getConfig');
+      socket.emit('setadmin');
+    });
+    socket.on('cache', (cache: (Post & FilterData)[]) => {
+      setCache(cache);
+    });
     socket.on('config', (config: Config) => {
       setConfig(config);
     });
@@ -19,11 +27,15 @@ const AdminPage = () => {
     socket.emit('getConfig');
   }
 
- function sendConfig(config: Config) {
+  function sendConfig(config: Config) {
     if (!socket) return;
     socket.emit('setConfig', config);
   }
 
+  function cacheDelete(id: string) {
+    if (!socket) return;
+    socket.emit('cacheDelete', id);
+  }
 
   if (!socket?.connected || !config)
     return (
@@ -69,7 +81,7 @@ const AdminPage = () => {
           <ArrowLeftOnRectangleIcon className='h-6 w-6' />
         </button>
       </div>
-      <AdminForm config={config} setConfig={(c) => sendConfig(c)} />
+      <AdminForm config={config} cache={cache} cacheDelete={cacheDelete} setConfig={(c) => sendConfig(c)} />
     </div>
   );
 };
