@@ -135,4 +135,10 @@ Définir date de fin sprint 2
 
 Attention réfléchir en détails à l'histoire utilisateur pour pouvoir connecter plusieurs écrans (au niveau du panel utilisateur).
 
+### 02/27/2023 with Benoît COMBEMALE and Johann BOURCIER
+
+Début sprint 2 :
+- petite nouvelle démonstration avec nos enseignants et quelques fonctionnalités en plus (en cours de préparation)
+- régler souci hashtag ict4s (connaît pas users ?)
+
 # Description et gestion des exigences
