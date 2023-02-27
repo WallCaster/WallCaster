@@ -35,7 +35,6 @@ export class SocketServer {
 
     // add listeners
 
-
     // socket.onAny((event, ...args) => {
     //   console.log(`incoming event '${event}':`, args);
     // });
@@ -51,10 +50,14 @@ export class SocketServer {
       socket.emit('config', configManager.config);
     });
 
-    socket.on('setadmin', ()=>{
+    socket.on('setadmin', () => {
       socket.join('admin');
       this.sendCacheToAdmin();
-    })
+    });
+
+    socket.on('cacheDelete', (id: string) => {
+      this.app.removePost(id);
+    });
 
     console.log('new client connected');
   }

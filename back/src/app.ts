@@ -47,6 +47,7 @@ export class App {
       // this.filterPost(post);
       // if filter is ok {
       this.posts_unfiltered.unshift(post);
+      this.socket.sendCacheToAdmin();
       // }
     }
   }
@@ -75,6 +76,7 @@ export class App {
       const post = this.posts_unfiltered[0];
       this.posts_unfiltered.splice(0, 1);
       this.posts_unfiltered.push(post);
+      this.socket.sendCacheToAdmin();
       return post;
     }
     return null;
@@ -83,6 +85,7 @@ export class App {
   public removePost(id: string) {
     this.posts_ids.delete(id);
     this.posts_unfiltered = this.posts_unfiltered.filter((post) => post.id !== id);
+    this.socket.sendCacheToAdmin();
   }
 
   public filterPost(post: Post) {
