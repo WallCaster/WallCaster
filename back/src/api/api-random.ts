@@ -1,6 +1,6 @@
 import configManager from '../config';
 import { ApiName, Post } from '../post';
-import { randomUUID} from 'crypto';
+import { randomUUID } from 'crypto';
 import { Api } from './api';
 
 export class ApiRandom extends Api {
@@ -18,8 +18,8 @@ export class ApiRandom extends Api {
             randomString(10),
         },
         author: {
-          name: 'Random User ' + randomString(3),
-          username: '@random_user_' + randomString(3),
+          name: 'Rand ' + randomString(3),
+          username: '@random_' + randomString(5),
           image: 'https://placeimg.com/192/192/people',
         },
         date: new Date(Date.now()),

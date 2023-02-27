@@ -8,22 +8,43 @@ export default function CacheCard({
   post: Post & FilterData;
   cacheDelete: (id: string) => void;
 }) {
+  const now = new Date();
+  const date = new Date(post.filterDate);
+
+  // format with xx s/min/h/day ago
+  const diff = Math.floor((now.getTime() - date.getTime()) / 1000);
+  let diffStr = '';
+  if (diff < 1) {
+    diffStr = 'now';
+  } else if (diff < 60) {
+    diffStr = `${diff} s ago`;
+  } else if (diff < 3600) {
+    diffStr = `${Math.floor(diff / 60)} min ago`;
+  } else if (diff < 86400) {
+    diffStr = `${Math.floor(diff / 3600)} h ago`;
+  } else {
+    diffStr = `${Math.floor(diff / 86400)} day ago`;
+  }
+
   return (
     <div
-      className='border rounded-lg grid grid-cols-3 justify-between w-full px-4 py-3 hover:text-red-800 hover:bg-red-100 cursor-pointer group'
+      className='border rounded-lg grid grid-cols-4 justify-between w-full px-4 py-3 hover:text-red-800 hover:bg-red-100 cursor-pointer group'
       onClick={() => {
         cacheDelete(post.id);
       }}
     >
-      <div className='flex items-center gap-3 shrink col-span-2'>
-        <h1 className='whitespace-nowrap shrink-0 font-bold'>{post.author.name}</h1>
-        <p className='whitespace-nowrap overflow-hidden text-ellipsis'>{post.content.text}</p>
+      <div className='flex items-start gap-5 shrink col-span-3'>
+        <div className='flex flex-col'>
+          <h1 className='whitespace-nowrap shrink-0 font-bold text-sm leading-4 max-w-[6rem] text-ellipsis overflow-hidden'>{post.author.name}</h1>
+          <h3 className='text-xs opacity-40'>{diffStr}</h3>
+        </div>
+        <p className='overflow-hidden text-ellipsis text-xs line-clamp-3'>{post.content.text}</p>
       </div>
-      <div className='flex items-center justify-end gap-2'>
-        <ShieldCheckIcon className='w-5 h-5 text-green-500' />
-        <ShieldCheckIcon className='w-5 h-5 text-green-500' />
-        <ShieldCheckIcon className='w-5 h-5 text-green-500' />
-        <TrashIcon className='w-5 h-5 group-hover:text-red-800 group-hover:opacity-100 opacity-10' />
+      <div className='flex items-center justify-end gap-2 shrink-0'>
+        <ShieldCheckIcon className='w-5 h-5 text-green-500 shrink-0' />
+        <ShieldCheckIcon className='w-5 h-5 text-green-500 shrink-0' />
+        <ShieldCheckIcon className='w-5 h-5 text-green-500 shrink-0' />
+        <TrashIcon className='w-5 h-5 group-hover:text-red-800 group-hover:opacity-100 opacity-10 shrink-0' />
       </div>
     </div>
   );
