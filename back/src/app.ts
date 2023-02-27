@@ -45,8 +45,9 @@ export class App {
       this.posts_ids.add(post.id);
       // Filter here
       // this.filterPost(post);
+      // if filter is ok {
       this.posts_unfiltered.unshift(post);
-      this.socket.sendPostToAll(post);
+      // }
     }
   }
 
@@ -54,6 +55,7 @@ export class App {
    * Adds a new post to the cache but in the front to prioritize it
    */
   public addPosts(posts: Post[]) {
+    // TODO filter in batch for optimization
     posts.forEach((post) => {
       this.addPost(post);
     });
