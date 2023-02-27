@@ -16,6 +16,7 @@ export class ApiRandom extends Api {
           text:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vitae ultricies lacinia, nunc nisl ultricies nunc' +
             randomString(10),
+          images: [ 'https://placeimg.com/192/192/people' ],
         },
         author: {
           name: 'Rand ' + randomString(3),

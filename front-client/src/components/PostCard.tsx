@@ -11,6 +11,8 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
   if (authorImage === undefined)
     authorImage = 'https://i.pravatar.cc/300';
 
+  const containImage: boolean = post.content.images != undefined
+
   const time: string = new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
     minute: 'numeric',
@@ -38,6 +40,10 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
       </div>
       <div className='flex flex-col gap-4'>
         <p className='text-2xl'>{post.content.text}</p>
+        <img src={post.content.images?.at(0)} alt='image' className='square bg-primary rounded' style={{height:"20%", width:"20%"}}/>
+        {/* <div className='square bg-primary rounded'>
+          <img src={post.content.images?.at(0)?.url} alt='image'/>
+        </div> */}
         <div className='text-gray-600 text-lg'>{time + ' · ' + date}</div>
         <div className='flex gap-5 border-t flex-wrap pt-4'>
           <p>
