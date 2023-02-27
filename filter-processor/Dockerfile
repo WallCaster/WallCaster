@@ -1,16 +1,14 @@
 FROM python:3.8-alpine
 
+# Add nltk data
+COPY src/nltk_data/ ./root/nltk_data/
+
 # Create app directory
 WORKDIR /app
 
 # Install app dependencies
 COPY requirements.txt ./
-
 RUN pip install -r requirements.txt
-
-# Install punkt dependency
-COPY punkt_install.py ./
-RUN python punkt_install.py
 
 # Bundle app source
 COPY . .

@@ -2,7 +2,7 @@ import { Api } from './api/api';
 import { ApiRandom } from './api/api-random';
 import { ApiTwitter } from './api/api-twitter';
 import configManager from './config';
-import { ApiType, Post } from './post';
+import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
 
 export class App {
@@ -20,6 +20,7 @@ export class App {
     this.restart();
   }
 
+  // Automatically restart the server when the config file is modified
   public restart() {
     const query = configManager.config.query;
     if (query.useTwitterApi && this.apis.twitter) this.apis.twitter.start(this);
@@ -29,31 +30,33 @@ export class App {
 
     if (this.rotationInterval) clearInterval(this.rotationInterval);
     this.rotationInterval = setInterval(() => {
-      const post = this.getNextPost();
-      if (post) this.socket.sendPostToAll(post);
+      for (let room of this.socket.getRoomsIds()) {
+        const post = this.getNextPost();
+        if (post) this.socket.sendPostToRoom(room, post);
+      }
     }, configManager.config.rotationInterval * 1000);
   }
 
   /**
    * Adds a new post to the cache but in the front to prioritize it
    */
-  public addPost(post: Post) {
-    if (!this.posts_ids.has(post.id)) {
-      this.posts_ids.add(post.id);
-      // Filter here
-      // this.filterPost(post);
-      this.posts_unfiltered.unshift(post);
-      this.socket.sendPostToAll(post);
-    }
+  public addPosts(posts: Post[]) {
+    // TODO filter in batch for optimization
+    posts.forEach((post) => {
+      if (!this.posts_ids.has(post.id)) {
+        this.posts_ids.add(post.id);
+        // Filter here
+        // this.filterPost(post);
+        // if filter is ok {
+        this.posts_unfiltered.unshift(post);
+        this.socket.sendCacheToAdmin();
+        // }
+      }
+    });
   }
 
-  /**
-   * Adds a new post to the cache but in the front to prioritize it
-   */
-  public addPosts(posts: Post[]) {
-    posts.forEach((post) => {
-      this.addPost(post);
-    });
+  public getCache(): (Post & FilterData)[] {
+    return this.posts_unfiltered;
   }
 
   /**
@@ -66,6 +69,7 @@ export class App {
       const post = this.posts_unfiltered[0];
       this.posts_unfiltered.splice(0, 1);
       this.posts_unfiltered.push(post);
+      this.socket.sendCacheToAdmin();
       return post;
     }
     return null;
@@ -74,6 +78,7 @@ export class App {
   public removePost(id: string) {
     this.posts_ids.delete(id);
     this.posts_unfiltered = this.posts_unfiltered.filter((post) => post.id !== id);
+    this.socket.sendCacheToAdmin();
   }
 
   public filterPost(post: Post) {
