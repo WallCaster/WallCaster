@@ -2,7 +2,7 @@ import { Api } from './api/api';
 import { ApiRandom } from './api/api-random';
 import { ApiTwitter } from './api/api-twitter';
 import configManager from './config';
-import { ApiType, Post } from './post';
+import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
 
 export class App {
@@ -59,6 +59,10 @@ export class App {
     posts.forEach((post) => {
       this.addPost(post);
     });
+  }
+
+  public getCache(): (Post & FilterData)[] {
+    return this.posts_unfiltered;
   }
 
   /**

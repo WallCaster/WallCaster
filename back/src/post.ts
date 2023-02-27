@@ -8,6 +8,11 @@ export type Post = {
   api: ApiType;
 };
 
+export type FilterData = {
+  passedSentiment?: boolean;
+  passedBanwords?: boolean;
+}
+
 export type Content = {
   text: string;
   images?: PostImage[];
