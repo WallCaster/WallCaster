@@ -18,6 +18,39 @@ def check_banned_words(banned_words : list[str], text : str):
     # No banned words has been detected, the post can be displayed, return Fasle.
     return False
 
+def enhance_banned_words(banned_words : list[str]):
+
+    # Idée créé un tableau temporaire t, parcourir le paramètre "banned_words", pour chacun de ses éléments, ajouter la version avec toutes les lettres en majuscule, toute en minuscule, la première lettre en majuscule etc.
+    alternatives_bWords = []
+
+    for word in banned_words:
+        if word.isupper():
+            alternatives_bWords.push(word.lower())
+            alternatives_bWords.push(upperFirstCharacter(word))
+            alternatives_bWords.push(lowerFirstCharacter(word))
+        elif word.islower():
+            alternatives_bWords.push(word.upper())
+            alternatives_bWords.push(upperFirstCharacter(word))
+            alternatives_bWords.push(lowerFirstCharacter(word))
+        elif word[0].islower():
+            alternatives_bWords.push(word.lower())
+            alternatives_bWords.push(word.upper())
+            alternatives_bWords.push(upperFirstCharacter(word))
+        elif word[0].isupper():
+            alternatives_bWords.push(word.lower())
+            alternatives_bWords.push(word.upper())
+            alternatives_bWords.push(lowerFirstCharacter(word))
+        else:
+            print("A strange banned word has appeared, look at bwFilter.py file.")
+
+def upperFirstCharacter(word : str):
+    newWord = word[0].upper() + word
+    return newWord
+
+def lowerFirstCharacter(word : str):
+    newWord = word[0].lower() + word
+    return newWord
+
 def main():
     banned_words = ["destroy"]
     text = "I want to destroy, the world"
