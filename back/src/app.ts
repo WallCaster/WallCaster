@@ -20,6 +20,7 @@ export class App {
     this.restart();
   }
 
+  // Automatically restart the server when the config file is modified
   public restart() {
     const query = configManager.config.query;
     if (query.useTwitterApi && this.apis.twitter) this.apis.twitter.start(this);
@@ -29,8 +30,10 @@ export class App {
 
     if (this.rotationInterval) clearInterval(this.rotationInterval);
     this.rotationInterval = setInterval(() => {
-      const post = this.getNextPost();
-      if (post) this.socket.sendPostToAll(post);
+      for (let room of this.socket.getRoomsIds()) {
+        const post = this.getNextPost();
+        if (post) this.socket.sendPostToRoom(room, post);
+      }
     }, configManager.config.rotationInterval * 1000);
   }
 

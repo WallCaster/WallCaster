@@ -8,8 +8,8 @@ const LISTENING_PORT = 3001;
 type SocketId = string;
 
 export class SocketServer {
-  private server: io.Server;
   private rooms: Map<string, SocketId[]> = new Map();
+  private server: io.Server;
   private clients: Map<SocketId, io.Socket> = new Map();
   private app: App;
 
@@ -20,6 +20,10 @@ export class SocketServer {
     this.server.on('disconnect', this.onDisconnect.bind(this));
     this.server.listen(LISTENING_PORT);
     console.log('listening for connections on port', LISTENING_PORT);
+  }
+
+  public getRoomsIds(): string[] {
+    return Array.from(this.rooms.keys());
   }
 
   private onConnect(socket: io.Socket) {
@@ -82,6 +86,11 @@ export class SocketServer {
     this.rooms.forEach((_, room) => {
       this.server.to(room).emit('post', post);
     });
+  }
+
+  public sendPostToRoom(room: string, post: Post) {
+    console.log('sending post to room ' + room + ' : ' + post.id );
+    this.server.to(room).emit('post', post);
   }
 
   public getNumberOfClients(): number {
