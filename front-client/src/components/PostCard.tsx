@@ -28,8 +28,8 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
     <div className={`flex flex-col bg-white text-black p-7 shadow-xl gap-4 overflow-hidden relative ${className}`}>
       <MdiTwitter className='h-8 w-8 text-blue-500 absolute top-7 right-7' />
       <div className='flex gap-4'>
-        <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden'>
-          <img src={authorImage} alt='avatar' />
+        <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden bg-amber-200'>
+          <img src={authorImage} alt='avatar' className='' />
         </div>
         <div className='flex flex-col justify-center'>
           <p className='font-bold leading-4'>{post.author.name}</p>
