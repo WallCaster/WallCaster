@@ -10,6 +10,8 @@ const TwitterPostCard = ({ post }: { post: Post }) => {
   if (authorImage === undefined)
     authorImage = 'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png';
 
+  const containImage: boolean = post.content.images != undefined
+
   const time: string = new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
     minute: 'numeric',
@@ -36,6 +38,10 @@ const TwitterPostCard = ({ post }: { post: Post }) => {
       </div>
       <div className='flex flex-col gap-4'>
         <p className='text-2xl'>{post.content.text}</p>
+        <img src={post.content.images?.at(0)?.url} alt='image' className='square bg-primary rounded' style={{height:"20%", width:"50%"}}/>
+        {/* <div className='square bg-primary rounded'>
+          <img src={post.content.images?.at(0)?.url} alt='image'/>
+        </div> */}
         <div className='text-gray-600 text-lg'>{time + ' · ' + date}</div>
         <div className='flex gap-5 border-t flex-wrap pt-4'>
           <p>
