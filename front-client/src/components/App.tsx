@@ -76,7 +76,7 @@ export const App = () => {
               setNextPost(null);
             }}
           >
-            <PostCard post={post} className='rounded-3xl shadow-2xl' />
+            <PostCard post={post} className='rounded-3xl shadow-2xl' />            
           </Transition>
         )}
         {/* <button

@@ -11,8 +11,6 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
   if (authorImage === undefined)
     authorImage = 'https://i.pravatar.cc/300';
 
-  const containImage: boolean = post.content.images != undefined
-
   const time: string = new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
     minute: 'numeric',
@@ -27,7 +25,7 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
   const likes = Math.round(Math.random() * 1000);
 
   return (
-    <div className={`flex flex-col bg-white text-black p-7 shadow-xl gap-4 overflow-hidden relative ${className}`}>
+    <div className={`flex flex-col bg-white text-black p-7 shadow-xl gap-4 overflow-hidden relative ${className}`} style={{ maxHeight: '90vh', maxWidth: '90vw' }}>
       <MdiTwitter className='h-8 w-8 text-blue-500 absolute top-7 right-7' />
       <div className='flex gap-4'>
         <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden bg-amber-200'>
@@ -38,12 +36,16 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
           <p className='text-gray-600'>{post.author.username}</p>
         </div>
       </div>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-4 h-full'>
         <p className='text-2xl'>{post.content.text}</p>
-        <img src={post.content.images?.at(0)} alt='image' className='square bg-primary rounded' style={{height:"20%", width:"20%"}}/>
-        {/* <div className='square bg-primary rounded'>
-          <img src={post.content.images?.at(0)?.url} alt='image'/>
-        </div> */}
+
+        {post.content.images && (
+          <div className='flex justify-center flex-wrap gap-1 h-full'>
+            {post.content.images.map((image, index) => (
+              <img key={index} src={image} alt={`image ${index + 1}`} className='h-40 w-40 cover my-3 rounded-lg' />
+            ))}
+          </div>
+        )}
         <div className='text-gray-600 text-lg'>{time + ' · ' + date}</div>
         <div className='flex gap-5 border-t flex-wrap pt-4'>
           <p>
