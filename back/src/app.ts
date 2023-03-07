@@ -11,9 +11,11 @@ export class App {
   private posts_ids: Set<string> = new Set();
   // the list of incoming posts from the api (first stage)
   private posts: (Post & FilterData)[] = [];
+  private postsRefused: (Post & FilterData)[] = [];
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
+  private logs: (Post & FilterData)[] = [];
 
   constructor() {
     this.socket = new SocketServer(this);
@@ -46,15 +48,31 @@ export class App {
       if (!this.posts_ids.has(post.id)) {
         this.posts_ids.add(post.id);
         const filterData: FilterData = await filterPost(post);
-        this.posts.unshift({ ...post, ...filterData });
+
+        this.logs.push({ ...post, ...filterData });
+
+        if(!filterData.passedBanwords || !filterData.passedBanwords || !filterData.passedImages){
+          this.postsRefused.push({ ...post, ...filterData });
+        }else{
+          this.posts.unshift({ ...post, ...filterData });
+        }
+
         this.clampCache();
         this.socket.sendCacheToAdmin();
       }
     });
   }
 
+  public getJsonLogs(): string {
+    return JSON.stringify(this.logs);
+  }
+
   public getCache(): (Post & FilterData)[] {
     return this.posts;
+  }
+
+  public getCacheRefused(): (Post & FilterData)[] {
+    return this.postsRefused;
   }
 
   /**
@@ -78,6 +96,9 @@ export class App {
     const max = configManager.config.maxStoreSize;
     if (this.posts.length > max) {
       this.posts.splice(max, this.posts.length - max);
+    }
+    if (this.postsRefused.length > max) {
+      this.postsRefused.splice(max, this.postsRefused.length - max);
     }
   }
 
