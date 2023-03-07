@@ -106,5 +106,6 @@ export class SocketServer {
 
   public sendCacheToAdmin() {
     this.server.to('admin').emit('cache', this.app.getCache());
+    this.server.to('admin').emit('cache_refused', this.app.getCacheRefused());
   }
 }
