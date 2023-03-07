@@ -16,7 +16,10 @@ export class ApiRandom extends Api {
           text:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vitae ultricies lacinia, nunc nisl ultricies nunc' +
             randomString(10),
-          images: [ 'https://placeimg.com/1000/512/nature', 'https://placeimg.com/1000/512/nature', 'https://placeimg.com/1000/512/nature', 'https://placeimg.com/1000/512/nature'],
+          images: [ 'https://placeimg.com/1000/512/nature', 'https://placeimg.com/1000/512/animals', 'https://placeimg.com/1000/512/any/sepia', 'https://placeimg.com/1000/512/nature/sepia'],
+          // images: [ 'https://placeimg.com/1000/512/nature', 'https://placeimg.com/1000/512/animals', 'https://placeimg.com/1000/512/any/sepia'],
+          // images: [ 'https://placeimg.com/1000/512/nature', 'https://placeimg.com/1000/512/animals'],
+          // images: [ 'https://placeimg.com/1000/512/nature'],
         },
         author: {
           name: 'Rand ' + randomString(3),
