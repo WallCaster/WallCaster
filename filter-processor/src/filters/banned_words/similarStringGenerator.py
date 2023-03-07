@@ -4,14 +4,17 @@ import random
 # Source très intéressante : https://stackoverflow.com/questions/40358855/how-to-generate-a-set-of-similar-strings-in-python.
 # Voir aussi distance de Levenshtein.
 
-
-
 # Classe suivante par Michael Hall sur Stackoverflow (lien en haut de la page), modifiée pour correspondre au problème.
-# 
+#
 
- # Ensemble des caractères pouvant être ajoutés ou substitués dans la chaîne.
-accepted_characters = set(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-                                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"])
+# Ensemble des caractères pouvant être ajoutés ou substitués dans la chaîne.
+accepted_characters = set([
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
+    "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d",
+    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+    "t", "u", "v", "w", "x", "y", "z"
+])
+
 
 class Sequence(str):
 
@@ -56,16 +59,24 @@ class Sequence(str):
         idxs = random.sample(range(len(self)), n)
         chars = list(self)
         for i in idxs:
-            new_base = random.choice(list(accepted_characters.difference(chars[i])))
+            new_base = random.choice(
+                list(accepted_characters.difference(chars[i])))
             chars[i] = new_base
         return "".join(chars)
 
+
 def main():
-   print("Levenshtein distance is", lv.ratio("Bonsoir,", "Bonjour"))
-   seq1 = Sequence("Bonjour")
-   d = 4 # d : max distance (like Levenshtein)
-   n = 6 # n : number of strings to alter and to return
-   print(seq1.mutate(d, n))
+    print("Levenshtein distance is", lv.ratio("Bonsoir,", "Bonjour"))
+    seq1 = Sequence("Bonjour")
+    d = 4  # d : max distance (like Levenshtein)
+    n = 6  # n : number of strings to alter and to return
+    samples = seq1.mutate(d, 200)
+
+    for s in samples:
+        ratio = lv.ratio("Bonjour", s)
+        if ratio > 0.9:
+            print("Levenshtein distance is", ratio, "for", s)
+
 
 if __name__ == "__main__":
     main()
