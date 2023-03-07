@@ -18,7 +18,7 @@
     },
     "useRandomApi": false,
     "random": {
-      "fetchInterval": 30
+      "fetchInterval": 2
     }
   },
   "filter": {
@@ -28,5 +28,5 @@
     "allowVideo": false,
     "allowImage": false
   },
-  "rotationInterval": 3
+  "rotationInterval": 30
 }
