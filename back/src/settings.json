@@ -1,6 +1,6 @@
 {
   "maxStoreSize": 100,
-  "rotationInterval": 1,
+  "rotationInterval": 20,
   "query": {
     "useTwitterApi": false,
     "twitter": {
@@ -21,9 +21,9 @@
     }
   },
   "filter": {
-    "useSentiment": true,
-    "useBanwords": true,
-    "useBlockImages": true,
+    "useSentiment": false,
+    "useBanwords": false,
+    "useBlockImages": false,
     "forbiddenWords": []
   }
 }

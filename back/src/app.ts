@@ -82,7 +82,7 @@ export class App {
   }
 
   public removePost(id: string) {
-    this.posts_ids.delete(id);
+    // this.posts_ids.delete(id);
     this.posts = this.posts.filter((post) => post.id !== id);
     this.socket.sendCacheToAdmin();
   }
