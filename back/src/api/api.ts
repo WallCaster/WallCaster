@@ -16,6 +16,9 @@ export abstract class Api {
 
   public start(app: App): void {
     this.running = true;
+    this.fetchPosts().then((posts) => {
+      app.addPosts(posts);
+    });
     if (this.interval) clearInterval(this.interval);
     this.interval = setInterval(() => {
       if (this.running) {
