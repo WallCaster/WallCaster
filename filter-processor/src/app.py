@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from filters.sentiment.run import is_positive as is_positive
@@ -11,7 +12,17 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.post("/filter")
 @cross_origin()
 def callFilter():
+    """
+    type of result is:
+    {
+        passedSentiment?: boolean;
+        passedBanwords?: boolean;
+        passedImages?: boolean;
+        filterDate : Date;
+    }
+    """
     result = {}
+
     """
     type of post is:
     {
@@ -32,32 +43,37 @@ def callFilter():
     """
     post = request.json["post"]
     txt = post["content"]["text"]
-
     """
     type of filter_config is: 
     {
-        useEnglishSentiment: boolean;
-        useForbiddenWords: boolean;
-        forbiddenWords: string[];
-        allowImage: boolean;
+        useSentiment: false,
+        useBanwords: false,
+        useBlockImages: false,
+        forbiddenWords: [],
     }
     """
     filter_config = request.json["filter_config"]
 
-    if filter_config["useEnglishSentiment"]:
-        result["englishSentiment"] = is_positive(txt)
-    
-    if filter_config["useForbiddenWords"]:
-        banned_words = filter_config["forbiddenWords"]
-        result["bannedWords"] = bwFilter(banned_words, txt)
 
+    if filter_config["useSentiment"]:
+        result["passedSentiment"] = is_positive(txt)
+
+    if filter_config["useBanwords"]:
+        banned_words = filter_config["forbiddenWords"]
+        result["passedBanwords"] = bwFilter(banned_words, txt)
+
+    if filter_config["useBlockImages"]:
+        images = post["content"]["images"]
+        hasImages = images is not None and len(images) > 0
+        result["passedImages"] = not hasImages
+
+    result["filterDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     return jsonify(result)
 
 
 # main driver function
 if __name__ == "__main__":
     app.run()
-    
 """
 To test the api call, run the following command in the terminal:
 

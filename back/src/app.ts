@@ -2,6 +2,7 @@ import { Api } from './api/api';
 import { ApiRandom } from './api/api-random';
 import { ApiTwitter } from './api/api-twitter';
 import configManager from './config';
+import { filterPost } from './filtering';
 import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
 
@@ -41,20 +42,13 @@ export class App {
    * Adds a new post to the cache but in the front to prioritize it
    */
   public addPosts(posts: Post[]) {
-    // TODO filter in batch for optimization
-    posts.forEach((post) => {
+    posts.forEach(async (post) => {
       if (!this.posts_ids.has(post.id)) {
         this.posts_ids.add(post.id);
-        // Filter here
-        // this.filterPost(post);
-        // if filter is ok {
-        const filterData: FilterData = {
-          filterDate: new Date(),
-        };
+        const filterData: FilterData = await filterPost(post);
         this.posts.unshift({ ...post, ...filterData });
         this.clampCache();
         this.socket.sendCacheToAdmin();
-        // }
       }
     });
   }
@@ -91,23 +85,5 @@ export class App {
     this.posts_ids.delete(id);
     this.posts = this.posts.filter((post) => post.id !== id);
     this.socket.sendCacheToAdmin();
-  }
-
-  public filterPost(post: Post) {
-    const message = {
-      post: post,
-      filter_config: configManager.config.filter,
-    };
-    const myUrl = 'http://filter-processor:5000/filter';
-    fetch(myUrl, {
-      method: 'POST',
-      body: JSON.stringify(message),
-      headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => console.error('Error during filter :', error));
   }
 }

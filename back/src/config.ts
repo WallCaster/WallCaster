@@ -21,10 +21,10 @@ export type Config = {
     };
   };
   filter: {
-    useEnglishSentiment: boolean;
-    useForbiddenWords: boolean;
+    useSentiment: boolean;
+    useBanwords: boolean;
+    useBlockImages: boolean;
     forbiddenWords: string[];
-    allowImage: boolean;
   };
 };
 
@@ -63,10 +63,10 @@ class ConfigManager {
       },
     },
     filter: {
-      useEnglishSentiment: false,
-      useForbiddenWords: false,
+      useSentiment: false,
+      useBanwords: false,
+      useBlockImages: false,
       forbiddenWords: [],
-      allowImage: true,
     },
   };
   public constructor() {
