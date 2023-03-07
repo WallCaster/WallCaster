@@ -112,3 +112,8 @@ if __name__ == '__main__':
     path = Path(__file__).parent / "trained_data.pickle"
     with path.open("wb") as file:
         pickle.dump(classifier, file)
+
+    # save the vectorizer
+    path = Path(__file__).parent / "vectorizer.pickle"
+    with path.open("wb") as file:
+        pickle.dump(vectorizer, file)
