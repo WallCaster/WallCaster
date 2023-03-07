@@ -24,7 +24,6 @@ export type Config = {
     useEnglishSentiment: boolean;
     useForbiddenWords: boolean;
     forbiddenWords: string[];
-    allowVideo: boolean;
     allowImage: boolean;
   };
 };
@@ -67,7 +66,6 @@ class ConfigManager {
       useEnglishSentiment: false,
       useForbiddenWords: false,
       forbiddenWords: [],
-      allowVideo: false,
       allowImage: true,
     },
   };
