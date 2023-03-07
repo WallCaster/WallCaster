@@ -336,8 +336,8 @@ export default function AdminForm({
                 />
                 <Checkbox
                   className='col-span-3'
-                  id='useForbiddenWords'
-                  label='Filter Forbidden Words'
+                  id='useBanwords'
+                  label='Filter Banwords'
                   value={temp.filter.useBanwords}
                   setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBanwords: b } })}
                   desc='Filter out tweets containing forbidden words'
@@ -345,10 +345,10 @@ export default function AdminForm({
                 <Checkbox
                   className='col-span-3'
                   id='allowImage'
-                  label='Allow image'
+                  label='Filter images'
                   value={temp.filter.useBlockImages}
                   setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBlockImages: b } })}
-                  desc='Allow tweets with image'
+                  desc='Disallow tweets with images'
                 />
               </div>
             </div>
