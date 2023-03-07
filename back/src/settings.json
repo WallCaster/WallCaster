@@ -16,7 +16,7 @@
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
-    "useRandomApi": false,
+    "useRandomApi": true,
     "random": {
       "fetchInterval": 2
     }
