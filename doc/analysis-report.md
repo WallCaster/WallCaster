@@ -328,14 +328,14 @@ You can find the Kanban board [here](https://github.com/orgs/WallCaster/projects
 
 ### 2.3.1 - Manage photos
 
-> As an admin I want to display pictures taken on the screens. To do that I upload images on the server and now either a picture or a post can be displayed by the system.
+> As an admin I want to display pictures taken on the screens. To do that I upload images on the server and now either a picture or a post can be displayed by the system. I must have the posibility on the admin dashboard to do so. I would like to have the possiblity to use USB device (like a USB stick) or send the photos from a distant server.
 > Then, I want to delete one of the images. To do so, I just need to remove it from the system.
 
 Tasks :
   - Create a server
   - Have an administrative frontend
   - Connect the frontend to the server
-  - Implement the functionnality which allows the admin to add pictures.
+  - Implement the functionnality which allows the admin to add pictures (from USB device or a distant server).
   - Implement the functionnality which allows the admin to delete pictures already in the system.
 
 ### 2.3.2 - Filter posts
