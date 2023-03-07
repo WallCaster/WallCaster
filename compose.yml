@@ -1,6 +1,5 @@
 version: '3.0'
 services:
-
   # Container of the backend
   back:
     image: node:18-alpine
@@ -8,7 +7,8 @@ services:
     volumes:
       - ./back:/app
     working_dir: /app
-    command: yarn start
+    command: sh -c "yarn && yarn start"
+    
     ports:
       - 3001:3001
     # depends_on:
@@ -25,7 +25,7 @@ services:
       - back
     volumes:
       - ./front-client:/app
-    command: yarn start
+    command: sh -c "yarn && yarn start"
     working_dir: /app
 
   # Container of the frontend admin
@@ -38,20 +38,17 @@ services:
       - back
     volumes:
       - ./front-admin:/app
-    command: yarn start
+    command: sh -c "yarn && yarn start"
     working_dir: /app
 
   # Container of the filters
-  # filter-processor:
-  #   image: python:3.8-alpine
-  #   container_name: filter-processor
-  #   restart: always
-  #   ports:
-  #     - 5000:5000
-  #   volumes:
-  #     - ./filter-processor:/app
-  #     - ./filter-processor/src/nltk_data/:/root/nltk_data/
-  #   working_dir: /app
-  #   command: >
-  #     sh -c "pip install -r requirements.txt &&
-  #       flask --app src/app.py run --host 0.0.0.0 --port 5000"
+  filter-processor:
+    build: ./filter-processor
+    container_name: filter-processor
+    restart: always
+    ports:
+      - 5000:5000
+    volumes:
+      - ./filter-processor:/app
+      - ./filter-processor/src/nltk_data/:/root/nltk_data/
+    working_dir: /app

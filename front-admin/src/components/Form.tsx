@@ -330,32 +330,24 @@ export default function AdminForm({
                   className='col-span-3'
                   id='useEnglishSentiment'
                   label='Filter by sentiment (Only in English)'
-                  value={temp.filter.useEnglishSentiment}
-                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useEnglishSentiment: b } })}
+                  value={temp.filter.useSentiment}
+                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useSentiment: b } })}
                   desc='Filter out tweets with negative sentiment'
                 />
                 <Checkbox
                   className='col-span-3'
                   id='useForbiddenWords'
                   label='Filter Forbidden Words'
-                  value={temp.filter.useForbiddenWords}
-                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useForbiddenWords: b } })}
+                  value={temp.filter.useBanwords}
+                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBanwords: b } })}
                   desc='Filter out tweets containing forbidden words'
-                />
-                <Checkbox
-                  className='col-span-3'
-                  id='allowVideo'
-                  label='Allow video'
-                  value={temp.filter.allowVideo}
-                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, allowVideo: b } })}
-                  desc='Allow tweets with video'
                 />
                 <Checkbox
                   className='col-span-3'
                   id='allowImage'
                   label='Allow image'
-                  value={temp.filter.allowImage}
-                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, allowImage: b } })}
+                  value={temp.filter.useBlockImages}
+                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBlockImages: b } })}
                   desc='Allow tweets with image'
                 />
               </div>
