@@ -24,6 +24,7 @@ import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
 import type { FilterData, Post } from '../types/post';
 import CacheCard from './CacheCard';
+import ChangeIndicator from './ChangeIndicator';
 import Checkbox from './Checkbox';
 import Input from './Input';
 import InputTags from './InputTags';
@@ -51,10 +52,19 @@ export default function AdminForm({
   cacheDelete: (id: string) => void;
 }) {
   const [temp, setTemp] = useState(config);
+  const [hasChanges, setHasChanges] = useState(false);
 
   useEffect(() => {
     setTemp(config);
   }, [config]);
+
+  useEffect(() => {
+    if (hasChanges && JSON.stringify(temp) === JSON.stringify(config)) {
+      setHasChanges(false);
+    } else if (!hasChanges && JSON.stringify(temp) !== JSON.stringify(config)) {
+      setHasChanges(true);
+    }
+  }, [temp, config]);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -139,14 +149,7 @@ export default function AdminForm({
                 />
               </div>
             </div>
-            <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
-              <button
-                type='submit'
-                className='bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-              >
-                Save
-              </button>
-            </div>
+            <ChangeIndicator hasChanges={hasChanges} />
           </div>
         </form>
 
@@ -210,6 +213,7 @@ export default function AdminForm({
                     className='col-span-3'
                     id='whitelistHashtags'
                     label='Whitelisted Hashtags'
+                    prefix='#'
                     value={temp.query.twitter.whitelistHashtags}
                     setValue={(s) =>
                       setTemp({
@@ -305,14 +309,7 @@ export default function AdminForm({
                 </div>
               </div>
             </div>
-            <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
-              <button
-                type='submit'
-                className='bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-              >
-                Save
-              </button>
-            </div>
+            <ChangeIndicator hasChanges={hasChanges} />
           </div>
         </form>
 
@@ -336,30 +333,38 @@ export default function AdminForm({
                 />
                 <Checkbox
                   className='col-span-3'
-                  id='useForbiddenWords'
-                  label='Filter Forbidden Words'
+                  id='useBanwords'
+                  label='Filter Banwords'
                   value={temp.filter.useBanwords}
                   setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBanwords: b } })}
                   desc='Filter out tweets containing forbidden words'
                 />
+                <InputTags
+                  className='col-span-3'
+                  id='whitelistHashtags'
+                  label='Banwords list'
+                  value={temp.filter.forbiddenWords}
+                  setValue={(s) =>
+                    setTemp({
+                      ...temp,
+                      filter: {
+                        ...temp.filter,
+                        forbiddenWords: s,
+                      },
+                    })
+                  }
+                />
                 <Checkbox
                   className='col-span-3'
                   id='allowImage'
-                  label='Allow image'
+                  label='Filter images'
                   value={temp.filter.useBlockImages}
                   setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBlockImages: b } })}
-                  desc='Allow tweets with image'
+                  desc='Disallow tweets with images'
                 />
               </div>
             </div>
-            <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
-              <button
-                type='submit'
-                className='bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600'
-              >
-                Save
-              </button>
-            </div>
+            <ChangeIndicator hasChanges={hasChanges} />
           </div>
         </form>
       </div>
