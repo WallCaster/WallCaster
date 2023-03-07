@@ -1,0 +1,3 @@
+flask_cors
+flask>=2.2.2
+nltk==3.3
