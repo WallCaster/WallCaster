@@ -1,32 +1,29 @@
 {
-  "maxStoreSize": 6,
+  "maxStoreSize": 100,
+  "rotationInterval": 1,
   "query": {
     "useTwitterApi": false,
     "twitter": {
-      "fetchInterval": 60,
+      "fetchInterval": 30,
       "fetchQuantity": 10,
       "dateRange": {
         "start": "2020-01-01T00:00:00.000Z",
-        "end": "2023-02-14T07:12:41.609Z"
+        "end": "2023-03-07T14:19:05.102Z"
       },
       "useWhitelistHashtags": false,
-      "whitelistHashtags": [
-        "OVNIS"
-      ],
+      "whitelistHashtags": [],
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
-    "useRandomApi": true,
+    "useRandomApi": false,
     "random": {
       "fetchInterval": 2
     }
   },
   "filter": {
-    "useEnglishSentiment": true,
-    "useForbiddenWords": false,
-    "forbiddenWords": [],
-    "allowVideo": false,
-    "allowImage": false
-  },
-  "rotationInterval": 30
+    "useSentiment": true,
+    "useBanwords": true,
+    "useBlockImages": true,
+    "forbiddenWords": []
+  }
 }

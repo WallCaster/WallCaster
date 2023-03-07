@@ -69,6 +69,7 @@ class ConfigManager {
       forbiddenWords: [],
     },
   };
+  
   public constructor() {
     this.readConfigFromFile();
   }

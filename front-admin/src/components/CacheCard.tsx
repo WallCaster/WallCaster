@@ -35,15 +35,27 @@ export default function CacheCard({
     >
       <div className='flex items-start gap-5 shrink col-span-3'>
         <div className='flex flex-col'>
-          <h1 className='whitespace-nowrap shrink-0 font-bold text-sm leading-4 max-w-[6rem] text-ellipsis overflow-hidden'>{post.author.name}</h1>
+          <h1 className='whitespace-nowrap shrink-0 font-bold text-sm leading-4 max-w-[6rem] text-ellipsis overflow-hidden'>
+            {post.author.name}
+          </h1>
           <h3 className='text-xs opacity-40'>{diffStr}</h3>
         </div>
         <p className='overflow-hidden text-ellipsis text-xs line-clamp-3'>{post.content.text}</p>
       </div>
       <div className='flex items-center justify-end gap-2 shrink-0'>
-        <ShieldCheckIcon className='w-5 h-5 text-green-500 shrink-0' />
-        <ShieldCheckIcon className='w-5 h-5 text-green-500 shrink-0' />
-        <ShieldCheckIcon className='w-5 h-5 text-green-500 shrink-0' />
+        {post.passedBanwords != undefined && (
+          <ShieldCheckIcon
+            className={`w-5 h-5 shrink-0 ${post.passedBanwords ? 'text-green-500 ' : 'text-red-500 '}`}
+          />
+        )}
+        {post.passedSentiment != undefined && (
+          <ShieldCheckIcon
+            className={`w-5 h-5 shrink-0 ${post.passedSentiment ? 'text-green-500 ' : 'text-red-500 '}`}
+          />
+        )}
+        {post.passedImages != undefined && (
+          <ShieldCheckIcon className={`w-5 h-5 shrink-0 ${post.passedImages ? 'text-green-500 ' : 'text-red-500 '}`} />
+        )}
         <TrashIcon className='w-5 h-5 group-hover:text-red-800 group-hover:opacity-100 opacity-10 shrink-0' />
       </div>
     </div>
