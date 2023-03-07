@@ -1,5 +1,6 @@
 import type { FilterData, Post } from '../types/post';
 import { TrashIcon, ShieldCheckIcon } from '@heroicons/react/20/solid';
+import FilterIndicator from './FilterIndicator';
 
 export default function CacheCard({
   post,
@@ -35,15 +36,29 @@ export default function CacheCard({
     >
       <div className='flex items-start gap-5 shrink col-span-3'>
         <div className='flex flex-col'>
-          <h1 className='whitespace-nowrap shrink-0 font-bold text-sm leading-4 max-w-[6rem] text-ellipsis overflow-hidden'>{post.author.name}</h1>
+          <h1 className='whitespace-nowrap shrink-0 font-bold text-sm leading-4 max-w-[6rem] text-ellipsis overflow-hidden'>
+            {post.author.name}
+          </h1>
           <h3 className='text-xs opacity-40'>{diffStr}</h3>
         </div>
         <p className='overflow-hidden text-ellipsis text-xs line-clamp-3'>{post.content.text}</p>
       </div>
       <div className='flex items-center justify-end gap-2 shrink-0'>
-        <ShieldCheckIcon className='w-5 h-5 text-green-500 shrink-0' />
-        <ShieldCheckIcon className='w-5 h-5 text-green-500 shrink-0' />
-        <ShieldCheckIcon className='w-5 h-5 text-green-500 shrink-0' />
+        <FilterIndicator
+          passed={post.passedSentiment}
+          descPassed='This post is not negative'
+          descRejected='This post is negative'
+        />
+        <FilterIndicator
+          passed={post.passedBanwords}
+          descPassed='This post does not contain banwords'
+          descRejected='This post contains banwords'
+        />
+        <FilterIndicator
+          passed={post.passedImages}
+          descPassed='This post does not contain images'
+          descRejected='This post contains images'
+        />
         <TrashIcon className='w-5 h-5 group-hover:text-red-800 group-hover:opacity-100 opacity-10 shrink-0' />
       </div>
     </div>
