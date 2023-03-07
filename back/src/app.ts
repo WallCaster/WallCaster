@@ -51,7 +51,7 @@ export class App {
 
         this.logs.push({ ...post, ...filterData });
 
-        if(!filterData.passedBanwords || !filterData.passedBanwords || !filterData.passedImages){
+        if(filterData.passedBanwords === false || filterData.passedImages === false || filterData.passedSentiment === false){
           this.postsRefused.push({ ...post, ...filterData });
         }else{
           this.posts.unshift({ ...post, ...filterData });
