@@ -1,3 +1,5 @@
+import similarStringGenerator as strGen
+
 def check_banned_words(banned_words : list[str], text : str):
 
     # TODO : L'égalite entre str est sensible à la casse, il faudrait convertir ou vérifier aussi la version avec ou sans majuscules... Sinon des mots bannis pourraient ne pas être détectés.
@@ -17,9 +19,15 @@ def check_banned_words(banned_words : list[str], text : str):
         
     # Same thing with the alernatives banned words.
     alternatives_bWords = enhance_banned_words(banned_words)
+
+
+    for alter_word in alternatives_bWords:
+        seq = strGen.Sequence(alter_word)
+        text_splited.append(seq.mutate(1, 10))
+
     print(alternatives_bWords)
     for word in text_splited:
-        if word in alternatives_bWords:
+        if (word in alternatives_bWords) or (word in banned_words):
             return True
 
     # No banned words has been detected, the post can be displayed, return Fasle.
@@ -33,33 +41,12 @@ def enhance_banned_words(banned_words : list[str]):
     for word in banned_words:
         if word.isupper():
             alternatives_bWords.append(word.lower())
-            alternatives_bWords.append(upperFirstCharacter(word))
-            alternatives_bWords.append(lowerFirstCharacter(word))
         elif word.islower():
             alternatives_bWords.append(word.upper())
-            alternatives_bWords.append(upperFirstCharacter(word))
-            alternatives_bWords.append(lowerFirstCharacter(word))
-        elif word[0].islower():
-            alternatives_bWords.append(word.lower())
-            alternatives_bWords.append(word.upper())
-            alternatives_bWords.append(upperFirstCharacter(word))
-        elif word[0].isupper():
-            alternatives_bWords.append(word.lower())
-            alternatives_bWords.append(word.upper())
-            alternatives_bWords.append(lowerFirstCharacter(word))
         else:
             print("A strange banned word has appeared, look at bwFilter.py file.")
 
     return alternatives_bWords
-
-
-def upperFirstCharacter(word : str):
-    newWord = word[0].upper() + word[1:]
-    return newWord
-
-def lowerFirstCharacter(word : str):
-    newWord = word[0].lower() + word[1:]
-    return newWord
 
 def main():
     banned_words = ["DeStroy"]
