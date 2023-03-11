@@ -5,6 +5,8 @@ import configManager from './config';
 import { filterPost } from './filtering';
 import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
+import { writeFileSync } from 'fs';
+import { join } from 'path';
 
 export class App {
   // the set of all posts ids (filtered and unfiltered)
@@ -15,7 +17,6 @@ export class App {
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
-  private logs: (Post & FilterData)[] = [];
 
   constructor() {
     this.socket = new SocketServer(this);
@@ -49,7 +50,7 @@ export class App {
         this.posts_ids.add(post.id);
         const filterData: FilterData = await filterPost(post);
 
-        this.logs.push({ ...post, ...filterData });
+        this.writeInLogsFile('logs.json', { ...post, ...filterData });
 
         if(filterData.passedBanwords === false || filterData.passedImages === false || filterData.passedSentiment === false){
           this.postsRefused.push({ ...post, ...filterData });
@@ -63,16 +64,18 @@ export class App {
     });
   }
 
-  public getJsonLogs(): string {
-    return JSON.stringify(this.logs);
-  }
-
   public getCache(): (Post & FilterData)[] {
     return this.posts;
   }
 
   public getCacheRefused(): (Post & FilterData)[] {
     return this.postsRefused;
+  }
+
+  public writeInLogsFile(filename: string, logs: any) {
+    writeFileSync(join(filename), JSON.stringify(logs), {
+      flag: 'a+',
+    });
   }
 
   /**
