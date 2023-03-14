@@ -29,6 +29,7 @@ export const App = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [nextPost, setNextPost] = useState<Post | null>(null);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
+  const [probaPhoto, setProbaPhoto] = useState<number | 0>(0);
   let [isShowing, setIsShowing] = useState(true);
   let [, , resetIsShowing] = useTimeoutFn(() => setIsShowing(true), 400);
   const socket = useSocket(serverIp, (socket) => {
@@ -51,7 +52,6 @@ export const App = () => {
   }, [post, nextPost]);
 
 
-  const probaPhoto = Math.random();
   if (socket == null) {
     return (
       <div className='flex flex-col h-full bg-red-200 p-20 gap-5 text-red-800'>
@@ -81,17 +81,16 @@ export const App = () => {
             leaveFrom='opacity-100 rotate-0 scale-100 '
             leaveTo='opacity-0 rotate-[-40deg] scale-50 -translate-x-[50vw] -translate-y-32'
             afterLeave={() => {
+              setProbaPhoto(Math.random());
               setPost(nextPost);
               setNextPost(null);
             }}
           >
             {
               (probaPhoto < 0.5) && (
-                // <img src='/abstract.webp' alt='' className='' />
                 <div
                   className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
-                  style={{ height: '90vh', maxWidth: '90vw' }}
-                >
+                  style={{ height: '90vh', maxWidth: '90vw' }}>
                   <img src='https://placeimg.com/1000/512/nature' alt='' className='h-full w-full' />
                 </div>
               )             
