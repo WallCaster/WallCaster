@@ -10,7 +10,11 @@ export default function CacheCard({
   cacheDelete: (id: string) => void;
 }) {
   const now = new Date();
-  const date = new Date(post.filterDate);
+  const offset = now.getTimezoneOffset() * 60 * 1000;
+  const date = new Date(post.filterDate) 
+  // date is in UTC, so we need to convert it to local time
+  date.setTime(date.getTime() - offset);
+
 
   // format with xx s/min/h/day ago
   const diff = Math.floor((now.getTime() - date.getTime()) / 1000);
