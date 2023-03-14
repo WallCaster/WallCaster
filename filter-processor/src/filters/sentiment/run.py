@@ -6,7 +6,6 @@ from pathlib import Path
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem.snowball import SnowballStemmer
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 path = Path(__file__).parent / "trained_data.pickle"
@@ -41,7 +40,7 @@ def preprocess_tweet(text, lang):
 
     return preprocessed_text
 
-def isPositive(text, lang):
+def is_positive(text, lang):
     preprocessed_text = preprocess_tweet(text, lang)
 
     # charger le vectorizer
@@ -66,6 +65,6 @@ if __name__ == '__main__':
     while True:
         text = input("Enter a sentence: ")
         lang = input("Enter the language (fr/en): ")
-        print("The result is: ", isPositive(text, lang), end="\n\n")
+        print("The result is: ", is_positive(text, lang), end="\n\n")
 
 

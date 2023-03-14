@@ -1,11 +1,11 @@
 {
-  "maxStoreSize": 100,
+  "maxStoreSize": 4,
   "rotationInterval": 5,
   "query": {
     "useTwitterApi": false,
     "twitter": {
       "fetchInterval": 30,
-      "fetchQuantity": 10,
+      "fetchQuantity": 100,
       "dateRange": {
         "start": "2020-01-01T00:00:00.000Z",
         "end": "2023-03-07T14:19:05.102Z"
@@ -23,11 +23,9 @@
     }
   },
   "filter": {
-    "useSentiment": false,
+    "useSentiment": true,
     "useBanwords": false,
     "useBlockImages": false,
-    "forbiddenWords": [
-      "lorem"
-    ]
+    "forbiddenWords": []
   }
 }
