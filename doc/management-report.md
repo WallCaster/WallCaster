@@ -147,4 +147,12 @@ Ajout d'une nouvelle histoire utilisateur précisant l'ajout de photos par le ph
 Discussion pour le stockage de notre système soit sur un serveur de l'IRISA, ou un(e) serveur/machine virtuelle de l'ISTIC. Dans tous les cas, Docker et il faudra faire un bon README pour faciliter l'installation. Si machine virtuelle de l'ISTIC, voir pour ouvrir les ports et autoriser l'accès de l'extérieur avec la DSI.
 Les Raspberry Pi sont commandés, normalement livraison en fin de mois.
 
+### 03/14/2023 with Benoît COMBEMALE and one of his teamate?
+
+Nouvelle fonctionnalité bonus (si jamais sprint fini trop en avance): ajout d'un QR code sur les écrans connectés aux Raspberry Pi pour pouvoir le scanner, ouvrant pour l'utilisateur/spectateur le même affichage sur son téléphone.
+Corriger bogue hashtag "ict4s".
+Se remettre au clair sur comment fonctionne le filtre "sentiment" : est-ce un modèle préentraîné ? ou prend-il ses données ? ... Notamment il peut être intéressant d'en discuter avec Zoltan MIKLOS, pour vérifier si la méthodologie employée est la bonne.
+
+Comme le sprint va être fini en avance (de deux semaines), il est important pendant la rétrospective de s'interroger sur quels éléments ont mené à ce phénomène (surestimation) pour essayer d'améliorer le prochain sprint dans son déroulement.
+
 # Description et gestion des exigences
