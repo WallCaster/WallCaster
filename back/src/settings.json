@@ -1,6 +1,6 @@
 {
-  "maxStoreSize": 10,
-  "rotationInterval": 1000,
+  "maxStoreSize": 100,
+  "rotationInterval": 5,
   "query": {
     "useTwitterApi": false,
     "twitter": {
@@ -11,19 +11,23 @@
         "end": "2023-03-07T14:19:05.102Z"
       },
       "useWhitelistHashtags": false,
-      "whitelistHashtags": [],
+      "whitelistHashtags": [
+        "rennes"
+      ],
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
-    "useRandomApi": true,
+    "useRandomApi": false,
     "random": {
-      "fetchInterval": 2
+      "fetchInterval": 5
     }
   },
   "filter": {
     "useSentiment": false,
     "useBanwords": false,
     "useBlockImages": false,
-    "forbiddenWords": []
+    "forbiddenWords": [
+      "lorem"
+    ]
   }
 }

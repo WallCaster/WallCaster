@@ -2,3 +2,4 @@ flask_cors
 flask>=2.2.2
 nltk==3.3
 Levenshtein==0.20.9
+spacy==3.5.0

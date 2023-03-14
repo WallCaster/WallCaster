@@ -56,7 +56,7 @@ def callFilter():
 
 
     if filter_config["useSentiment"]:
-        result["passedSentiment"] = is_positive(txt)
+        result["passedSentiment"] = is_positive(txt, "fr")
 
     if filter_config["useBanwords"]:
         banned_words = filter_config["forbiddenWords"]

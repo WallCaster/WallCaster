@@ -5,16 +5,17 @@ import FilterIndicator from './FilterIndicator';
 export default function CacheCard({
   post,
   cacheDelete,
+  restore,
 }: {
   post: Post & FilterData;
   cacheDelete: (id: string) => void;
+  restore?: (id: string) => void;
 }) {
   const now = new Date();
   const offset = now.getTimezoneOffset() * 60 * 1000;
-  const date = new Date(post.filterDate) 
+  const date = new Date(post.filterDate);
   // date is in UTC, so we need to convert it to local time
   date.setTime(date.getTime() - offset);
-
 
   // format with xx s/min/h/day ago
   const diff = Math.floor((now.getTime() - date.getTime()) / 1000);
@@ -32,12 +33,7 @@ export default function CacheCard({
   }
 
   return (
-    <div
-      className='border rounded-lg grid grid-cols-4 justify-between w-full px-4 py-3 hover:text-red-800 hover:bg-red-100 cursor-pointer group'
-      onClick={() => {
-        cacheDelete(post.id);
-      }}
-    >
+    <div className='border rounded-lg grid grid-cols-4 justify-between w-full px-4 py-3 hover:text-red-800 hover:bg-red-100 cursor-pointer group'>
       <div className='flex items-start gap-5 shrink col-span-3'>
         <div className='flex flex-col'>
           <h1 className='whitespace-nowrap shrink-0 font-bold text-sm leading-4 max-w-[6rem] text-ellipsis overflow-hidden'>
@@ -63,7 +59,23 @@ export default function CacheCard({
           descPassed='This post does not contain images'
           descRejected='This post contains images'
         />
-        <TrashIcon className='w-5 h-5 group-hover:text-red-800 group-hover:opacity-100 opacity-10 shrink-0' />
+        {restore && (
+          <button
+            className='hover:text-blue-500'
+            onClick={() => {
+              restore(post.id);
+            }}
+          >
+            RESTORE
+          </button>
+        )}
+        <button
+          onClick={() => {
+            cacheDelete(post.id);
+          }}
+        >
+          <TrashIcon className='w-5 h-5 group-hover:text-red-800 group-hover:opacity-100 opacity-10 shrink-0' />
+        </button>
       </div>
     </div>
   );

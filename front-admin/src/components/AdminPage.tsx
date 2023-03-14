@@ -48,6 +48,11 @@ const AdminPage = () => {
     socket.emit('trashDelete', id);
   }
 
+  function trashRestore(id: string) {
+    if (!socket) return;
+    socket.emit('trashRestore', id);
+  }
+
   if (!socket?.connected || !config)
     return (
       <div className='p-8 flex flex-col gap-6 max-w-6xl grow justify-center'>
@@ -99,6 +104,7 @@ const AdminPage = () => {
         setConfig={(c) => sendConfig(c)}
         trash={trash}
         trashDelete={trashDelete}
+        trashRestore={trashRestore}
       />
     </div>
   );

@@ -1,56 +1,71 @@
+import re
+import spacy
+import pickle
+
+from pathlib import Path
+from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from pathlib import Path
-import pickle
-from pathlib import Path
-from nltk.stem.wordnet import WordNetLemmatizer
-from nltk.tag import pos_tag
-import re, string
-import pickle
+from nltk.stem.snowball import SnowballStemmer
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 path = Path(__file__).parent / "trained_data.pickle"
 with path.open("rb") as file:
     classifier = pickle.load(file)
 
 
-# this function will remove noise from the tweets such as hyperlinks, mentions,
-# and special characters using regular expressions and lemmatize the words
-def remove_noise(tweet_tokens, stop_words=()):
+# this function will remove noise from the tweets in french or english such as punctuation
+# , stopwords, hyperlinks, mentions, etc.
+def preprocess_tweet(text, lang):
+    # Supprimer les mentions, les hashtags et les liens
+    text = re.sub(r'@\w+|#\w+|https?://\S+', '', text)
+    # Supprimer les caractères spéciaux
+    text = re.sub(r'[^\w\s]', '', text)
+    # Convertir en minuscules
+    text = text.lower()
+    # Tokenisation
+    if lang == 'fr':
+        tokens = word_tokenize(text, language='french')
+    elif lang == 'en':
+        tokens = word_tokenize(text, language='english')
+    # Supprimer les stopwords
+    stop_words = set(stopwords.words(lang))
+    filtered_tokens = [token for token in tokens if token not in stop_words]
+    # Stemming ou lemmatisation
+    if lang == 'fr':
+        stemmer = SnowballStemmer('french')
+        preprocessed_text = ' '.join([stemmer.stem(token) for token in filtered_tokens])
+    elif lang == 'en':
+        nlp = spacy.load('en_core_web_sm')
+        preprocessed_text = ' '.join([token.lemma_ for token in nlp(' '.join(filtered_tokens))])
 
-    cleaned_tokens = []
+    return preprocessed_text
 
-    for token, tag in pos_tag(tweet_tokens):
-        token = re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\),]|'\
-                       '(?:%[0-9a-fA-F][0-9a-fA-F]))+','', token)
-        token = re.sub("(@[A-Za-z0-9_]+)", "", token)
+def isPositive(text, lang):
+    preprocessed_text = preprocess_tweet(text, lang)
 
-        if tag.startswith("NN"):
-            pos = 'n'
-        elif tag.startswith('VB'):
-            pos = 'v'
-        else:
-            pos = 'a'
+    # charger le vectorizer
+    path = Path(__file__).parent / "vectorizer.pickle"
+    with path.open("rb") as file:
+        vectorizer = pickle.load(file)
 
-        lemmatizer = WordNetLemmatizer()
-        token = lemmatizer.lemmatize(token, pos)
+    # Ajuster le TfidfVectorizer aux données d'entraînement et le transformer avec le nouveau texte
+    vectorized_text = vectorizer.transform([preprocessed_text])
 
-        if len(token) > 0 and token not in string.punctuation and token.lower(
-        ) not in stop_words:
-            cleaned_tokens.append(token.lower())
-    return cleaned_tokens
-
-
-def is_positive(txt: str) -> bool:
-    tokens = remove_noise(word_tokenize(txt))
-    res = classifier.classify(dict([token, True] for token in tokens))
-    if res == "Positive":
-        return True
+    # Utiliser le modèle entraîné pour faire la prédiction
+    res = classifier.predict(vectorized_text)[0]
+    if res == 0:
+        return "negative."
     else:
-        return False
+        return "positive."
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print("Ready to process sentences. (Ctrl+C to exit)\n")
 
     while True:
-        txt = input("Enter a sentence: ")
-        print("The result is: ", is_positive(txt), end="\n\n")
+        text = input("Enter a sentence: ")
+        lang = input("Enter the language (fr/en): ")
+        print("The result is: ", isPositive(text, lang), end="\n\n")
+
+
