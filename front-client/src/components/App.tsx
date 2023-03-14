@@ -50,6 +50,8 @@ export const App = () => {
     }
   }, [post, nextPost]);
 
+
+  const probaPhoto = Math.random();
   if (socket == null) {
     return (
       <div className='flex flex-col h-full bg-red-200 p-20 gap-5 text-red-800'>
@@ -83,7 +85,23 @@ export const App = () => {
               setNextPost(null);
             }}
           >
-            <PostCard post={post} className='rounded-3xl shadow-2xl' />
+            {
+              (probaPhoto < 0.5) && (
+                // <img src='/abstract.webp' alt='' className='' />
+                <div
+                  className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
+                  style={{ height: '90vh', maxWidth: '90vw' }}
+                >
+                  <img src='https://placeimg.com/1000/512/nature' alt='' className='h-full w-full' />
+                </div>
+              )             
+            }
+            {
+              (probaPhoto >= 0.5) && (
+                <PostCard post={post} className='rounded-3xl shadow-2xl' />
+              )             
+            }
+            
           </Transition>
         )}
         {/* <button
