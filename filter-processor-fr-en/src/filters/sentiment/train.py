@@ -21,8 +21,8 @@ def create_dataframe():
     df_tweets_en = pd.read_csv('../data/english_tweets.csv', sep=',', encoding='ISO-8859-1')
 
     # keep only 50 tweets randomly for each language
-    df_tweets_fr = df_tweets_fr.sample(n=50, random_state=1)
-    df_tweets_en = df_tweets_en.sample(n=50, random_state=1)
+    df_tweets_fr = df_tweets_fr.sample(n=7500, random_state=1)
+    df_tweets_en = df_tweets_en.sample(n=7500, random_state=1)
 
     # rename columns df_tweets_en ['label', 'id', 'Date', 'Query', 'Username', 'tweet']
     df_tweets_en = df_tweets_en.rename(columns={

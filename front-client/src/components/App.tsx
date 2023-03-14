@@ -15,10 +15,17 @@ export const App = () => {
     },
     content: {
       text: 'Hello World',
+      images: [
+        'https://placeimg.com/1000/512/nature',
+        'https://placeimg.com/1000/512/animals',
+        'https://placeimg.com/1000/512/any/sepia',
+        'https://placeimg.com/1000/512/nature/sepia',
+      ],
     },
     date: new Date(),
     originUrl: 'https://twitter.com/johndoe/status/1',
   };
+
   const [post, setPost] = useState<Post | null>(null);
   const [nextPost, setNextPost] = useState<Post | null>(null);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
@@ -76,7 +83,7 @@ export const App = () => {
               setNextPost(null);
             }}
           >
-            <PostCard post={post} className='rounded-3xl shadow-2xl' />            
+            <PostCard post={post} className='rounded-3xl shadow-2xl' />
           </Transition>
         )}
         {/* <button
