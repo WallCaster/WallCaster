@@ -29,7 +29,7 @@ describe('App', () => {
 
   beforeEach(() => {
     while(app.getNextPost() != null) {
-      app.removePost('0');
+      app.removeDefinitively('0');
     }
   })
 
@@ -61,12 +61,12 @@ describe('App', () => {
   describe('removePost', () => {
     it('should remove a post from the cache', () => {
       app.addPosts([post]);
-      app.removePost('0');
+      app.removeDefinitively('0');
       expect(app.getNextPost()).toBeNull();
     });
   
     it('should return null if there are no posts to remove in the cache', () => {
-      app.removePost('0');
+      app.removeDefinitively('0');
       expect(app.getNextPost()).toBeNull();
     });
   })
