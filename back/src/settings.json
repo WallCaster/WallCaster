@@ -11,7 +11,7 @@
         "end": "2023-03-07T14:19:05.102Z"
       },
       "useWhitelistHashtags": false,
-      "whitelistHashtags": [],
+      "whitelistHashtags": ["quimper","vannes"],
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
