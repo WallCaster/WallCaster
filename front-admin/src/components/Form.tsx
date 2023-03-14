@@ -19,6 +19,7 @@ import {
   AdjustmentsHorizontalIcon,
   FunnelIcon,
   ListBulletIcon,
+  PhotoIcon
 } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
@@ -34,7 +35,7 @@ const navigation = [
   { name: 'General', href: '#general', icon: AdjustmentsHorizontalIcon, current: false },
   { name: 'Query', href: '#query', icon: MagnifyingGlassIcon, current: false },
   { name: 'Filter', href: '#filter', icon: FunnelIcon, current: false },
-  { name: 'Photos', href: '#photos', icon: FunnelIcon, current: false },
+  { name: 'Photos', href: '#photos', icon: PhotoIcon, current: false },
 ];
 
 function classNames(...classes: (boolean | undefined | string)[]) {
@@ -108,7 +109,7 @@ export default function AdminForm({
       </aside>
 
       <div className='space-y-6 sm:px-6 lg:px-0 lg:col-span-9'>
-        <form onSubmit={onSubmit} id='cache'>
+        <form onSubmit={onSubmit} id='feed'>
           <div className='shadow sm:rounded-md sm:overflow-hidden'>
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
