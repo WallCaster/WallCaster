@@ -1,3 +1,5 @@
+import re
+
 def check_banned_words(banned_words : list[str], text : str):
 
     # First step, we have to split all the string in words, each of them seperated with spaces.
@@ -6,6 +8,8 @@ def check_banned_words(banned_words : list[str], text : str):
     # Then we have to convert the text to lowercase
     for i in range(len(text_splited)):
         text_splited[i] = text_splited[i].lower()
+        # There are some special cases, if a banned word is surrounded by "", ',' or it is followed by a ',', '.' etc.
+        text_splited[i] = re.sub("\W", "", text_splited[i]) # \W = [^A-Za-z0-9_]
 
     print("Text to filter in lowercase :", text_splited)
 
@@ -25,7 +29,7 @@ def check_banned_words(banned_words : list[str], text : str):
 
 def main():
     banned_words = ["Destroy", "woRLD"]
-    text = "I WANT TO DEstroy the world and everyting in it."
+    text = "I WANT TO ''''''DEstroy''''!!!!!!!!! the ,,,,\"world\"...... and everyting in it."
     print("Does the post contains banned_words ?", check_banned_words(banned_words, text))
 
     
