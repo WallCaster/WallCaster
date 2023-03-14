@@ -150,6 +150,7 @@ Les Raspberry Pi sont commandés, normalement livraison en fin de mois.
 ### 03/14/2023 with Benoît COMBEMALE and one of his teamate?
 
 Nouvelle fonctionnalité bonus (si jamais sprint fini trop en avance): ajout d'un QR code sur les écrans connectés aux Raspberry Pi pour pouvoir le scanner, ouvrant pour l'utilisateur/spectateur le même affichage sur son téléphone.
+Ajouter sélection de la langue des tweets voulus dans le panneau administratif.
 Corriger bogue hashtag "ict4s".
 Se remettre au clair sur comment fonctionne le filtre "sentiment" : est-ce un modèle préentraîné ? ou prend-il ses données ? ... Notamment il peut être intéressant d'en discuter avec Zoltan MIKLOS, pour vérifier si la méthodologie employée est la bonne.
 

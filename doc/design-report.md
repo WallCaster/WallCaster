@@ -48,6 +48,7 @@ Sprint 1 ends Tuesday **02/14/2023.**
 - [ ] As an administrator, I can see a log of all the posts fetched by the system. (5h)
 - [ ] As a viewer, I can see posts with photos or videos on the screen. (3h)
 - [ ] As an administrator, I can delete in the admin panel posts already present in the system (which have gone through filters). (1h)
-- [ ] As an administrator, I can add pictures to the system thanks to a USB device or a remote server.  
+- [ ] As an administrator, I can add pictures to the system thanks to a USB device or a remote server.
+- [ ] As an administrator, I can select the language I want the system to use to fetch posts in the admin panel.
 
 Sprint 1 ends Tuesday **03/28/2023.**
