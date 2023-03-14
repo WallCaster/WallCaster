@@ -385,7 +385,7 @@ Tasks :
 
 ### 2.3.6 - Display posts / photos
 
-> As a spectator I want to see the informations displayed on the screen
+> As a spectator I want to see the informations displayed on the screen. As a bonus, I would like to scan a QR code displayed on the screen, to be able to see the same streamed content on my smartphone's web browser.
 
 Tasks :
 - Create a front-end for the client
@@ -394,7 +394,7 @@ Tasks :
 - Make the server choose the posts to display
 - Make the server send the posts to the client
 - Make the client display the posts
-
+- Create a QR code linked to the same content displayed on the wanted screen.
 <br/>
 
 
