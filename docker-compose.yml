@@ -52,3 +52,15 @@ services:
       - ./filter-processor:/app
       - ./filter-processor/src/nltk_data/:/root/nltk_data/
     working_dir: /app
+
+  # Container of the filters fr-en
+  filter-processor-fr-en:
+    build: ./filter-processor-fr-en
+    container_name: filter-processor-fr-en
+    restart: always
+    ports:
+      - 5001:5000
+    volumes:
+      - ./filter-processor-fr-en:/app
+      - ./filter-processor-fr-en/src/nltk_data/:/root/nltk_data/
+    working_dir: /app
