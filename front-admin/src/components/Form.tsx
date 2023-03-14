@@ -34,6 +34,7 @@ const navigation = [
   { name: 'General', href: '#general', icon: AdjustmentsHorizontalIcon, current: false },
   { name: 'Query', href: '#query', icon: MagnifyingGlassIcon, current: false },
   { name: 'Filter', href: '#filter', icon: FunnelIcon, current: false },
+  { name: 'Photos', href: '#photos', icon: FunnelIcon, current: false },
 ];
 
 function classNames(...classes: (boolean | undefined | string)[]) {
@@ -380,6 +381,19 @@ export default function AdminForm({
                   desc='Disallow tweets with images'
                 />
               </div>
+            </div>
+            <ChangeIndicator hasChanges={hasChanges} />
+          </div>
+        </form>
+        <form onSubmit={onSubmit} id='photos'>
+          <div className='shadow sm:rounded-md sm:overflow-hidden'>
+            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
+              <div>
+                <h3 className='text-lg leading-6 font-medium text-gray-900'>Add photos</h3>
+                <p className='mt-1 text-sm text-gray-500'>List of photos to display on screen.</p>
+              </div>
+
+              <input type="file" multiple id="add_photos" name="add_photos" accept="image/*"></input>
             </div>
             <ChangeIndicator hasChanges={hasChanges} />
           </div>
