@@ -56,7 +56,15 @@ export class SocketServer {
     });
 
     socket.on('cacheDelete', (id: string) => {
-      this.app.removePost(id);
+      this.app.moveToTrash(id);
+    });
+
+    socket.on('trashRestore', (id: string) => {
+      this.app.restoreFromTrash(id);
+    });
+
+    socket.on('trashDelete', (id: string) => {
+      this.app.removeDefinitively(id);
     });
 
     console.log('new client connected');
@@ -106,6 +114,6 @@ export class SocketServer {
 
   public sendCacheToAdmin() {
     this.server.to('admin').emit('cache', this.app.getCache());
-    this.server.to('admin').emit('cache_refused', this.app.getCacheRefused());
+    this.server.to('admin').emit('trash', this.app.getTrash());
   }
 }

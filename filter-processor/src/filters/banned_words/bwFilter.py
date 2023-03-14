@@ -1,6 +1,7 @@
-import re
+from typing import List
 
-def check_banned_words(banned_words : list[str], text : str):
+
+def check_banned_words(banned_words : List[str], text : str):
 
     # First step, we have to split all the string in words, each of them seperated with spaces.
     text_splited : list[str] = text.split()
@@ -31,6 +32,8 @@ def main():
     banned_words = ["Destroy", "woRLD"]
     text = "I WANT TO ''''''DEstroy''''!!!!!!!!! the ,,,,\"world\"...... and everyting in it."
     print("Does the post contains banned_words ?", check_banned_words(banned_words, text))
+    print("Does the post contains banned_words ?", check_banned_words(banned_words, text))
+    print("Does the post contains banned_words ?", check_banned_words(["lorem", "dolor"],"Lorem ipsum dolor, "))
 
     
 if __name__ == "__main__":

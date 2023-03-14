@@ -43,13 +43,17 @@ function classNames(...classes: (boolean | undefined | string)[]) {
 export default function AdminForm({
   config,
   cache,
-  setConfig,
   cacheDelete,
+  setConfig,
+  trash,
+  trashDelete,
 }: {
   config: Config;
   cache: (Post & FilterData)[];
-  setConfig: (config: Config) => void;
   cacheDelete: (id: string) => void;
+  setConfig: (config: Config) => void;
+  trash: (Post & FilterData)[];
+  trashDelete: (id: string) => void;
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
@@ -107,14 +111,27 @@ export default function AdminForm({
           <div className='shadow sm:rounded-md sm:overflow-hidden'>
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
-                <h3 className='text-lg leading-6 font-medium text-gray-900'>Server posts cache</h3>
+                <h3 className='text-lg leading-6 font-medium text-gray-900'>Server posts queue</h3>
                 <p className='mt-1 text-sm text-gray-500'>
-                  The posts that are currently cached on the server. You can delete them from the server cache.
+                  The queue of posts that are currently cached on the server. You can delete them from the server cache.
                 </p>
               </div>
               <div className='flex flex-col gap-2 max-h-80 overflow-y-auto'>
                 {cache.map((post) => (
                   <CacheCard key={post.id} post={post} cacheDelete={cacheDelete} />
+                ))}
+              </div>
+            </div>
+            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
+              <div>
+                <h3 className='text-lg leading-6 font-medium text-gray-900'>Server filtered posts</h3>
+                <p className='mt-1 text-sm text-gray-500'>
+                  The posts that are currently cached on the server. You can delete them from the server cache.
+                </p>
+              </div>
+              <div className='flex flex-col gap-2 max-h-80 overflow-y-auto'>
+                {trash.map((post) => (
+                  <CacheCard key={post.id} post={post} cacheDelete={trashDelete} />
                 ))}
               </div>
             </div>

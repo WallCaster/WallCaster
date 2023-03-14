@@ -60,7 +60,7 @@ def callFilter():
 
     if filter_config["useBanwords"]:
         banned_words = filter_config["forbiddenWords"]
-        result["passedBanwords"] = bwFilter(banned_words, txt)
+        result["passedBanwords"] = not bwFilter(banned_words, txt)
 
     if filter_config["useBlockImages"]:
         images = post["content"]["images"]

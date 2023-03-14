@@ -26,7 +26,7 @@ export class ApiRandom extends Api {
           username: '@random_' + randomString(5),
           image: 'https://i.pravatar.cc/300',
         },
-        date: new Date(Date.now()),
+        date: new Date(),
         originUrl: 'http://localhost:3000/twitter',
         api: ApiName.TWITTER,
       },

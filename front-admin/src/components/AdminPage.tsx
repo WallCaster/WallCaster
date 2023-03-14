@@ -9,6 +9,7 @@ const AdminPage = () => {
   const [config, setConfig] = useState<null | Config>(null);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   const [cache, setCache] = useState<(Post & FilterData)[]>([]);
+  const [trash, setTrash] = useState<(Post & FilterData)[]>([]);
   const socket = useSocket(serverIp, (socket) => {
     socket.on('connect', () => {
       socket.emit('getConfig');
@@ -17,6 +18,11 @@ const AdminPage = () => {
     socket.on('cache', (cache: (Post & FilterData)[]) => {
       setCache(cache);
     });
+
+    socket.on('trash', (cacheFiltered: (Post & FilterData)[]) => {
+      setTrash(cacheFiltered);
+    });
+
     socket.on('config', (config: Config) => {
       setConfig(config);
     });
@@ -35,6 +41,11 @@ const AdminPage = () => {
   function cacheDelete(id: string) {
     if (!socket) return;
     socket.emit('cacheDelete', id);
+  }
+
+  function trashDelete(id: string) {
+    if (!socket) return;
+    socket.emit('trashDelete', id);
   }
 
   if (!socket?.connected || !config)
@@ -81,7 +92,14 @@ const AdminPage = () => {
           <ArrowLeftOnRectangleIcon className='h-6 w-6' />
         </button>
       </div>
-      <AdminForm config={config} cache={cache} cacheDelete={cacheDelete} setConfig={(c) => sendConfig(c)} />
+      <AdminForm
+        config={config}
+        cache={cache}
+        cacheDelete={cacheDelete}
+        setConfig={(c) => sendConfig(c)}
+        trash={trash}
+        trashDelete={trashDelete}
+      />
     </div>
   );
 };
