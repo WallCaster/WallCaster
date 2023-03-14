@@ -1,5 +1,5 @@
 from typing import List
-
+import re
 
 def check_banned_words(banned_words : List[str], text : str):
 
