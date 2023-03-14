@@ -54,10 +54,10 @@ def isPositive(text, lang):
 
     # Utiliser le modèle entraîné pour faire la prédiction
     res = classifier.predict(vectorized_text)[0]
-    if res == 1:
-        return "positive."
-    else:
+    if res == 0:
         return "negative."
+    else:
+        return "positive."
 
 
 if __name__ == '__main__':
