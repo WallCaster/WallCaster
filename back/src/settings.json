@@ -1,5 +1,5 @@
 {
-  "maxStoreSize": 99,
+  "maxStoreSize": 10,
   "rotationInterval": 1000,
   "query": {
     "useTwitterApi": false,
@@ -15,7 +15,7 @@
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
-    "useRandomApi": false,
+    "useRandomApi": true,
     "random": {
       "fetchInterval": 2
     }

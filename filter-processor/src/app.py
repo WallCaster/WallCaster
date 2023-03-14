@@ -2,7 +2,7 @@ import datetime
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from filters.sentiment.run import is_positive as is_positive
-# from filters.banned_words.bwFilter import check_banned_words as bwFilter
+from filters.banned_words.bwFilter import check_banned_words as bwFilter
 
 app = Flask(__name__)
 cors = CORS(app, supports_credentials=True)
@@ -58,9 +58,9 @@ def callFilter():
     if filter_config["useSentiment"]:
         result["passedSentiment"] = is_positive(txt)
 
-    # if filter_config["useBanwords"]:
-    #     banned_words = filter_config["forbiddenWords"]
-    #     result["passedBanwords"] = bwFilter(banned_words, txt)
+    if filter_config["useBanwords"]:
+        banned_words = filter_config["forbiddenWords"]
+        result["passedBanwords"] = not bwFilter(banned_words, txt)
 
     if filter_config["useBlockImages"]:
         images = post["content"]["images"]

@@ -31,7 +31,7 @@ The sprint review and the retrospective will allow us to check our progress and 
 - [x] As an administrator, I can select the interval of time between two queries to the Twitter API.
 - [x] As an administrator, I can select the rotation interval of posts on the screen.
 - [ ] As an administrator, I can choose to allow picture broadcast. (à mieux faire)
-- [ ] As an administrator, I can change the number of screens to which send social media contents. (à mieux faire)
+- [ ] As an administrator, I can change the number of screens the system uses to display social media contents. (à mieux faire)
 - [x] As an admnisitrator, I can choose apply a filter (english sentiment filter) on the posts to display.
 - [x] As a viewer, I can see on displays, posts comming from Twitter that rotate at a given interval.
 
@@ -43,11 +43,12 @@ Sprint 1 ends Tuesday **02/14/2023.**
 
 ## Expected Outcome
 
-- [ ] Appliquer le filtre sur les posts. (2h)
-- [ ] Ajouter nouveaux filtres (liste mots bannis, un autre). (10h)
-- [ ] Afficher les posts (du moins un log de posts) dans le panel administration. (5h)
-- [ ] Autoriser l'affichage de photos/vidéos sur les écrans. (3h)
-- [ ] Meilleure gestion interne des posts en mémoire. (4h)
-- [ ] Supprimer posts déjà présents dans le système (passés à travers le filtre). (1h)
+- [ ] As an administrator, I can apply filter on the fetched posts. (2h)
+- [ ] As an administrator, I can choose a new filter (list of banned words). (10h)
+- [ ] As an administrator, I can see a log of all the posts fetched by the system. (5h)
+- [ ] As a viewer, I can see posts with photos or videos on the screen. (3h)
+- [ ] As an administrator, I can delete in the admin panel posts already present in the system (which have gone through filters). (1h)
+- [ ] As an administrator, I can add pictures to the system thanks to a USB device or a remote server.
+- [ ] As an administrator, I can select the language I want the system to use to fetch posts in the admin panel.
 
 Sprint 1 ends Tuesday **03/28/2023.**

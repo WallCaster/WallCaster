@@ -12,8 +12,8 @@ export class App {
   // the set of all posts ids (filtered and unfiltered)
   private posts_ids: Set<string> = new Set();
   // the list of incoming posts from the api (first stage)
-  private posts: (Post & FilterData)[] = [];
-  private postsRefused: (Post & FilterData)[] = [];
+  private cache: (Post & FilterData)[] = [];
+  private trash: (Post & FilterData)[] = [];
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
@@ -27,6 +27,8 @@ export class App {
   // Automatically restart the server when the config file is modified
   public restart() {
     const query = configManager.config.query;
+    this.clampCache();
+    this.clampTrash();
     if (query.useTwitterApi && this.apis.twitter) this.apis.twitter.start(this);
     else if (this.apis.twitter) this.apis.twitter.stop();
     if (query.useRandomApi && this.apis.random) this.apis.random.start(this);
@@ -50,12 +52,12 @@ export class App {
         this.posts_ids.add(post.id);
         const filterData: FilterData = await filterPost(post);
 
-        this.writeInLogsFile('logs.json', { ...post, ...filterData });
+        this.writeInLogsFile('logs.log', { ...post, ...filterData });
 
         if(filterData.passedBanwords === false || filterData.passedImages === false || filterData.passedSentiment === false){
-          this.postsRefused.push({ ...post, ...filterData });
+          this.trash.push({ ...post, ...filterData });
         }else{
-          this.posts.unshift({ ...post, ...filterData });
+          this.cache.unshift({ ...post, ...filterData });
         }
 
         this.clampCache();
@@ -65,11 +67,11 @@ export class App {
   }
 
   public getCache(): (Post & FilterData)[] {
-    return this.posts;
+    return this.cache;
   }
 
-  public getCacheRefused(): (Post & FilterData)[] {
-    return this.postsRefused;
+  public getTrash(): (Post & FilterData)[] {
+    return this.trash;
   }
 
   public writeInLogsFile(filename: string, logs: any) {
@@ -84,10 +86,10 @@ export class App {
    * then add it back to the end of the cache
    */
   public getNextPost(): Post | null {
-    if (this.posts.length > 0) {
-      const post = this.posts[0];
-      this.posts.splice(0, 1);
-      this.posts.push(post);
+    if (this.cache.length > 0) {
+      const post = this.cache[0];
+      this.cache.splice(0, 1);
+      this.cache.push(post);
       this.clampCache();
       this.socket.sendCacheToAdmin();
       return post;
@@ -97,17 +99,42 @@ export class App {
 
   private clampCache() {
     const max = configManager.config.maxStoreSize;
-    if (this.posts.length > max) {
-      this.posts.splice(max, this.posts.length - max);
-    }
-    if (this.postsRefused.length > max) {
-      this.postsRefused.splice(max, this.postsRefused.length - max);
+    if (this.cache.length > max) {
+      this.cache.splice(max, this.cache.length - max);
     }
   }
 
-  public removePost(id: string) {
+  public clampTrash() {
+    const max = configManager.config.maxStoreSize;
+    if (this.trash.length > max) {
+      this.trash.splice(max, this.trash.length - max);
+    }
+  }
+
+  public removeDefinitively(id: string) {
     // this.posts_ids.delete(id);
-    this.posts = this.posts.filter((post) => post.id !== id);
+    this.trash = this.trash.filter((post) => post.id !== id);
     this.socket.sendCacheToAdmin();
   }
+
+  public restoreFromTrash(id: string) {
+    const post = this.trash.find((post) => post.id === id);
+    if (post) {
+      this.trash = this.trash.filter((post) => post.id !== id);
+      this.cache.unshift(post);
+      this.clampCache();
+      this.socket.sendCacheToAdmin();
+    }
+  }
+
+  public moveToTrash(id: string) {
+    const post = this.cache.find((post) => post.id === id);
+    if (post) {
+      this.cache = this.cache.filter((post) => post.id !== id);
+      this.trash.unshift(post);
+      this.clampTrash();
+      this.socket.sendCacheToAdmin();
+    }
+  }
+
 }

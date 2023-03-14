@@ -19,6 +19,7 @@ import {
   AdjustmentsHorizontalIcon,
   FunnelIcon,
   ListBulletIcon,
+  PhotoIcon
 } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
@@ -30,10 +31,11 @@ import Input from './Input';
 import InputTags from './InputTags';
 
 const navigation = [
-  { name: 'Cache', href: '#cache', icon: ListBulletIcon, current: false },
+  { name: 'Live Feed', href: '#feed', icon: ListBulletIcon, current: false },
   { name: 'General', href: '#general', icon: AdjustmentsHorizontalIcon, current: false },
   { name: 'Query', href: '#query', icon: MagnifyingGlassIcon, current: false },
   { name: 'Filter', href: '#filter', icon: FunnelIcon, current: false },
+  { name: 'Photos', href: '#photos', icon: PhotoIcon, current: false },
 ];
 
 function classNames(...classes: (boolean | undefined | string)[]) {
@@ -43,13 +45,17 @@ function classNames(...classes: (boolean | undefined | string)[]) {
 export default function AdminForm({
   config,
   cache,
-  setConfig,
   cacheDelete,
+  setConfig,
+  trash,
+  trashDelete,
 }: {
   config: Config;
   cache: (Post & FilterData)[];
-  setConfig: (config: Config) => void;
   cacheDelete: (id: string) => void;
+  setConfig: (config: Config) => void;
+  trash: (Post & FilterData)[];
+  trashDelete: (id: string) => void;
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
@@ -103,18 +109,31 @@ export default function AdminForm({
       </aside>
 
       <div className='space-y-6 sm:px-6 lg:px-0 lg:col-span-9'>
-        <form onSubmit={onSubmit} id='cache'>
+        <form onSubmit={onSubmit} id='feed'>
           <div className='shadow sm:rounded-md sm:overflow-hidden'>
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
-                <h3 className='text-lg leading-6 font-medium text-gray-900'>Server posts cache</h3>
+                <h3 className='text-lg leading-6 font-medium text-gray-900'>Posts queue</h3>
                 <p className='mt-1 text-sm text-gray-500'>
-                  The posts that are currently cached on the server. You can delete them from the server cache.
+                  The queue of posts that are currently cached on the server. You can delete them from the server cache.
                 </p>
               </div>
               <div className='flex flex-col gap-2 max-h-80 overflow-y-auto'>
                 {cache.map((post) => (
                   <CacheCard key={post.id} post={post} cacheDelete={cacheDelete} />
+                ))}
+              </div>
+            </div>
+            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
+              <div>
+                <h3 className='text-lg leading-6 font-medium text-gray-900'>Trash</h3>
+                <p className='mt-1 text-sm text-gray-500'>
+                  Posts that have been deleted from the server. You can delete them from the server trash or restore them.
+                </p>
+              </div>
+              <div className='flex flex-col gap-2 max-h-80 overflow-y-auto'>
+                {trash.map((post) => (
+                  <CacheCard key={post.id} post={post} cacheDelete={trashDelete} />
                 ))}
               </div>
             </div>
@@ -363,6 +382,19 @@ export default function AdminForm({
                   desc='Disallow tweets with images'
                 />
               </div>
+            </div>
+            <ChangeIndicator hasChanges={hasChanges} />
+          </div>
+        </form>
+        <form onSubmit={onSubmit} id='photos'>
+          <div className='shadow sm:rounded-md sm:overflow-hidden'>
+            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
+              <div>
+                <h3 className='text-lg leading-6 font-medium text-gray-900'>Add photos</h3>
+                <p className='mt-1 text-sm text-gray-500'>List of photos to display on screen.</p>
+              </div>
+
+              <input type="file" multiple id="add_photos" name="add_photos" accept="image/*"></input>
             </div>
             <ChangeIndicator hasChanges={hasChanges} />
           </div>
