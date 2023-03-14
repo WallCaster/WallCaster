@@ -141,4 +141,10 @@ Début sprint 2 :
 - petite nouvelle démonstration avec nos enseignants et quelques fonctionnalités en plus (en cours de préparation)
 - régler souci hashtag ict4s (connaît pas users ?)
 
+### 03/07/2023 with Benoît COMBEMALE and one of his teamate?
+
+Ajout d'une nouvelle histoire utilisateur précisant l'ajout de photos par le photographe sur le serveur. Il devra pouvoir utiliser une clé USB ou alors les envoyer depuis un serveur distant. Cependant l'interface pour lui doit être simple et l'action rapide (il n'est pas forcément informaticien).
+Discussion pour le stockage de notre système soit sur un serveur de l'IRISA, ou un(e) serveur/machine virtuelle de l'ISTIC. Dans tous les cas, Docker et il faudra faire un bon README pour faciliter l'installation. Si machine virtuelle de l'ISTIC, voir pour ouvrir les ports et autoriser l'accès de l'extérieur avec la DSI.
+Les Raspberry Pi sont commandés, normalement livraison en fin de mois.
+
 # Description et gestion des exigences

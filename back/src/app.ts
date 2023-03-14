@@ -2,14 +2,18 @@ import { Api } from './api/api';
 import { ApiRandom } from './api/api-random';
 import { ApiTwitter } from './api/api-twitter';
 import configManager from './config';
+import { filterPost } from './filtering';
 import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
+import { writeFileSync } from 'fs';
+import { join } from 'path';
 
 export class App {
   // the set of all posts ids (filtered and unfiltered)
   private posts_ids: Set<string> = new Set();
   // the list of incoming posts from the api (first stage)
   private posts: (Post & FilterData)[] = [];
+  private postsRefused: (Post & FilterData)[] = [];
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
@@ -41,26 +45,37 @@ export class App {
    * Adds a new post to the cache but in the front to prioritize it
    */
   public addPosts(posts: Post[]) {
-    // TODO filter in batch for optimization
-    posts.forEach((post) => {
+    posts.forEach(async (post) => {
       if (!this.posts_ids.has(post.id)) {
         this.posts_ids.add(post.id);
-        // Filter here
-        // this.filterPost(post);
-        // if filter is ok {
-        const filterData: FilterData = {
-          filterDate: new Date(),
-        };
-        this.posts.unshift({ ...post, ...filterData });
+        const filterData: FilterData = await filterPost(post);
+
+        this.writeInLogsFile('logs.json', { ...post, ...filterData });
+
+        if(filterData.passedBanwords === false || filterData.passedImages === false || filterData.passedSentiment === false){
+          this.postsRefused.push({ ...post, ...filterData });
+        }else{
+          this.posts.unshift({ ...post, ...filterData });
+        }
+
         this.clampCache();
         this.socket.sendCacheToAdmin();
-        // }
       }
     });
   }
 
   public getCache(): (Post & FilterData)[] {
     return this.posts;
+  }
+
+  public getCacheRefused(): (Post & FilterData)[] {
+    return this.postsRefused;
+  }
+
+  public writeInLogsFile(filename: string, logs: any) {
+    writeFileSync(join(filename), JSON.stringify(logs), {
+      flag: 'a+',
+    });
   }
 
   /**
@@ -85,29 +100,14 @@ export class App {
     if (this.posts.length > max) {
       this.posts.splice(max, this.posts.length - max);
     }
+    if (this.postsRefused.length > max) {
+      this.postsRefused.splice(max, this.postsRefused.length - max);
+    }
   }
 
   public removePost(id: string) {
-    this.posts_ids.delete(id);
+    // this.posts_ids.delete(id);
     this.posts = this.posts.filter((post) => post.id !== id);
     this.socket.sendCacheToAdmin();
-  }
-
-  public filterPost(post: Post) {
-    const message = {
-      post: post,
-      filter_config: configManager.config.filter,
-    };
-    const myUrl = 'http://filter-processor:5000/filter';
-    fetch(myUrl, {
-      method: 'POST',
-      body: JSON.stringify(message),
-      headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => console.error('Error during filter :', error));
   }
 }

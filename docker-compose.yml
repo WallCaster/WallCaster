@@ -1,36 +1,54 @@
 version: '3.0'
 services:
-
   # Container of the backend
   back:
-    build: # "context" and "dockerfile" fields have to be under "build"
-      context: back
-      dockerfile: Dockerfile
-    container_name: back_wallcaster
-    restart: always
+    image: node:18-alpine
+    container_name: back
+    volumes:
+      - ./back:/app
+    working_dir: /app
+    command: sh -c "yarn && yarn start"
+    
     ports:
       - 3001:3001
+    # depends_on:
+    #   - filter-processor
 
-  # Container of the frontend
-  front:
-    build: # "context" and "dockerfile" fields have to be under "build"
-      context: front-client
-      dockerfile: Dockerfile
-    container_name: front-client_wallcaster
+  # Container of the frontend client
+  front-client:
+    image: node:18-alpine
+    container_name: front-client
     restart: always
     ports:
       - 80:3000
     depends_on:
       - back
-  
+    volumes:
+      - ./front-client:/app
+    command: sh -c "yarn && yarn start"
+    working_dir: /app
+
+  # Container of the frontend admin
+  front-admin:
+    image: node:18-alpine
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - back
+    volumes:
+      - ./front-admin:/app
+    command: sh -c "yarn && yarn start"
+    working_dir: /app
+
   # Container of the filters
   filter-processor:
-    build:
-      context: filter-processor
-      dockerfile: Dockerfile
-    container_name: filter-processor_wallcaster
+    build: ./filter-processor
+    container_name: filter-processor
     restart: always
     ports:
       - 5000:5000
-    depends_on:
-      - back
+    volumes:
+      - ./filter-processor:/app
+      - ./filter-processor/src/nltk_data/:/root/nltk_data/
+    working_dir: /app

@@ -1,3 +1,5 @@
+import similarStringGenerator as strGen
+
 def check_banned_words(banned_words : list[str], text : str):
 
     # TODO : L'égalite entre str est sensible à la casse, il faudrait convertir ou vérifier aussi la version avec ou sans majuscules... Sinon des mots bannis pourraient ne pas être détectés.
@@ -14,46 +16,41 @@ def check_banned_words(banned_words : list[str], text : str):
     for word in text_splited:
         if word in banned_words: # In this case, the post has to be rejected, return True.
             return True
+        
+    # Same thing with the alernatives banned words.
+    alternatives_bWords = enhance_banned_words(banned_words)
+
+
+    for alter_word in alternatives_bWords:
+        seq = strGen.Sequence(alter_word)
+        text_splited.append(seq.mutate(1, 10))
+
+    print(alternatives_bWords)
+    for word in text_splited:
+        if (word in alternatives_bWords) or (word in banned_words):
+            return True
 
     # No banned words has been detected, the post can be displayed, return Fasle.
     return False
 
 def enhance_banned_words(banned_words : list[str]):
 
-    # Idée créé un tableau temporaire t, parcourir le paramètre "banned_words", pour chacun de ses éléments, ajouter la version avec toutes les lettres en majuscule, toute en minuscule, la première lettre en majuscule etc.
+    # Idée : créer un tableau temporaire t, parcourir le paramètre "banned_words", pour chacun de ses éléments, ajouter la version avec toutes les lettres en majuscule, toute en minuscule, la première lettre en majuscule etc.
     alternatives_bWords = []
 
     for word in banned_words:
         if word.isupper():
-            alternatives_bWords.push(word.lower())
-            alternatives_bWords.push(upperFirstCharacter(word))
-            alternatives_bWords.push(lowerFirstCharacter(word))
+            alternatives_bWords.append(word.lower())
         elif word.islower():
-            alternatives_bWords.push(word.upper())
-            alternatives_bWords.push(upperFirstCharacter(word))
-            alternatives_bWords.push(lowerFirstCharacter(word))
-        elif word[0].islower():
-            alternatives_bWords.push(word.lower())
-            alternatives_bWords.push(word.upper())
-            alternatives_bWords.push(upperFirstCharacter(word))
-        elif word[0].isupper():
-            alternatives_bWords.push(word.lower())
-            alternatives_bWords.push(word.upper())
-            alternatives_bWords.push(lowerFirstCharacter(word))
+            alternatives_bWords.append(word.upper())
         else:
             print("A strange banned word has appeared, look at bwFilter.py file.")
 
-def upperFirstCharacter(word : str):
-    newWord = word[0].upper() + word
-    return newWord
-
-def lowerFirstCharacter(word : str):
-    newWord = word[0].lower() + word
-    return newWord
+    return alternatives_bWords
 
 def main():
-    banned_words = ["destroy"]
-    text = "I want to destroy, the world"
+    banned_words = ["DeStroy"]
+    text = "I want to destroy the world"
     print("Does the post contains banned_words ?", check_banned_words(banned_words, text))
 
     

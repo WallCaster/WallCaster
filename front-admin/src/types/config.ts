@@ -19,11 +19,10 @@ export type Config = {
     };
   };
   filter: {
-    useEnglishSentiment: boolean;
-    useForbiddenWords: boolean;
+    useSentiment: boolean;
+    useBanwords: boolean;
+    useBlockImages: boolean;
     forbiddenWords: string[];
-    allowVideo: boolean;
-    allowImage: boolean;
   };
 };
 
