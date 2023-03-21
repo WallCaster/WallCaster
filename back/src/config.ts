@@ -50,7 +50,7 @@ class ConfigManager {
         fetchInterval: 30,
         fetchQuantity: 10,
         dateRange: {
-          start: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
+          start: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000 + 1000 * 60 * 5),
           end: new Date(new Date().getTime() - 10 * 1000),
         },
         useWhitelistHashtags: false,
