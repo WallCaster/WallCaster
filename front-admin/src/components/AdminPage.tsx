@@ -1,4 +1,4 @@
-import { ArrowLeftOnRectangleIcon, CloudArrowDownIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftOnRectangleIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import useSocket from '../../hooks/useSocket';
 import type { Config } from '../types/config';
@@ -54,6 +54,12 @@ const AdminPage = () => {
     socket.emit('trashDelete', id);
   }
 
+  function restore(id: string) {
+    if (!socket) return;
+    console.log('Restoring from trash');
+    socket.emit('restore', id);
+  }
+
   if (!socket?.connected || !config)
     return (
       <div className='p-8 flex flex-col items-center gap-10 max-w-7xl grow justify-center'>
@@ -76,16 +82,16 @@ const AdminPage = () => {
     );
 
   return (
-    <div className='px-0 py-8 flex flex-col items-center gap-5 w-full grow' id='feed'>
-      <div className='flex gap-6 items-center px-6 w-full max-w-5xl'>
+    <div className='p-0 flex flex-col items-center w-full grow' id='feed'>
+      <div className='flex gap-6 items-center px-6 justify-center py-6 w-full max-w-5xl'>
         <h1 className='text-4xl font-bold'>WallCaster Admin Panel</h1>
         <div className='mx-auto'></div>
         <button
           className='p-2 text-gray-900 hover:bg-gray-200 rounded-lg'
           onClick={getConfig}
-          title='Overwrite with server configuration'
+          title='Synchronize with server'
         >
-          <CloudArrowDownIcon className='h-6 w-6' />
+          <ArrowPathIcon className='h-6 w-6' />
         </button>
         <button
           className='p-2 bg-red-400 hover:bg-red-500 text-gray-100 hover:text-white rounded-lg'
@@ -98,12 +104,14 @@ const AdminPage = () => {
           <ArrowLeftOnRectangleIcon className='h-6 w-6' />
         </button>
       </div>
-      <div className='bg-white flex flex-col gap-4 shadow-md'>
-        <FormTitle
-          title='Live feed'
-          description='Show the current and upcoming posts from the server. You can delete them from the server trash or restore them.'
-        />
-        <LiveFeed cache={cache} cacheDelete={cacheDelete} trash={trash} trashDelete={trashDelete} />
+      <div className='flex flex-col gap-4 w-full mb-10 items-center'>
+        <div className='flex gap-6 items-center px-6 py-3 w-full max-w-5xl'>
+          <FormTitle
+            title='Live Feed'
+            description='Queue of posts to be displayed and their status, you can remove them from the queue or restore them from the trash.'
+          />
+        </div>
+        <LiveFeed cache={cache} cacheDelete={cacheDelete} trash={trash} trashDelete={trashDelete} restore={restore} />
       </div>
       <AdminForm config={config} setConfig={(c) => sendConfig(c)} onCancel={() => getConfig()} />
     </div>
