@@ -87,7 +87,7 @@ export const App = () => {
             }}
           >
             {
-              (probaPhoto < 0.5) && (
+              (probaPhoto < 0.0) && (
                 <div
                   className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
                   style={{ height: '90vh', maxWidth: '90vw' }}>
