@@ -50,7 +50,7 @@ const AdminPage = () => {
 
   if (!socket?.connected || !config)
     return (
-      <div className='p-8 flex flex-col items-center gap-10 max-w-6xl grow justify-center'>
+      <div className='p-8 flex flex-col items-center gap-10 max-w-7xl grow justify-center'>
         <h1 className='text-6xl font-bold'>WallCaster</h1>
         <div className='col-span-6 sm:col-span-3'>
           <label htmlFor='serverIp' className='block text-sm font-medium text-gray-700'>
@@ -99,6 +99,7 @@ const AdminPage = () => {
         setConfig={(c) => sendConfig(c)}
         trash={trash}
         trashDelete={trashDelete}
+        onCancel={() => getConfig()}
       />
     </div>
   );

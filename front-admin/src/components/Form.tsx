@@ -18,8 +18,8 @@ import {
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
   FunnelIcon,
-  ListBulletIcon,
-  PhotoIcon
+  PhotoIcon,
+  RssIcon,
 } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
@@ -27,11 +27,13 @@ import type { FilterData, Post } from '../types/post';
 import CacheCard from './CacheCard';
 import ChangeIndicator from './ChangeIndicator';
 import Checkbox from './Checkbox';
+import { FormComponent } from './FormComponent';
 import Input from './Input';
 import InputTags from './InputTags';
+import { LiveFeed } from './LiveFeed';
 
 const navigation = [
-  { name: 'Live Feed', href: '#feed', icon: ListBulletIcon, current: false },
+  { name: 'Live Feed', href: '#feed', icon: RssIcon, current: false },
   { name: 'General', href: '#general', icon: AdjustmentsHorizontalIcon, current: false },
   { name: 'Query', href: '#query', icon: MagnifyingGlassIcon, current: false },
   { name: 'Filter', href: '#filter', icon: FunnelIcon, current: false },
@@ -49,6 +51,7 @@ export default function AdminForm({
   setConfig,
   trash,
   trashDelete,
+  onCancel,
 }: {
   config: Config;
   cache: (Post & FilterData)[];
@@ -56,6 +59,7 @@ export default function AdminForm({
   setConfig: (config: Config) => void;
   trash: (Post & FilterData)[];
   trashDelete: (id: string) => void;
+  onCancel: () => void;
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
@@ -72,334 +76,294 @@ export default function AdminForm({
     }
   }, [temp, config]);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function onSubmit() {
     setConfig(temp);
   }
 
   return (
-    <div className='lg:grid lg:grid-cols-12 lg:gap-x-5'>
-      <aside className='py-6 px-2 sm:px-6 lg:px-0 lg:py-0 lg:col-span-2'>
-        <nav className='space-y-1 sticky top-10'>
-          {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className={classNames(
-                item.current
-                  ? 'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white'
-                  : 'text-gray-900 hover:text-gray-900 hover:bg-gray-50',
-                'group rounded-md px-3 py-2 flex items-center text-sm font-medium',
-              )}
-              aria-current={item.current ? 'page' : undefined}
-            >
-              <item.icon
+    <>
+      <form onSubmit={onSubmit} id='feed'>
+        <div className='shadow sm:rounded-md sm:overflow-hidden'>
+          <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
+            <div>
+              <h3 className='text-lg leading-6 font-medium text-gray-900'>Live feed</h3>
+              <p className='mt-1 text-sm text-gray-500'>
+                Show the current and upcoming posts from the server. You can delete them from the server trash or
+                restore them.
+              </p>
+            </div>
+            <LiveFeed cache={cache} cacheDelete={cacheDelete} trash={trash} trashDelete={trashDelete} />
+          </div>
+        </div>
+      </form>
+      <div className='lg:grid lg:grid-cols-12 lg:gap-x-5'>
+        <aside className='py-6 px-2 sm:px-6 lg:px-0 lg:py-0 lg:col-span-2'>
+          <nav className='space-y-1 sticky top-10'>
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
                 className={classNames(
                   item.current
-                    ? 'text-indigo-500 group-hover:text-indigo-500'
-                    : 'text-gray-400 group-hover:text-gray-500',
-                  'flex-shrink-0 -ml-1 mr-3 h-6 w-6',
+                    ? 'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white'
+                    : 'text-gray-900 hover:text-gray-900 hover:bg-gray-50',
+                  'group rounded-md px-3 py-2 flex items-center text-sm font-medium',
                 )}
-                aria-hidden='true'
-              />
-              <span className='truncate'>{item.name}</span>
-            </a>
-          ))}
-        </nav>
-      </aside>
+                aria-current={item.current ? 'page' : undefined}
+              >
+                <item.icon
+                  className={classNames(
+                    item.current
+                      ? 'text-indigo-500 group-hover:text-indigo-500'
+                      : 'text-gray-400 group-hover:text-gray-500',
+                    'flex-shrink-0 -ml-1 mr-3 h-6 w-6',
+                  )}
+                  aria-hidden='true'
+                />
+                <span className='truncate'>{item.name}</span>
+              </a>
+            ))}
+          </nav>
+        </aside>
 
-      <div className='space-y-6 sm:px-6 lg:px-0 lg:col-span-10'>
-        <form onSubmit={onSubmit} id='feed'>
-          <div className='shadow sm:rounded-md sm:overflow-hidden'>
-            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-              <div>
-                <h3 className='text-lg leading-6 font-medium text-gray-900'>Posts queue</h3>
-                <p className='mt-1 text-sm text-gray-500'>
-                  The queue of posts that are currently cached on the server. You can delete them from the server cache.
-                </p>
-              </div>
-              <div className='flex flex-col gap-2 max-h-80 overflow-y-auto'>
-                {cache.map((post) => (
-                  <CacheCard key={post.id} post={post} cacheDelete={cacheDelete} />
-                ))}
-              </div>
-            </div>
-            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-              <div>
-                <h3 className='text-lg leading-6 font-medium text-gray-900'>Trash</h3>
-                <p className='mt-1 text-sm text-gray-500'>
-                  Posts that have been deleted from the server. You can delete them from the server trash or restore them.
-                </p>
-              </div>
-              <div className='flex flex-col gap-2 max-h-80 overflow-y-auto'>
-                {trash.map((post) => (
-                  <CacheCard key={post.id} post={post} cacheDelete={trashDelete} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </form>
-        <form onSubmit={onSubmit} id='general'>
-          <div className='shadow sm:rounded-md sm:overflow-hidden'>
-            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-              <div>
-                <h3 className='text-lg leading-6 font-medium text-gray-900'>General Settings</h3>
-                <p className='mt-1 text-sm text-gray-500'>Settings that affect the server in general.</p>
-              </div>
-
-              <div className='grid grid-cols-3 gap-6'>
-                <Input
-                  className='col-span-2'
-                  id='maxStoreSize'
-                  label='Maximum store size'
-                  value={temp.maxStoreSize}
-                  setValue={(s) => setTemp({ ...temp, maxStoreSize: parseInt(s) })}
-                  type='number'
-                  args={{ min: 1, max: 1000 }}
-                />
-                <Input
-                  className='col-span-2'
-                  id='rotationInterval'
-                  label='Rotation interval'
-                  value={temp.rotationInterval}
-                  setValue={(s) => setTemp({ ...temp, rotationInterval: parseFloat(s) })}
-                  type='number'
-                  args={{ min: 0.1, max: 1000, step: 0.1 }}
-                />
-              </div>
-            </div>
-            <ChangeIndicator hasChanges={hasChanges} />
-          </div>
-        </form>
-
-        <form onSubmit={onSubmit} id='query'>
-          <div className='shadow sm:rounded-md sm:overflow-hidden'>
-            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-              <div>
-                <h3 className='text-lg leading-6 font-medium text-gray-900'>Query</h3>
-                <p className='mt-1 text-sm text-gray-500'>Settings related to searching post through multiple APIs.</p>
-              </div>
-
-              <div className='grid grid-cols-3 gap-6'>
-                <Checkbox
-                  className='col-span-3 border-t pt-6'
-                  id='useRandomApi'
-                  label='Use random API'
-                  value={temp.query.useRandomApi}
-                  setValue={(b) => setTemp({ ...temp, query: { ...temp.query, useRandomApi: b } })}
-                  desc='Use the randomly generated posts API for testing purposes'
-                />
-                <div
-                  className={`grid grid-cols-3 gap-6 col-span-3 ${
-                    !temp.query.useRandomApi && 'pointer-events-none opacity-20'
-                  }`}
-                >
-                  <Input
-                    className='col-span-1'
-                    id='fetchInterval'
-                    label='Fetch interval (in seconds)'
-                    value={temp.query.random.fetchInterval}
-                    setValue={(s) =>
-                      setTemp({
-                        ...temp,
-                        query: {
-                          ...temp.query,
-                          random: {
-                            ...temp.query.random,
-                            fetchInterval: parseFloat(s),
-                          },
-                        },
-                      })
-                    }
-                    type='number'
-                    args={{ min: 0.1, max: 1000, step: 0.1 }}
-                  />
-                </div>
-                <Checkbox
-                  className='col-span-3 border-t pt-6'
-                  id='useTwitterApi'
-                  label='Use Twitter API'
-                  value={temp.query.useTwitterApi}
-                  setValue={(b) => setTemp({ ...temp, query: { ...temp.query, useTwitterApi: b } })}
-                  desc='Allow requests to Twitter API'
-                />
-                <div
-                  className={`grid grid-cols-3 gap-6 col-span-3 ${
-                    !temp.query.useTwitterApi && 'pointer-events-none opacity-20'
-                  }`}
-                >
-                  <InputTags
-                    className='col-span-3'
-                    id='whitelistHashtags'
-                    label='Whitelisted Hashtags'
-                    prefix='#'
-                    value={temp.query.twitter.whitelistHashtags}
-                    setValue={(s) =>
-                      setTemp({
-                        ...temp,
-                        query: {
-                          ...temp.query,
-                          twitter: {
-                            ...temp.query.twitter,
-                            whitelistHashtags: s,
-                          },
-                        },
-                      })
-                    }
-                  />
-                  <Input
-                    className='col-span-1'
-                    id='fetchInterval'
-                    label='Fetch interval (in seconds)'
-                    value={temp.query.twitter.fetchInterval}
-                    setValue={(s) =>
-                      setTemp({
-                        ...temp,
-                        query: {
-                          ...temp.query,
-                          twitter: {
-                            ...temp.query.twitter,
-                            fetchInterval: parseFloat(s),
-                          },
-                        },
-                      })
-                    }
-                    type='number'
-                    args={{ min: 5, max: 1000, step: 0.1 }}
-                  />
-                  <Input
-                    className='col-span-2'
-                    id='fetchQuantity'
-                    label='Fetch quantity'
-                    value={temp.query.twitter.fetchQuantity}
-                    setValue={(s) =>
-                      setTemp({
-                        ...temp,
-                        query: {
-                          ...temp.query,
-                          twitter: {
-                            ...temp.query.twitter,
-                            fetchQuantity: parseInt(s),
-                          },
-                        },
-                      })
-                    }
-                    type='number'
-                    args={{ min: 10, max: 100 }}
-                  />
-                  <Input
-                    className='col-span-1'
-                    id='dateFrom'
-                    label='Date from'
-                    value={temp.query.twitter.dateRange.start}
-                    setValue={(s) =>
-                      setTemp({
-                        ...temp,
-                        query: {
-                          ...temp.query,
-                          twitter: {
-                            ...temp.query.twitter,
-                            dateRange: { ...temp.query.twitter.dateRange, start: new Date(s) },
-                          },
-                        },
-                      })
-                    }
-                    type='date'
-                  />
-                  <Input
-                    className='col-span-1'
-                    id='dateTo'
-                    label='Date to'
-                    value={temp.query.twitter.dateRange.end}
-                    setValue={(s) =>
-                      setTemp({
-                        ...temp,
-                        query: {
-                          ...temp.query,
-                          twitter: {
-                            ...temp.query.twitter,
-                            dateRange: { ...temp.query.twitter.dateRange, end: new Date(s) },
-                          },
-                        },
-                      })
-                    }
-                    type='date'
-                  />
-                </div>
-              </div>
-            </div>
-            <ChangeIndicator hasChanges={hasChanges} />
-          </div>
-        </form>
-
-        <form onSubmit={onSubmit} id='filter'>
-          <div className='shadow sm:rounded-md sm:overflow-hidden'>
-            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-              <div>
-                <h3 className='text-lg leading-6 font-medium text-gray-900'>Filters</h3>
-                <p className='mt-1 text-sm text-gray-500'>
-                  Filter out posts that don't meet your criteria before they are displayed.
-                </p>
-              </div>
-              <div className='grid grid-cols-3 gap-6'>
-                <Checkbox
-                  className='col-span-3'
-                  id='useEnglishSentiment'
-                  label='Filter by sentiment (Only in English)'
-                  value={temp.filter.useSentiment}
-                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useSentiment: b } })}
-                  desc='Filter out tweets with negative sentiment'
-                />
-                <Checkbox
-                  className='col-span-3'
-                  id='useBanwords'
-                  label='Filter Banwords'
-                  value={temp.filter.useBanwords}
-                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBanwords: b } })}
-                  desc='Filter out tweets containing forbidden words'
-                />
-                <InputTags
-                  className='col-span-3'
-                  id='whitelistHashtags'
-                  label='Banwords list'
-                  value={temp.filter.forbiddenWords}
-                  setValue={(s) =>
-                    setTemp({
-                      ...temp,
-                      filter: {
-                        ...temp.filter,
-                        forbiddenWords: s,
+        <div className='space-y-6 sm:px-6 lg:px-0 lg:col-span-10'>
+          <FormComponent
+            onSubmit={onSubmit}
+            id='general'
+            title='General Settings'
+            description='Settings that affect the server in general.'
+            hasChanges={hasChanges}
+          >
+            <Input
+              className='col-span-2'
+              id='maxStoreSize'
+              label='Maximum store size'
+              value={temp.maxStoreSize}
+              setValue={(s) => setTemp({ ...temp, maxStoreSize: parseInt(s) })}
+              type='number'
+              args={{ min: 1, max: 1000 }}
+            />
+            <Input
+              className='col-span-2'
+              id='rotationInterval'
+              label='Rotation interval'
+              value={temp.rotationInterval}
+              setValue={(s) => setTemp({ ...temp, rotationInterval: parseFloat(s) })}
+              type='number'
+              args={{ min: 0.1, max: 1000, step: 0.1 }}
+            />
+          </FormComponent>
+          <FormComponent
+            onSubmit={onSubmit}
+            id='query'
+            title='Query Settings'
+            description='Settings related to searching post through multiple APIs.'
+            hasChanges={hasChanges}
+          >
+            <Checkbox
+              className='col-span-3 border-t pt-6'
+              id='useRandomApi'
+              label='Use random API'
+              value={temp.query.useRandomApi}
+              setValue={(b) => setTemp({ ...temp, query: { ...temp.query, useRandomApi: b } })}
+              desc='Use the randomly generated posts API for testing purposes'
+            />
+            <div
+              className={`grid grid-cols-3 gap-6 col-span-3 ${
+                !temp.query.useRandomApi && 'pointer-events-none opacity-20'
+              }`}
+            >
+              <Input
+                className='col-span-1'
+                id='fetchInterval'
+                label='Fetch interval (in seconds)'
+                value={temp.query.random.fetchInterval}
+                setValue={(s) =>
+                  setTemp({
+                    ...temp,
+                    query: {
+                      ...temp.query,
+                      random: {
+                        ...temp.query.random,
+                        fetchInterval: parseFloat(s),
                       },
-                    })
-                  }
-                />
-                <Checkbox
-                  className='col-span-3'
-                  id='allowImage'
-                  label='Filter images'
-                  value={temp.filter.useBlockImages}
-                  setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBlockImages: b } })}
-                  desc='Disallow tweets with images'
-                />
-              </div>
+                    },
+                  })
+                }
+                type='number'
+                args={{ min: 0.1, max: 1000, step: 0.1 }}
+              />
             </div>
-            <ChangeIndicator hasChanges={hasChanges} />
-          </div>
-        </form>
-        <form onSubmit={onSubmit} id='photos'>
-          <div className='shadow sm:rounded-md sm:overflow-hidden'>
-            <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-              <div>
-                <h3 className='text-lg leading-6 font-medium text-gray-900'>Add photos</h3>
-                <p className='mt-1 text-sm text-gray-500'>List of photos to display on screen.</p>
-              </div>
-
-              <input type="file" multiple id="add_photos" name="add_photos" accept="image/*"></input>
+            <Checkbox
+              className='col-span-3 border-t pt-6'
+              id='useTwitterApi'
+              label='Use Twitter API'
+              value={temp.query.useTwitterApi}
+              setValue={(b) => setTemp({ ...temp, query: { ...temp.query, useTwitterApi: b } })}
+              desc='Allow requests to Twitter API'
+            />
+            <div
+              className={`grid grid-cols-3 gap-6 col-span-3 ${
+                !temp.query.useTwitterApi && 'pointer-events-none opacity-20'
+              }`}
+            >
+              <InputTags
+                className='col-span-3'
+                id='whitelistHashtags'
+                label='Whitelisted Hashtags'
+                prefix='#'
+                value={temp.query.twitter.whitelistHashtags}
+                setValue={(s) =>
+                  setTemp({
+                    ...temp,
+                    query: {
+                      ...temp.query,
+                      twitter: {
+                        ...temp.query.twitter,
+                        whitelistHashtags: s,
+                      },
+                    },
+                  })
+                }
+              />
+              <Input
+                className='col-span-1'
+                id='fetchInterval'
+                label='Fetch interval (in seconds)'
+                value={temp.query.twitter.fetchInterval}
+                setValue={(s) =>
+                  setTemp({
+                    ...temp,
+                    query: {
+                      ...temp.query,
+                      twitter: {
+                        ...temp.query.twitter,
+                        fetchInterval: parseFloat(s),
+                      },
+                    },
+                  })
+                }
+                type='number'
+                args={{ min: 5, max: 1000, step: 0.1 }}
+              />
+              <Input
+                className='col-span-2'
+                id='fetchQuantity'
+                label='Fetch quantity'
+                value={temp.query.twitter.fetchQuantity}
+                setValue={(s) =>
+                  setTemp({
+                    ...temp,
+                    query: {
+                      ...temp.query,
+                      twitter: {
+                        ...temp.query.twitter,
+                        fetchQuantity: parseInt(s),
+                      },
+                    },
+                  })
+                }
+                type='number'
+                args={{ min: 10, max: 100 }}
+              />
+              <Input
+                className='col-span-1'
+                id='dateFrom'
+                label='Date from'
+                value={temp.query.twitter.dateRange.start}
+                setValue={(s) =>
+                  setTemp({
+                    ...temp,
+                    query: {
+                      ...temp.query,
+                      twitter: {
+                        ...temp.query.twitter,
+                        dateRange: { ...temp.query.twitter.dateRange, start: new Date(s) },
+                      },
+                    },
+                  })
+                }
+                type='date'
+              />
+              <Input
+                className='col-span-1'
+                id='dateTo'
+                label='Date to'
+                value={temp.query.twitter.dateRange.end}
+                setValue={(s) =>
+                  setTemp({
+                    ...temp,
+                    query: {
+                      ...temp.query,
+                      twitter: {
+                        ...temp.query.twitter,
+                        dateRange: { ...temp.query.twitter.dateRange, end: new Date(s) },
+                      },
+                    },
+                  })
+                }
+                type='date'
+              />
             </div>
-            <ChangeIndicator hasChanges={hasChanges} />
-          </div>
-        </form>
+          </FormComponent>
+          <FormComponent
+            onSubmit={onSubmit}
+            id='filter'
+            title='Filter Settings'
+            hasChanges={hasChanges}
+            description='Settings related to filtering posts before they are displayed.'
+          >
+            <Checkbox
+              className='col-span-3'
+              id='useEnglishSentiment'
+              label='Filter by sentiment (Only in English)'
+              value={temp.filter.useSentiment}
+              setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useSentiment: b } })}
+              desc='Filter out tweets with negative sentiment'
+            />
+            <Checkbox
+              className='col-span-3'
+              id='useBanwords'
+              label='Filter Banwords'
+              value={temp.filter.useBanwords}
+              setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBanwords: b } })}
+              desc='Filter out tweets containing forbidden words'
+            />
+            <InputTags
+              className='col-span-3'
+              id='whitelistHashtags'
+              label='Banwords list'
+              value={temp.filter.forbiddenWords}
+              setValue={(s) =>
+                setTemp({
+                  ...temp,
+                  filter: {
+                    ...temp.filter,
+                    forbiddenWords: s,
+                  },
+                })
+              }
+            />
+            <Checkbox
+              className='col-span-3'
+              id='allowImage'
+              label='Filter images'
+              value={temp.filter.useBlockImages}
+              setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBlockImages: b } })}
+              desc='Disallow tweets with images'
+            />
+          </FormComponent>
+          <FormComponent
+            onSubmit={onSubmit}
+            id='photos'
+            title='Photos'
+            hasChanges={hasChanges}
+            description='List of photos to display on screen.'
+          >
+            <input type='file' multiple id='add_photos' name='add_photos' accept='image/*'></input>
+          </FormComponent>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
