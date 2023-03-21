@@ -156,4 +156,9 @@ Se remettre au clair sur comment fonctionne le filtre "sentiment" : est-ce un mo
 
 Comme le sprint va être fini en avance (de deux semaines), il est important pendant la rétrospective de s'interroger sur quels éléments ont mené à ce phénomène (surestimation) pour essayer d'améliorer le prochain sprint dans son déroulement.
 
+### 03/14/2023 with Benoît COMBEMALE
+
+- Réfléchir à un algorithme pour savoir si on diffuse un tweet ou une photo (quelle proportion ? 50% / 50%). Faire adapter le pourcentage au contenu du cache (s'il est rempli)
+- Faire en sorte que la semaine prochaine la démo avec le hashtag (pour la fin du sprint).
+
 # Description et gestion des exigences
