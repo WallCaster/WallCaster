@@ -12,6 +12,7 @@ export type Config = {
       dateRange: DateRange;
       useWhitelistHashtags: boolean;
       whitelistHashtags: string[];
+      languages: string[];
       useWhitelistAuthors: boolean;
       whitelistAuthors: string[];
     };
@@ -49,11 +50,12 @@ class ConfigManager {
         fetchInterval: 30,
         fetchQuantity: 10,
         dateRange: {
-          start: new Date(2020, 0, 1),
-          end: new Date(),
+          start: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
+          end: new Date(new Date().getTime() - 10 * 1000),
         },
         useWhitelistHashtags: false,
         whitelistHashtags: [],
+        languages: ['fr', 'en'],
         useWhitelistAuthors: false,
         whitelistAuthors: [],
       },

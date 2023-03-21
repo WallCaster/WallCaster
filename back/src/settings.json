@@ -1,24 +1,28 @@
 {
-  "maxStoreSize": 10,
-  "rotationInterval": 3,
+  "maxStoreSize": 100,
+  "rotationInterval": 5,
   "query": {
-    "useTwitterApi": false,
+    "useTwitterApi": true,
     "twitter": {
-      "fetchInterval": 30,
+      "fetchInterval": 6,
       "fetchQuantity": 10,
       "dateRange": {
-        "start": "2020-01-01T00:00:00.000Z",
-        "end": "2023-03-07T14:19:05.102Z"
+        "start": "2023-03-14T14:33:18.609Z",
+        "end": "2023-03-21T14:33:08.609Z"
       },
       "useWhitelistHashtags": false,
       "whitelistHashtags": [
-        "quimper",
-        "vannes"
+        "ict4s2023",
+        "ict4s"
+      ],
+      "languages": [
+        "en",
+        "fr"
       ],
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
-    "useRandomApi": true,
+    "useRandomApi": false,
     "random": {
       "fetchInterval": 2.1
     }

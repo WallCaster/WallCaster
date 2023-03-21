@@ -97,7 +97,7 @@ export default function AdminForm({
 
   return (
     <div className='lg:grid lg:grid-cols-12 lg:gap-x-5'>
-      <aside className='py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3'>
+      <aside className='py-6 px-2 sm:px-6 lg:px-0 lg:py-0 lg:col-span-2'>
         <nav className='space-y-1 sticky top-10'>
           {navigation.map((item) => (
             <a
@@ -126,7 +126,7 @@ export default function AdminForm({
         </nav>
       </aside>
 
-      <div className='space-y-6 sm:px-6 lg:px-0 lg:col-span-9'>
+      <div className='space-y-6 sm:px-6 lg:px-0 lg:col-span-10'>
         <form onSubmit={onSubmit} id='feed'>
           <div className='shadow sm:rounded-md sm:overflow-hidden'>
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>

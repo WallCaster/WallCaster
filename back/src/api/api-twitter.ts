@@ -23,6 +23,26 @@ export class ApiTwitter extends Api {
     // Get the max results from the config
     let max_results: number = configManager.config.query.twitter.fetchQuantity;
 
+    // Get start fetch date and end fetch date
+    let d_start : Date = new Date(configManager.config.query.twitter.dateRange.start);
+    let d_end : Date = new Date(configManager.config.query.twitter.dateRange.end);
+
+    // If the start date is after the end date, throw an error
+    if(d_start > d_end){
+      throw new Error(this.ERROR_MESSAGE_BASE + "Start date is after end date");
+    }
+
+    // If the start date is after the current date, throw an error
+    if(d_start > new Date()){
+      throw new Error(this.ERROR_MESSAGE_BASE + "Start date is after current date");
+    }
+
+    // If the start date is more than 7 days before the current date, change start Data at actual days - 7 days
+    if(d_start < new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000)){
+      console.warn("Start date is more than 7 days before the current date. Start date is changed to actual days - 7 days.");
+      d_start = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
+    }
+
     let search: string = '(';
 
     // Add hashtags to the research
@@ -32,7 +52,23 @@ export class ApiTwitter extends Api {
     search += '#' + hashtags[hashtags.length - 1] + ')';
 
     // Exclude retweets and replies
-    search += ' -is:retweet -is:reply';
+    search += ' -is:retweet -is:reply -is:quote';
+
+    // Languages accepted
+    let langs : string[] = configManager.config.query.twitter.languages
+    let langs_str : string = "(";
+    for(let i = 0; i < langs.length; i++){
+      langs_str += "lang:"+langs[i];
+      if(i < langs.length - 1){
+        langs_str += " OR ";
+      }
+    }
+    langs_str += ")";
+
+    // Add languages to the research
+    search += langs_str;
+
+    console.log(search);
 
     // Build url
     fetchUrl +=
@@ -40,8 +76,8 @@ export class ApiTwitter extends Api {
 
       '&max_results=' + max_results + // Max results
       
-      '&end_time=' + "2023-03-14T13:00:00Z" + // End time
-      '&start_time=' + "2023-03-10T13:00:00Z" + // Start time
+      '&end_time=' + d_end.toISOString() + // End time
+      '&start_time=' + d_start.toISOString() + // Start time
 
       '&expansions=author_id,attachments.media_keys' + // Expansions -> referenced tweets, author id
       '&tweet.fields=created_at,attachments' + // Tweet fields -> creation date, media attached
@@ -68,9 +104,11 @@ export class ApiTwitter extends Api {
         throw new Error(this.ERROR_MESSAGE_BASE + "Response Not OK\n" + JSON.stringify(json, null, 2));
       }
 
-      // If there is no data in the response, throw an error
+      // If there is no data in the response, return an empty array
+      // When there is no data, it means that there is no tweet with the given hashtags
       if(json.data === undefined){
-        throw new Error(this.ERROR_MESSAGE_BASE + "No field data in tweet search")
+        console.warn(this.ERROR_MESSAGE_BASE + "No data in tweet search");
+        return [];
       }
       let tweets = json.data;
 
