@@ -409,9 +409,12 @@ export default function AdminForm({
                 <h3 className='text-lg leading-6 font-medium text-gray-900'>Add photos</h3>
                 <p className='mt-1 text-sm text-gray-500'>Photos to display on screens.</p>
               </div>
-
               <input type="file" multiple id="add_photos" name="add_photos" accept="image/*" onChange={handleImageUpload}></input>
-
+              <div className="flex overflow-x-scroll">
+                {images.map((image, index) => (
+                  <img key={index} src={URL.createObjectURL(image)} alt={`Image ${index}`} style={{ margin: '2px', minWidth: 'auto', maxHeight: '100px' }} />
+                ))}
+              </div>
             </div>
             <ChangeIndicator hasChanges={hasChanges} />
           </div>
