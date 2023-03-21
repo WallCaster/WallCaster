@@ -49,6 +49,8 @@ export default function AdminForm({
   setConfig,
   trash,
   trashDelete,
+  images,
+  setImages
 }: {
   config: Config;
   cache: (Post & FilterData)[];
@@ -56,24 +58,23 @@ export default function AdminForm({
   setConfig: (config: Config) => void;
   trash: (Post & FilterData)[];
   trashDelete: (id: string) => void;
+  images: File[],
+  setImages: (images: File[]) => void;
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
-  const [images, setImages] = useState<File[]>([]);
-  const [imagesURLs, setImagesHRLs] = useState([] as any);
+  const [imagesTemp, setImagesTemp] = useState<File[]>([]);
 
   useEffect(() => {
     setTemp(config);
-
-    if(images.length <1) return;
-    const newImagesUrls = [];
-    images.forEach((image: Blob | MediaSource) => newImagesUrls.push(URL.createObjectURL(image)));
-  }, [config, images]);
+  }, [config]);
 
   useEffect(() => {
     if (hasChanges && JSON.stringify(temp) === JSON.stringify(config)) {
       setHasChanges(false);
     } else if (!hasChanges && JSON.stringify(temp) !== JSON.stringify(config)) {
+      setHasChanges(true);
+    } else if (!hasChanges && imagesTemp.length !== images.length) {
       setHasChanges(true);
     }
   }, [temp, config]);
@@ -81,13 +82,14 @@ export default function AdminForm({
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setConfig(temp);
+    setImages(imagesTemp);
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
       const fileList = Array.from(files);
-      setImages(fileList);
+      setImagesTemp(fileList);
     }
   };
   
@@ -411,7 +413,7 @@ export default function AdminForm({
               </div>
               <input type="file" multiple id="add_photos" name="add_photos" accept="image/*" onChange={handleImageUpload}></input>
               <div className="flex overflow-x-scroll">
-                {images.map((image, index) => (
+                {imagesTemp.map((image, index) => (
                   <img key={index} src={URL.createObjectURL(image)} alt={`Image ${index}`} style={{ margin: '2px', minWidth: 'auto', maxHeight: '100px' }} />
                 ))}
               </div>

@@ -1,6 +1,6 @@
 {
   "maxStoreSize": 10,
-  "rotationInterval": 1000,
+  "rotationInterval": 3,
   "query": {
     "useTwitterApi": false,
     "twitter": {
@@ -11,13 +11,16 @@
         "end": "2023-03-07T14:19:05.102Z"
       },
       "useWhitelistHashtags": false,
-      "whitelistHashtags": ["quimper","vannes"],
+      "whitelistHashtags": [
+        "quimper",
+        "vannes"
+      ],
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
     "useRandomApi": true,
     "random": {
-      "fetchInterval": 2
+      "fetchInterval": 2.1
     }
   },
   "filter": {
