@@ -1,17 +1,31 @@
 {
-  "maxStoreSize": 10,
-  "rotationInterval": 1000,
+  "maxStoreSize": 20,
+  "rotationInterval": 0.1,
   "query": {
     "useTwitterApi": false,
     "twitter": {
-      "fetchInterval": 30,
+      "fetchInterval": 5,
       "fetchQuantity": 10,
       "dateRange": {
-        "start": "2020-01-01T00:00:00.000Z",
-        "end": "2023-03-07T14:19:05.102Z"
+        "start": "2023-03-16T13:00:00.000Z",
+        "end": "2023-03-21T13:00:00.000Z"
       },
       "useWhitelistHashtags": false,
-      "whitelistHashtags": ["quimper","vannes"],
+      "whitelistHashtags": [
+        "vannes",
+        "rennes"
+      ],
+      "languages" :[
+        "fr", // -> French
+        "en", // -> English
+        "de", // -> German
+        "ar", // -> Arabic
+        "es", // -> Spanish
+        "pl", // -> Polish
+        "it", // -> Italian
+        "pt", // -> Portuguese
+        "ru" // -> Russian
+      ],
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
