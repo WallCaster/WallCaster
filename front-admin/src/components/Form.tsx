@@ -21,7 +21,7 @@ import {
   ListBulletIcon,
   PhotoIcon
 } from '@heroicons/react/24/outline';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import type { Config } from '../types/config';
 import type { FilterData, Post } from '../types/post';
 import CacheCard from './CacheCard';
@@ -59,10 +59,16 @@ export default function AdminForm({
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
+  const [images, setImages] = useState<File[]>([]);
+  const [imagesURLs, setImagesHRLs] = useState([] as any);
 
   useEffect(() => {
     setTemp(config);
-  }, [config]);
+
+    if(images.length <1) return;
+    const newImagesUrls = [];
+    images.forEach((image: Blob | MediaSource) => newImagesUrls.push(URL.createObjectURL(image)));
+  }, [config, images]);
 
   useEffect(() => {
     if (hasChanges && JSON.stringify(temp) === JSON.stringify(config)) {
@@ -76,6 +82,16 @@ export default function AdminForm({
     e.preventDefault();
     setConfig(temp);
   }
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const fileList = Array.from(files);
+      setImages(fileList);
+    }
+  };
+  
+  
 
   return (
     <div className='lg:grid lg:grid-cols-12 lg:gap-x-5'>
@@ -391,10 +407,11 @@ export default function AdminForm({
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
                 <h3 className='text-lg leading-6 font-medium text-gray-900'>Add photos</h3>
-                <p className='mt-1 text-sm text-gray-500'>List of photos to display on screen.</p>
+                <p className='mt-1 text-sm text-gray-500'>Photos to display on screens.</p>
               </div>
 
-              <input type="file" multiple id="add_photos" name="add_photos" accept="image/*"></input>
+              <input type="file" multiple id="add_photos" name="add_photos" accept="image/*" onChange={handleImageUpload}></input>
+
             </div>
             <ChangeIndicator hasChanges={hasChanges} />
           </div>
