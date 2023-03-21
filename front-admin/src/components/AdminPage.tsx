@@ -4,6 +4,8 @@ import useSocket from '../../hooks/useSocket';
 import type { Config } from '../types/config';
 import type { FilterData, Post } from '../types/post';
 import AdminForm from './Form';
+import { FormComponent, FormTitle } from './FormComponent';
+import { LiveFeed } from './LiveFeed';
 
 const AdminPage = () => {
   const [config, setConfig] = useState<null | Config>(null);
@@ -30,21 +32,25 @@ const AdminPage = () => {
 
   function getConfig() {
     if (!socket) return;
+    console.log('Asking for config');
     socket.emit('getConfig');
   }
 
   function sendConfig(config: Config) {
     if (!socket) return;
+    console.log('Sending config');
     socket.emit('setConfig', config);
   }
 
   function cacheDelete(id: string) {
     if (!socket) return;
+    console.log('Deleting from cache');
     socket.emit('cacheDelete', id);
   }
 
   function trashDelete(id: string) {
     if (!socket) return;
+    console.log('Deleting from trash');
     socket.emit('trashDelete', id);
   }
 
@@ -70,8 +76,8 @@ const AdminPage = () => {
     );
 
   return (
-    <div className='p-8 flex flex-col gap-10 max-w-6xl grow'>
-      <div className='flex gap-6 items-center px-2 sm:px-6 lg:px-0 '>
+    <div className='px-0 py-8 flex flex-col items-center gap-5 w-full grow' id='feed'>
+      <div className='flex gap-6 items-center px-6 w-full max-w-5xl'>
         <h1 className='text-4xl font-bold'>WallCaster Admin Panel</h1>
         <div className='mx-auto'></div>
         <button
@@ -92,15 +98,14 @@ const AdminPage = () => {
           <ArrowLeftOnRectangleIcon className='h-6 w-6' />
         </button>
       </div>
-      <AdminForm
-        config={config}
-        cache={cache}
-        cacheDelete={cacheDelete}
-        setConfig={(c) => sendConfig(c)}
-        trash={trash}
-        trashDelete={trashDelete}
-        onCancel={() => getConfig()}
-      />
+      <div className='bg-white flex flex-col gap-4 shadow-md'>
+        <FormTitle
+          title='Live feed'
+          description='Show the current and upcoming posts from the server. You can delete them from the server trash or restore them.'
+        />
+        <LiveFeed cache={cache} cacheDelete={cacheDelete} trash={trash} trashDelete={trashDelete} />
+      </div>
+      <AdminForm config={config} setConfig={(c) => sendConfig(c)} onCancel={() => getConfig()} />
     </div>
   );
 };

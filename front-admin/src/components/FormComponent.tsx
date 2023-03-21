@@ -8,6 +8,7 @@ export function FormComponent({
   description,
   hasChanges,
   onCancel,
+  className,
 }: {
   id: string;
   onSubmit?: () => void;
@@ -16,6 +17,7 @@ export function FormComponent({
   description?: string;
   hasChanges?: boolean;
   onCancel?: () => void;
+  className?: string;
 }) {
   return (
     <form
@@ -24,17 +26,24 @@ export function FormComponent({
         if (onSubmit) onSubmit();
       }}
       id={id}
+      className={className}
     >
-      <div className='shadow sm:rounded-md sm:overflow-hidden'>
+      <div className='shadow sm:rounded-md overflow-hidden'>
         <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-          <div>
-            <h3 className='text-lg leading-6 font-medium text-gray-900'>General Settings</h3>
-            <p className='mt-1 text-sm text-gray-500'>Settings that affect the server in general.</p>
-          </div>
+          <FormTitle title={title} description={description} />
           <div className='flex flex-col gap-6'>{children}</div>
         </div>
-        {onSubmit && <ChangeIndicator hasChanges={hasChanges || false} onCancel={onCancel}/>}
+        {onSubmit && onCancel && <ChangeIndicator hasChanges={hasChanges || false} onCancel={onCancel} />}
       </div>
     </form>
+  );
+}
+
+export function FormTitle({ title, description }: { title: string; description?: string }) {
+  return (
+    <div>
+      <h3 className='text-lg leading-6 font-medium text-gray-900'>{title}</h3>
+      <p className='mt-1 text-xs text-gray-400'>{description}</p>
+    </div>
   );
 }

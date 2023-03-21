@@ -46,19 +46,11 @@ function classNames(...classes: (boolean | undefined | string)[]) {
 
 export default function AdminForm({
   config,
-  cache,
-  cacheDelete,
   setConfig,
-  trash,
-  trashDelete,
   onCancel,
 }: {
   config: Config;
-  cache: (Post & FilterData)[];
-  cacheDelete: (id: string) => void;
   setConfig: (config: Config) => void;
-  trash: (Post & FilterData)[];
-  trashDelete: (id: string) => void;
   onCancel: () => void;
 }) {
   const [temp, setTemp] = useState(config);
@@ -82,22 +74,8 @@ export default function AdminForm({
 
   return (
     <>
-      <form onSubmit={onSubmit} id='feed'>
-        <div className='shadow sm:rounded-md sm:overflow-hidden'>
-          <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-            <div>
-              <h3 className='text-lg leading-6 font-medium text-gray-900'>Live feed</h3>
-              <p className='mt-1 text-sm text-gray-500'>
-                Show the current and upcoming posts from the server. You can delete them from the server trash or
-                restore them.
-              </p>
-            </div>
-            <LiveFeed cache={cache} cacheDelete={cacheDelete} trash={trash} trashDelete={trashDelete} />
-          </div>
-        </div>
-      </form>
-      <div className='lg:grid lg:grid-cols-12 lg:gap-x-5'>
-        <aside className='py-6 px-2 sm:px-6 lg:px-0 lg:py-0 lg:col-span-2'>
+      <div className='lg:grid p-6 lg:grid-cols-12 lg:gap-x-5 w-full flex flex-col gap-6 max-w-5xl'>
+        <aside className='lg:col-span-2'>
           <nav className='space-y-1 sticky top-10'>
             {navigation.map((item) => (
               <a
@@ -126,9 +104,10 @@ export default function AdminForm({
           </nav>
         </aside>
 
-        <div className='space-y-6 sm:px-6 lg:px-0 lg:col-span-10'>
+        <div className='space-y-6 lg:col-span-10'>
           <FormComponent
             onSubmit={onSubmit}
+            onCancel={onCancel}
             id='general'
             title='General Settings'
             description='Settings that affect the server in general.'
@@ -155,6 +134,7 @@ export default function AdminForm({
           </FormComponent>
           <FormComponent
             onSubmit={onSubmit}
+            onCancel={onCancel}
             id='query'
             title='Query Settings'
             description='Settings related to searching post through multiple APIs.'
@@ -308,6 +288,7 @@ export default function AdminForm({
           </FormComponent>
           <FormComponent
             onSubmit={onSubmit}
+            onCancel={onCancel}
             id='filter'
             title='Filter Settings'
             hasChanges={hasChanges}
@@ -355,6 +336,7 @@ export default function AdminForm({
           </FormComponent>
           <FormComponent
             onSubmit={onSubmit}
+            onCancel={onCancel}
             id='photos'
             title='Photos'
             hasChanges={hasChanges}
