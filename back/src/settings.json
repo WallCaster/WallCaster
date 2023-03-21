@@ -1,35 +1,28 @@
 {
-  "maxStoreSize": 20,
-  "rotationInterval": 0.1,
+  "maxStoreSize": 100,
+  "rotationInterval": 5,
   "query": {
-    "useTwitterApi": false,
+    "useTwitterApi": true,
     "twitter": {
-      "fetchInterval": 5,
+      "fetchInterval": 6,
       "fetchQuantity": 10,
       "dateRange": {
-        "start": "2023-03-16T13:00:00.000Z",
-        "end": "2023-03-21T13:00:00.000Z"
+        "start": "2023-03-14T14:33:18.609Z",
+        "end": "2023-03-21T14:33:08.609Z"
       },
       "useWhitelistHashtags": false,
       "whitelistHashtags": [
-        "vannes",
-        "rennes"
+        "ict4s2023",
+        "ict4s"
       ],
-      "languages" :[
-        "fr", // -> French
-        "en", // -> English
-        "de", // -> German
-        "ar", // -> Arabic
-        "es", // -> Spanish
-        "pl", // -> Polish
-        "it", // -> Italian
-        "pt", // -> Portuguese
-        "ru" // -> Russian
+      "languages": [
+        "en",
+        "fr"
       ],
       "useWhitelistAuthors": false,
       "whitelistAuthors": []
     },
-    "useRandomApi": true,
+    "useRandomApi": false,
     "random": {
       "fetchInterval": 2
     }

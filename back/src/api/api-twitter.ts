@@ -43,16 +43,6 @@ export class ApiTwitter extends Api {
       d_start = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
     }
 
-    // Languages accepted
-    let langs : string[] = configManager.config.query.twitter.languages
-    let langs_str : string = "";
-    for(let i = 0; i < langs.length; i++){
-      langs_str += langs[i];
-      if(i < langs.length - 1){
-        langs_str += " OR ";
-      }
-    }
-
     let search: string = '(';
 
     // Add hashtags to the research
@@ -64,8 +54,21 @@ export class ApiTwitter extends Api {
     // Exclude retweets and replies
     search += ' -is:retweet -is:reply -is:quote';
 
+    // Languages accepted
+    let langs : string[] = configManager.config.query.twitter.languages
+    let langs_str : string = "(";
+    for(let i = 0; i < langs.length; i++){
+      langs_str += "lang:"+langs[i];
+      if(i < langs.length - 1){
+        langs_str += " OR ";
+      }
+    }
+    langs_str += ")";
+
     // Add languages to the research
-    search += ' lang:' + langs_str;
+    search += langs_str;
+
+    console.log(search);
 
     // Build url
     fetchUrl +=

@@ -55,7 +55,7 @@ class ConfigManager {
         },
         useWhitelistHashtags: false,
         whitelistHashtags: [],
-        languages: ['fr'],
+        languages: ['fr', 'en'],
         useWhitelistAuthors: false,
         whitelistAuthors: [],
       },
