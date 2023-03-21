@@ -24,7 +24,7 @@
     },
     "useRandomApi": false,
     "random": {
-      "fetchInterval": 2
+      "fetchInterval": 2.1
     }
   },
   "filter": {

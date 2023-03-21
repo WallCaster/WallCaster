@@ -10,6 +10,8 @@ const AdminPage = () => {
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   const [cache, setCache] = useState<(Post & FilterData)[]>([]);
   const [trash, setTrash] = useState<(Post & FilterData)[]>([]);
+  const [images, setImages] = useState<File[]>([]);
+
   const socket = useSocket(serverIp, (socket) => {
     socket.on('connect', () => {
       socket.emit('getConfig');
@@ -26,6 +28,10 @@ const AdminPage = () => {
     socket.on('config', (config: Config) => {
       setConfig(config);
     });
+
+    socket.on('images', (images: File[]) => {
+      setImages(images);
+    })
   });
 
   function getConfig() {
@@ -46,6 +52,12 @@ const AdminPage = () => {
   function trashDelete(id: string) {
     if (!socket) return;
     socket.emit('trashDelete', id);
+  }
+
+  function sendImages(images: File[]) {
+    console.log("HERE");
+    if (!socket) return;
+    socket.emit('setImages', images);
   }
 
   if (!socket?.connected || !config)
@@ -86,6 +98,7 @@ const AdminPage = () => {
           onClick={() => {
             setServerIp('http://localhost:3001!');
             setConfig(null);
+            setImages([])
           }}
           title='Disconnect'
         >
@@ -99,6 +112,8 @@ const AdminPage = () => {
         setConfig={(c) => sendConfig(c)}
         trash={trash}
         trashDelete={trashDelete}
+        images={images}
+        setImages={(i) => sendImages(i)}
       />
     </div>
   );

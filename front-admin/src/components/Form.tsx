@@ -21,7 +21,7 @@ import {
   ListBulletIcon,
   PhotoIcon
 } from '@heroicons/react/24/outline';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import type { Config } from '../types/config';
 import type { FilterData, Post } from '../types/post';
 import CacheCard from './CacheCard';
@@ -49,6 +49,8 @@ export default function AdminForm({
   setConfig,
   trash,
   trashDelete,
+  images,
+  setImages
 }: {
   config: Config;
   cache: (Post & FilterData)[];
@@ -56,9 +58,12 @@ export default function AdminForm({
   setConfig: (config: Config) => void;
   trash: (Post & FilterData)[];
   trashDelete: (id: string) => void;
+  images: File[],
+  setImages: (images: File[]) => void;
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
+  const [imagesTemp, setImagesTemp] = useState<File[]>([]);
 
   useEffect(() => {
     setTemp(config);
@@ -69,13 +74,26 @@ export default function AdminForm({
       setHasChanges(false);
     } else if (!hasChanges && JSON.stringify(temp) !== JSON.stringify(config)) {
       setHasChanges(true);
+    } else if (!hasChanges && imagesTemp.length !== images.length) {
+      setHasChanges(true);
     }
   }, [temp, config]);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setConfig(temp);
+    setImages(imagesTemp);
   }
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const fileList = Array.from(files);
+      setImagesTemp(fileList);
+    }
+  };
+  
+  
 
   return (
     <div className='lg:grid lg:grid-cols-12 lg:gap-x-5'>
@@ -391,10 +409,14 @@ export default function AdminForm({
             <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
               <div>
                 <h3 className='text-lg leading-6 font-medium text-gray-900'>Add photos</h3>
-                <p className='mt-1 text-sm text-gray-500'>List of photos to display on screen.</p>
+                <p className='mt-1 text-sm text-gray-500'>Photos to display on screens.</p>
               </div>
-
-              <input type="file" multiple id="add_photos" name="add_photos" accept="image/*"></input>
+              <input type="file" multiple id="add_photos" name="add_photos" accept="image/*" onChange={handleImageUpload}></input>
+              <div className="flex overflow-x-scroll">
+                {imagesTemp.map((image, index) => (
+                  <img key={index} src={URL.createObjectURL(image)} alt={`Image ${index}`} style={{ margin: '2px', minWidth: 'auto', maxHeight: '100px' }} />
+                ))}
+              </div>
             </div>
             <ChangeIndicator hasChanges={hasChanges} />
           </div>

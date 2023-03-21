@@ -26,8 +26,8 @@ export const App = () => {
     originUrl: 'https://twitter.com/johndoe/status/1',
   };
 
-  const [post, setPost] = useState<Post | null>(null);
-  const [nextPost, setNextPost] = useState<Post | null>(null);
+  const [post, setPost] = useState<Post | File | null>(null);
+  const [nextPost, setNextPost] = useState<Post | File | null>(null);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   const [probaPhoto, setProbaPhoto] = useState<number | 0>(0);
   let [isShowing, setIsShowing] = useState(true);
@@ -38,7 +38,7 @@ export const App = () => {
     });
   });
 
-  function updatePost(p: Post) {
+  function updatePost(p: Post | File) {
     setNextPost(p);
     setIsShowing(false);
     resetIsShowing();
@@ -87,7 +87,18 @@ export const App = () => {
             }}
           >
             {
-              (probaPhoto < 0.0) && (
+               !(post instanceof File) && <PostCard post={post} className='rounded-3xl shadow-2xl' />
+            }
+            {
+              (post instanceof File) && <div
+                className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
+                style={{ height: '90vh', maxWidth: '90vw' }}>
+                <img src={URL.createObjectURL(post)} className='h-full w-full' />
+              </div>
+              
+            }
+            {/* {
+              (probaPhoto < 0.5) && (
                 <div
                   className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
                   style={{ height: '90vh', maxWidth: '90vw' }}>
@@ -99,7 +110,7 @@ export const App = () => {
               (probaPhoto >= 0.5) && (
                 <PostCard post={post} className='rounded-3xl shadow-2xl' />
               )             
-            }
+            } */}
             
           </Transition>
         )}
