@@ -60,6 +60,12 @@ const AdminPage = () => {
     socket.emit('restore', id);
   }
 
+  function clearTrash() {
+    if (!socket) return;
+    console.log('Clearing trash');
+    socket.emit('clearTrash');
+  }
+
   if (!socket?.connected || !config)
     return (
       <div className='p-8 flex flex-col items-center gap-10 max-w-7xl grow justify-center'>
@@ -111,7 +117,7 @@ const AdminPage = () => {
             description='Queue of posts to be displayed and their status, you can remove them from the queue or restore them from the trash.'
           />
         </div>
-        <LiveFeed cache={cache} cacheDelete={cacheDelete} trash={trash} trashDelete={trashDelete} restore={restore} />
+        <LiveFeed cache={cache} cacheDelete={cacheDelete} trash={trash} trashDelete={trashDelete} restore={restore} clearTrash={clearTrash}/>
       </div>
       <AdminForm config={config} setConfig={(c) => sendConfig(c)} onCancel={() => getConfig()} />
     </div>

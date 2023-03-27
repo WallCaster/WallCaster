@@ -54,9 +54,13 @@ export class App {
 
         this.writeInLogsFile('logs.log', { ...post, ...filterData });
 
-        if(filterData.passedBanwords === false || filterData.passedImages === false || filterData.passedSentiment === false){
+        if (
+          filterData.passedBanwords === false ||
+          filterData.passedImages === false ||
+          filterData.passedSentiment === false
+        ) {
           this.trash.unshift({ ...post, ...filterData });
-        }else{
+        } else {
           this.cache.unshift({ ...post, ...filterData });
         }
 
@@ -139,4 +143,8 @@ export class App {
     }
   }
 
+  public clearTrash() {
+    this.trash = [];
+    this.socket.sendCacheToAdmin();
+  }
 }

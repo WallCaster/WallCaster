@@ -67,6 +67,15 @@ export class SocketServer {
       this.app.removeDefinitively(id);
     });
 
+    socket.on('restore', (id: string) => {
+      this.app.restoreFromTrash(id);
+    });
+
+    socket.on('clearTrash', () => {
+      this.app.clearTrash();
+    });
+
+
     console.log('new client connected');
   }
 
