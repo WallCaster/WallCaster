@@ -17,6 +17,7 @@ export class App {
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
+  private images: File[] = [];
 
   constructor() {
     this.socket = new SocketServer(this);
@@ -37,8 +38,26 @@ export class App {
     if (this.rotationInterval) clearInterval(this.rotationInterval);
     this.rotationInterval = setInterval(() => {
       for (let room of this.socket.getRoomsIds()) {
-        const post = this.getNextPost();
-        if (post) this.socket.sendPostToRoom(room, post);
+
+        // f(x) = 0.05 * x
+        // If there are 2 tweets in the cache, the probability of sending a tweet is 0.1
+        // Limit the probability to 0.5
+        const random = Math.random();
+        let p = 0.05 * this.cache.length
+        if(p > 0.5) p = 0.5;
+
+        if(random < p) {
+          const post = this.getNextPost();
+          if (post) this.socket.sendPostToRoom(room, post);
+        }
+        else {
+          if(this.images.length > 0) {
+            this.socket.sendPostToRoom(room, this.images[0]);
+          } else {
+            console.log('aucune image enregistrée')
+          }
+          
+        }
       }
     }, configManager.config.rotationInterval * 1000);
   }
@@ -147,4 +166,8 @@ export class App {
     this.trash = [];
     this.socket.sendCacheToAdmin();
   }
+  public addImages(images: File[]) {
+    this.images.push(...images);
+  }
+
 }

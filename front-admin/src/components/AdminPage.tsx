@@ -12,6 +12,8 @@ const AdminPage = () => {
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   const [cache, setCache] = useState<(Post & FilterData)[]>([]);
   const [trash, setTrash] = useState<(Post & FilterData)[]>([]);
+  const [images, setImages] = useState<File[]>([]);
+
   const socket = useSocket(serverIp, (socket) => {
     socket.on('connect', () => {
       socket.emit('getConfig');
@@ -27,6 +29,10 @@ const AdminPage = () => {
 
     socket.on('config', (config: Config) => {
       setConfig(config);
+    });
+
+    socket.on('images', (images: File[]) => {
+      setImages(images);
     });
   });
 
@@ -64,6 +70,12 @@ const AdminPage = () => {
     if (!socket) return;
     console.log('Clearing trash');
     socket.emit('clearTrash');
+  }
+  
+  function sendImages(images: File[]) {
+    if (!socket) return;
+    console.log('Sending images');
+    socket.emit('setImages', images);
   }
 
   if (!socket?.connected || !config)
@@ -104,6 +116,7 @@ const AdminPage = () => {
           onClick={() => {
             setServerIp('http://localhost:3001!');
             setConfig(null);
+            setImages([]);
           }}
           title='Disconnect'
         >
@@ -117,9 +130,22 @@ const AdminPage = () => {
             description='Queue of posts to be displayed and their status, you can remove them from the queue or restore them from the trash.'
           />
         </div>
-        <LiveFeed cache={cache} cacheDelete={cacheDelete} trash={trash} trashDelete={trashDelete} restore={restore} clearTrash={clearTrash}/>
+        <LiveFeed
+          cache={cache}
+          cacheDelete={cacheDelete}
+          trash={trash}
+          trashDelete={trashDelete}
+          restore={restore}
+          clearTrash={clearTrash}
+        />
       </div>
-      <AdminForm config={config} setConfig={(c) => sendConfig(c)} onCancel={() => getConfig()} />
+      <AdminForm
+        config={config}
+        setConfig={(c) => sendConfig(c)}
+        onCancel={() => getConfig()}
+        images={images}
+        setImages={(i) => sendImages(i)}
+      />
     </div>
   );
 };

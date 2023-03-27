@@ -21,7 +21,7 @@ import {
   PhotoIcon,
   RssIcon,
 } from '@heroicons/react/24/outline';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import type { Config } from '../types/config';
 import type { FilterData, Post } from '../types/post';
 import CacheCard from './CacheCard';
@@ -48,13 +48,18 @@ export default function AdminForm({
   config,
   setConfig,
   onCancel,
+  images,
+  setImages,
 }: {
   config: Config;
   setConfig: (config: Config) => void;
+  images: File[];
+  setImages: (images: File[]) => void;
   onCancel: () => void;
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
+  const [imagesTemp, setImagesTemp] = useState<File[]>([]);
 
   useEffect(() => {
     setTemp(config);
@@ -65,12 +70,23 @@ export default function AdminForm({
       setHasChanges(false);
     } else if (!hasChanges && JSON.stringify(temp) !== JSON.stringify(config)) {
       setHasChanges(true);
+    } else if (!hasChanges && imagesTemp.length !== images.length) {
+      setHasChanges(true);
     }
   }, [temp, config]);
 
   function onSubmit() {
     setConfig(temp);
+    setImages(imagesTemp);
   }
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const fileList = Array.from(files);
+      setImagesTemp(fileList);
+    }
+  };
 
   return (
     <>
@@ -342,7 +358,24 @@ export default function AdminForm({
             hasChanges={hasChanges}
             description='List of photos to display on screen.'
           >
-            <input type='file' multiple id='add_photos' name='add_photos' accept='image/*'></input>
+            <input
+              type='file'
+              multiple
+              id='add_photos'
+              name='add_photos'
+              accept='image/*'
+              onChange={handleImageUpload}
+            ></input>
+            <div className='flex overflow-x-auto'>
+              {imagesTemp.map((image, index) => (
+                <img
+                  key={index}
+                  src={URL.createObjectURL(image)}
+                  alt={`Image ${index}`}
+                  style={{ margin: '2px', minWidth: 'auto', maxHeight: '200px' }}
+                />
+              ))}
+            </div>
           </FormComponent>
         </div>
       </div>

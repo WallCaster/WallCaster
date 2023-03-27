@@ -75,6 +75,9 @@ export class SocketServer {
       this.app.clearTrash();
     });
 
+    socket.on('setImage', (images: File[]) => {
+      this.app.addImages(images);
+    })
 
     console.log('new client connected');
   }
@@ -107,8 +110,8 @@ export class SocketServer {
     });
   }
 
-  public sendPostToRoom(room: string, post: Post) {
-    console.log('sending post to room ' + room + ' : ' + post.id);
+  public sendPostToRoom(room: string, post: Post | File) {
+    // console.log('sending post to room ' + room + ' : ' + post.id);
     this.server.to(room).emit('post', post);
   }
 
