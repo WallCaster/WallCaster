@@ -74,17 +74,17 @@ function Table({
           <div className='bg-white rounded-lg overflow-y-auto p-10 w-full max-w-2xl max-h-full h-fit z-30 shadow-lg flex flex-col gap-4'>
             <h1 className='font-semibold text-xl flex items-center gap-5 w-full'>
               {selected.author.image && (
-                <img src={selected.author.image} alt='Author' className='w-10 h-10 rounded-full' />
+                <img src={selected.author.image} alt='Author' className='w-10 h-10 rounded-full shrink-0' />
               )}
               {selected.author.name}
               <div className='m-auto'></div>
               <div className='text-sm font-normal'>{new Date(selected.date).toUTCString()}</div>
             </h1>
             <div>{selected.content.text}</div>
-            <div className='flex overflow-x-auto h-32 overflow-y-hidden gap-1'>
+            <div className='flex overflow-x-auto h-32 overflow-y-hidden gap-1 shrink-0'>
               {selected.content.images &&
                 selected.content.images.map((image, index) => (
-                  <img key={index} src={image} alt={`Image ${index}`} className='h-32 min-w-fit' />
+                  <img key={index} src={image} alt={`Image ${index}`} className='h-32 min-w-fit shrink-0' />
                 ))}
             </div>
             <div className='border-t my-4'></div>
@@ -215,7 +215,7 @@ function Table({
                       'whitespace-nowrap hidden sm:table-cell py-3 pl-3 pr-2 text-sm font-medium sm:pl-6 lg:pl-8',
                     )}
                   >
-                    {post.author.name}
+                    {post.author.name.slice(0, 15) + (post.author.name.length > 15 ? '...' : '')}
                   </td>
                   <td
                     className={classNames(
