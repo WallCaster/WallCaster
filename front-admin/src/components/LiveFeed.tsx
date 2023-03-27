@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { TrashIcon as TrashIconSolid } from '@heroicons/react/20/solid';
+import { ArrowsRightLeftIcon, TrashIcon as TrashIconSolid } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import type { FilterData, Post } from '../types/post';
 import { dateToAgo } from '../utils/date';
@@ -23,9 +23,25 @@ export function LiveFeed({
   restore: (id: string) => void;
   clearTrash: () => void;
 }) {
+  const [showQueue, setShowQueue] = useState(true);
+
   return (
-    <div className='bg-white border-y w-full'>
-      <div className='grid grid-cols-2 h-full divide-x'>
+    <div className='bg-white border-y w-full relative'>
+      <button
+        className='p-3 md:hidden absolute z-10 top-3 left-3 rounded-md bg-slate-100 font-semibold hover:bg-slate-200 active:bg-slate-300 text-xs flex gap-2 items-center'
+        onClick={() => setShowQueue(!showQueue)}
+      >
+        <ArrowsRightLeftIcon className='w-4 h-4' />
+        Show {!showQueue ? 'Queue' : 'Trash'}
+      </button>
+      <div className='md:hidden grid grid-cols-1 h-full divide-x'>
+        {showQueue ? (
+          <Table title='Queue' posts={cache} onDelete={cacheDelete}></Table>
+        ) : (
+          <Table title='Trash' posts={trash} onDelete={trashDelete} onRestore={restore} onClear={clearTrash}></Table>
+        )}
+      </div>
+      <div className='hidden md:grid grid-cols-2 h-full divide-x'>
         <Table title='Queue' posts={cache} onDelete={cacheDelete}></Table>
         <Table title='Trash' posts={trash} onDelete={trashDelete} onRestore={restore} onClear={clearTrash}></Table>
       </div>
@@ -56,8 +72,21 @@ function Table({
             onClick={() => setSelected(null)}
           ></div>
           <div className='bg-white rounded-lg overflow-y-auto p-10 w-full max-w-2xl max-h-full h-fit z-30 shadow-lg flex flex-col gap-4'>
-            <h1 className='font-semibold text-xl'>{selected.author.name}</h1>
+            <h1 className='font-semibold text-xl flex items-center gap-5 w-full'>
+              {selected.author.image && (
+                <img src={selected.author.image} alt='Author' className='w-10 h-10 rounded-full' />
+              )}
+              {selected.author.name}
+              <div className='m-auto'></div>
+              <div className='text-sm font-normal'>{new Date(selected.date).toUTCString()}</div>
+            </h1>
             <div>{selected.content.text}</div>
+            <div className='flex overflow-x-auto h-32 overflow-y-hidden gap-1'>
+              {selected.content.images &&
+                selected.content.images.map((image, index) => (
+                  <img key={index} src={image} alt={`Image ${index}`} className='h-32 min-w-fit' />
+                ))}
+            </div>
             <div className='border-t my-4'></div>
             <h1 className='font-semibold text-xl'>Filters information</h1>
             <div className='flex flex-col gap-2'>
@@ -82,6 +111,14 @@ function Table({
             </div>
             <div className='border-t my-4'></div>
             <div className='flex gap-5 flex-wrap justify-end'>
+              <button
+                className='p-5 rounded-md bg-slate-100 hover:bg-slate-200 active:bg-slate-300 flex items-center'
+                onClick={() => {
+                  setSelected(null);
+                }}
+              >
+                Cancel
+              </button>
               {onRestore && (
                 <button
                   className='p-5 rounded-md bg-slate-100 hover:bg-slate-200 active:bg-slate-300 flex items-center'
@@ -113,7 +150,7 @@ function Table({
         <div className='absolute right-3 flex items-center gap-2'>
           {onClear && (
             <button
-              className='p-3 rounded-md bg-red-100 hover:bg-red-200 active:bg-red-300 text-red-800 text-xs flex items-center'
+              className='p-3 rounded-md bg-red-100 hover:bg-red-200 gap-2 active:bg-red-300 font-semibold text-red-800 text-xs flex items-center'
               onClick={() => {
                 onClear();
               }}
