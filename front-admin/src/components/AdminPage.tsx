@@ -83,7 +83,7 @@ const AdminPage = () => {
 
   return (
     <div className='p-0 flex flex-col items-center w-full grow' id='feed'>
-      <div className='flex gap-6 items-center px-6 justify-center py-6 w-full max-w-5xl'>
+      <div className='flex gap-6 items-center px-6 justify-center py-12 w-full max-w-5xl'>
         <h1 className='text-4xl font-bold'>WallCaster Admin Panel</h1>
         <div className='mx-auto'></div>
         <button
