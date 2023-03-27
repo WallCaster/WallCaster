@@ -55,12 +55,13 @@ export class App {
         this.writeInLogsFile('logs.log', { ...post, ...filterData });
 
         if(filterData.passedBanwords === false || filterData.passedImages === false || filterData.passedSentiment === false){
-          this.trash.push({ ...post, ...filterData });
+          this.trash.unshift({ ...post, ...filterData });
         }else{
           this.cache.unshift({ ...post, ...filterData });
         }
 
         this.clampCache();
+        this.clampTrash();
         this.socket.sendCacheToAdmin();
       }
     });
@@ -91,6 +92,7 @@ export class App {
       this.cache.splice(0, 1);
       this.cache.push(post);
       this.clampCache();
+      this.clampTrash();
       this.socket.sendCacheToAdmin();
       return post;
     }
