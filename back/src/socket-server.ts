@@ -67,9 +67,45 @@ export class SocketServer {
       this.app.removeDefinitively(id);
     });
 
-    socket.on('setImage', (images: File[]) => {
-      this.app.addImages(images);
+    socket.on('setImages', (image) => {
+      console.log(typeof image);
+      if(image === undefined) {
+        console.log("IMAGE UNDEFINED");
+      }
+      else {
+        console.log("IMAGE DEFINI : " + image.length);
+        this.app.addImages(image);
+      }
     })
+
+    // socket.on('setImages', (imageUrls: string[]) => {
+    //   if(imageUrls === undefined) {
+    //     console.log("IMAGE UNDEFINED");
+    //   }
+    //   else {
+    //     console.log("IMAGE DEFINI : " + imageUrls.length);
+    //     const images = imageUrls.map((imageUrl) => {
+    //       const parts = imageUrl.split(',')!;
+    //       const mimeType = parts[0].match(/:(.*?);/)![1];
+    //       const base64Data = parts[1];
+    //       const byteCharacters = atob(base64Data);
+    //       const byteArrays = [];
+    //       for (let i = 0; i < byteCharacters.length; i++) {
+    //         byteArrays.push(byteCharacters.charCodeAt(i));
+    //       }
+    //       const fileData = new Uint8Array(byteArrays);
+    //       const uniqueFileName = `image-${Date.now()}.png`;
+    //       return new File([fileData], uniqueFileName, { type: mimeType });
+    //     });
+    //     this.app.addImages(images);
+    //   }
+
+      
+    // });
+
+
+
+    
 
     console.log('new client connected');
   }
@@ -102,9 +138,14 @@ export class SocketServer {
     });
   }
 
-  public sendPostToRoom(room: string, post: Post | File) {
-    // console.log('sending post to room ' + room + ' : ' + post.id);
+  public sendPostToRoom(room: string, post: Post) {
+    console.log('sending post to room ' + room + ' : ' + post.id);
     this.server.to(room).emit('post', post);
+  }
+
+  public sendImageToRoom(room: string, image: string) {
+    console.log('sending image to room ' + room + ' : ' + image);
+    this.server.to(room).emit('image', image);
   }
 
   public getNumberOfClients(): number {

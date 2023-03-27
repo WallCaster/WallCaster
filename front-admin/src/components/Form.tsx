@@ -58,26 +58,26 @@ export default function AdminForm({
   setConfig: (config: Config) => void;
   trash: (Post & FilterData)[];
   trashDelete: (id: string) => void;
-  images: File[],
-  setImages: (images: File[]) => void;
+  images: FileList | undefined,
+  setImages: (images: FileList | undefined) => void;
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
-  const [imagesTemp, setImagesTemp] = useState<File[]>([]);
+  const [imagesTemp, setImagesTemp] = useState<FileList>();
 
   useEffect(() => {
     setTemp(config);
   }, [config]);
 
   useEffect(() => {
-    if (hasChanges && JSON.stringify(temp) === JSON.stringify(config)) {
+    if (hasChanges && JSON.stringify(temp) === JSON.stringify(config) && imagesTemp?.length === images?.length) {
       setHasChanges(false);
     } else if (!hasChanges && JSON.stringify(temp) !== JSON.stringify(config)) {
       setHasChanges(true);
-    } else if (!hasChanges && imagesTemp.length !== images.length) {
+    } else if (!hasChanges && imagesTemp?.length !== images?.length) {
       setHasChanges(true);
     }
-  }, [temp, config]);
+  }, [temp, config, imagesTemp]);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -89,9 +89,28 @@ export default function AdminForm({
     const files = event.target.files;
     if (files) {
       const fileList = Array.from(files);
-      setImagesTemp(fileList);
+      setImagesTemp(files);
     }
   };
+
+  // const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const files = event.target.files;
+  //   if (files) {
+  //     const fileList = Array.from(files);
+  //     const imageUrls: string[] = [];
+
+  //     fileList.forEach((file) => {
+  //       const reader = new FileReader();
+  //       reader.readAsDataURL(file);
+  //       reader.onload = () => {
+  //         const dataUrl = reader.result as string;
+  //         imageUrls.push(dataUrl);
+  //         setImagesTemp(imageUrls);
+  //       };
+  //     });
+  //   }
+  // };
+
   
   
 
@@ -412,11 +431,11 @@ export default function AdminForm({
                 <p className='mt-1 text-sm text-gray-500'>Photos to display on screens.</p>
               </div>
               <input type="file" multiple id="add_photos" name="add_photos" accept="image/*" onChange={handleImageUpload}></input>
-              <div className="flex overflow-x-scroll">
+              {/* <div className="flex overflow-x-scroll">
                 {imagesTemp.map((image, index) => (
                   <img key={index} src={URL.createObjectURL(image)} alt={`Image ${index}`} style={{ margin: '2px', minWidth: 'auto', maxHeight: '100px' }} />
                 ))}
-              </div>
+              </div> */}
             </div>
             <ChangeIndicator hasChanges={hasChanges} />
           </div>

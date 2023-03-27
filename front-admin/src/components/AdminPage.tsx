@@ -10,12 +10,14 @@ const AdminPage = () => {
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   const [cache, setCache] = useState<(Post & FilterData)[]>([]);
   const [trash, setTrash] = useState<(Post & FilterData)[]>([]);
-  const [images, setImages] = useState<File[]>([]);
+  const [images, setImages] = useState<FileList | undefined>();
 
   const socket = useSocket(serverIp, (socket) => {
     socket.on('connect', () => {
       socket.emit('getConfig');
       socket.emit('setadmin');
+      console.log("addImages connect avant:", images);
+      socket.emit('setImages');
     });
     socket.on('cache', (cache: (Post & FilterData)[]) => {
       setCache(cache);
@@ -29,9 +31,23 @@ const AdminPage = () => {
       setConfig(config);
     });
 
-    socket.on('images', (images: File[]) => {
+    socket.on('images', (images: FileList) => {
       setImages(images);
-    })
+    });
+
+    // socket.on('images', (images: File[]) => {
+    //   const convertedImages = images.map((image: File) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(image);
+    //     return new Promise<string>((resolve, reject) => {
+    //       reader.onload = () => {
+    //         resolve(reader.result as string);
+    //       };
+    //       reader.onerror = reject;
+    //     });
+    //   });
+    //   Promise.all(convertedImages).then((dataUrls) => setImages(dataUrls));
+    // });
   });
 
   function getConfig() {
@@ -40,6 +56,7 @@ const AdminPage = () => {
   }
 
   function sendConfig(config: Config) {
+    console.log("send config...")
     if (!socket) return;
     socket.emit('setConfig', config);
   }
@@ -54,11 +71,35 @@ const AdminPage = () => {
     socket.emit('trashDelete', id);
   }
 
-  function sendImages(images: File[]) {
-    console.log("HERE");
+  async function sendImages(images: FileList | undefined) {
+    // console.log("addImages avant:", images);
+    // console.log("send images...")
     if (!socket) return;
-    socket.emit('setImages', images);
+    // const imageUrls = await convertFilesToDataUrls(images);
+    // socket.emit('setImages', images);
+
+    if(images !== undefined) {
+      for (let i = 0; i < images.length; i++) {
+        socket.emit("setImages", images[i]);
+      }
+    }
   }
+
+  // function convertFilesToDataUrls(files: File[]): Promise<string[]> {
+  //   return Promise.all(files.map((file) => {
+  //     return new Promise<string>((resolve, reject) => {
+  //       const reader = new FileReader();
+  //       reader.onload = () => {
+  //         resolve(reader.result as string);
+  //       };
+  //       reader.onerror = () => {
+  //         reject(reader.error);
+  //       };
+  //       reader.readAsDataURL(file);
+  //     });
+  //   }));
+  // }
+  
 
   if (!socket?.connected || !config)
     return (
@@ -98,7 +139,7 @@ const AdminPage = () => {
           onClick={() => {
             setServerIp('http://localhost:3001!');
             setConfig(null);
-            setImages([])
+            setImages(undefined);
           }}
           title='Disconnect'
         >

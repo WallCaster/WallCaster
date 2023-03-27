@@ -17,7 +17,7 @@ export class App {
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
-  private images: File[] = [];
+  private images: Buffer[] = [];
 
   constructor() {
     this.socket = new SocketServer(this);
@@ -44,8 +44,14 @@ export class App {
           if (post) this.socket.sendPostToRoom(room, post);
         }
         else {
+          const imageToDisplay = this.images[0];
           if(this.images.length > 0) {
-            this.socket.sendPostToRoom(room, this.images[0]);
+            const blob = new Blob([imageToDisplay]);
+            const imageUrl = URL.createObjectURL(blob);
+            this.socket.sendImageToRoom(room, imageUrl);
+
+
+
           } else {
             console.log('aucune image enregistrée')
           }
@@ -149,8 +155,28 @@ export class App {
     }
   }
 
-  public addImages(images: File[]) {
-    this.images.push(...images);
+  public addImages(image: Buffer) {
+    console.log("addImages apres:", image);
+    this.images.push(image)
+    // this.images.push(...images);
   }
+
+  public saveImageToDisk(image: Buffer) {
+    console.log("SAVE");
+    writeFileSync("/tmp/upload", image);
+  }
+
+  public dataURLtoFile(dataurl: string, filename: string): File {
+    const arr = dataurl.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  }
+  
 
 }
