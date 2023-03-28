@@ -19,7 +19,7 @@ export class ApiTwitter extends Api {
     let hashtags: string[] = configManager.config.query.twitter.whitelistHashtags;
 
     // Get the languages from the config
-    let langs : string[] = configManager.config.query.twitter.languages
+    let langs : string[] = configManager.config.query.twitter.languages;
 
     // URL of the endpoint for the research
     let fetchUrl: string = 'https://api.twitter.com/2/tweets/search/recent?query=';
@@ -31,14 +31,22 @@ export class ApiTwitter extends Api {
     let d_start : Date = new Date(configManager.config.query.twitter.dateRange.start);
     let d_end : Date = new Date(configManager.config.query.twitter.dateRange.end);
 
-    // If the start date is after the end date, throw an error
+    // If the start date is after the end date
     if(d_start > d_end){
-      throw new Error(this.ERROR_MESSAGE_BASE + "Start date is after end date");
+      console.warn("Start date is after end date. Start date is changed to actual days - 7 days.")
+      d_start = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
     }
 
-    // If the start date is after the current date, throw an error
+    // If the start date is after the current date
     if(d_start > new Date()){
-      throw new Error(this.ERROR_MESSAGE_BASE + "Start date is after current date");
+      console.warn("Start date is after the current date. Start date is changed to actual days - 7 days.")
+      d_start = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
+    }
+
+    // If the end date is after the current date
+    if(d_end > new Date(new Date().getTime() - 10 * 1000)){
+      // console.warn("End date is after the current date. End date is changed to actual date.");
+      d_end = new Date(new Date().getTime() - 10 * 1000);
     }
 
     // If the start date is more than 7 days before the current date, change start Data at actual days - 7 days
@@ -82,7 +90,7 @@ export class ApiTwitter extends Api {
 
       '&max_results=' + max_results + // Max results
       
-      '&end_time=' + d_end.toISOString() + // End time
+      // '&end_time=' + d_end.toISOString() + // End time => Can be restore if needed
       '&start_time=' + d_start.toISOString() + // Start time
 
       '&expansions=author_id,attachments.media_keys' + // Expansions -> referenced tweets, author id
