@@ -17,6 +17,9 @@ export class ApiTwitter extends Api {
     // Get the hashtags from the config
     let hashtags: string[] = configManager.config.query.twitter.whitelistHashtags;
 
+    // Get keywords from the config
+    let keywords: string[] = configManager.config.query.twitter.keywords;
+
     // Get the languages from the config
     let langs: string[] = configManager.config.query.twitter.languages;
 
@@ -65,18 +68,37 @@ export class ApiTwitter extends Api {
     // Initialize the search string
     let search: string = '';
 
-    // Add hashtags to the research
-    search = '(';
-    for (let i = 0; i < hashtags.length; i++) {
-      search += '#' + hashtags[i];
-      if (i < hashtags.length - 1) {
-        search += ' OR ';
-      }
+    // If there is no keywords and no hashtags, return an empty array
+    if(keywords.length === 0 && hashtags.length === 0){
+      return [];
     }
-    search += ')';
+
+    // Add hashtags to the research
+    if(hashtags.length !== 0){
+      search = '(';
+      for (let i = 0; i < hashtags.length; i++) {
+        search += '#' + hashtags[i];
+        if (i < hashtags.length - 1) {
+          search += ' OR ';
+        }
+      }
+      search += ')';
+    }
+
+    // Add keywords to the research
+    if(keywords.length !== 0){
+      search += ' (';
+      for (let i = 0; i < keywords.length; i++) {
+        search += "\""+keywords[i]+"\"";
+        if (i < keywords.length - 1) {
+          search += ' OR ';
+        }
+      }
+      search += ')';
+    }
 
     // Exclude retweets, replies & quotes tweets
-    search += ' -is:retweet -is:reply -is:quote';
+    search += ' -is:retweet -is:reply -is:quote ';
 
     // Languages accepted
     let langs_str: string = '';
@@ -137,13 +159,13 @@ export class ApiTwitter extends Api {
       }
       let tweets = json.data;
 
-      // If there is no includes in the response, throw an error
+      // If there is no includes in the response
       if (json.includes === undefined) {
         console.error(this.ERROR_MESSAGE_BASE + 'No includes data in tweet search');
         return [];
       }
 
-      // If there is no users in the includes, throw an error
+      // If there is no users in the includes
       if (json.includes.users === undefined) {
         console.error(this.ERROR_MESSAGE_BASE + 'No includes users data in tweet search');
         return [];

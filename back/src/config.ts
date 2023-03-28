@@ -12,6 +12,7 @@ export type Config = {
       maxDateRange: number;
       useWhitelistHashtags: boolean;
       whitelistHashtags: string[];
+      keywords: string[];
       languages: string[];
       useWhitelistAuthors: boolean;
       whitelistAuthors: string[];
@@ -52,6 +53,7 @@ class ConfigManager {
         maxDateRange: 7,
         useWhitelistHashtags: false,
         whitelistHashtags: [],
+        keywords: [],
         languages: ['fr', 'en'],
         useWhitelistAuthors: false,
         whitelistAuthors: [],
