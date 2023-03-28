@@ -1,6 +1,6 @@
-# Risks encountered and countermeasure to mitigate
+# Risks encountered and countermeasures to mitigate
 
-During the sprint 0, we didn't really know how to work with the configuration of the raspberry, both to connect to the wifi and to open the web browser in fullscreen.
+During sprint 0, we didn't know how to work with the configuration of the raspberry, both to connect to the wifi and to open the web browser in fullscreen.
 Being able to test would have helped to complete the analysis report, for the system sequence diagram.
 
 # Lessons learned, best practices
@@ -27,3 +27,14 @@ Réorganisation de l'architecture du projet (déplacement de la partie filtre da
 Points importants à retenir :
 
 - Etre plus prévoyant, mieux anticiper les temps de fusion de chaque travail.
+
+## Rétrospective (03/28/2023)
+
+- this is the end of sprint 2
+- we previously planned to finish sprint 2 in 5 weeks but we finished it in about 3 weeks.
+- we didn´t planned the time well and finished early
+- this is why we added some extra features to sprint 2.
+- this led to a lot of work in the last week since everything had to be done in a short time for the demo of the product. (like the photo implementation) 
+- we had to rethink the AI filter and decided to scrap it for a new a more performant filter for the next sprint.
+
+

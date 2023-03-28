@@ -5,6 +5,7 @@ import { Api } from './api';
 export class ApiTwitter extends Api {
 
   private readonly ERROR_MESSAGE_BASE: string = "Twitter API error : ";
+  private readonly WARNING_MESSAGE_BASE: string = "Twitter API warning : ";
 
   constructor() {
     super(ApiName.TWITTER);
@@ -19,7 +20,7 @@ export class ApiTwitter extends Api {
     let hashtags: string[] = configManager.config.query.twitter.whitelistHashtags;
 
     // Get the languages from the config
-    let langs : string[] = configManager.config.query.twitter.languages
+    let langs : string[] = configManager.config.query.twitter.languages;
 
     // URL of the endpoint for the research
     let fetchUrl: string = 'https://api.twitter.com/2/tweets/search/recent?query=';
@@ -31,19 +32,27 @@ export class ApiTwitter extends Api {
     let d_start : Date = new Date(configManager.config.query.twitter.dateRange.start);
     let d_end : Date = new Date(configManager.config.query.twitter.dateRange.end);
 
-    // If the start date is after the end date, throw an error
+    // If the start date is after the end date
     if(d_start > d_end){
-      throw new Error(this.ERROR_MESSAGE_BASE + "Start date is after end date");
+      console.warn(this.WARNING_MESSAGE_BASE + "Start date is after end date. Start date is changed to actual days - 7 days.")
+      d_start = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
     }
 
-    // If the start date is after the current date, throw an error
+    // If the start date is after the current date
     if(d_start > new Date()){
-      throw new Error(this.ERROR_MESSAGE_BASE + "Start date is after current date");
+      console.warn(this.WARNING_MESSAGE_BASE + "Start date is after the current date. Start date is changed to actual days - 7 days.")
+      d_start = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
+    }
+
+    // If the end date is after the current date
+    if(d_end > new Date(new Date().getTime() - 10 * 1000)){
+      // console.warn(this.WARNING_MESSAGE_BASE + "End date is after the current date. End date is changed to actual date.");
+      d_end = new Date(new Date().getTime() - 10 * 1000);
     }
 
     // If the start date is more than 7 days before the current date, change start Data at actual days - 7 days
     if(d_start < new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000)){
-      console.warn("Start date is more than 7 days before the current date. Start date is changed to actual days - 7 days.");
+      console.warn(this.WARNING_MESSAGE_BASE + "Start date is more than 7 days before the current date. Start date is changed to actual days - 7 days.");
       d_start = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
     }
 
@@ -82,7 +91,7 @@ export class ApiTwitter extends Api {
 
       '&max_results=' + max_results + // Max results
       
-      '&end_time=' + d_end.toISOString() + // End time
+      // '&end_time=' + d_end.toISOString() + // End time => Can be restore if needed
       '&start_time=' + d_start.toISOString() + // Start time
 
       '&expansions=author_id,attachments.media_keys' + // Expansions -> referenced tweets, author id
@@ -107,25 +116,28 @@ export class ApiTwitter extends Api {
 
       // If the response is not ok, throw an error
       if (!response.ok) {
-        throw new Error(this.ERROR_MESSAGE_BASE + "Response Not OK\n" + JSON.stringify(json, null, 2));
+        console.error(this.ERROR_MESSAGE_BASE + "Response Not OK\n" + JSON.stringify(json, null, 2));
+        return [];
       }
 
       // If there is no data in the response, return an empty array
       // When there is no data, it means that there is no tweet with the given hashtags
       if(json.data === undefined){
-        console.warn(this.ERROR_MESSAGE_BASE + "No data in tweet search");
+        console.warn(this.WARNING_MESSAGE_BASE + "No data in tweet search");
         return [];
       }
       let tweets = json.data;
 
       // If there is no includes in the response, throw an error
       if(json.includes === undefined){
-        throw new Error(this.ERROR_MESSAGE_BASE + "No includes data in tweet search")
+        console.error(this.ERROR_MESSAGE_BASE + "No includes data in tweet search");
+        return [];
       }
 
       // If there is no users in the includes, throw an error
       if(json.includes.users === undefined){
-        throw new Error(this.ERROR_MESSAGE_BASE + "No includes data in tweet search")
+        console.error(this.ERROR_MESSAGE_BASE + "No includes users data in tweet search");
+        return [];
       }
       let user = json.includes.users;
       
@@ -164,7 +176,8 @@ export class ApiTwitter extends Api {
           // console.log("hasMedia : " + hasMedia);
           // console.log("attachments.media_keys : " + attachments.media_keys);
           // console.log("tweet : " + tweet.id);
-          throw new Error(this.ERROR_MESSAGE_BASE + "Tweet contains media but no media are given by API");
+          console.error(this.ERROR_MESSAGE_BASE + "Tweet contains media but no media are given by API");
+          return [];
         }
 
         if(hasMedia){ // If there is media
