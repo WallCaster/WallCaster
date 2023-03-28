@@ -31,7 +31,7 @@ The sprint review and the retrospective will allow us to check our progress and 
 - [x] As an administrator, I can select the rotation interval of posts on the screen.
 - [x] As an administrator, I can choose to apply a filter (English sentiment filter) on the posts to display.
 - [x] As a viewer, I can see on displays, posts coming from Twitter that rotate at a given interval.
-- [ ] As an administrator, I can choose to allow picture broadcasts. (à mieux faire)
+- [ ] As an administrator, I can choose to allow picture broadcasts.
 
 Sprint 1 ends Tuesday **02/14/2023.**
 
