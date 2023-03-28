@@ -1,3 +1,5 @@
+import { formatDate } from '../utils/date';
+
 export default function Input({
   id,
   label,
@@ -24,10 +26,8 @@ export default function Input({
         <div className='mt-1'>
           <input
             type='date'
-            value={new Date(value)}
+            value={formatDate(new Date(value))}
             onChange={(e) => {
-              console.log(value);
-              console.log(new Date(value));
               console.log(e.target.value);
               setValue(e.target.value);
             }}
