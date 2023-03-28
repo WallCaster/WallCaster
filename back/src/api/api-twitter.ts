@@ -12,10 +12,14 @@ export class ApiTwitter extends Api {
 
   public async fetchPosts() {
 
+    // Array of posts ; will be returned
+    let result: Post[] = [];
+
     // Get the hashtags from the config
     let hashtags: string[] = configManager.config.query.twitter.whitelistHashtags;
 
-    let result: Post[] = [];
+    // Get the languages from the config
+    let langs : string[] = configManager.config.query.twitter.languages
 
     // URL of the endpoint for the research
     let fetchUrl: string = 'https://api.twitter.com/2/tweets/search/recent?query=';
@@ -43,32 +47,34 @@ export class ApiTwitter extends Api {
       d_start = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
     }
 
-    let search: string = '(';
+    // Initialize the search string
+    let search: string = '';
 
     // Add hashtags to the research
-    for (let i = 0; i < hashtags.length - 1; i++) {
-      search += '#' + hashtags[i] + ' OR ';
+    search = '(';
+    for (let i = 0; i < hashtags.length; i++) {
+      search += '#' + hashtags[i];
+      if(i < hashtags.length - 1){
+        search += ' OR ';
+      }
     }
-    search += '#' + hashtags[hashtags.length - 1] + ')';
+    search += ')';
 
-    // Exclude retweets and replies
+    // Exclude retweets, replies & quotes tweets
     search += ' -is:retweet -is:reply -is:quote';
 
     // Languages accepted
-    let langs : string[] = configManager.config.query.twitter.languages
-    let langs_str : string = "(";
+    let langs_str : string = '(';
     for(let i = 0; i < langs.length; i++){
-      langs_str += "lang:"+langs[i];
+      langs_str += 'lang:'+langs[i];
       if(i < langs.length - 1){
-        langs_str += " OR ";
+        langs_str += ' OR ';
       }
     }
-    langs_str += ")";
+    langs_str += ')';
 
     // Add languages to the research
     search += langs_str;
-
-    console.log(search);
 
     // Build url
     fetchUrl +=
@@ -205,7 +211,6 @@ export class ApiTwitter extends Api {
 
         // Push the post on the result array
         result.push(post);
-        console.log(post);
       }
     } catch (error) {
       const red = '\x1b[31m';

@@ -38,8 +38,15 @@ export class App {
     if (this.rotationInterval) clearInterval(this.rotationInterval);
     this.rotationInterval = setInterval(() => {
       for (let room of this.socket.getRoomsIds()) {
+
+        // f(x) = 0.05 * x
+        // If there are 2 tweets in the cache, the probability of sending a tweet is 0.1
+        // Limit the probability to 0.5
         const random = Math.random();
-        if(random < 0.5) {
+        let p = 0.05 * this.cache.length
+        if(p > 0.5) p = 0.5;
+
+        if(random < p) {
           const post = this.getNextPost();
           if (post) this.socket.sendPostToRoom(room, post);
         }
@@ -72,13 +79,18 @@ export class App {
 
         this.writeInLogsFile('logs.log', { ...post, ...filterData });
 
-        if(filterData.passedBanwords === false || filterData.passedImages === false || filterData.passedSentiment === false){
-          this.trash.push({ ...post, ...filterData });
-        }else{
+        if (
+          filterData.passedBanwords === false ||
+          filterData.passedImages === false ||
+          filterData.passedSentiment === false
+        ) {
+          this.trash.unshift({ ...post, ...filterData });
+        } else {
           this.cache.unshift({ ...post, ...filterData });
         }
 
         this.clampCache();
+        this.clampTrash();
         this.socket.sendCacheToAdmin();
       }
     });
@@ -109,6 +121,7 @@ export class App {
       this.cache.splice(0, 1);
       this.cache.push(post);
       this.clampCache();
+      this.clampTrash();
       this.socket.sendCacheToAdmin();
       return post;
     }
@@ -153,6 +166,11 @@ export class App {
       this.clampTrash();
       this.socket.sendCacheToAdmin();
     }
+  }
+
+  public clearTrash() {
+    this.trash = [];
+    this.socket.sendCacheToAdmin();
   }
 
   public addImages(image: Buffer) {

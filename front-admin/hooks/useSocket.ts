@@ -26,9 +26,9 @@ const useSocket = (url: string, callback?: (socket: io.Socket) => void) => {
       setSocket(null);
     });
     if (callback) callback(s);
-    s.onAny((event, ...args) => {
-      console.log(`incoming event '${event}':`, args);
-    });
+    // s.onAny((event, ...args) => {
+    //   console.log(`incoming event '${event}':`, args);
+    // });
 
     // This is called when the component is unmounted
     return () => {
