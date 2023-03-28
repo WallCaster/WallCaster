@@ -156,9 +156,18 @@ Se remettre au clair sur comment fonctionne le filtre "sentiment" : est-ce un mo
 
 Comme le sprint va être fini en avance (de deux semaines), il est important pendant la rétrospective de s'interroger sur quels éléments ont mené à ce phénomène (surestimation) pour essayer d'améliorer le prochain sprint dans son déroulement.
 
-### 03/14/2023 with Benoît COMBEMALE
+### 03/21/2023 with Benoît COMBEMALE
 
 - Réfléchir à un algorithme pour savoir si on diffuse un tweet ou une photo (quelle proportion ? 50% / 50%). Faire adapter le pourcentage au contenu du cache (s'il est rempli)
 - Faire en sorte que la semaine prochaine la démo avec le hashtag (pour la fin du sprint).
+
+### 03/28/2023 with Benoît COMBEMALE
+
+- Intersection entre les recherches twitters, le hashtag, et l'@ pour avoir le plus de contenu possible.
+- Regarder URL à la fin des tweets.
+- Ajouter une icone poubelle à chaque post dans la queue.
+- Réorganiser date pour avoir une liste entre 0 et 7.
+- Faire fichiers de configuration et de déploiement pour Romain (il fera les tests en interne) et vite.
+- Si panne et besoin de relancer, il faut voir si tout se relance correctement.
 
 # Description et gestion des exigences
