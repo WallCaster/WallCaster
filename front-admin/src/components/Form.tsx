@@ -53,27 +53,28 @@ export default function AdminForm({
 }: {
   config: Config;
   setConfig: (config: Config) => void;
-  images: File[];
-  setImages: (images: File[]) => void;
+  images: FileList | undefined;
+  setImages: (images: FileList | undefined) => void;
   onCancel: () => void;
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
-  const [imagesTemp, setImagesTemp] = useState<File[]>([]);
+  const [imagesTemp, setImagesTemp] = useState<FileList>();
+  const [imageTabTemp, setImagesTabTemp] = useState<File[]>();
 
   useEffect(() => {
     setTemp(config);
   }, [config]);
 
   useEffect(() => {
-    if (hasChanges && JSON.stringify(temp) === JSON.stringify(config)) {
+    if (hasChanges && JSON.stringify(temp) === JSON.stringify(config) && imagesTemp?.length === images?.length) {
       setHasChanges(false);
     } else if (!hasChanges && JSON.stringify(temp) !== JSON.stringify(config)) {
       setHasChanges(true);
-    } else if (!hasChanges && imagesTemp.length !== images.length) {
+    } else if (!hasChanges && imagesTemp?.length !== images?.length) {
       setHasChanges(true);
     }
-  }, [temp, config]);
+  }, [temp, config, imagesTemp]);
 
   function onSubmit() {
     setConfig(temp);
@@ -83,10 +84,12 @@ export default function AdminForm({
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
+      setImagesTemp(files);
       const fileList = Array.from(files);
-      setImagesTemp(fileList);
+      setImagesTabTemp(fileList)
     }
-  };
+  }; 
+  
 
   return (
     <>
@@ -349,7 +352,7 @@ export default function AdminForm({
               onChange={handleImageUpload}
             ></input>
             <div className='flex overflow-x-auto'>
-              {imagesTemp.map((image, index) => (
+              {(imageTabTemp !== undefined) && imageTabTemp.map((image, index) => (
                 <img
                   key={index}
                   src={URL.createObjectURL(image)}

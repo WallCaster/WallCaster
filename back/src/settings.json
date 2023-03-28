@@ -2,7 +2,7 @@
   "maxStoreSize": 100,
   "rotationInterval": 1,
   "query": {
-    "useTwitterApi": true,
+    "useTwitterApi": false,
     "twitter": {
       "fetchInterval": 30,
       "fetchQuantity": 10,

@@ -12,12 +12,13 @@ const AdminPage = () => {
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   const [cache, setCache] = useState<(Post & FilterData)[]>([]);
   const [trash, setTrash] = useState<(Post & FilterData)[]>([]);
-  const [images, setImages] = useState<File[]>([]);
+  const [images, setImages] = useState<FileList | undefined>();
 
   const socket = useSocket(serverIp, (socket) => {
     socket.on('connect', () => {
       socket.emit('getConfig');
       socket.emit('setadmin');
+      socket.emit('setImages');
     });
     socket.on('cache', (cache: (Post & FilterData)[]) => {
       setCache(cache);
@@ -31,7 +32,7 @@ const AdminPage = () => {
       setConfig(config);
     });
 
-    socket.on('images', (images: File[]) => {
+    socket.on('images', (images: FileList) => {
       setImages(images);
     });
   });
@@ -43,6 +44,7 @@ const AdminPage = () => {
   }
 
   function sendConfig(config: Config) {
+    console.log("send config...")
     if (!socket) return;
     console.log('Sending config');
     socket.emit('setConfig', config);
@@ -72,11 +74,18 @@ const AdminPage = () => {
     socket.emit('clearTrash');
   }
   
-  function sendImages(images: File[]) {
+  function sendImages(images: FileList | undefined) {
     if (!socket) return;
-    console.log('Sending images');
-    socket.emit('setImages', images);
+    // const imageUrls = await convertFilesToDataUrls(images);
+    // socket.emit('setImages', images);
+
+    if(images !== undefined) {
+      for (let i = 0; i < images.length; i++) {
+        socket.emit("setImages", images[i]);
+      }
+    }
   }
+  
 
   if (!socket?.connected || !config)
     return (
@@ -116,7 +125,7 @@ const AdminPage = () => {
           onClick={() => {
             setServerIp('http://localhost:3001!');
             setConfig(null);
-            setImages([]);
+            setImages(undefined);
           }}
           title='Disconnect'
         >
