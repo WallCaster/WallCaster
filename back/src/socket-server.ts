@@ -2,6 +2,7 @@ import * as io from 'socket.io';
 import { App } from './app';
 import configManager, { Config } from './config';
 import { Post } from './post';
+import { readFile } from 'fs';
 
 const LISTENING_PORT = 3001;
 
@@ -84,44 +85,11 @@ export class SocketServer {
     });
 
     socket.on('setImages', (image) => {
-      console.log(typeof image);
-      if(image === undefined) {
-        console.log("IMAGE UNDEFINED");
-      }
-      else {
-        console.log("IMAGE DEFINI : " + image.length);
+      if(image !== undefined) {
         this.app.addImages(image);
+        this.app.saveImageToDisk(image);
       }
-    })
-
-    // socket.on('setImages', (imageUrls: string[]) => {
-    //   if(imageUrls === undefined) {
-    //     console.log("IMAGE UNDEFINED");
-    //   }
-    //   else {
-    //     console.log("IMAGE DEFINI : " + imageUrls.length);
-    //     const images = imageUrls.map((imageUrl) => {
-    //       const parts = imageUrl.split(',')!;
-    //       const mimeType = parts[0].match(/:(.*?);/)![1];
-    //       const base64Data = parts[1];
-    //       const byteCharacters = atob(base64Data);
-    //       const byteArrays = [];
-    //       for (let i = 0; i < byteCharacters.length; i++) {
-    //         byteArrays.push(byteCharacters.charCodeAt(i));
-    //       }
-    //       const fileData = new Uint8Array(byteArrays);
-    //       const uniqueFileName = `image-${Date.now()}.png`;
-    //       return new File([fileData], uniqueFileName, { type: mimeType });
-    //     });
-    //     this.app.addImages(images);
-    //   }
-
-      
-    // });
-
-
-
-    
+    })    
 
     console.log('new client connected');
   }
@@ -159,9 +127,11 @@ export class SocketServer {
     this.server.to(room).emit('post', post);
   }
 
-  public sendImageToRoom(room: string, image: string) {
-    console.log('sending image to room ' + room + ' : ' + image);
-    this.server.to(room).emit('image', image);
+  public sendImageToRoom(room: string, path: string) {
+    readFile(path, (err, buffer) =>{
+      console.log('sending image to room ' + room + ' : ' + path);
+      this.server.to(room).emit('image', { image: true, buffer: buffer.toString('base64') });
+    });
   }
 
   public getNumberOfClients(): number {

@@ -86,27 +86,7 @@ export default function AdminForm({
       const fileList = Array.from(files);
       setImagesTemp(files);
     }
-  };
-
-  // const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const files = event.target.files;
-  //   if (files) {
-  //     const fileList = Array.from(files);
-  //     const imageUrls: string[] = [];
-
-  //     fileList.forEach((file) => {
-  //       const reader = new FileReader();
-  //       reader.readAsDataURL(file);
-  //       reader.onload = () => {
-  //         const dataUrl = reader.result as string;
-  //         imageUrls.push(dataUrl);
-  //         setImagesTemp(imageUrls);
-  //       };
-  //     });
-  //   }
-  // };
-
-  
+  }; 
   
 
   return (
@@ -387,7 +367,7 @@ export default function AdminForm({
               accept='image/*'
               onChange={handleImageUpload}
             ></input>
-            <div className='flex overflow-x-auto'>
+            {/* <div className='flex overflow-x-auto'>
               {imagesTemp.map((image, index) => (
                 <img
                   key={index}
@@ -396,7 +376,7 @@ export default function AdminForm({
                   style={{ margin: '2px', minWidth: 'auto', maxHeight: '200px' }}
                 />
               ))}
-            </div>
+            </div> */}
           </FormComponent>
         </div>
       </div>

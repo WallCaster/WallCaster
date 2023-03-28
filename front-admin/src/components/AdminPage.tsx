@@ -18,7 +18,6 @@ const AdminPage = () => {
     socket.on('connect', () => {
       socket.emit('getConfig');
       socket.emit('setadmin');
-      console.log("addImages connect avant:", images);
       socket.emit('setImages');
     });
     socket.on('cache', (cache: (Post & FilterData)[]) => {
@@ -36,20 +35,6 @@ const AdminPage = () => {
     socket.on('images', (images: FileList) => {
       setImages(images);
     });
-
-    // socket.on('images', (images: File[]) => {
-    //   const convertedImages = images.map((image: File) => {
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(image);
-    //     return new Promise<string>((resolve, reject) => {
-    //       reader.onload = () => {
-    //         resolve(reader.result as string);
-    //       };
-    //       reader.onerror = reject;
-    //     });
-    //   });
-    //   Promise.all(convertedImages).then((dataUrls) => setImages(dataUrls));
-    // });
   });
 
   function getConfig() {
@@ -89,7 +74,7 @@ const AdminPage = () => {
     socket.emit('clearTrash');
   }
   
-  function sendImages(images: File[]) {
+  function sendImages(images: FileList | undefined) {
     if (!socket) return;
     // const imageUrls = await convertFilesToDataUrls(images);
     // socket.emit('setImages', images);
@@ -100,21 +85,6 @@ const AdminPage = () => {
       }
     }
   }
-
-  // function convertFilesToDataUrls(files: File[]): Promise<string[]> {
-  //   return Promise.all(files.map((file) => {
-  //     return new Promise<string>((resolve, reject) => {
-  //       const reader = new FileReader();
-  //       reader.onload = () => {
-  //         resolve(reader.result as string);
-  //       };
-  //       reader.onerror = () => {
-  //         reject(reader.error);
-  //       };
-  //       reader.readAsDataURL(file);
-  //     });
-  //   }));
-  // }
   
 
   if (!socket?.connected || !config)

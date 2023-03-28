@@ -36,19 +36,12 @@ export const App = () => {
       updatePost(p);
     });
 
-    socket.on('image', (imageUrl: string) => {
-      // const url = URL.createObjectURL(imageUrl);
-      const image = new Image();
-      image.src = imageUrl;
-      updatePost(image);
-
-
-      // const image = new Image();
-      // image.onload = () => {
-      //   URL.revokeObjectURL(imageUrl);
-      //   updatePost(image);
-      // };
-      // image.src = imageUrl;
+    socket.on('image', (info) => {
+      if(info.image) {
+        const img = new Image()
+        img.src = 'data:image/png;base64,' + info.buffer;
+        updatePost(img)
+      }
     });
     
   });

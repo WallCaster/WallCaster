@@ -5,7 +5,7 @@ import configManager from './config';
 import { filterPost } from './filtering';
 import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
-import { writeFileSync } from 'fs';
+import { writeFileSync, readdirSync, readFile } from 'fs';
 import { join } from 'path';
 
 export class App {
@@ -51,18 +51,16 @@ export class App {
           if (post) this.socket.sendPostToRoom(room, post);
         }
         else {
-          const imageToDisplay = this.images[0];
-          if(this.images.length > 0) {
-            const blob = new Blob([imageToDisplay]);
-            const imageUrl = URL.createObjectURL(blob);
-            this.socket.sendImageToRoom(room, imageUrl);
+          const files = readdirSync("assets")
 
-
-
+          if(files.length > 0) {
+            const chosenFile = files[Math.floor(Math.random() * files.length)] 
+  
+            const path = "assets/" + chosenFile;
+            this.socket.sendImageToRoom(room, path)
           } else {
             console.log('aucune image enregistrée')
           }
-          
         }
       }
     }, configManager.config.rotationInterval * 1000);
@@ -174,14 +172,13 @@ export class App {
   }
 
   public addImages(image: Buffer) {
-    console.log("addImages apres:", image);
     this.images.push(image)
     // this.images.push(...images);
   }
 
   public saveImageToDisk(image: Buffer) {
-    console.log("SAVE");
-    writeFileSync("/tmp/upload", image);
+    const randomFileName = "assets/photo_" + Date.now() + ".png";
+    writeFileSync(randomFileName, image);
   }
 
   public dataURLtoFile(dataurl: string, filename: string): File {
