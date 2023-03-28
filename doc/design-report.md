@@ -29,9 +29,9 @@ The sprint review and the retrospective will allow us to check our progress and 
 - [x] As an administrator, I can query Tweets from Twitter with a specific hashtag.
 - [x] As an administrator, I can select the interval of time between two queries to the Twitter API.
 - [x] As an administrator, I can select the rotation interval of posts on the screen.
-- [ ] As an administrator, I can choose to allow picture broadcasts. (à mieux faire)
 - [x] As an administrator, I can choose to apply a filter (English sentiment filter) on the posts to display.
-- [x] As a viewer, I can see on displays, posts comming from Twitter that rotate at a given interval.
+- [x] As a viewer, I can see on displays, posts coming from Twitter that rotate at a given interval.
+- [ ] As an administrator, I can choose to allow picture broadcasts.
 
 Sprint 1 ends Tuesday **02/14/2023.**
 
@@ -41,7 +41,7 @@ Sprint 1 ends Tuesday **02/14/2023.**
 
 ## Expected Outcome
 
-- [ ] As an administrator, I can apply filter on the fetched posts. (2h)
+- [ ] As an administrator, I can apply filters on the fetched posts. (2h)
 - [ ] As an administrator, I can choose a new filter (list of banned words). (10h)
 - [ ] As an administrator, I can see a log of all the posts fetched by the system. (5h)
 - [ ] As a viewer, I can see posts with photos or videos on the screen. (3h)
