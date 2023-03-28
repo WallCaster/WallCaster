@@ -26,19 +26,27 @@ export const App = () => {
     originUrl: 'https://twitter.com/johndoe/status/1',
   };
 
-  const [post, setPost] = useState<Post | File | null>(null);
-  const [nextPost, setNextPost] = useState<Post | File | null>(null);
+  const [post, setPost] = useState<Post | HTMLImageElement | null>(null);
+  const [nextPost, setNextPost] = useState<Post | HTMLImageElement | null>(null);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
-  const [probaPhoto, setProbaPhoto] = useState<number | 0>(0);
   let [isShowing, setIsShowing] = useState(true);
   let [, , resetIsShowing] = useTimeoutFn(() => setIsShowing(true), 400);
   const socket = useSocket(serverIp, (socket) => {
     socket.on('post', (p) => {
       updatePost(p);
     });
+
+    socket.on('image', (info) => {
+      if(info.image) {
+        const img = new Image()
+        img.src = 'data:image/png;base64,' + info.buffer;
+        updatePost(img)
+      }
+    });
+    
   });
 
-  function updatePost(p: Post | File) {
+  function updatePost(p: Post | HTMLImageElement) {
     setNextPost(p);
     setIsShowing(false);
     resetIsShowing();
@@ -81,37 +89,25 @@ export const App = () => {
             leaveFrom='opacity-100 rotate-0 scale-100 '
             leaveTo='opacity-0 rotate-[-40deg] scale-50 -translate-x-[50vw] -translate-y-32'
             afterLeave={() => {
-              setProbaPhoto(Math.random());
               setPost(nextPost);
               setNextPost(null);
             }}
           >
-            {
-               !(post instanceof File) && <PostCard post={post} className='rounded-3xl shadow-2xl' />
-            }
-            {
-              (post instanceof File) && <div
-                className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
-                style={{ height: '90vh', maxWidth: '90vw' }}>
-                <img src={URL.createObjectURL(post)} className='h-full w-full' />
-              </div>
-              
-            }
-            {/* {
-              (probaPhoto < 0.5) && (
-                <div
-                  className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
-                  style={{ height: '90vh', maxWidth: '90vw' }}>
-                  <img src='https://placeimg.com/1000/512/nature' alt='' className='h-full w-full' />
-                </div>
-              )             
-            }
-            {
-              (probaPhoto >= 0.5) && (
-                <PostCard post={post} className='rounded-3xl shadow-2xl' />
-              )             
-            } */}
-            
+
+      
+      {(post instanceof HTMLImageElement) ? (
+        <div
+          className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
+          style={{ height: '90vh', maxWidth: '90vw' }}>
+          {/* <img src={`data:image/jpeg;base64,${image}`} className='h-full w-full' /> */}
+          {/* <img src={image} className='h-full w-full' /> */}
+          {/* <img src={URL.createObjectURL(image)} alt={image.name} /> */}
+          <img src={post.src} className='h-full w-full' />
+        </div>
+        
+      ) : (
+        <PostCard post={post} className='rounded-3xl shadow-2xl' />
+      )}            
           </Transition>
         )}
         {/* <button
