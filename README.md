@@ -22,9 +22,79 @@
 
 # Installation
 
-## Requirements
+**Requirements :**
 
-# Usage
+- docker-compose
+- docker
 
-## Configuration
+**start the server :**
+
+start the `docker-compose.yml` file in the root of the project with :
+
+```bash
+docker-compose up
+```
+
+try to access the admin panel at `http://localhost:3000`
+
+# Services
+
+When the docker-compose is up, the following services are available :
+
+| Service      | Exported Port | Description                                      |
+| ------------ | ------------- | ------------------------------------------------ |
+| Backend      | 3001          | The main backend service (Websocket server)      |
+| Front Client | 80            | The front-end used by the rasberry pi/web client |
+| Front Admin  | 3000          | The admin pannel front-end                       |
+
+**Exposed ports :**
+
+For deployment, you will need to expose the `3001` and the `80` ports to the internet. 
+(port `3000` should be accessible only from the admin network for security reasons)
+
+# Usage and Configuration
+
+All the configuration is done through the admin panel on the `http://localhost:3000` page.
+
+**Note :** All the data is logged in the `back/logs.json` file.
+**Note :** The configuration is stored in the `back/src/config.json` file. 
+
+## Live feed
+
+The live feed is a feature of the admin panel that allows the admin to see what is happening in the backend. It allows you to :
+- Manage the **queue** of posts to be displayed
+- Manage the **trashed** posts (posts that have been deleted or filtered)
+
+## General settings
+
+The general settings allow you to configure the following :
+- The maximum amount of posts that can be stored in the queue (and in the trash)
+- The interval between each post (in seconds)
+
+
+## Query settings
+
+Here you can select all the queries that will be used to fetch the posts.You can choose between multiple media sources :  
+- Random (for debug purposes)
+- Twitter
+
+
+### Twitter settings
+
+TODO
+
+## Filters
+
+The filters allow you to filter the posts that are fetched from the queries. You can choose between multiple filters :
+
+- **Sentiment** : Filter the posts based on their sentiment (positive, negative, neutral)
+- **Ban words** : Filter the posts based on a list of words that you can configure
+- **Images** : Filter the posts that contains images
+
+
+
+
+
+
+
 
