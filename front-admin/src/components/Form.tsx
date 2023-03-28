@@ -86,10 +86,9 @@ export default function AdminForm({
     if (files) {
       setImagesTemp(files);
       const fileList = Array.from(files);
-      setImagesTabTemp(fileList)
+      setImagesTabTemp(fileList);
     }
-  }; 
-  
+  };
 
   return (
     <>
@@ -285,6 +284,15 @@ export default function AdminForm({
                 args={{ min: 1, max: 7 }}
                 type='number'
               />
+              <InputTags
+                className='col-span-3'
+                id='languages'
+                label='Accepted languages : fr, en, es, etc... (keep empty for all)'
+                value={temp.query.twitter.languages}
+                setValue={(s) =>
+                  setTemp({ ...temp, query: { ...temp.query, twitter: { ...temp.query.twitter, languages: s } } })
+                }
+              />
             </div>
           </FormComponent>
           <FormComponent
@@ -352,14 +360,15 @@ export default function AdminForm({
               onChange={handleImageUpload}
             ></input>
             <div className='flex overflow-x-auto'>
-              {(imageTabTemp !== undefined) && imageTabTemp.map((image, index) => (
-                <img
-                  key={index}
-                  src={URL.createObjectURL(image)}
-                  alt={`Image ${index}`}
-                  style={{ margin: '2px', minWidth: 'auto', maxHeight: '200px' }}
-                />
-              ))}
+              {imageTabTemp !== undefined &&
+                imageTabTemp.map((image, index) => (
+                  <img
+                    key={index}
+                    src={URL.createObjectURL(image)}
+                    alt={`Image ${index}`}
+                    style={{ margin: '2px', minWidth: 'auto', maxHeight: '200px' }}
+                  />
+                ))}
             </div>
           </FormComponent>
         </div>
