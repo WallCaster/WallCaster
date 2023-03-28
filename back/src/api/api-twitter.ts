@@ -216,7 +216,7 @@ export class ApiTwitter extends Api {
             image: author.profile_image_url,
           },
           // Delete the last 24 characters of the tweet text (the link to the tweet)
-          content: { text: tweet.text.substring(0, tweet.text.length - 24), images: image_urls},
+          content: { text: tweet.text, images: image_urls},
           date: new Date(tweet.created_at),
           originUrl: `https://twitter.com/${author.username}/status/${tweet.id}`,
           api: ApiName.TWITTER,
