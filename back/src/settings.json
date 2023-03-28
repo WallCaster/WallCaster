@@ -6,13 +6,10 @@
     "twitter": {
       "fetchInterval": 30,
       "fetchQuantity": 10,
-      "dateRange": {
-        "start": "2023-03-21T14:03:34.157Z",
-        "end": "2023-03-28T13:58:24.157Z"
-      },
+      "maxDateRange": 7,
       "useWhitelistHashtags": false,
       "whitelistHashtags": [
-        "rennes"
+        "ict4s"
       ],
       "languages": [
         "fr",
