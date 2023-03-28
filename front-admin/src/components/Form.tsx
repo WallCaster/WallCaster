@@ -264,9 +264,9 @@ export default function AdminForm({
               />
               <Input
                 className='col-span-1'
-                id='dateFrom'
-                label='Date from'
-                value={temp.query.twitter.dateRange.start}
+                id='dateMax'
+                label='Date range (max 7 days)'
+                value={temp.query.twitter.maxDateRange}
                 setValue={(s) =>
                   setTemp({
                     ...temp,
@@ -274,31 +274,13 @@ export default function AdminForm({
                       ...temp.query,
                       twitter: {
                         ...temp.query.twitter,
-                        dateRange: { ...temp.query.twitter.dateRange, start: new Date(s) },
+                        maxDateRange: parseInt(s),
                       },
                     },
                   })
                 }
-                type='date'
-              />
-              <Input
-                className='col-span-1'
-                id='dateTo'
-                label='Date to'
-                value={temp.query.twitter.dateRange.end}
-                setValue={(s) =>
-                  setTemp({
-                    ...temp,
-                    query: {
-                      ...temp.query,
-                      twitter: {
-                        ...temp.query.twitter,
-                        dateRange: { ...temp.query.twitter.dateRange, end: new Date(s) },
-                      },
-                    },
-                  })
-                }
-                type='date'
+                args={{ min: 1, max: 7 }}
+                type='number'
               />
             </div>
           </FormComponent>
