@@ -71,7 +71,8 @@ export class App {
         this.posts_ids.add(post.id);
         const filterData: FilterData = await filterPost(post);
 
-        this.writeInLogsFile('logs.log', { ...post, ...filterData });
+        // Write logs in a log.json file
+        this.writeInLogsFile('logs.json', { ...post, ...filterData });
 
         if (
           filterData.passedBanwords === false ||
@@ -98,8 +99,9 @@ export class App {
     return this.trash;
   }
 
+  // Method to write logs in a file
   public writeInLogsFile(filename: string, logs: any) {
-    writeFileSync(join(filename), JSON.stringify(logs), {
+    writeFileSync(join(filename), JSON.stringify(logs)+"\n", {
       flag: 'a+',
     });
   }
