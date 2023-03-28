@@ -76,7 +76,13 @@ export const App = () => {
   }
   return (
     <div className='relative h-full overflow-hidden'>
-      <img src='/abstract.webp' alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110' />
+      {
+        (post instanceof HTMLImageElement) ? (
+          <img src={post.src} alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110' />
+        ) : (
+          <img src='/abstract.webp' alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110' />
+        )
+      }
       <div className='h-full px-16 py-14 flex items-center justify-center'>
         {post && (
           <Transition
@@ -99,9 +105,6 @@ export const App = () => {
         <div
           className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
           style={{ height: '90vh', maxWidth: '90vw' }}>
-          {/* <img src={`data:image/jpeg;base64,${image}`} className='h-full w-full' /> */}
-          {/* <img src={image} className='h-full w-full' /> */}
-          {/* <img src={URL.createObjectURL(image)} alt={image.name} /> */}
           <img src={post.src} className='h-full w-full' />
         </div>
         
