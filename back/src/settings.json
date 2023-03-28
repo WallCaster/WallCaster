@@ -1,6 +1,6 @@
 {
-  "maxStoreSize": 100,
-  "rotationInterval": 1,
+  "maxStoreSize": 1,
+  "rotationInterval": 4,
   "query": {
     "useTwitterApi": false,
     "twitter": {

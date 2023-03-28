@@ -60,6 +60,7 @@ export default function AdminForm({
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
   const [imagesTemp, setImagesTemp] = useState<FileList>();
+  const [imageTabTemp, setImagesTabTemp] = useState<File[]>();
 
   useEffect(() => {
     setTemp(config);
@@ -83,8 +84,9 @@ export default function AdminForm({
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      const fileList = Array.from(files);
       setImagesTemp(files);
+      const fileList = Array.from(files);
+      setImagesTabTemp(fileList)
     }
   }; 
   
@@ -367,8 +369,8 @@ export default function AdminForm({
               accept='image/*'
               onChange={handleImageUpload}
             ></input>
-            {/* <div className='flex overflow-x-auto'>
-              {imagesTemp.map((image, index) => (
+            <div className='flex overflow-x-auto'>
+              {(imageTabTemp !== undefined) && imageTabTemp.map((image, index) => (
                 <img
                   key={index}
                   src={URL.createObjectURL(image)}
@@ -376,7 +378,7 @@ export default function AdminForm({
                   style={{ margin: '2px', minWidth: 'auto', maxHeight: '200px' }}
                 />
               ))}
-            </div> */}
+            </div>
           </FormComponent>
         </div>
       </div>
