@@ -39,12 +39,9 @@ export class App {
     this.rotationInterval = setInterval(() => {
       for (let room of this.socket.getRoomsIds()) {
 
-        // f(x) = 0.05 * x
-        // If there are 2 tweets in the cache, the probability of sending a tweet is 0.1
-        // Limit the probability to 0.5
+        // Calcul the ratio between the cache and the images to define the probability to send a post or an image
         const random = Math.random();
-        let p = 0.05 * this.cache.length
-        if(p > 0.5) p = 0.5;
+        let p = this.cache.length / (this.cache.length + this.images.length);
 
         if(random < p) {
           const post = this.getNextPost();
