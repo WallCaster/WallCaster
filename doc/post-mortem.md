@@ -37,3 +37,4 @@ Points importants à retenir :
 - this is why we added some extra features to sprint 2.
 - this led to a lot of work in the last week since everything had to be done in a short time for the demo of the product. (like the photo implementation) 
 - we had to rethink the AI filter and decided to scrap it for a new a more performant filter for the next sprint.
+- the banned filter 
