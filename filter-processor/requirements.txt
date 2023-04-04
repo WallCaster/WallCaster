@@ -1,4 +1,4 @@
-torch==2.0.0
-transformers==4.27.2
-flask_cors
+torch == 2.0.0
+transformers == 4.27.2
+flask_cors == 3.0.10
 flask>=2.2.2

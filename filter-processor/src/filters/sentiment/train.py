@@ -13,4 +13,3 @@ if __name__ == "__main__":
     path = Path(__file__).parent / "trained_data.pickle"
     with open(path, 'wb') as f:
         pickle.dump(classifier, f)
-    
