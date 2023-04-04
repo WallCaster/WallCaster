@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, ArrowRightIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { ArrowsRightLeftIcon, TrashIcon as TrashIconSolid } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import type { FilterData, Post } from '../types/post';
@@ -196,7 +196,7 @@ function Table({
               {posts.map((post, index) => (
                 <tr
                   key={post.id}
-                  className='group hover:bg-blue-50 hover:text-blue-700 hover:-translate-x-2 transition-all duration-75 cursor-pointer bg-white'
+                  className='group hover:bg-blue-50 hover:text-blue-700 hover:-translate-x-2 transition-all duration-75 cursor-pointer bg-white relative'
                   onClick={() => {
                     setSelected(post);
                   }}
@@ -229,10 +229,10 @@ function Table({
                   <td
                     className={classNames(
                       index !== posts.length - 1 ? 'border-b border-gray-200' : '',
-                      'relative whitespace-nowrap py-3 pr-3 pl-2 text-right text-sm font-medium sm:pr-6 lg:pr-8',
+                      'relative whitespace-nowrap flex items-center justify-end text-right text-sm font-medium',
                     )}
                   >
-                    <div className='flex justify-end items-center gap-1'>
+                    <div className='flex sm:pr-6 lg:pr-8 py-3 pr-3 pl-2 group-hover:hidden justify-end items-center gap-1'>
                       <FilterIndicator
                         passed={post.passedSentiment}
                         descPassed='This post is not negative'
@@ -249,6 +249,19 @@ function Table({
                         descRejected='This post contains images'
                       />
                     </div>
+                    <button
+                      className='hidden
+                      sm:mr-6 lg:mr-8 py-3 mr-3 ml-2 px-3
+                       group-hover:flex hover:bg-red-100 gap-2 active:bg-red-200 font-semibold text-red-800 text-xs items-center transition-all justify-end rounded-lg m-1'
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onDelete(post.id);
+                      }}
+                    >
+                      <TrashIconSolid className='w-4 h-4' />
+                      <ArrowRightIcon className='w-4 h-4' />
+                      
+                    </button>
                   </td>
                 </tr>
               ))}

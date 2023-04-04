@@ -130,7 +130,7 @@ export class SocketServer {
   public sendImageToRoom(room: string, path: string) {
     readFile(path, (err, buffer) =>{
       console.log('sending image to room ' + room + ' : ' + path);
-      this.server.to(room).emit('image', { image: true, buffer: buffer.toString('base64') });
+      this.server.to(room).emit('image', buffer.toString('base64'));
     });
   }
 
