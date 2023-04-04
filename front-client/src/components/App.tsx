@@ -82,12 +82,12 @@ export const App = () => {
           <Transition
             appear
             show={isShowing}
-            enter='transform transition duration-[500ms]'
-            enterFrom='opacity-0 rotate-[40deg] scale-50 translate-x-[50vw] -translate-y-32'
+            enter='transform transition duration-[500ms] ease-[cubic-bezier(.52,.01,.51,1.01)]'
+            enterFrom='opacity-0 -rotate-[40deg] scale-50 translate-x-[40vw] -translate-y-32'
             enterTo='opacity-100 rotate-0 scale-100'
-            leave='transform duration-[300ms] transition ease-[cubic-bezier(.6,-0.46,.63,.75)]'
+            leave='transform duration-[300ms] transition ease-[cubic-bezier(.52,.01,.51,1.01)]'
             leaveFrom='opacity-100 rotate-0 scale-100 '
-            leaveTo='opacity-0 rotate-[-40deg] scale-50 -translate-x-[50vw] -translate-y-32'
+            leaveTo='opacity-0 rotate-[-40deg] scale-50 -translate-x-[40vw] translate-y-32'
             afterLeave={() => {
               setPost(nextPost);
               setNextPost(null);
