@@ -5,7 +5,7 @@ export default function InputTags({
   label,
   value,
   setValue,
-  prefix = "",
+  prefix = '',
   args,
   className,
 }: {
@@ -39,10 +39,11 @@ export default function InputTags({
             key={i}
             className='flex gap-2 bg-blue-200 text-blue-600 w-fit rounded-full px-3 items-center text-sm py-1'
           >
-            <p>{prefix}{v}</p>
-            <button type='button'
-            className='h-4 w-4' onClick={() => {console.log("TEJIOJADWDAWO");
-            ;setValue(value.filter((_, j) => j !== i))}}>
+            <p>
+              {prefix}
+              {v}
+            </p>
+            <button type='button' className='h-4 w-4' onClick={() => setValue(value.filter((_, j) => j !== i))}>
               <XMarkIcon />
             </button>
           </div>
