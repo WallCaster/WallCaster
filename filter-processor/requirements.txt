@@ -1,4 +1,4 @@
+torch==2.0.0
+transformers==4.27.2
 flask_cors
 flask>=2.2.2
-nltk==3.3
-Levenshtein==0.20.9
