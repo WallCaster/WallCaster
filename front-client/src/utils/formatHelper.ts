@@ -5,9 +5,14 @@ export function formatTwitterToHtml(message: string): string {
   message.split(/[\s\n]+/).forEach((word) => {
     word = word.trim();
     if (word.startsWith('#')) {
-      newMessage = newMessage.replace(word, `<span class="!text-blue-500 font-bold">${word}</span>`);
+      newMessage = newMessage.replace(word, `<a href="https://twitter.com/hashtag/${word.replace('#', '')}" target="_blank" class="!text-blue-500 font-bold">${word}</a>`);
     } else if (word.startsWith('https://') || word.startsWith('http://')) {
       newMessage = newMessage.replace(word, `<a href="${word}" target="_blank" class="!text-blue-500">${word}</a>`);
+    } else if (word.startsWith('@')) {
+      newMessage = newMessage.replace(
+        word,
+        `<a href="https://twitter.com/${word.replace('@', '')}" target="_blank" class="!text-blue-500">${word}</a>`,
+      );
     }
   });
 
