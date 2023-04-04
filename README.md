@@ -90,8 +90,8 @@ The **probability** of a photo being displayed is based on the number of posts a
 # 4. Contributors
 
 - Cody ADAM
-- Yanis BOUGER (unsername : 12-3-8-s9b9o9j9t)
-- Kouame Aime Israel ANGORA (unsername : akai-code)
-- Louis-Gabriel CAPLIEZ (unsername : EdgeOfMemory-cloud)
+- Yanis BOUGER (username : 12-3-8-s9b9o9j9t)
+- Kouame Aime Israel ANGORA (username : akai-code)
+- Louis-Gabriel CAPLIEZ (username : EdgeOfMemory-cloud)
 - Bastien FAISANT
-- Kilian CORNEC (unsername : Kali-ki)
+- Kilian CORNEC (username : Kali-ki)
