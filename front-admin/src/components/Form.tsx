@@ -21,16 +21,12 @@ import {
   PhotoIcon,
   RssIcon,
 } from '@heroicons/react/24/outline';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
-import type { FilterData, Post } from '../types/post';
-import CacheCard from './CacheCard';
-import ChangeIndicator from './ChangeIndicator';
 import Checkbox from './Checkbox';
 import { FormComponent } from './FormComponent';
 import Input from './Input';
 import InputTags from './InputTags';
-import { LiveFeed } from './LiveFeed';
 
 const navigation = [
   { name: 'Live Feed', href: '#feed', icon: RssIcon, current: false },
@@ -219,6 +215,25 @@ export default function AdminForm({
                       twitter: {
                         ...temp.query.twitter,
                         whitelistHashtags: s,
+                      },
+                    },
+                  })
+                }
+              />
+              <InputTags
+                className='col-span-3'
+                id='keywords'
+                label='Search keywords'
+                prefix=''
+                value={temp.query.twitter.keywords}
+                setValue={(s) =>
+                  setTemp({
+                    ...temp,
+                    query: {
+                      ...temp.query,
+                      twitter: {
+                        ...temp.query.twitter,
+                        keywords: s,
                       },
                     },
                   })

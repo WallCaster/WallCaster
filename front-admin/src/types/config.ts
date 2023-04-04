@@ -10,6 +10,7 @@ export type Config = {
       maxDateRange: number;
       useWhitelistHashtags: boolean;
       whitelistHashtags: string[];
+      keywords: string[];
       languages: string[];
       useWhitelistAuthors: boolean;
       whitelistAuthors: string[];
@@ -18,7 +19,7 @@ export type Config = {
     random: {
       fetchInterval: number;
     };
-  };
+  };  
   filter: {
     useSentiment: boolean;
     useBanwords: boolean;
@@ -26,7 +27,6 @@ export type Config = {
     forbiddenWords: string[];
   };
 };
-
 
 export type DateRange = {
   start: Date;
