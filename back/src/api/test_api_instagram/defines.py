@@ -6,8 +6,8 @@ def getCreds():
     creds = dict()
 
     creds['access_token'] = ''
-    creds['client_id'] = '1433168140843709'
-    creds['client_secret'] = '3adaa1565c11f23e46bbc3a3c328b21a'
+    creds['client_id'] = ''
+    creds['client_secret'] = ''
     creds['graph_domain'] = 'https://graph.facebook.com/'
     creds['graph_version'] = 'v16.0'
     creds['endpoint_base'] = creds['graph_domain'] + creds['graph_version'] + '/'
