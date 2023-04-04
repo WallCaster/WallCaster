@@ -1,29 +1,46 @@
-# Risks encountered and countermeasure to mitigate
+# Risks encountered and countermeasures to mitigate
 
-During the sprint 0, we didn't really know how to work with the configuration of the raspberry, both to connect to the wifi and to open the web browser in fullscreen.
+During sprint 0, we didn't know how to work with the configuration of the raspberry, both to connect to the wifi and to open the web browser in fullscreen.
 Being able to test would have helped to complete the analysis report, for the system sequence diagram.
 
 # Lessons learned, best practices
 
-## Rétrospective (02/14/2023)
+## Retrospective (02/14/2023) - End of sprint 1
 
---- :
+`The good points :`
 
-Intégration des filtres compliqués juste avant la fin.
-La fusion du travail de chaque personne a été plus compliquée que prévue, mauvaise estimation du temps.
+- Final product finished in time with most of the wanted features.
+- Good estimation of the time needed for each task.
+- Use of docker to facilitate development.
+- Roles well defined (each person always had something to do)
 
+`The bad points :`
 
-+++ :
+- Integration of the complicated filters just before the end.
+- The merge of the work of each person was more complicated than expected, bad estimation of time.
 
-Produit fini dans les temps avec la majorité des fonctionnalités voulues.
-Bonne estimation du temps de travail pour chacun.
-Utilisation de docker pour faciliter le développement.
-Rôles bien définis (chaque personne avait toujours quelque chose à faire)
+`The neutral points :`
 
-Neutre :
+- Reorganisation of the project architecture (moving the filter part to an external Python project) after talking with the products owners.
 
-Réorganisation de l'architecture du projet (déplacement de la partie filtre dans un projet externe en Python) après conversation avec les products owners.
+`Areas for improvement :`
 
-Points importants à retenir :
+- Be more careful and better anticipate the time of fusion of the works.
 
-- Etre plus prévoyant, mieux anticiper les temps de fusion de chaque travail.
+## Retrospective (03/28/2023) - End of sprint 2
+
+`The good points :`
+
+- We finished the sprint in time and the demo was a success.
+
+`The bad points :`
+
+- We previously planned to finish this sprint in 5 weeks but we finished it in about 3 weeks. We did not planned the time well and finished early. That is why we had to added some extra features.
+
+`Areas for improvement :`
+
+- We had to rethink the AI filter and decided to scrap it for a new a more performant filter for the next sprint.
+
+- This led to a lot of work in the last week since everything had to be done in a short time for the demo of the product (like the photo implementation).
+
+- We have to be more careful with the time estimation for the future sprints. After brainstorming with the full team, we think that this bad estimation of time is due to a bad estimation of the difficulty of the tasks and so the time needed to do them. Also, in the last sprint, we spend a lot of time on the merge of the work of each person. But this time it has been not as bad as the previous one. So, to improve this, we have to think more about the time needed for each task and not overestimate the merge time.

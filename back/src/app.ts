@@ -5,7 +5,7 @@ import configManager from './config';
 import { filterPost } from './filtering';
 import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
-import { writeFileSync } from 'fs';
+import { writeFileSync, readdirSync, readFile } from 'fs';
 import { join } from 'path';
 
 export class App {
@@ -17,7 +17,7 @@ export class App {
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
-  private images: File[] = [];
+  private images: Buffer[] = [];
 
   constructor() {
     this.socket = new SocketServer(this);
@@ -38,18 +38,27 @@ export class App {
     if (this.rotationInterval) clearInterval(this.rotationInterval);
     this.rotationInterval = setInterval(() => {
       for (let room of this.socket.getRoomsIds()) {
+
+        const files = readdirSync("assets")
+
+        // Calcul the ratio between the cache and the images to define the probability to send a post or an image
         const random = Math.random();
-        if(random < 0.5) {
+        let p : Number = Number(this.cache.length / (this.cache.length + files.length));
+
+        if(random < p) {
           const post = this.getNextPost();
           if (post) this.socket.sendPostToRoom(room, post);
         }
         else {
-          if(this.images.length > 0) {
-            this.socket.sendPostToRoom(room, this.images[0]);
+
+          if(files.length > 0) {
+            const chosenFile = files[Math.floor(Math.random() * files.length)] 
+  
+            const path = "assets/" + chosenFile;
+            this.socket.sendImageToRoom(room, path)
           } else {
             console.log('aucune image enregistrée')
           }
-          
         }
       }
     }, configManager.config.rotationInterval * 1000);
@@ -64,15 +73,21 @@ export class App {
         this.posts_ids.add(post.id);
         const filterData: FilterData = await filterPost(post);
 
-        this.writeInLogsFile('logs.log', { ...post, ...filterData });
+        // Write logs in a log.json file
+        this.writeInLogsFile('logs.json', { ...post, ...filterData });
 
-        if(filterData.passedBanwords === false || filterData.passedImages === false || filterData.passedSentiment === false){
-          this.trash.push({ ...post, ...filterData });
-        }else{
+        if (
+          filterData.passedBanwords === false ||
+          filterData.passedImages === false ||
+          filterData.passedSentiment === false
+        ) {
+          this.trash.unshift({ ...post, ...filterData });
+        } else {
           this.cache.unshift({ ...post, ...filterData });
         }
 
         this.clampCache();
+        this.clampTrash();
         this.socket.sendCacheToAdmin();
       }
     });
@@ -86,8 +101,9 @@ export class App {
     return this.trash;
   }
 
+  // Method to write logs in a file
   public writeInLogsFile(filename: string, logs: any) {
-    writeFileSync(join(filename), JSON.stringify(logs), {
+    writeFileSync(join(filename), JSON.stringify(logs)+"\n", {
       flag: 'a+',
     });
   }
@@ -103,6 +119,7 @@ export class App {
       this.cache.splice(0, 1);
       this.cache.push(post);
       this.clampCache();
+      this.clampTrash();
       this.socket.sendCacheToAdmin();
       return post;
     }
@@ -149,8 +166,32 @@ export class App {
     }
   }
 
-  public addImages(images: File[]) {
-    this.images.push(...images);
+  public clearTrash() {
+    this.trash = [];
+    this.socket.sendCacheToAdmin();
   }
+
+  public addImages(image: Buffer) {
+    this.images.push(image)
+    // this.images.push(...images);
+  }
+
+  public saveImageToDisk(image: Buffer) {
+    const randomFileName = "assets/photo_" + Date.now() + ".png";
+    writeFileSync(randomFileName, image);
+  }
+
+  public dataURLtoFile(dataurl: string, filename: string): File {
+    const arr = dataurl.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  }
+  
 
 }

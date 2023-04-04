@@ -2,6 +2,7 @@ import * as io from 'socket.io';
 import { App } from './app';
 import configManager, { Config } from './config';
 import { Post } from './post';
+import { readFile } from 'fs';
 
 const LISTENING_PORT = 3001;
 
@@ -67,9 +68,28 @@ export class SocketServer {
       this.app.removeDefinitively(id);
     });
 
-    socket.on('setImage', (images: File[]) => {
-      this.app.addImages(images);
-    })
+    socket.on('restore', (id: string) => {
+      this.app.restoreFromTrash(id);
+    });
+
+    socket.on('clearTrash', () => {
+      this.app.clearTrash();
+    });
+
+    socket.on('restore', (id: string) => {
+      this.app.restoreFromTrash(id);
+    });
+
+    socket.on('clearTrash', () => {
+      this.app.clearTrash();
+    });
+
+    socket.on('setImages', (image) => {
+      if(image !== undefined) {
+        this.app.addImages(image);
+        this.app.saveImageToDisk(image);
+      }
+    })    
 
     console.log('new client connected');
   }
@@ -102,9 +122,16 @@ export class SocketServer {
     });
   }
 
-  public sendPostToRoom(room: string, post: Post | File) {
-    // console.log('sending post to room ' + room + ' : ' + post.id);
+  public sendPostToRoom(room: string, post: Post) {
+    console.log('sending post to room ' + room + ' : ' + post.id);
     this.server.to(room).emit('post', post);
+  }
+
+  public sendImageToRoom(room: string, path: string) {
+    readFile(path, (err, buffer) =>{
+      console.log('sending image to room ' + room + ' : ' + path);
+      this.server.to(room).emit('image', buffer.toString('base64'));
+    });
   }
 
   public getNumberOfClients(): number {
