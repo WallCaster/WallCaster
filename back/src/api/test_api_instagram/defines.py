@@ -5,7 +5,7 @@ def getCreds():
 
     creds = dict()
 
-    creds['access_token'] = 'EAAUXdXXwOr0BAHogfgTtV5zMYHMhUJLWmEuUYdnf4lYcp5tvk0LRCexrU9jF1ySPl3MdrL2ZCdTAZCALxgvf0SnaiCwZBLGx4AchQjyiMyPkAZBBtsgCrLhl5NZBDkdEyYtUt8LeyL2QGbtAIMklH2PHdwV3kfxulMNgNGsmmxDCm2ZAc48nwZC54xZApecW4BimcbuHs8Qbcb3pBciEDZBSyw8R0qtonofgZD'
+    creds['access_token'] = ''
     creds['client_id'] = '1433168140843709'
     creds['client_secret'] = '3adaa1565c11f23e46bbc3a3c328b21a'
     creds['graph_domain'] = 'https://graph.facebook.com/'
