@@ -26,8 +26,8 @@ export const App = () => {
     originUrl: 'https://twitter.com/johndoe/status/1',
   };
 
-  const [post, setPost] = useState<Post | HTMLImageElement | null>(null);
-  const [nextPost, setNextPost] = useState<Post | HTMLImageElement | null>(null);
+  const [post, setPost] = useState<Post | string | null>(null);
+  const [nextPost, setNextPost] = useState<Post | string | null>(null);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   let [isShowing, setIsShowing] = useState(true);
   let [, , resetIsShowing] = useTimeoutFn(() => setIsShowing(true), 400);
@@ -35,18 +35,12 @@ export const App = () => {
     socket.on('post', (p) => {
       updatePost(p);
     });
-
-    socket.on('image', (info) => {
-      if(info.image) {
-        const img = new Image()
-        img.src = 'data:image/png;base64,' + info.buffer;
-        updatePost(img)
-      }
+    socket.on('image', (image) => {
+      updatePost('data:image/png;base64,' + image);
     });
-    
   });
 
-  function updatePost(p: Post | HTMLImageElement) {
+  function updatePost(p: Post | string) {
     setNextPost(p);
     setIsShowing(false);
     resetIsShowing();
@@ -58,7 +52,6 @@ export const App = () => {
       setNextPost(null);
     }
   }, [post, nextPost]);
-
 
   if (socket == null) {
     return (
@@ -74,15 +67,16 @@ export const App = () => {
       </div>
     );
   }
+
   return (
     <div className='relative h-full overflow-hidden'>
-      {
-        (post instanceof HTMLImageElement) ? (
-          <img src={post.src} alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110' />
-        ) : (
-          <img src='/abstract.webp' alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110' />
-        )
-      }
+      
+        <img
+          src={post as string}
+          alt=''
+          className={`object-cover absolute h-full w-full  -z-10 blur-xl brightness-50 scale-110 duration-500 transition-all ${typeof post === 'string'  ? "opacity-100" : "opacity-0" }`}
+        />
+        <img src='/abstract.webp' alt='' className='object-cover absolute h-full w-full brightness-75 -z-20 blur-xl scale-110' />
       <div className='h-full px-16 py-14 flex items-center justify-center'>
         {post && (
           <Transition
@@ -99,18 +93,16 @@ export const App = () => {
               setNextPost(null);
             }}
           >
-
-      
-      {(post instanceof HTMLImageElement) ? (
-        <div
-          className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
-          style={{ height: '90vh', maxWidth: '90vw' }}>
-          <img src={post.src} className='h-full w-full' />
-        </div>
-        
-      ) : (
-        <PostCard post={post} className='rounded-3xl shadow-2xl' />
-      )}            
+            {typeof post === 'string' ? (
+              <div
+                className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
+                style={{ height: '90vh', maxWidth: '90vw' }}
+              >
+                <img src={post as string} className='h-full w-full' />
+              </div>
+            ) : (
+              <PostCard post={post} className='rounded-3xl shadow-2xl' />
+            )}
           </Transition>
         )}
         {/* <button
