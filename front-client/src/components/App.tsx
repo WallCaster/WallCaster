@@ -4,7 +4,10 @@ import { useTimeoutFn } from 'react-use';
 import useSocket from '../../hooks/useSocket';
 import type { Post } from '../types/post';
 import { PostCard } from './PostCard';
+import { QRCodeDisplayer } from '../components/QRcode';
+
 export const App = () => {
+
   const placeholder: Post = {
     id: '1',
     api: 'twitter',
@@ -59,7 +62,6 @@ export const App = () => {
     }
   }, [post, nextPost]);
 
-
   if (socket == null) {
     return (
       <div className='flex flex-col h-full bg-red-200 p-20 gap-5 text-red-800'>
@@ -100,14 +102,17 @@ export const App = () => {
             }}
           >
 
-      
       {(post instanceof HTMLImageElement) ? (
+        <>
         <div
           className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
           style={{ height: '90vh', maxWidth: '90vw' }}>
           <img src={post.src} className='h-full w-full' />
         </div>
-        
+        <div className='absolute right-0 bottom-0 rounded-tl-lg overflow-hidden'>
+          <QRCodeDisplayer/>
+        </div>
+            </>
       ) : (
         <PostCard post={post} className='rounded-3xl shadow-2xl' />
       )}            
