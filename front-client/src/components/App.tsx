@@ -29,8 +29,8 @@ export const App = () => {
     originUrl: 'https://twitter.com/johndoe/status/1',
   };
 
-  const [post, setPost] = useState<Post | HTMLImageElement | null>(null);
-  const [nextPost, setNextPost] = useState<Post | HTMLImageElement | null>(null);
+  const [post, setPost] = useState<Post | string | null>(null);
+  const [nextPost, setNextPost] = useState<Post | string | null>(null);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   let [isShowing, setIsShowing] = useState(true);
   let [, , resetIsShowing] = useTimeoutFn(() => setIsShowing(true), 400);
@@ -38,18 +38,12 @@ export const App = () => {
     socket.on('post', (p) => {
       updatePost(p);
     });
-
-    socket.on('image', (info) => {
-      if(info.image) {
-        const img = new Image()
-        img.src = 'data:image/png;base64,' + info.buffer;
-        updatePost(img)
-      }
+    socket.on('image', (image) => {
+      updatePost('data:image/png;base64,' + image);
     });
-    
   });
 
-  function updatePost(p: Post | HTMLImageElement) {
+  function updatePost(p: Post | string) {
     setNextPost(p);
     setIsShowing(false);
     resetIsShowing();
@@ -76,46 +70,47 @@ export const App = () => {
       </div>
     );
   }
+
   return (
     <div className='relative h-full overflow-hidden'>
-      {
-        (post instanceof HTMLImageElement) ? (
-          <img src={post.src} alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110' />
-        ) : (
-          <img src='/abstract.webp' alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110' />
-        )
-      }
+      
+        <img
+          src={post as string}
+          alt=''
+          className={`object-cover absolute h-full w-full  -z-10 blur-xl brightness-50 scale-110 duration-500 transition-all ${typeof post === 'string'  ? "opacity-100" : "opacity-0" }`}
+        />
+        <img src='/abstract.webp' alt='' className='object-cover absolute h-full w-full brightness-75 -z-20 blur-xl scale-110' />
       <div className='h-full px-16 py-14 flex items-center justify-center'>
         {post && (
           <Transition
             appear
             show={isShowing}
-            enter='transform transition duration-[500ms]'
-            enterFrom='opacity-0 rotate-[40deg] scale-50 translate-x-[50vw] -translate-y-32'
+            enter='transform transition duration-[500ms] ease-[cubic-bezier(.52,.01,.51,1.01)]'
+            enterFrom='opacity-0 -rotate-[40deg] scale-50 translate-x-[40vw] -translate-y-32'
             enterTo='opacity-100 rotate-0 scale-100'
-            leave='transform duration-[300ms] transition ease-[cubic-bezier(.6,-0.46,.63,.75)]'
+            leave='transform duration-[300ms] transition ease-[cubic-bezier(.52,.01,.51,1.01)]'
             leaveFrom='opacity-100 rotate-0 scale-100 '
-            leaveTo='opacity-0 rotate-[-40deg] scale-50 -translate-x-[50vw] -translate-y-32'
+            leaveTo='opacity-0 rotate-[-40deg] scale-50 -translate-x-[40vw] translate-y-32'
             afterLeave={() => {
               setPost(nextPost);
               setNextPost(null);
             }}
           >
-
-      {(post instanceof HTMLImageElement) ? (
-        <>
-        <div
-          className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
-          style={{ height: '90vh', maxWidth: '90vw' }}>
-          <img src={post.src} className='h-full w-full' />
-        </div>
-        <div className='absolute right-0 bottom-0 rounded-tl-lg overflow-hidden'>
-          <QRCodeDisplayer/>
-        </div>
-            </>
-      ) : (
-        <PostCard post={post} className='rounded-3xl shadow-2xl' />
-      )}            
+            {typeof post === 'string' ? (
+              <>
+                <div
+                  className={`flex flex-col bg-white overflow-hidden relative rounded-3xl shadow-2xl`}
+                  style={{ height: '90vh', maxWidth: '90vw' }}
+                >
+                  <img src={post as string} className='h-full w-full' />
+                </div>
+                <div className='absolute right-0 bottom-0 rounded-tl-lg overflow-hidden'>
+                  <QRCodeDisplayer/>
+                </div>
+              </>
+            ) : (
+              <PostCard post={post} className='rounded-3xl shadow-2xl' />
+            )}
           </Transition>
         )}
         {/* <button

@@ -1,4 +1,5 @@
 import { Post, ApiName } from '../types/post';
+import { formatTwitterToHtml } from '../utils/formatHelper';
 import MdiTwitter from './icons/MdiTwitter';
 
 export const PostCard = ({ post, className }: { post: Post; className?: string }) => {
@@ -43,7 +44,10 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
         </div>
       </div>
       <div className='flex flex-col gap-4 h-full'>
-        <p className='text-2xl'>{post.content.text}</p>
+        <p
+          className='text-2xl whitespace-pre-wrap'
+          dangerouslySetInnerHTML={{ __html: formatTwitterToHtml(post.content.text) }}
+        ></p>
         <div className='text-gray-600 text-lg'>{time + ' · ' + date}</div>
         <div className='flex gap-5 border-t flex-wrap pt-4'>
           <p>
@@ -74,15 +78,7 @@ const TwitterPostWithImagesCard = ({ post, className }: { post: Post; className?
     new Date(post.date),
   );
 
-  const retweets = Math.round(Math.random() * 10000);
-  const quoteTweets = Math.round(Math.random() * 1000);
-  const likes = Math.round(Math.random() * 1000);
-
   let images = post.content.images!;
-  // set to 3 images max
-  // if (images.length > 2) images = images.slice(0, 2);
-  // if (images.length > 3) images = images.slice(0, 3);
-  // if (images.length > 1) images = images.slice(0, 1);
 
   return (
     <div
@@ -100,7 +96,10 @@ const TwitterPostWithImagesCard = ({ post, className }: { post: Post; className?
             <p className='text-gray-600'>{post.author.username}</p>
           </div>
         </div>
-        <p className='text-2xl'>{post.content.text}</p>
+        <p
+          className='text-2xl whitespace-pre-wrap'
+          dangerouslySetInnerHTML={{ __html: formatTwitterToHtml(post.content.text) }}
+        ></p>
         <div className='m-auto shrink'></div>
         <div className='text-gray-600 text-lg shrink-0'>{time + ' · ' + date}</div>
       </div>
