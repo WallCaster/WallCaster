@@ -78,7 +78,7 @@ export const App = () => {
     <div className='relative h-full overflow-hidden'>
       {
         (post instanceof HTMLImageElement) ? (
-          <img src={post.src} alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110' />
+          <img src={post.src} alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110 brightness-50' />
         ) : (
           <img src='/abstract.webp' alt='' className='object-cover absolute h-full w-full -z-10 blur-lg scale-110' />
         )
