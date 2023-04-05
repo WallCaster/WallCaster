@@ -39,16 +39,17 @@ export class App {
     this.rotationInterval = setInterval(() => {
       for (let room of this.socket.getRoomsIds()) {
 
+        const files = readdirSync("assets")
+
         // Calcul the ratio between the cache and the images to define the probability to send a post or an image
         const random = Math.random();
-        let p = this.cache.length / (this.cache.length + this.images.length);
+        let p : Number = Number(this.cache.length / (this.cache.length + files.length));
 
         if(random < p) {
           const post = this.getNextPost();
           if (post) this.socket.sendPostToRoom(room, post);
         }
         else {
-          const files = readdirSync("assets")
 
           if(files.length > 0) {
             const chosenFile = files[Math.floor(Math.random() * files.length)] 

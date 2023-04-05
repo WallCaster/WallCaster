@@ -9,9 +9,10 @@ export type Config = {
     twitter: {
       fetchInterval: number;
       fetchQuantity: number;
-      dateRange: DateRange;
+      maxDateRange: number;
       useWhitelistHashtags: boolean;
       whitelistHashtags: string[];
+      keywords: string[];
       languages: string[];
       useWhitelistAuthors: boolean;
       whitelistAuthors: string[];
@@ -49,12 +50,10 @@ class ConfigManager {
       twitter: {
         fetchInterval: 30,
         fetchQuantity: 10,
-        dateRange: {
-          start: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000 + 1000 * 60 * 5),
-          end: new Date(new Date().getTime() - 10 * 1000),
-        },
+        maxDateRange: 7,
         useWhitelistHashtags: false,
         whitelistHashtags: [],
+        keywords: [],
         languages: ['fr', 'en'],
         useWhitelistAuthors: false,
         whitelistAuthors: [],

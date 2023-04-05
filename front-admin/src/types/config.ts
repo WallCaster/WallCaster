@@ -7,9 +7,11 @@ export type Config = {
     twitter: {
       fetchInterval: number;
       fetchQuantity: number;
-      dateRange: DateRange;
+      maxDateRange: number;
       useWhitelistHashtags: boolean;
       whitelistHashtags: string[];
+      keywords: string[];
+      languages: string[];
       useWhitelistAuthors: boolean;
       whitelistAuthors: string[];
     };
@@ -17,7 +19,7 @@ export type Config = {
     random: {
       fetchInterval: number;
     };
-  };
+  };  
   filter: {
     useSentiment: boolean;
     useBanwords: boolean;

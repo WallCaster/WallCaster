@@ -30,8 +30,8 @@ The sprint review and the retrospective will allow us to check our progress and 
 - [x] As an administrator, I can select the interval of time between two queries to the Twitter API.
 - [x] As an administrator, I can select the rotation interval of posts on the screen.
 - [x] As an administrator, I can choose to apply a filter (English sentiment filter) on the posts to display.
-- [x] As a viewer, I can see on displays, posts coming from Twitter that rotate at a given interval.
 - [ ] As an administrator, I can choose to allow picture broadcasts.
+- [x] As a viewer, I can see on displays, posts coming from Twitter that rotate at a given interval.
 
 Sprint 1 ends Tuesday **02/14/2023.**
 
@@ -41,12 +41,28 @@ Sprint 1 ends Tuesday **02/14/2023.**
 
 ## Expected Outcome
 
-- [ ] As an administrator, I can apply filters on the fetched posts. (2h)
-- [ ] As an administrator, I can choose a new filter (list of banned words). (10h)
-- [ ] As an administrator, I can see a log of all the posts fetched by the system. (5h)
-- [ ] As a viewer, I can see posts with photos or videos on the screen. (3h)
-- [ ] As an administrator, I can delete in the admin panel posts already present in the system (which have gone through filters). (1h)
-- [ ] As an administrator, I can add pictures to the system thanks to a USB device or a remote server.
-- [ ] As an administrator, I can select the language I want the system to use to fetch posts in the admin panel.
+- [x] As an administrator, I can apply filters on the fetched posts. (2h)
+- [x] As an administrator, I can choose a new filter (list of banned words). (10h)
+- [x] As an administrator, I can see a log of all the posts fetched by the system. (5h)
+- [x] As an administrator, I can delete in the admin panel posts already present in the system (which have gone through filters). (1h)
+- [x] As an administrator, I can add pictures to the system thanks to a USB device or a remote server.
+- [x] As an administrator, I can select the language I want the system to use to fetch posts in the admin panel.
+- [x] As a viewer, I can see posts with photos or videos on the screen. (3h)
 
 Sprint 1 ends Tuesday **03/28/2023.**
+
+# Sprint 3
+
+ 
+
+## Expected Outcome
+
+- [ ] As an admin, I can select different groups of screens in order that they do not display the same content.
+- [ ] As an admin, I can choose to fetch contents from Instagram.
+- [ ] As an admin, I can set up and deploy the system easily thanks to well-written documentation 
+- [ ] As an admin, I can filter social networks' content thanks to a enhanced filter (sentiment one)
+- [ ] As an admin, I can connect the system to each screen thanks a Raspberry Pi (one for each screen).
+- [ ] As an admin, I can can search the Twitter posts with some keywords.
+- [ ] As a spectator, I can scan a QR code on the screen with my smartphone to have the same display in my favorite web browser.
+
+Sprint 3 ends Tuesday **04/18/2023 or 05/02/2023** `A DETERMINER !!!!!!!!!!!!!!!!`

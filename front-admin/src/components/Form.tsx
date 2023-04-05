@@ -22,16 +22,12 @@ import {
   RssIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
-import type { FilterData, Post } from '../types/post';
-import CacheCard from './CacheCard';
-import ChangeIndicator from './ChangeIndicator';
 import Checkbox from './Checkbox';
 import { FormComponent } from './FormComponent';
 import Input from './Input';
 import InputTags from './InputTags';
-import { LiveFeed } from './LiveFeed';
 
 const navigation = [
   { name: 'Live Feed', href: '#feed', icon: RssIcon, current: false },
@@ -240,6 +236,25 @@ export default function AdminForm({
                   })
                 }
               />
+              <InputTags
+                className='col-span-3'
+                id='keywords'
+                label='Search keywords'
+                prefix=''
+                value={temp.query.twitter.keywords}
+                setValue={(s) =>
+                  setTemp({
+                    ...temp,
+                    query: {
+                      ...temp.query,
+                      twitter: {
+                        ...temp.query.twitter,
+                        keywords: s,
+                      },
+                    },
+                  })
+                }
+              />
               <Input
                 className='col-span-1'
                 id='fetchInterval'
@@ -282,9 +297,9 @@ export default function AdminForm({
               />
               <Input
                 className='col-span-1'
-                id='dateFrom'
-                label='Date from'
-                value={temp.query.twitter.dateRange.start}
+                id='dateMax'
+                label='Date range (max 7 days)'
+                value={temp.query.twitter.maxDateRange}
                 setValue={(s) =>
                   setTemp({
                     ...temp,
@@ -292,31 +307,22 @@ export default function AdminForm({
                       ...temp.query,
                       twitter: {
                         ...temp.query.twitter,
-                        dateRange: { ...temp.query.twitter.dateRange, start: new Date(s) },
+                        maxDateRange: parseInt(s),
                       },
                     },
                   })
                 }
-                type='date'
+                args={{ min: 1, max: 7 }}
+                type='number'
               />
-              <Input
-                className='col-span-1'
-                id='dateTo'
-                label='Date to'
-                value={temp.query.twitter.dateRange.end}
+              <InputTags
+                className='col-span-3'
+                id='languages'
+                label='Accepted languages : fr, en, es, etc... (keep empty for all)'
+                value={temp.query.twitter.languages}
                 setValue={(s) =>
-                  setTemp({
-                    ...temp,
-                    query: {
-                      ...temp.query,
-                      twitter: {
-                        ...temp.query.twitter,
-                        dateRange: { ...temp.query.twitter.dateRange, end: new Date(s) },
-                      },
-                    },
-                  })
+                  setTemp({ ...temp, query: { ...temp.query, twitter: { ...temp.query.twitter, languages: s } } })
                 }
-                type='date'
               />
             </div>
           </FormComponent>
