@@ -100,6 +100,10 @@ export default function AdminForm({
       ...imagesTemp.slice(index + 1)
     ]);
   }
+
+  function deleteAllImages() {
+    setImagesTemp([]);
+  }
   
 
   return (
@@ -372,14 +376,26 @@ export default function AdminForm({
             hasChanges={hasChanges}
             description='List of photos to display on screen.'
           >
-            <input
-              type='file'
-              multiple
-              id='add_photos'
-              name='add_photos'
-              accept='image/*'
-              onChange={handleImageUpload}
-            ></input>
+            
+
+            <div className='flex justify-between'>
+              <input
+                type='file'
+                multiple
+                id='add_photos'
+                name='add_photos'
+                accept='image/*'
+                onChange={handleImageUpload}
+              ></input>
+
+              <button
+                type='button'
+                className='p-3 rounded-md bg-red-100 hover:bg-red-200 gap-2 active:bg-red-300 font-semibold text-red-800 text-xs flex items-center'
+                onClick={() => deleteAllImages()}
+              >
+                Delete all photos
+              </button>
+            </div>
 
 
             <div className='flex overflow-x-auto'>
