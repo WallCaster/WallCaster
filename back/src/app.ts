@@ -5,7 +5,7 @@ import configManager from './config';
 import { filterPost } from './filtering';
 import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
-import { writeFileSync, readdirSync, readFile } from 'fs';
+import { writeFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 export class App {
@@ -175,9 +175,12 @@ export class App {
     // this.images.push(...images);
   }
 
-  public saveImageToDisk(image: Buffer) {
-    const randomFileName = "assets/photo_" + Date.now() + ".png";
-    writeFileSync(randomFileName, image);
+  public saveImageToDisk(images: Buffer[]) {
+    for(var i=0; i<images.length; i++){
+      const random = Math.floor(Math.random() * (99 - 1 + 1) + 1);
+      const randomFileName = "assets/photo_" + Date.now() + random + ".png";
+      writeFileSync(randomFileName, images[i]);
+    }
   }
 
   public dataURLtoFile(dataurl: string, filename: string): File {

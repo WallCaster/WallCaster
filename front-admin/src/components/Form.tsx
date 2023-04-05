@@ -20,6 +20,7 @@ import {
   FunnelIcon,
   PhotoIcon,
   RssIcon,
+  XMarkIcon
 } from '@heroicons/react/24/outline';
 import { ChangeEvent, useEffect, useState } from 'react';
 import type { Config } from '../types/config';
@@ -53,18 +54,19 @@ export default function AdminForm({
 }: {
   config: Config;
   setConfig: (config: Config) => void;
-  images: FileList | undefined;
-  setImages: (images: FileList | undefined) => void;
+  images: File[];
+  setImages: (images: File[]) => void;
   onCancel: () => void;
 }) {
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
-  const [imagesTemp, setImagesTemp] = useState<FileList>();
-  const [imageTabTemp, setImagesTabTemp] = useState<File[]>();
+  const [imagesTemp, setImagesTemp] = useState<File[]>([]);
+  // const [imagesUploaded, setImagesUploaded] = useState<File[]>([]);
 
   useEffect(() => {
     setTemp(config);
-  }, [config]);
+    setImagesTemp(images)
+  }, [config, images]);
 
   useEffect(() => {
     if (hasChanges && JSON.stringify(temp) === JSON.stringify(config) && imagesTemp?.length === images?.length) {
@@ -74,21 +76,30 @@ export default function AdminForm({
     } else if (!hasChanges && imagesTemp?.length !== images?.length) {
       setHasChanges(true);
     }
-  }, [temp, config, imagesTemp]);
+  }, [temp, config, images, imagesTemp]);
 
   function onSubmit() {
     setConfig(temp);
     setImages(imagesTemp);
+    console.log("imagesTemp.length = " + imagesTemp.length);
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      setImagesTemp(files);
       const fileList = Array.from(files);
-      setImagesTabTemp(fileList)
+
+      setImagesTemp(previousFileList => [...previousFileList, ...fileList]);
+      // setImagesUploaded(fileList)
     }
   }; 
+
+  function deleteImage(index : number) {
+    setImagesTemp([
+      ...imagesTemp.slice(0, index),
+      ...imagesTemp.slice(index + 1)
+    ]);
+  }
   
 
   return (
@@ -369,15 +380,27 @@ export default function AdminForm({
               accept='image/*'
               onChange={handleImageUpload}
             ></input>
+
+
             <div className='flex overflow-x-auto'>
-              {(imageTabTemp !== undefined) && imageTabTemp.map((image, index) => (
-                <img
-                  key={index}
-                  src={URL.createObjectURL(image)}
-                  alt={`Image ${index}`}
-                  style={{ margin: '2px', minWidth: 'auto', maxHeight: '200px' }}
-                />
-              ))}
+              <div style={{ whiteSpace: 'nowrap' }}>
+                {(imagesTemp !== undefined) && imagesTemp.map((image, index) => (
+                  <div className='relative m-0.5' style={{ display: 'inline-block'}}>
+                    <button
+                      type='button'
+                      className='absolute top-0 right-0 m-0.5 p-2 text-gray-900 hover:bg-red-300 opacity-75 rounded-lg'
+                      onClick={() => deleteImage(index)}
+                      title='Delete photo'>
+                      <XMarkIcon className='h-6 w-6'></XMarkIcon>
+                    </button>
+                    <img
+                      key={index}
+                      src={URL.createObjectURL(image)}
+                      alt={`Image ${index}`}
+                      className='max-h-40'/>
+                  </div>
+                ))}
+              </div>
             </div>
           </FormComponent>
         </div>

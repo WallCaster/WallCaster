@@ -12,13 +12,13 @@ const AdminPage = () => {
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   const [cache, setCache] = useState<(Post & FilterData)[]>([]);
   const [trash, setTrash] = useState<(Post & FilterData)[]>([]);
-  const [images, setImages] = useState<FileList | undefined>();
+  const [images, setImages] = useState<File[]>([]);
 
   const socket = useSocket(serverIp, (socket) => {
     socket.on('connect', () => {
       socket.emit('getConfig');
       socket.emit('setadmin');
-      socket.emit('setImages');
+      socket.emit('getImages');
     });
     socket.on('cache', (cache: (Post & FilterData)[]) => {
       setCache(cache);
@@ -32,9 +32,30 @@ const AdminPage = () => {
       setConfig(config);
     });
 
-    socket.on('images', (images: FileList) => {
-      setImages(images);
+
+    // socket.on('images', (info) => {
+    //   if(info.image) {
+    //     const randomFileName = "assets/photo_" + Date.now() + ".png";
+    //     const file = dataURItoFile(info.buffer, randomFileName);
+    //     console.log("récupération images depuis le back : " + file);
+    //     // setImages(prevImages => [...prevImages, file]);
+    //     setImages(file);
+    //   }
+    // });
+
+    socket.on('images', (info) => {
+      if (info.images) {
+        const files = info.buffers.map((buffer: string) => {
+          const randomFileName = "assets/photo_" + Date.now() + ".png";
+          return dataURItoFile(buffer, randomFileName);
+        });
+        console.log("récupération images depuis le back : ", files);
+        // setImages(prevImages => [...prevImages, ...files]);
+        setImages(files);
+      }
     });
+    
+
   });
 
   function getConfig() {
@@ -73,17 +94,42 @@ const AdminPage = () => {
     console.log('Clearing trash');
     socket.emit('clearTrash');
   }
-  
-  function sendImages(images: FileList | undefined) {
-    if (!socket) return;
-    // const imageUrls = await convertFilesToDataUrls(images);
-    // socket.emit('setImages', images);
 
-    if(images !== undefined) {
-      for (let i = 0; i < images.length; i++) {
-        socket.emit("setImages", images[i]);
-      }
+  function getImages() {
+    if (!socket) return;
+    console.log('Asking for images');
+    socket.emit('getImages');
+  }
+  
+  // function sendImages(images: File[]) {
+  //   if (!socket) return;
+
+  //   for (let i = 0; i < images.length; i++) {
+  //     socket.emit("setImages", images[i]);
+  //   }
+  // }
+
+  function sendImages(images: File[]) {
+    console.log("send images...")
+    if (!socket) return;
+    console.log('Sending images');
+    console.log("envoie d'images au back, images.length = " + images.length)
+    socket.emit("setImages", images);
+  }
+
+  function dataURItoFile(dataURI: string, fileName: string): File {
+    // Convertir la chaîne base64 en blob
+    const byteString = atob(dataURI);
+    const mimeString = "image/jpeg";
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      uint8Array[i] = byteString.charCodeAt(i);
     }
+    const blob = new Blob([arrayBuffer], { type: mimeString });
+  
+    // Créer et retourner l'objet File
+    return new File([blob], fileName, { type: mimeString });
   }
   
 
@@ -125,7 +171,7 @@ const AdminPage = () => {
           onClick={() => {
             setServerIp('http://localhost:3001!');
             setConfig(null);
-            setImages(undefined);
+            setImages([]);
           }}
           title='Disconnect'
         >
@@ -151,7 +197,7 @@ const AdminPage = () => {
       <AdminForm
         config={config}
         setConfig={(c) => sendConfig(c)}
-        onCancel={() => getConfig()}
+        onCancel={() => {getConfig(); getImages()}}
         images={images}
         setImages={(i) => sendImages(i)}
       />
