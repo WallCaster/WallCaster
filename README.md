@@ -33,6 +33,14 @@
 
 - Docker-compose
 - Docker
+- Twitter API key (if you want to use the twitter query)
+
+To set the API key for the Twitter query, you need to create a `.env` file in the root folder of the project with the following content:
+
+```bash
+# .env
+API_KEY_TWITTER="YOUR_API_KEY"
+```
 
 ## 2. Start the server
 
