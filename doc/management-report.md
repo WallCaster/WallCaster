@@ -170,4 +170,9 @@ Comme le sprint va être fini en avance (de deux semaines), il est important pen
 - Faire fichiers de configuration et de déploiement pour Romain (il fera les tests en interne) et vite.
 - Si panne et besoin de relancer, il faut voir si tout se relance correctement.
 
+### 04/11/2023 with Benoît COMBEMALE
+
+- Fin du sprint le 18/04/2023
+- Faire le point avec Romain LEFEUVRE (romain.lefeuvre@inria.fr) pour le readme et la mise en place des Raspberry Pi.
+
 # Description et gestion des exigences

@@ -25,6 +25,7 @@ export type Config = {
   filter: {
     useSentiment: boolean;
     useBanwords: boolean;
+    useNsfw: boolean;
     useBlockImages: boolean;
     forbiddenWords: string[];
   };
@@ -66,6 +67,7 @@ class ConfigManager {
     filter: {
       useSentiment: false,
       useBanwords: false,
+      useNsfw: false,
       useBlockImages: false,
       forbiddenWords: [],
     },
