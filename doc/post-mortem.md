@@ -45,7 +45,7 @@ Being able to test would have helped to complete the analysis report, for the sy
 
 - We have to be more careful with the time estimation for the future sprints. After brainstorming with the full team, we think that this bad estimation of time is due to a bad estimation of the difficulty of the tasks and so the time needed to do them. Also, in the last sprint, we spend a lot of time on the merge of the work of each person. But this time it has been not as bad as the previous one. So, to improve this, we have to think more about the time needed for each task and not overestimate the merge time.
 
-## Retrospective (DATE TO ADD WHEN THE END WILL BE KNOW) - End of sprint 3
+## Retrospective (04/18/2022) - End of sprint 3
 
 Il était exprimé dans le cahier des charges que l'utilisateur puisse choisir de récupérer du contenu d'Instagram (des posts) suivant des hashtags qu'il aurait donnés.
 En se rendant sur le site développeur de [Meta](https://developers.facebook.com/docs/instagram-api/guides/hashtag-search/), il existe l'API *Hashtag Search* qui correspond à nos besoins : 
