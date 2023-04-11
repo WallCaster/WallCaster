@@ -5,7 +5,7 @@
   <img src="doc/assets/banner.png" alt="Logo" height="200">
 </p>
 <p align="center">
-    <b>The best way to display social media posts on a screen</b>
+    <b>The best way to display live social media posts for events</b>
 </p>
 
 # Features
