@@ -20,7 +20,7 @@ import {
   FunnelIcon,
   PhotoIcon,
   RssIcon,
-  XMarkIcon
+  XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import type { Config } from '../types/config';
@@ -60,7 +60,7 @@ export default function AdminForm({
 
   useEffect(() => {
     setTemp(config);
-    setImagesTemp(images)
+    setImagesTemp(images);
   }, [config, images]);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function AdminForm({
   function onSubmit() {
     setConfig(temp);
     setImages(imagesTemp);
-    console.log("imagesTemp.length = " + imagesTemp.length);
+    console.log('imagesTemp.length = ' + imagesTemp.length);
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,21 +84,17 @@ export default function AdminForm({
     if (files) {
       const fileList = Array.from(files);
 
-      setImagesTemp(previousFileList => [...previousFileList, ...fileList]);
+      setImagesTemp((previousFileList) => [...previousFileList, ...fileList]);
     }
-  }; 
+  };
 
-  function deleteImage(index : number) {
-    setImagesTemp([
-      ...imagesTemp.slice(0, index),
-      ...imagesTemp.slice(index + 1)
-    ]);
+  function deleteImage(index: number) {
+    setImagesTemp([...imagesTemp.slice(0, index), ...imagesTemp.slice(index + 1)]);
   }
 
   function deleteAllImages() {
     setImagesTemp([]);
   }
-  
 
   return (
     <>
@@ -335,10 +331,10 @@ export default function AdminForm({
             <Checkbox
               className='col-span-3'
               id='useEnglishSentiment'
-              label='Filter by sentiment (Only in English)'
+              label='Filter by sentiment'
               value={temp.filter.useSentiment}
               setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useSentiment: b } })}
-              desc='Filter out tweets with negative sentiment'
+              desc='Filter out tweets with negative sentiment (AI based)'
             />
             <Checkbox
               className='col-span-3'
@@ -346,7 +342,7 @@ export default function AdminForm({
               label='Filter Banwords'
               value={temp.filter.useBanwords}
               setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBanwords: b } })}
-              desc='Filter out tweets containing forbidden words'
+              desc='Filter out tweets containing forbidden words listed below'
             />
             <InputTags
               className='col-span-3'
@@ -371,6 +367,14 @@ export default function AdminForm({
               setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useBlockImages: b } })}
               desc='Disallow tweets with images'
             />
+            <Checkbox
+              className='col-span-3'
+              id='nsfwFilter'
+              label='Filter NSFW images'
+              value={temp.filter.useNsfw}
+              setValue={(b) => setTemp({ ...temp, filter: { ...temp.filter, useNsfw: b } })}
+              desc='Disallow tweets with NSFW images (AI based)'
+            />
           </FormComponent>
           <FormComponent
             onSubmit={onSubmit}
@@ -380,8 +384,6 @@ export default function AdminForm({
             hasChanges={hasChanges}
             description='List of photos to display on screen.'
           >
-            
-
             <div className='flex justify-between'>
               <input
                 type='file'
@@ -401,25 +403,22 @@ export default function AdminForm({
               </button>
             </div>
 
-
             <div className='flex overflow-x-auto'>
               <div style={{ whiteSpace: 'nowrap' }}>
-                {(imagesTemp !== undefined) && imagesTemp.map((image, index) => (
-                  <div className='relative m-0.5' style={{ display: 'inline-block'}}>
-                    <button
-                      type='button'
-                      className='absolute top-1 right-1 m-0.5 p-2 text-red-800 bg-red-100/50 hover:bg-red-100 opacity-75 rounded-lg'
-                      onClick={() => deleteImage(index)}
-                      title='Delete photo'>
-                      <XMarkIcon className='h-6 w-6'></XMarkIcon>
-                    </button>
-                    <img
-                      key={index}
-                      src={URL.createObjectURL(image)}
-                      alt={`Image ${index}`}
-                      className='max-h-40'/>
-                  </div>
-                ))}
+                {imagesTemp !== undefined &&
+                  imagesTemp.map((image, index) => (
+                    <div className='relative m-0.5' style={{ display: 'inline-block' }}>
+                      <button
+                        type='button'
+                        className='absolute top-1 right-1 m-0.5 p-2 text-red-800 bg-red-100/50 hover:bg-red-100 opacity-75 rounded-lg'
+                        onClick={() => deleteImage(index)}
+                        title='Delete photo'
+                      >
+                        <XMarkIcon className='h-6 w-6'></XMarkIcon>
+                      </button>
+                      <img key={index} src={URL.createObjectURL(image)} alt={`Image ${index}`} className='max-h-40' />
+                    </div>
+                  ))}
               </div>
             </div>
           </FormComponent>
