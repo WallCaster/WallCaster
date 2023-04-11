@@ -58,7 +58,7 @@ Sprint 1 ends Tuesday **03/28/2023.**
 ## Expected Outcome
 
 - [ ] As an admin, I can select different groups of screens in order that they do not display the same content.
-- [ ] As an admin, I can choose to fetch contents from Instagram.
+- [ ] As an admin, I can choose to fetch contents from Instagram (fail, see post-mortem.md)
 - [ ] As an admin, I can set up and deploy the system easily thanks to well-written documentation 
 - [ ] As an admin, I can filter social networks' content thanks to a enhanced filter (sentiment one)
 - [ ] As an admin, I can connect the system to each screen thanks a Raspberry Pi (one for each screen).
