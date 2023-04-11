@@ -123,7 +123,9 @@ export class ApiTwitter extends Api {
       search += ')';
     }
     else {
-      search += ')';
+      if (hashtags.length !== 0) {
+        search += ')';
+      }
     }
 
     // Exclude retweets, replies & quotes tweets
