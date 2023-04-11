@@ -38,7 +38,6 @@ const AdminPage = () => {
           const randomFileName = "assets/photo_" + Date.now() + ".png";
           return dataURItoFile(buffer, randomFileName);
         });
-        console.log("récupération images depuis le back : ", files);
         setImages(files);
       }
     });
@@ -93,7 +92,6 @@ const AdminPage = () => {
     console.log("send images...")
     if (!socket) return;
     console.log('Sending images');
-    console.log("envoie d'images au back, images.length = " + images.length)
     socket.emit("setImages", images);
   }
 

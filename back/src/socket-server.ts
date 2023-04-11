@@ -92,7 +92,6 @@ export class SocketServer {
       }
       // this.app.addImages(images);
       this.app.saveImageToDisk(images);
-      console.log("IMAGES RECUES DU FRONT ADMIN : " + images.length);
       this.sendImagesToAdmin()
     })
 
@@ -115,7 +114,6 @@ export class SocketServer {
     try {
       const buffers = await Promise.all(promises);
       this.server.to('admin').emit('images', { images: true, buffers: buffers });
-      console.log("IMAGES ENVOYEES AU FRONT ADMIN : " + files.length);
     } catch (error) {
       console.error(error);
     }
@@ -198,7 +196,6 @@ export class SocketServer {
     try {
       const buffers = await Promise.all(promises);
       this.server.to('admin').emit('images', { images: true, buffers: buffers });
-      console.log("IMAGES ENVOYEES AU FRONT ADMIN : " + files.length);
     } catch (error) {
       console.error(error);
     }

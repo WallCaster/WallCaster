@@ -55,8 +55,6 @@ export class App {
   
             const path = "assets/" + chosenFile;
             this.socket.sendImageToRoom(room, path)
-          } else {
-            console.log('aucune image enregistrée')
           }
         }
       }
