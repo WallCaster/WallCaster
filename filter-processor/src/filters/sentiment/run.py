@@ -2,7 +2,7 @@ import pickle
 from pathlib import Path
 
 # charger le classificateur
-with open("/app/trained_data.pickle","rb") as file:
+with open("/data/trained_data.pickle","rb") as file:
     classifier = pickle.load(file)
 
 def is_positive(txt: str) -> bool:
