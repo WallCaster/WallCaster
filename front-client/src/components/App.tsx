@@ -7,7 +7,6 @@ import { PostCard } from './PostCard';
 import { QRCodeDisplayer } from '../components/QRcode';
 
 export const App = () => {
-
   const placeholder: Post = {
     id: '1',
     api: 'twitter',
@@ -73,13 +72,18 @@ export const App = () => {
 
   return (
     <div className='relative h-full overflow-hidden'>
-      
-        <img
-          src={post as string}
-          alt=''
-          className={`object-cover absolute h-full w-full  -z-10 blur-xl brightness-50 scale-110 duration-500 transition-all ${typeof post === 'string'  ? "opacity-100" : "opacity-0" }`}
-        />
-        <img src='/abstract.webp' alt='' className='object-cover absolute h-full w-full brightness-75 -z-20 blur-xl scale-110' />
+      <img
+        src={post as string}
+        alt=''
+        className={`object-cover absolute h-full w-full  -z-10 blur-xl brightness-50 scale-110 duration-500 transition-all ${
+          typeof post === 'string' ? 'opacity-100' : 'opacity-0'
+        }`}
+      />
+      <img
+        src='/abstract.webp'
+        alt=''
+        className='object-cover absolute h-full w-full brightness-75 -z-20 blur-xl scale-110'
+      />
       <div className='h-full px-16 py-14 flex items-center justify-center'>
         {post && (
           <Transition
@@ -104,8 +108,9 @@ export const App = () => {
                 >
                   <img src={post as string} className='h-full w-full' />
                 </div>
-                <div className='absolute right-0 bottom-0 rounded-tl-lg overflow-hidden'>
-                  <QRCodeDisplayer/>
+                <div className='absolute -right-4 -bottom-4 rounded-lg overflow-hidden shadow-lg flex flex-col items-center bg-white text-sm font-medium text-slate-700 '>
+                  <div className='pt-2 px-2'>Join the feed!</div>
+                  <QRCodeDisplayer />
                 </div>
               </>
             ) : (
