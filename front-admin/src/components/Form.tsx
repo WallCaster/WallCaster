@@ -214,7 +214,7 @@ export default function AdminForm({
               <InputTags
                 className='col-span-3'
                 id='whitelistHashtags'
-                label='Whitelisted Hashtags'
+                label='Whitelisted Hashtags (act as a OR between entries)'
                 prefix='#'
                 value={temp.query.twitter.whitelistHashtags}
                 setValue={(s) =>
@@ -233,7 +233,7 @@ export default function AdminForm({
               <InputTags
                 className='col-span-3'
                 id='keywords'
-                label='Search keywords'
+                label='Search keywords (act as a OR between entries)'
                 prefix=''
                 value={temp.query.twitter.keywords}
                 setValue={(s) =>
