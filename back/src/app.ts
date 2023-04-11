@@ -5,7 +5,7 @@ import configManager from './config';
 import { filterPost } from './filtering';
 import { ApiType, FilterData, Post } from './post';
 import { SocketServer } from './socket-server';
-import { writeFileSync, readdirSync, readFile } from 'fs';
+import { writeFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 export class App {
@@ -17,7 +17,6 @@ export class App {
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
-  private images: Buffer[] = [];
 
   constructor() {
     this.socket = new SocketServer(this);
@@ -43,7 +42,7 @@ export class App {
 
         // Calcul the ratio between the cache and the images to define the probability to send a post or an image
         const random = Math.random();
-        let p : Number = Number(this.cache.length / (this.cache.length + files.length));
+        let p : number = Number(this.cache.length / (this.cache.length + files.length));
 
         if(random < p) {
           const post = this.getNextPost();
@@ -56,8 +55,6 @@ export class App {
   
             const path = "assets/" + chosenFile;
             this.socket.sendImageToRoom(room, path)
-          } else {
-            console.log('aucune image enregistrée')
           }
         }
       }
@@ -171,14 +168,12 @@ export class App {
     this.socket.sendCacheToAdmin();
   }
 
-  public addImages(image: Buffer) {
-    this.images.push(image)
-    // this.images.push(...images);
-  }
-
-  public saveImageToDisk(image: Buffer) {
-    const randomFileName = "assets/photo_" + Date.now() + ".png";
-    writeFileSync(randomFileName, image);
+  public saveImageToDisk(images: Buffer[]) {
+    for(var i=0; i<images.length; i++){
+      const random = Math.floor(Math.random() * (99 - 1 + 1) + 1);
+      const randomFileName = "assets/photo_" + Date.now() + random + ".png";
+      writeFileSync(randomFileName, images[i]);
+    }
   }
 
   public dataURLtoFile(dataurl: string, filename: string): File {
