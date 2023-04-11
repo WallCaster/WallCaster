@@ -116,7 +116,7 @@ const AdminPage = () => {
         </div>
         <div className='col-span-6 sm:col-span-3'>
           <label htmlFor='serverIp' className='block text-sm font-medium text-gray-700'>
-            What is the admin panel ip ?
+            What is the server IP?
           </label>
           <input
             type='text'
