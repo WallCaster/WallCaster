@@ -2,6 +2,11 @@ import configManager from '../config';
 import { ApiName, Post } from '../post';
 import { Api } from './api';
 
+const API_KEY_TWITTER = process.env.API_KEY_TWITTER;
+if (!API_KEY_TWITTER) {
+  throw new Error('API_KEY_TWITTER is not defined');
+}
+
 export class ApiTwitter extends Api {
   private readonly ERROR_MESSAGE_BASE: string = 'Twitter API error : ';
   private readonly WARNING_MESSAGE_BASE: string = 'Twitter API warning : ';
@@ -90,7 +95,7 @@ export class ApiTwitter extends Api {
           search += ' OR ';
         }
       }
-      search += ')';
+      
     }
 
     keywords = keywords.filter((keyword) => {
@@ -103,13 +108,21 @@ export class ApiTwitter extends Api {
 
     // Add keywords to the research
     if (keywords.length !== 0) {
-      search += ' (';
+      if (hashtags.length === 0) {
+        search += ' (';
+      }
+      else {
+        search += ' OR ';
+      }
       for (let i = 0; i < keywords.length; i++) {
         search += '"' + keywords[i] + '"';
         if (i < keywords.length - 1) {
           search += ' OR ';
         }
       }
+      search += ')';
+    }
+    else {
       search += ')';
     }
 
@@ -147,8 +160,8 @@ export class ApiTwitter extends Api {
       '&media.fields=url,preview_image_url'; // Media fields -> url, preview_image_url
 
     // Bearer token
-    let BearerToken =
-      'AAAAAAAAAAAAAAAAAAAAAJEylgEAAAAAxkdNxil3XDR%2FtKLvaBb71e%2FA7q8%3Du2crw3ChPNn3SiIG4ZCVgXnaqfSW58vNtQYdmGsJD6hBhBtyG2';
+    let BearerToken = API_KEY_TWITTER;
+  
 
     // Set the headers
     const options = {
