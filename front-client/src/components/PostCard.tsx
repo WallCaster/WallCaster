@@ -32,7 +32,7 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
       <MdiTwitter className='h-8 w-8 text-blue-500 absolute top-7 right-7' />
       <div className='flex gap-4'>
         <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden bg-amber-200'>
-          <img src={authorImage} alt='avatar' className='' />
+          <img src={authorImage} alt='avatar' className='h-full w-full' />
         </div>
         <div className='flex flex-col justify-center'>
           <p className='font-bold leading-4'>{post.author.name}</p>
@@ -74,7 +74,7 @@ const TwitterPostWithImagesCard = ({ post, className }: { post: Post; className?
       <div className='flex flex-col gap-4 p-7 max-w-[40rem]'>
         <div className='flex gap-4 items-center h-fit '>
           <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden bg-amber-200'>
-            <img src={authorImage} alt='avatar' className='' />
+            <img src={authorImage} alt='avatar' className='h-full w-full' />
           </div>
           <div className='flex flex-col justify-center'>
             <p className='font-bold leading-4'>{post.author.name}</p>
