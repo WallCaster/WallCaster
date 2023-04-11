@@ -35,14 +35,12 @@ const AdminPage = () => {
     socket.on('images', (info) => {
       if (info.images) {
         const files = info.buffers.map((buffer: string) => {
-          const randomFileName = "assets/photo_" + Date.now() + ".png";
+          const randomFileName = 'assets/photo_' + Date.now() + '.png';
           return dataURItoFile(buffer, randomFileName);
         });
         setImages(files);
       }
     });
-    
-
   });
 
   function getConfig() {
@@ -52,7 +50,7 @@ const AdminPage = () => {
   }
 
   function sendConfig(config: Config) {
-    console.log("send config...")
+    console.log('send config...');
     if (!socket) return;
     console.log('Sending config');
     socket.emit('setConfig', config);
@@ -89,32 +87,33 @@ const AdminPage = () => {
   }
 
   function sendImages(images: File[]) {
-    console.log("send images...")
+    console.log('send images...');
     if (!socket) return;
     console.log('Sending images');
-    socket.emit("setImages", images);
+    socket.emit('setImages', images);
   }
 
   function dataURItoFile(dataURI: string, fileName: string): File {
     // Convertir la chaîne base64 en blob
     const byteString = atob(dataURI);
-    const mimeString = "image/jpeg";
+    const mimeString = 'image/jpeg';
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const uint8Array = new Uint8Array(arrayBuffer);
     for (let i = 0; i < byteString.length; i++) {
       uint8Array[i] = byteString.charCodeAt(i);
     }
     const blob = new Blob([arrayBuffer], { type: mimeString });
-  
+
     // Créer et retourner l'objet File
     return new File([blob], fileName, { type: mimeString });
   }
-  
 
   if (!socket?.connected || !config)
     return (
       <div className='p-8 flex flex-col items-center gap-10 max-w-7xl grow justify-center'>
-        <h1 className='text-6xl font-bold'>WallCaster</h1>
+        <div className='h-40'>
+          <img src='/banner.png' alt='banner-title' className='object-cover h-full' />
+        </div>
         <div className='col-span-6 sm:col-span-3'>
           <label htmlFor='serverIp' className='block text-sm font-medium text-gray-700'>
             What is the admin panel ip ?
@@ -135,7 +134,9 @@ const AdminPage = () => {
   return (
     <div className='p-0 flex flex-col items-center w-full grow' id='feed'>
       <div className='flex gap-6 items-center px-6 justify-center py-12 w-full max-w-5xl'>
-        <h1 className='text-4xl font-bold'>WallCaster Admin Panel</h1>
+        <div className='h-32 -m-4'>
+          <img src='/banner.png' alt='banner-title' className='object-cover h-full' />
+        </div>
         <div className='mx-auto'></div>
         <button
           className='p-2 text-gray-900 hover:bg-gray-200 rounded-lg'
@@ -175,7 +176,10 @@ const AdminPage = () => {
       <AdminForm
         config={config}
         setConfig={(c) => sendConfig(c)}
-        onCancel={() => {getConfig(); getImages()}}
+        onCancel={() => {
+          getConfig();
+          getImages();
+        }}
         images={images}
         setImages={(i) => sendImages(i)}
       />
