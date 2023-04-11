@@ -89,7 +89,7 @@ The **probability** of a photo being displayed is based on the number of posts a
 
 # 4. Contributors
 
-- Cody ADAM
+- [Cody ADAM](https://github.com/CodyAdam)
 - Yanis BOUGER (username : 12-3-8-s9b9o9j9t)
 - Kouame Aime Israel ANGORA (username : akai-code)
 - Louis-Gabriel CAPLIEZ (username : EdgeOfMemory-cloud)

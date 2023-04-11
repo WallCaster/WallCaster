@@ -69,12 +69,20 @@ export class ApiTwitter extends Api {
     let search: string = '';
 
     // If there is no keywords and no hashtags, return an empty array
-    if(keywords.length === 0 && hashtags.length === 0){
+    if (keywords.length === 0 && hashtags.length === 0) {
       return [];
     }
 
+    hashtags = hashtags.filter((hashtag) => {
+      // check empty string
+      if (hashtag === '') {
+        return false;
+      }
+      return true;
+    });
+
     // Add hashtags to the research
-    if(hashtags.length !== 0){
+    if (hashtags.length !== 0) {
       search = '(';
       for (let i = 0; i < hashtags.length; i++) {
         search += '#' + hashtags[i];
@@ -85,11 +93,19 @@ export class ApiTwitter extends Api {
       search += ')';
     }
 
+    keywords = keywords.filter((keyword) => {
+      // check empty string
+      if (keyword === '') {
+        return false;
+      }
+      return true;
+    });
+
     // Add keywords to the research
-    if(keywords.length !== 0){
+    if (keywords.length !== 0) {
       search += ' (';
       for (let i = 0; i < keywords.length; i++) {
-        search += "\""+keywords[i]+"\"";
+        search += '"' + keywords[i] + '"';
         if (i < keywords.length - 1) {
           search += ' OR ';
         }
@@ -250,7 +266,7 @@ export class ApiTwitter extends Api {
             image: author.profile_image_url,
           },
           // Delete the last 24 characters of the tweet text (the link to the tweet)
-          content: { text: tweet.text, images: image_urls},
+          content: { text: tweet.text, images: image_urls },
           date: new Date(tweet.created_at),
           originUrl: `https://twitter.com/${author.username}/status/${tweet.id}`,
           api: ApiName.TWITTER,
