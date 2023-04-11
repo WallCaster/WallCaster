@@ -26,7 +26,15 @@ export default function InputTags({
         <input
           type={'text'}
           value={value.join(',')}
-          onChange={(e) => setValue(e.target.value.split(','))}
+          onChange={(e) =>
+            setValue(
+              e.target.value
+                .replaceAll(',,', ',')
+                .replaceAll(' ,', ',')
+                .replaceAll(', ', ',')
+                .split(',')
+            )
+          }
           name={id}
           id={id}
           {...args}
