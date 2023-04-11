@@ -158,8 +158,8 @@ Comme le sprint va être fini en avance (de deux semaines), il est important pen
 
 ### 03/21/2023 with Benoît COMBEMALE
 
-- Réfléchir à un algorithme pour savoir si on diffuse un tweet ou une photo (quelle proportion ? 50% / 50%). Faire adapter le pourcentage au contenu du cache (s'il est rempli)
-- Faire en sorte que la semaine prochaine la démo avec le hashtag (pour la fin du sprint).
+- Think of an algorithm to know if we will stream a tweet or a picture (which proportion ? 50% / 50%). Adapt the rate to suit the cache's contain.
+- The demo with the Twitter's hashtag must work next week (for the end of the sprint).
 
 ### 03/28/2023 with Benoît COMBEMALE
 
@@ -172,7 +172,7 @@ Comme le sprint va être fini en avance (de deux semaines), il est important pen
 
 ### 04/11/2023 with Benoît COMBEMALE
 
-- Fin du sprint le 18/04/2023
-- Faire le point avec Romain LEFEUVRE (romain.lefeuvre@inria.fr) pour le readme et la mise en place des Raspberry Pi.
+- Sprint ends on 04/18/2023.
+- It is important to have a discussion with Romain LEFEUVRE (romain.lefeuvre@inria.fr) about the readme and the Raspberry Pi setups.
 
 # Description et gestion des exigences
