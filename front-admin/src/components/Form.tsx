@@ -408,7 +408,7 @@ export default function AdminForm({
                   <div className='relative m-0.5' style={{ display: 'inline-block'}}>
                     <button
                       type='button'
-                      className='absolute top-0 right-0 m-0.5 p-2 text-gray-900 hover:bg-red-300 opacity-75 rounded-lg'
+                      className='absolute top-1 right-1 m-0.5 p-2 text-red-800 bg-red-100/50 hover:bg-red-100 opacity-75 rounded-lg'
                       onClick={() => deleteImage(index)}
                       title='Delete photo'>
                       <XMarkIcon className='h-6 w-6'></XMarkIcon>

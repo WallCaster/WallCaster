@@ -25,6 +25,8 @@ start the `docker-compose.yml` file in the root of the project with :
 docker-compose up
 ```
 
+**Note :** The first time you start the server, it will take a while to build the images which can take up to 5 to 10 minutes depending on your internet connection. There is about **4.5GB of data to download** for the AI model.
+
 try to access the admin panel at [localhost:3000](http://localhost:3000)
 or the client at [localhost:80](http://localhost:80)
 
@@ -89,7 +91,7 @@ The **probability** of a photo being displayed is based on the number of posts a
 
 # 4. Contributors
 
-- Cody ADAM
+- [Cody ADAM](https://github.com/CodyAdam)
 - Yanis BOUGER (username : 12-3-8-s9b9o9j9t)
 - Kouame Aime Israel ANGORA (username : akai-code)
 - Louis-Gabriel CAPLIEZ (username : EdgeOfMemory-cloud)

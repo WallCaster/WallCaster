@@ -141,3 +141,5 @@ back/logs.json
 back/src/settings.json
 back/src/settings.json
 back/assets/*.*
+back/logs.json
+.vscode/settings.json
