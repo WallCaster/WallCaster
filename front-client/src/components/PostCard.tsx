@@ -24,10 +24,6 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
     new Date(post.date),
   );
 
-  const retweets = Math.round(Math.random() * 10000);
-  const quoteTweets = Math.round(Math.random() * 1000);
-  const likes = Math.round(Math.random() * 1000);
-
   return (
     <div
       className={`flex flex-col bg-white text-black p-7 shadow-xl gap-4 overflow-hidden relative ${className}`}
