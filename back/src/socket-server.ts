@@ -84,13 +84,6 @@ export class SocketServer {
       this.app.clearTrash();
     });
 
-    // socket.on('setImages', (image) => {
-    //   if(image !== undefined) {
-    //     this.app.addImages(image);
-    //     this.app.saveImageToDisk(image);
-    //   }
-    // })
-
     socket.on('setImages', (images) => {
       const files = readdirSync("assets")
       for(var i=0; i<files.length; i++) {
@@ -99,20 +92,8 @@ export class SocketServer {
       }
       // this.app.addImages(images);
       this.app.saveImageToDisk(images);
-      console.log("IMAGES RECUES DU FRONT ADMIN : " + images.length);
       this.sendImagesToAdmin()
     })
-
-    // socket.on('getImages', () => {
-    //   const files = readdirSync("assets")
-    //   for(var i=0; i<files.length; i++) {
-    //     const path = "assets/" + files[i];
-    //     readFile(path, (err, buffer) =>{
-    //       socket.emit('images', { image: true, buffer: buffer.toString('base64') });
-    //     });
-    //   }
-    //   console.log("IMAGES ENVOYEES AU FRONT ADMIN : " + files.length);
-    // })  
 
     socket.on('getImages', async () => {
       const files = readdirSync("assets");
@@ -133,7 +114,6 @@ export class SocketServer {
     try {
       const buffers = await Promise.all(promises);
       this.server.to('admin').emit('images', { images: true, buffers: buffers });
-      console.log("IMAGES ENVOYEES AU FRONT ADMIN : " + files.length);
     } catch (error) {
       console.error(error);
     }
@@ -197,17 +177,6 @@ export class SocketServer {
     this.server.to('admin').emit('trash', this.app.getTrash());
   }
 
-  // public sendImagesToAdmin() {
-  //   const files = readdirSync("assets")
-  //     for(var i=0; i<files.length; i++) {
-  //       const path = "assets/" + files[i];
-  //       readFile(path, (err, buffer) =>{
-  //         this.server.to('admin').emit('images', { image: true, buffer: buffer.toString('base64') });
-  //       });
-  //     }
-  //     console.log("IMAGES ENVOYEES AU FRONT ADMIN : " + files.length);
-  // }
-
   public async sendImagesToAdmin() {
     const files = readdirSync("assets");
     const promises = [];
@@ -227,7 +196,6 @@ export class SocketServer {
     try {
       const buffers = await Promise.all(promises);
       this.server.to('admin').emit('images', { images: true, buffers: buffers });
-      console.log("IMAGES ENVOYEES AU FRONT ADMIN : " + files.length);
     } catch (error) {
       console.error(error);
     }

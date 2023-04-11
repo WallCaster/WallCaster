@@ -46,9 +46,9 @@ services:
     build: ./filter-processor
     container_name: filter-processor
     restart: always
+    command: flask --app src/app.py run --host 0.0.0.0 --port 5000
+    working_dir: /app
     ports:
       - 5000:5000
     volumes:
       - ./filter-processor:/app
-      - ./filter-processor/src/nltk_data/:/root/nltk_data/
-    working_dir: /app
