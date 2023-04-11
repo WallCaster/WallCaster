@@ -1,17 +1,10 @@
-FROM python:3.8-alpine
+FROM docody/xlm-t-model:1.0.0
 
-# # Add nltk data
-# COPY src/nltk_data/ ./root/nltk_data/
-
-# # Create app directory
-# WORKDIR /app
+WORKDIR /app
 
 # Install app dependencies
-COPY requirements.txt ./
+COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
-# # Bundle app source
-# COPY . .
 
 EXPOSE 5000
-CMD [ "flask", "--app", "src/app.py", "run","--host","0.0.0.0","--port","5000"]
