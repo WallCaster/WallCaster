@@ -4,7 +4,7 @@ import MdiTwitter from './icons/MdiTwitter';
 
 export const PostCard = ({ post, className }: { post: Post; className?: string }) => {
   if (post.api === ApiName.TWITTER) {
-    if (post.content.images === undefined) return <TwitterPostCard post={post} className={className} />;
+    if (post.content.images?.length === 0) return <TwitterPostCard post={post} className={className} />;
     else if (post.content.images != undefined) return <TwitterPostWithImagesCard post={post} className={className} />;
   }
 
@@ -49,17 +49,6 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
           dangerouslySetInnerHTML={{ __html: formatTwitterToHtml(post.content.text) }}
         ></p>
         <div className='text-gray-600 text-lg'>{time + ' · ' + date}</div>
-        <div className='flex gap-5 border-t flex-wrap pt-4'>
-          <p>
-            <span className='font-bold'>{retweets.toLocaleString()}</span> Retweets
-          </p>
-          <p>
-            <span className='font-bold'>{quoteTweets.toLocaleString()}</span> Quote Tweets
-          </p>
-          <p>
-            <span className='font-bold'>{likes.toLocaleString()}</span> Likes
-          </p>
-        </div>
       </div>
     </div>
   );
