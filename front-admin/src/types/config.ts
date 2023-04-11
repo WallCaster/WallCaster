@@ -19,15 +19,15 @@ export type Config = {
     random: {
       fetchInterval: number;
     };
-  };  
+  };
   filter: {
     useSentiment: boolean;
     useBanwords: boolean;
+    useNsfw: boolean;
     useBlockImages: boolean;
     forbiddenWords: string[];
   };
 };
-
 export type DateRange = {
   start: Date;
   end: Date;

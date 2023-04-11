@@ -4,7 +4,7 @@ import MdiTwitter from './icons/MdiTwitter';
 
 export const PostCard = ({ post, className }: { post: Post; className?: string }) => {
   if (post.api === ApiName.TWITTER) {
-    if (post.content.images === undefined) return <TwitterPostCard post={post} className={className} />;
+    if (post.content.images?.length === 0) return <TwitterPostCard post={post} className={className} />;
     else if (post.content.images != undefined) return <TwitterPostWithImagesCard post={post} className={className} />;
   }
 
@@ -24,10 +24,6 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
     new Date(post.date),
   );
 
-  const retweets = Math.round(Math.random() * 10000);
-  const quoteTweets = Math.round(Math.random() * 1000);
-  const likes = Math.round(Math.random() * 1000);
-
   return (
     <div
       className={`flex flex-col bg-white text-black p-7 shadow-xl gap-4 overflow-hidden relative ${className}`}
@@ -36,7 +32,7 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
       <MdiTwitter className='h-8 w-8 text-blue-500 absolute top-7 right-7' />
       <div className='flex gap-4'>
         <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden bg-amber-200'>
-          <img src={authorImage} alt='avatar' className='' />
+          <img src={authorImage} alt='avatar' className='h-full w-full' />
         </div>
         <div className='flex flex-col justify-center'>
           <p className='font-bold leading-4'>{post.author.name}</p>
@@ -49,17 +45,6 @@ const TwitterPostCard = ({ post, className }: { post: Post; className?: string }
           dangerouslySetInnerHTML={{ __html: formatTwitterToHtml(post.content.text) }}
         ></p>
         <div className='text-gray-600 text-lg'>{time + ' · ' + date}</div>
-        <div className='flex gap-5 border-t flex-wrap pt-4'>
-          <p>
-            <span className='font-bold'>{retweets.toLocaleString()}</span> Retweets
-          </p>
-          <p>
-            <span className='font-bold'>{quoteTweets.toLocaleString()}</span> Quote Tweets
-          </p>
-          <p>
-            <span className='font-bold'>{likes.toLocaleString()}</span> Likes
-          </p>
-        </div>
       </div>
     </div>
   );
@@ -89,7 +74,7 @@ const TwitterPostWithImagesCard = ({ post, className }: { post: Post; className?
       <div className='flex flex-col gap-4 p-7 max-w-[40rem]'>
         <div className='flex gap-4 items-center h-fit '>
           <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden bg-amber-200'>
-            <img src={authorImage} alt='avatar' className='' />
+            <img src={authorImage} alt='avatar' className='h-full w-full' />
           </div>
           <div className='flex flex-col justify-center'>
             <p className='font-bold leading-4'>{post.author.name}</p>
