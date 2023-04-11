@@ -32,17 +32,6 @@ const AdminPage = () => {
       setConfig(config);
     });
 
-
-    // socket.on('images', (info) => {
-    //   if(info.image) {
-    //     const randomFileName = "assets/photo_" + Date.now() + ".png";
-    //     const file = dataURItoFile(info.buffer, randomFileName);
-    //     console.log("récupération images depuis le back : " + file);
-    //     // setImages(prevImages => [...prevImages, file]);
-    //     setImages(file);
-    //   }
-    // });
-
     socket.on('images', (info) => {
       if (info.images) {
         const files = info.buffers.map((buffer: string) => {
@@ -50,7 +39,6 @@ const AdminPage = () => {
           return dataURItoFile(buffer, randomFileName);
         });
         console.log("récupération images depuis le back : ", files);
-        // setImages(prevImages => [...prevImages, ...files]);
         setImages(files);
       }
     });
@@ -100,14 +88,6 @@ const AdminPage = () => {
     console.log('Asking for images');
     socket.emit('getImages');
   }
-  
-  // function sendImages(images: File[]) {
-  //   if (!socket) return;
-
-  //   for (let i = 0; i < images.length; i++) {
-  //     socket.emit("setImages", images[i]);
-  //   }
-  // }
 
   function sendImages(images: File[]) {
     console.log("send images...")

@@ -84,13 +84,6 @@ export class SocketServer {
       this.app.clearTrash();
     });
 
-    // socket.on('setImages', (image) => {
-    //   if(image !== undefined) {
-    //     this.app.addImages(image);
-    //     this.app.saveImageToDisk(image);
-    //   }
-    // })
-
     socket.on('setImages', (images) => {
       const files = readdirSync("assets")
       for(var i=0; i<files.length; i++) {
@@ -102,17 +95,6 @@ export class SocketServer {
       console.log("IMAGES RECUES DU FRONT ADMIN : " + images.length);
       this.sendImagesToAdmin()
     })
-
-    // socket.on('getImages', () => {
-    //   const files = readdirSync("assets")
-    //   for(var i=0; i<files.length; i++) {
-    //     const path = "assets/" + files[i];
-    //     readFile(path, (err, buffer) =>{
-    //       socket.emit('images', { image: true, buffer: buffer.toString('base64') });
-    //     });
-    //   }
-    //   console.log("IMAGES ENVOYEES AU FRONT ADMIN : " + files.length);
-    // })  
 
     socket.on('getImages', async () => {
       const files = readdirSync("assets");
@@ -196,17 +178,6 @@ export class SocketServer {
     this.server.to('admin').emit('cache', this.app.getCache());
     this.server.to('admin').emit('trash', this.app.getTrash());
   }
-
-  // public sendImagesToAdmin() {
-  //   const files = readdirSync("assets")
-  //     for(var i=0; i<files.length; i++) {
-  //       const path = "assets/" + files[i];
-  //       readFile(path, (err, buffer) =>{
-  //         this.server.to('admin').emit('images', { image: true, buffer: buffer.toString('base64') });
-  //       });
-  //     }
-  //     console.log("IMAGES ENVOYEES AU FRONT ADMIN : " + files.length);
-  // }
 
   public async sendImagesToAdmin() {
     const files = readdirSync("assets");

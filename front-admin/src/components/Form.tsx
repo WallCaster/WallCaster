@@ -57,7 +57,6 @@ export default function AdminForm({
   const [temp, setTemp] = useState(config);
   const [hasChanges, setHasChanges] = useState(false);
   const [imagesTemp, setImagesTemp] = useState<File[]>([]);
-  // const [imagesUploaded, setImagesUploaded] = useState<File[]>([]);
 
   useEffect(() => {
     setTemp(config);
@@ -86,7 +85,6 @@ export default function AdminForm({
       const fileList = Array.from(files);
 
       setImagesTemp(previousFileList => [...previousFileList, ...fileList]);
-      // setImagesUploaded(fileList)
     }
   }; 
 

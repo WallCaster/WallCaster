@@ -17,7 +17,6 @@ export class App {
   private socket: SocketServer;
   private apis: Partial<Record<ApiType, Api>>;
   private rotationInterval: NodeJS.Timeout | null = null;
-  private images: Buffer[] = [];
 
   constructor() {
     this.socket = new SocketServer(this);
@@ -43,7 +42,7 @@ export class App {
 
         // Calcul the ratio between the cache and the images to define the probability to send a post or an image
         const random = Math.random();
-        let p : Number = Number(this.cache.length / (this.cache.length + files.length));
+        let p : number = Number(this.cache.length / (this.cache.length + files.length));
 
         if(random < p) {
           const post = this.getNextPost();
@@ -169,11 +168,6 @@ export class App {
   public clearTrash() {
     this.trash = [];
     this.socket.sendCacheToAdmin();
-  }
-
-  public addImages(image: Buffer) {
-    this.images.push(image)
-    // this.images.push(...images);
   }
 
   public saveImageToDisk(images: Buffer[]) {
