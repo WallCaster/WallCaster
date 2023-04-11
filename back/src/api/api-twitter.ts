@@ -90,7 +90,7 @@ export class ApiTwitter extends Api {
           search += ' OR ';
         }
       }
-      search += ')';
+      
     }
 
     keywords = keywords.filter((keyword) => {
@@ -103,13 +103,21 @@ export class ApiTwitter extends Api {
 
     // Add keywords to the research
     if (keywords.length !== 0) {
-      search += ' (';
+      if (hashtags.length === 0) {
+        search += ' (';
+      }
+      else {
+        search += ' OR ';
+      }
       for (let i = 0; i < keywords.length; i++) {
         search += '"' + keywords[i] + '"';
         if (i < keywords.length - 1) {
           search += ' OR ';
         }
       }
+      search += ')';
+    }
+    else {
       search += ')';
     }
 
