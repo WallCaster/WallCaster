@@ -4,7 +4,7 @@ import { Api } from './api';
 
 const API_KEY_TWITTER = process.env.API_KEY_TWITTER;
 
-if (!API_KEY_TWITTER) {
+if (!API_KEY_TWITTER && process.env.NODE_ENV !== 'test') {
   throw new Error('API_KEY_TWITTER is not defined');
 }
 
