@@ -316,12 +316,12 @@ What we did that fit the constrains :
 
 ### Continous development
 
-- Github Actions 
 - DockerCompose
 
 ### Language
 
-- TypeScript
+- TypeScript (Backend, Frontend client and Frontend Admin)
+- Python (Filters)
 
 ### Framework 
 
@@ -346,10 +346,10 @@ What we did that fit the constrains :
 ## Deployment tools
 
 - Docker / Docker Compose
-- Naming conventions :
+- Naming conventions : (TO CHECK OR TO DO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
   - [Microsoft TypeScript conventions](https://makecode.com/extensions/naming-conventions)
 
 ## Coloboration tools
 
-- Github kanban (for backlogs)
+- Github Kanban (for backlogs)
 - Discord
