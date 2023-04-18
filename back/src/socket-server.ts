@@ -3,8 +3,16 @@ import { App } from './app';
 import configManager, { Config } from './config';
 import { Post } from './post';
 import { readdirSync, readFile, unlinkSync } from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
 const LISTENING_PORT = 3001;
+
+const password = process.env.ADMIN_PASSWORD;
+
+if (!password && process.env.NODE_ENV !== 'test') {
+  console.error('ADMIN_PASSWORD not set in environment variables');
+  process.exit(1);
+}
 
 type SocketId = string;
 
@@ -13,12 +21,14 @@ export class SocketServer {
   private server: io.Server;
   private clients: Map<SocketId, io.Socket> = new Map();
   private app: App;
+  private token: string;
 
   constructor(app: App) {
     this.app = app;
     this.server = new io.Server({ cors: { origin: '*' } });
     this.server.on('connection', this.onConnect.bind(this));
     this.server.on('disconnect', this.onDisconnect.bind(this));
+    this.token = uuidv4();
     this.server.listen(LISTENING_PORT);
     console.log('listening for connections on port', LISTENING_PORT);
   }
@@ -44,90 +54,110 @@ export class SocketServer {
     // socket.onAny((event, ...args) => {
     //   console.log(`incoming event '${event}':`, args);
     // });
+    socket.on('login', (pass: string) => {
+      if (password !== pass) {
+        console.log('wrong password:', pass);
+        return;
+      }
+      console.log('admin logged in');
 
-    socket.on('getConfig', () => {
+      socket.emit('token', this.token);
+    });
+    socket.on('getConfig', (token: string) => {
+      if (token !== this.token) return;
       socket.emit('config', configManager.config);
     });
 
-    socket.on('setConfig', (config: Config) => {
+    socket.on('setConfig', (config: Config, token: string) => {
+      if (token !== this.token) return;
       configManager.config = config;
       configManager.writeConfigToFile();
       this.app.restart();
       socket.emit('config', configManager.config);
     });
 
-    socket.on('setadmin', () => {
+    socket.on('setadmin', (token) => {
+      if (token !== this.token) return;
       socket.join('admin');
       this.sendCacheToAdmin();
     });
 
-    socket.on('cacheDelete', (id: string) => {
+    socket.on('cacheDelete', (id: string, token: string) => {
+      if (token !== this.token) return;
       this.app.moveToTrash(id);
     });
 
-    socket.on('trashRestore', (id: string) => {
+    socket.on('trashRestore', (id: string, token: string) => {
+      if (token !== this.token) return;
       this.app.restoreFromTrash(id);
     });
 
-    socket.on('trashDelete', (id: string) => {
+    socket.on('trashDelete', (id: string, token: string) => {
+      if (token !== this.token) return;
       this.app.removeDefinitively(id);
     });
 
-    socket.on('restore', (id: string) => {
+    socket.on('restore', (id: string, token: string) => {
+      if (token !== this.token) return;
       this.app.restoreFromTrash(id);
     });
 
-    socket.on('clearTrash', () => {
+    socket.on('clearTrash', (token: string) => {
+      if (token !== this.token) return;
       this.app.clearTrash();
     });
 
-    socket.on('clearAll', () => {
+    socket.on('clearAll', (token: string) => {
+      if (token !== this.token) return;
       this.app.clearAll();
     });
 
-    socket.on('restore', (id: string) => {
+    socket.on('restore', (id: string, token: string) => {
+      if (token !== this.token) return;
       this.app.restoreFromTrash(id);
     });
 
-    socket.on('clearTrash', () => {
+    socket.on('clearTrash', (token: string) => {
+      if (token !== this.token) return;
       this.app.clearTrash();
     });
 
-    socket.on('setImages', (images) => {
-      const files = readdirSync("assets")
-      for(var i=0; i<files.length; i++) {
-        const path = "assets/" + files[i];
+    socket.on('setImages', (images, token: string) => {
+      if (token !== this.token) return;
+      const files = readdirSync('assets');
+      for (var i = 0; i < files.length; i++) {
+        const path = 'assets/' + files[i];
         unlinkSync(path);
       }
       // this.app.addImages(images);
       this.app.saveImageToDisk(images);
-      this.sendImagesToAdmin()
-    })
+      this.sendImagesToAdmin();
+    });
 
-    socket.on('getImages', async () => {
-      const files = readdirSync("assets");
-    const promises = [];
-  
-    for (var i = 0; i < files.length; i++) {
-      const path = "assets/" + files[i];
-      promises.push(
-        new Promise((resolve, reject) => {
-          readFile(path, (err, buffer) => {
-            if (err) reject(err);
-            else resolve(buffer.toString('base64'));
-          });
-        })
-      );
-    }
-  
-    try {
-      const buffers = await Promise.all(promises);
-      this.server.to('admin').emit('images', { images: true, buffers: buffers });
-    } catch (error) {
-      console.error(error);
-    }
-    })  
+    socket.on('getImages', async (token: string) => {
+      if (token !== this.token) return;
+      const files = readdirSync('assets');
+      const promises = [];
 
+      for (var i = 0; i < files.length; i++) {
+        const path = 'assets/' + files[i];
+        promises.push(
+          new Promise((resolve, reject) => {
+            readFile(path, (err, buffer) => {
+              if (err) reject(err);
+              else resolve(buffer.toString('base64'));
+            });
+          }),
+        );
+      }
+
+      try {
+        const buffers = await Promise.all(promises);
+        this.server.to('admin').emit('images', { images: true, buffers: buffers });
+      } catch (error) {
+        console.error(error);
+      }
+    });
 
     console.log('new client connected');
   }
@@ -166,7 +196,7 @@ export class SocketServer {
   }
 
   public sendImageToRoom(room: string, path: string) {
-    readFile(path, (err, buffer) =>{
+    readFile(path, (err, buffer) => {
       console.log('sending image to room ' + room + ' : ' + path);
       this.server.to(room).emit('image', buffer.toString('base64'));
     });
@@ -187,21 +217,21 @@ export class SocketServer {
   }
 
   public async sendImagesToAdmin() {
-    const files = readdirSync("assets");
+    const files = readdirSync('assets');
     const promises = [];
-  
+
     for (var i = 0; i < files.length; i++) {
-      const path = "assets/" + files[i];
+      const path = 'assets/' + files[i];
       promises.push(
         new Promise((resolve, reject) => {
           readFile(path, (err, buffer) => {
             if (err) reject(err);
             else resolve(buffer.toString('base64'));
           });
-        })
+        }),
       );
     }
-  
+
     try {
       const buffers = await Promise.all(promises);
       this.server.to('admin').emit('images', { images: true, buffers: buffers });
@@ -209,5 +239,4 @@ export class SocketServer {
       console.error(error);
     }
   }
-  
 }
