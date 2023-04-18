@@ -331,8 +331,8 @@ What we did that fit the constrains :
 
 #### Frontend
 
-- Astro (NodeJS)
-- React
+- Astro (NodeJS) : For its simplicity as a render framework. It will be used to generate static HTML frontend pages.
+- React : Used for interactive components (like the admin panel)
 
 ### Test tools
 
