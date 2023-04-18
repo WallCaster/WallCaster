@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from filters.sentiment.run import is_positive as is_positive
 from filters.banned_words.bwFilter import check_banned_words as bwFilter
-# from filters.nsfw.nsfwFilter import isNsfw
+from filters.nsfw.nsfwFilter import isNsfw
 
 app = Flask(__name__)
 cors = CORS(app, supports_credentials=True)
@@ -71,7 +71,7 @@ def callFilter():
 
     if filter_config["useNsfw"]:
         images = post["content"]["images"]
-        # result["passedNsfw"] = not isNsfw(images)
+        result["passedNsfw"] = not isNsfw(images)
 
     result["filterDate"] = datetime.datetime.now().isoformat()
     return jsonify(result)

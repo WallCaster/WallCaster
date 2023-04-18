@@ -3,6 +3,7 @@ import { ApiName, Post } from '../post';
 import { Api } from './api';
 
 const API_KEY_TWITTER = process.env.API_KEY_TWITTER;
+
 if (!API_KEY_TWITTER) {
   throw new Error('API_KEY_TWITTER is not defined');
 }
@@ -163,7 +164,6 @@ export class ApiTwitter extends Api {
 
     // Bearer token
     let BearerToken = API_KEY_TWITTER;
-  
 
     // Set the headers
     const options = {
