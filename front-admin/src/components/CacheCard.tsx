@@ -63,6 +63,11 @@ export default function CacheCard({
           descPassed='This post does not contain images'
           descRejected='This post contains images'
         />
+        <FilterIndicator
+          passed={post.passedNsfw}
+          descPassed='This post does not contain NSFW images'
+          descRejected='This post contains NSFW images'
+        />
         <TrashIcon className='w-5 h-5 group-hover:text-red-800 group-hover:opacity-100 opacity-10 shrink-0' />
       </div>
     </div>

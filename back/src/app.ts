@@ -76,7 +76,8 @@ export class App {
         if (
           filterData.passedBanwords === false ||
           filterData.passedImages === false ||
-          filterData.passedSentiment === false
+          filterData.passedSentiment === false ||
+          filterData.passedNsfw === false
         ) {
           this.trash.unshift({ ...post, ...filterData });
         } else {
