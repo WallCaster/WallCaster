@@ -66,7 +66,7 @@ Oral presentation
 We have used the tool GitHub Kanban to assign tasks at the beginning of each sprint. Here is a quick screenshot of what it looks like :
 ![image](assets/Kanban.png)
 
-If you wish to have a closer look at it, [it is available on GitHub](https://github.com/WallCaster/WallCaster/issues).
+If you wish to have a closer look at it, [it is available on GitHub](https://github.com/orgs/WallCaster/projects/1/views/1).
 
 This tool also helped us to check which tasks remained. It was often completed with new goals because our products owners had some new or more precise ideas.
 
