@@ -41,7 +41,7 @@
   - Do not necessarily broadcast the same content on all screens (random parameter), provided you have enough visual material.
 - Automatic moderation but also possibility to intervene in second time to moderate manually, apply spam filtering (to avoid ambiguity of words, filter useless content and fake conferences, impersonating people to make them pay) Filtering by keywords/hastags/dates. 
 - Have a nice visualization. Avoid showing too few images too often and avoid redundancy. At the beginning of the conference, if there is not enough visual material, possibility to take posts on social networks before the conference (announcement of participants, reminders of themes).
-- Collect content according to given query and sources, for instance: LinkedIn, Instagram, Facebook/Meta, Twitter. 
+- Collect content according to given query and sources, for instance: LinkedIn, Instagram, Facebook/Meta, Twitter). 
  
 **Bonus**: If the conference is over several days, possibility for the official photographer to broadcast the images taken the day before on the screens. 
 
