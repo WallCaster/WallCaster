@@ -187,5 +187,3 @@ As the sprint is expected to finish early (two weeks ahead of schedule), during 
 - We can have a small video just in case (demo effect about the NSFW filter for example).
 - During the presentation, we must be persuasive (like if we sell the product).
 - The ordered Raspberry Pi have not be received, so we will use ancient ones without Wifi.
-
-# Description and Management of Requirements
