@@ -84,7 +84,12 @@ function Table({
             <div className='flex overflow-x-auto h-32 overflow-y-hidden gap-1 shrink-0'>
               {selected.content.images &&
                 selected.content.images.map((image, index) => (
-                  <img key={index} src={image} alt={`Image ${index}`} className='h-32 min-w-fit shrink-0 object-cover' />
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Image ${index}`}
+                    className='h-32 min-w-fit shrink-0 object-cover'
+                  />
                 ))}
             </div>
             <div className='border-t my-4'></div>
@@ -112,6 +117,7 @@ function Table({
                 passed={selected.passedNsfw}
                 descPassed='This post does not contain NSFW images'
                 descRejected='This post contains NSFW images'
+                long
               />
             </div>
             <div className='border-t my-4'></div>

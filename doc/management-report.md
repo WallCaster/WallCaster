@@ -11,6 +11,7 @@ From a software perspective, we have the following services:
 # Estimation (planning, resources) and description of project progress (approach, milestones, tools, meetings)
 
 For the progress of the project, we are using the agile project management method with a Kanban board (accessible via GitHub) to define tasks for the current sprint. Additionally, a daily meeting is held at the start of each work session to discuss the progress of tasks. Finally, at the end of each work session, another meeting is held to assign any tasks that can be progressed before the next lab session.
+We used mainly Discord for the communication with the team.
 
 # Description of roles and responsibilities
 
@@ -62,13 +63,15 @@ Oral presentation
 - Kouame: Research, model training
 - Cody: Frontend administration
 
+## During all the project
 
-We have used the tool GitHub Kanban to assign tasks at the beginning of each sprint. Here is a quick screenshot of what it looks like :
+We have used the tool GitHub Kanban to assign tasks at the beginning of each sprint. Here is a quick screenshot of what it looks like:
+
 ![image](assets/Kanban.png)
 
-If you wish to have a closer look at it, [it is available on GitHub](https://github.com/WallCaster/WallCaster/issues).
+If you wish to have a closer look at it, [it is available on GitHub](https://github.com/orgs/WallCaster/projects/1/views/1).
 
-This tool also helped us to check which tasks remained. It was often completed with new goals because our products owners had some new or more precise ideas.
+This tool also helped us to check which tasks remained. It was often completed with new goals because our product owners had some new or more precise ideas.
 
 # Project management (schedule monitoring, meeting minutes...)
 
@@ -178,11 +181,16 @@ As the sprint is expected to finish early (two weeks ahead of schedule), during 
 - Sprint ends on 18/04/2023.
 - Schedule a discussion with Romain LEFEUVRE (romain.lefeuvre@inria.fr) regarding the readme and the setup of Raspberry Pi.
 
-### 18/04/2023 with Hélène FEUILLATRE, Zoltan MIKLOS
+### 18/04/2023 with Hélène FEUILLATRE, Zoltan MIKLOS, Benoît COMBEMALE and Romain LEFEUVRE
 
 - Be careful, we must have a demonstration of the final product during the oral presentation (within 15 minutes). 
 - We can have a small video just in case (demo effect about the NSFW filter for example).
 - During the presentation, we must be persuasive (like if we sell the product).
 - The ordered Raspberry Pi have not be received, so we will use ancient ones without Wifi.
+
+- Deployment will be managed by the product owners (aborted Raspberry Pi).
+- Add a login system to protect the administration page (protect the endpoints).
+- Generate a secure header with a token.
+- Have a cookie to store authentication?
 
 # Description and Management of Requirements
