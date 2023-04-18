@@ -153,7 +153,9 @@ const AdminPage = () => {
             What is the server <b>password</b>?
           </label>
           <form
-            onSubmit={() => {
+
+            onSubmit={(e) => {
+              e.preventDefault();
               socket.emit('login', password);
             }}
           >
