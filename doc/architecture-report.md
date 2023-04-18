@@ -76,9 +76,10 @@ Additionally, our client frontend fetches each Post through the backend server.
 Finally, our frontend Admin brings the necessary configuration (Config) to the backend server.
 
 ## Deployment Diagram
+
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Deployement](assets/deployment.svg)
-<!--
+<!-- 
 ```plantuml
 @startuml deployment
 node "server" <<device>> as srv {
@@ -90,17 +91,22 @@ node "server" <<device>> as srv {
   }
 }
 
+node "Admin computer" <<device>> as admindev {
+  component "web browser" as wb2
+}
+
 node "Raspberry Pi" <<device>> as rpi {
   component "web browser" as wb
 }
 
+
 bck #--# afr: ""<<Websocket>>""
 bck #-# cfr: ""<<Websocket>>""
 wb #--# cfr: ""1..n\n<<HTTP>>""
-bck #--# flt: ""<<Websocket>>""
+wb2 #--# afr: ""1..n\n<<HTTP>>""
+bck #--# flt: ""<<REST API>>""
 @enduml
-```
--->
+``` -->
 
 The execution node "docker" correspond to a DockerCompose which allow to manage the different components present on the server in a container form.
 
