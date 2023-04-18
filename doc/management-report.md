@@ -14,6 +14,7 @@ For the progress of the project, we are using the agile project management metho
 
 # Description of roles and responsibilities
 
+
 ## Week 1 (29/11/2022)
 
 - Kilian: Twitter API monitoring
@@ -60,6 +61,14 @@ Oral presentation
 - Bastien: Python filter creation, initial research, Flask tutorial
 - Kouame: Research, model training
 - Cody: Frontend administration
+
+
+We have used the tool GitHub Kanban to assign tasks at the beginning of each sprint. Here is a quick screenshot of what it looks like :
+![image](assets/Kanban.png)
+
+If you wish to have a closer look at it, [it is available on GitHub](https://github.com/WallCaster/WallCaster/issues).
+
+This tool also helped us to check which tasks remained. It was often completed with new goals because our products owners had some new or more precise ideas.
 
 # Project management (schedule monitoring, meeting minutes...)
 
@@ -140,11 +149,11 @@ Start of sprint 2:
 - Small demonstration with our teachers and some additional functionalities (in progress of preparation)
 - Resolve issue with hashtag ict4s (doesn't recognize users?)
 
-### 07/03/2023 with Benoît COMBEMALE and one of his teamate?
+### 07/03/2023 with Benoît COMBEMALE and Romain LEFEUVRE
 
 Add a new user story specifying the ability for the photographer to upload photos to the server. They should be able to use a USB key or send them from a remote server. However, the interface for them should be simple and the action should be quick (as they may not be computer-savvy). Discuss options for storing our system on an IRISA server or an ISTIC server/virtual machine. In either case, Docker should be used, and a comprehensive README should be provided to facilitate installation. If using an ISTIC virtual machine, consider opening ports and allowing external access with DSI approval. Raspberry Pis have been ordered, expected delivery by the end of the month.
 
-### 14/03/2023 with Benoît COMBEMALE and one of his teamate?
+### 14/03/2023 with Benoît COMBEMALE
 
 New bonus feature (in case the sprint finishes too early): Add a QR code to the screens connected to the Raspberry Pis for users/viewers to scan, which would display the same content on their phones. Add language selection for desired tweets in the admin panel. Fix bug with hashtag "ict4s". Clarify how the "sentiment" filter works: Is it a pre-trained model or does it use its own data? It may be worth discussing with Zoltan MIKLOS to ensure the methodology being used is correct.
 
@@ -168,5 +177,12 @@ As the sprint is expected to finish early (two weeks ahead of schedule), during 
 
 - Sprint ends on 18/04/2023.
 - Schedule a discussion with Romain LEFEUVRE (romain.lefeuvre@inria.fr) regarding the readme and the setup of Raspberry Pi.
+
+### 18/04/2023 with Hélène FEUILLATRE, Zoltan MIKLOS
+
+- Be careful, we must have a demonstration of the final product during the oral presentation (within 15 minutes). 
+- We can have a small video just in case (demo effect about the NSFW filter for example).
+- During the presentation, we must be persuasive (like if we sell the product).
+- The ordered Raspberry Pi have not be received, so we will use ancient ones without Wifi.
 
 # Description and Management of Requirements
