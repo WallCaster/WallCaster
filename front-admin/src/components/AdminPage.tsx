@@ -13,12 +13,13 @@ const AdminPage = () => {
   const [cache, setCache] = useState<(Post & FilterData)[]>([]);
   const [trash, setTrash] = useState<(Post & FilterData)[]>([]);
   const [images, setImages] = useState<File[]>([]);
+  const [password, setPassword] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   const socket = useSocket(serverIp, (socket) => {
     socket.on('connect', () => {
-      socket.emit('getConfig');
-      socket.emit('setadmin');
-      socket.emit('getImages');
+      socket.emit('setadmin', token);
+      socket.emit('getImages', token);
     });
     socket.on('cache', (cache: (Post & FilterData)[]) => {
       setCache(cache);
@@ -30,6 +31,11 @@ const AdminPage = () => {
 
     socket.on('config', (config: Config) => {
       setConfig(config);
+    });
+
+    socket.on('token', (token: string) => {
+      setToken(token);
+      socket.emit('getConfig', token);
     });
 
     socket.on('images', (info) => {
@@ -46,56 +52,56 @@ const AdminPage = () => {
   function getConfig() {
     if (!socket) return;
     console.log('Asking for config');
-    socket.emit('getConfig');
+    socket.emit('getConfig', token);
   }
 
   function sendConfig(config: Config) {
     console.log('send config...');
     if (!socket) return;
     console.log('Sending config');
-    socket.emit('setConfig', config);
+    socket.emit('setConfig', config, token);
   }
 
   function cacheDelete(id: string) {
     if (!socket) return;
     console.log('Deleting from cache');
-    socket.emit('cacheDelete', id);
+    socket.emit('cacheDelete', id, token);
   }
 
   function trashDelete(id: string) {
     if (!socket) return;
     console.log('Deleting from trash');
-    socket.emit('trashDelete', id);
+    socket.emit('trashDelete', id, token);
   }
 
   function restore(id: string) {
     if (!socket) return;
     console.log('Restoring from trash');
-    socket.emit('restore', id);
+    socket.emit('restore', id, token);
   }
 
   function clearTrash() {
     if (!socket) return;
     console.log('Clearing trash');
-    socket.emit('clearTrash');
+    socket.emit('clearTrash', token);
   }
 
   function getImages() {
     if (!socket) return;
     console.log('Asking for images');
-    socket.emit('getImages');
+    socket.emit('getImages', token);
   }
 
   function sendImages(images: File[]) {
     console.log('send images...');
     if (!socket) return;
     console.log('Sending images');
-    socket.emit('setImages', images);
+    socket.emit('setImages', images, token);
   }
   function clearAll() {
     if (!socket) return;
     console.log('Clearing all');
-    socket.emit('clearAll');
+    socket.emit('clearAll', token);
   }
 
   function dataURItoFile(dataURI: string, fileName: string): File {
@@ -113,7 +119,7 @@ const AdminPage = () => {
     return new File([blob], fileName, { type: mimeString });
   }
 
-  if (!socket?.connected || !config)
+  if (!socket?.connected)
     return (
       <div className='p-8 flex flex-col items-center gap-10 max-w-7xl grow justify-center'>
         <div className='h-40'>
@@ -136,6 +142,36 @@ const AdminPage = () => {
       </div>
     );
 
+  if (!token || !config)
+    return (
+      <div className='p-8 flex flex-col items-center gap-10 max-w-7xl grow justify-center'>
+        <div className='h-40'>
+          <img src='/banner.png' alt='banner-title' className='object-cover h-full' />
+        </div>
+        <div className='col-span-6 sm:col-span-3'>
+          <label htmlFor='serverIp' className='block text-sm font-medium text-gray-700'>
+            What is the server <b>password</b>?
+          </label>
+          <form
+            onSubmit={() => {
+              socket.emit('login', password);
+            }}
+          >
+          <input
+            type='text'
+            name='serverIp'
+            id='serverIp'
+            value={password || ''}
+            onChange={(e) => setPassword(e.target.value)}
+            className='mt-1 block w-full max-w-lg border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+          />
+          <button className='mt-2 p-2 bg-blue-500 w-full hover:bg-blue-700 text-white font-bold rounded'>Login</button>
+          </form>
+        </div>
+        <p className='font-bold text-xl text-green-600'>You are connected to the server</p>
+      </div>
+    );
+
   return (
     <div className='p-0 flex flex-col items-center w-full grow' id='feed'>
       <div className='flex gap-6 items-center px-6 justify-center py-12 w-full max-w-5xl'>
@@ -154,6 +190,8 @@ const AdminPage = () => {
           className='p-2 bg-red-400 hover:bg-red-500 text-gray-100 hover:text-white rounded-lg'
           onClick={() => {
             setServerIp('http://localhost:3001!');
+            setPassword(null);
+            setToken(null);
             setConfig(null);
             setImages([]);
           }}

@@ -10,6 +10,7 @@ services:
     command: sh -c "yarn && yarn start"
     environment:
       - API_KEY_TWITTER=${API_KEY_TWITTER}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     ports:
       - 3001:3001
     depends_on:
