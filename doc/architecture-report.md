@@ -316,7 +316,7 @@ Source code management tools, also known as version control or revision control 
 - Git : It is one of the best version control tools that is available in the present market.
 - CVS : It is yet another most popular revision control system. CVS has been the tool of choice for a long time.
 - SVN : Apache Subversion, abbreviated as SVN aims at to be a best-matched successor to the widely used CVS tool that we just discussed above.
-- ...
+- etc.
 
 For our project we have chosen to use **Git** because Super-fast and efficient performance, Cross-platform, code changes can be very easily and clearly tracked and easily maintainable and robust.
 
