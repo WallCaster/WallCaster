@@ -168,6 +168,12 @@ export class App {
     this.socket.sendCacheToAdmin();
   }
 
+  public clearAll() {
+    this.cache = [];
+    this.trash = [];
+    this.socket.sendCacheToAdmin();
+  }
+
   public saveImageToDisk(images: Buffer[]) {
     for(var i=0; i<images.length; i++){
       const random = Math.floor(Math.random() * (99 - 1 + 1) + 1);

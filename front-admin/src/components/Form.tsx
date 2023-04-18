@@ -45,11 +45,13 @@ export default function AdminForm({
   config,
   setConfig,
   onCancel,
+  onClear,
   images,
   setImages,
 }: {
   config: Config;
   setConfig: (config: Config) => void;
+  onClear: () => void;
   images: File[];
   setImages: (images: File[]) => void;
   onCancel: () => void;
@@ -155,6 +157,16 @@ export default function AdminForm({
               type='number'
               args={{ min: 0.1, max: 1000, step: 0.1 }}
             />
+
+            <button
+              type='button'
+              className='col-span-2 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 w-fit'
+              onClick={() => {
+                onClear();
+              }}
+            >
+              Clear all posts
+            </button>
           </FormComponent>
           <FormComponent
             onSubmit={onSubmit}
