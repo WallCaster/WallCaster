@@ -347,7 +347,7 @@ What we did that fit the constrains :
 ## Deployment tools
 
 - Docker / Docker Compose
-- Naming conventions : (TO CHECK OR TO DO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
+- Naming conventions :
   - [Microsoft TypeScript conventions](https://makecode.com/extensions/naming-conventions)
 
 ## Coloboration tools
