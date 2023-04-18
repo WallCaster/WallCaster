@@ -25,7 +25,7 @@ def isNsfw(images):
 
             index = scores.index(max(scores))
 
-            if index > 1 or neutral_score < 0.6 or drawing_score < 0.6:
+            if index > 1:
                 return True
     
     except:
