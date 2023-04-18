@@ -28,47 +28,49 @@
 
 <!-- en dessous le code plantuml pour générer le diagrame de déploiement -->
 ![Component](assets/component.svg)
-<!-- 
-```plantuml
+
+<!-- ```plantuml
 @startuml component
-[Frontend Admin] as FA
-[Frontend Client] as FC
-[Twitter API] as TW
+[Server backend] as SB
 [API Receiver] as API
 [Filter] as F
-[Server backend] as SB
-[Navigator Admin] as NA
 [Navigator Client] as NC
-() "JSON" as JSON
-() "Posts" as POSTS1
-() "Posts" as POSTS2
+[Frontend Admin] as FA
+[Frontend Client] as FC
+[Navigator Admin] as NA
+[Twitter API] as TW
+() "Post" as POST
+() "Post" as POSTS1
+() "Post" as POSTS2
 () "Config" as CONFIG
 () "HTML" as HTML1
 () "HTML" as HTML2
-() "Post" as POST
+() "JSON" as JSON
 
-JSON -- TW
-JSON <.. API
-API -- POSTS1
-POSTS1 <.. F
-POSTS2 -- F
-POSTS2 <.. SB
+POSTS2 <.. F
+F -- POSTS2
+SB -- POSTS2
+SB ..> POSTS2
 CONFIG <.. SB
+API -- POSTS1
+SB <.. POSTS1
+JSON <.. API
+TW -- JSON
 FA -- CONFIG
 SB -- POST
 FC ..> POST
 
 
+NC ..> HTML2
+HTML2 -- FC
 HTML1 <.. NA 
 FA -- HTML1
 
-NC ..> HTML2
-HTML2 -- FC
 
 
 @enduml
-```
--->
+``` -->
+
 
 This component diagram shows us the different interactions between each component of our system. Indeed, our server is the central component since it communicates with the different interfaces.
 Our backend server retrieves Posts items from the Filter component which retrieves them from the Receiver API. As for the API Receiver component, it retrieves the JSON files corresponding to the Twitter API posts.
