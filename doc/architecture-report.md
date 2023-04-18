@@ -85,12 +85,15 @@ Finally, our frontend Admin brings the necessary configuration (Config) to the b
 ```plantuml
 @startuml deployment
 node "server" <<device>> as srv {
-  node "server application" <<docker>> as cmp {
+  node "server application" <<docker>> as cmp1 {
     component "backend" as bck
-    component "client frontend" as cfr 
-    component "admin frontend" as afr
     component "filter" as flt
   }
+
+  node "frontend application" <<docker>> as cmp2 {
+    component "client frontend" as cfr 
+    component "admin frontend" as afr
+  }  
 }
 
 node "Admin computer" <<device>> as admindev {
@@ -102,10 +105,10 @@ node "Raspberry Pi" <<device>> as rpi {
 }
 
 
-bck #--# afr: ""<<Websocket>>""
-bck #-# cfr: ""<<Websocket>>""
-wb #--# cfr: ""1..n\n<<HTTP>>""
-wb2 #--# afr: ""1..n\n<<HTTP>>""
+wb2 #--# afr: ""<<HTTP>>""
+wb #-# cfr: ""<<HTTP>>""
+wb #--# bck: ""1..n\n<<Websocket>>""
+wb2 #--# bck: ""1..n\n<<Websocket>>""
 bck #--# flt: ""<<REST API>>""
 @enduml
 ``` -->
