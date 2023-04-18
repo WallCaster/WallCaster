@@ -328,6 +328,7 @@ What we did that fit the constrains :
 #### Backend
 
 - NodeJS
+- Flask (Python) for the Rest API
 
 #### Frontend
 
