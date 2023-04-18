@@ -19,7 +19,6 @@ export default function FilterIndicator({
         <div title={descPassed} className='flex items-center p-3 rounded-sm gap-4'>
           <ShieldCheckIcon className='w-5 h-5 shrink-0 text-green-500 ' />
           <div className='text-sm'>
-
           {descPassed}
           </div>
         </div>

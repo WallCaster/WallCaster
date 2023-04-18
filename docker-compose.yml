@@ -12,8 +12,8 @@ services:
       - API_KEY_TWITTER=${API_KEY_TWITTER}
     ports:
       - 3001:3001
-    # depends_on:
-    #   - filter-processor
+    depends_on:
+       - filter-processor
 
   # Container of the frontend client
   front-client:

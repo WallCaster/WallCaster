@@ -68,7 +68,15 @@ export class App {
     posts.forEach(async (post) => {
       if (!this.posts_ids.has(post.id)) {
         this.posts_ids.add(post.id);
-        const filterData: FilterData = await filterPost(post);
+
+        let filterData: FilterData
+        try {
+          filterData = await filterPost(post);
+        }catch(e) {
+          console.log(e)
+          return;
+        }
+        
 
         // Write logs in a log.json file
         this.writeInLogsFile('logs.json', { ...post, ...filterData });
