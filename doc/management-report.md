@@ -11,6 +11,7 @@ From a software perspective, we have the following services:
 # Estimation (planning, resources) and description of project progress (approach, milestones, tools, meetings)
 
 For the progress of the project, we are using the agile project management method with a Kanban board (accessible via GitHub) to define tasks for the current sprint. Additionally, a daily meeting is held at the start of each work session to discuss the progress of tasks. Finally, at the end of each work session, another meeting is held to assign any tasks that can be progressed before the next lab session.
+We used mainly Discord for the communication with the team.
 
 # Description of roles and responsibilities
 
@@ -62,6 +63,7 @@ Oral presentation
 - Kouame: Research, model training
 - Cody: Frontend administration
 
+## During all the project
 
 We have used the tool GitHub Kanban to assign tasks at the beginning of each sprint. Here is a quick screenshot of what it looks like:
 
