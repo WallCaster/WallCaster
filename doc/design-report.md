@@ -54,7 +54,6 @@ Sprint 1 ends Tuesday **28/03/2023.**
 # Sprint 3
 
  
-
 ## Expected Outcome
 
 - [ ] As an admin, I can select different groups of screens in order that they do not display the same content.

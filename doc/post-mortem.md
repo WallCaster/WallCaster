@@ -57,10 +57,17 @@ By going to the developer site of [Meta](https://developers.facebook.com/docs/in
 However, there are two major problems: 
 - you need the [instagram_basic](https://developers.facebook.com/docs/permissions/reference/instagram_basic) authorization
 - as well as the [Instagram Public Access Content](https://developers.facebook.com/docs/features-reference/instagram-public-content-access)
+
 In order to do get these we need to submit our entire application to Meta's [App Review](https://developers.facebook.com/docs/app-review) process. The process is very fussy and cumbersome to set up, we don't think we have time to ask Meta for the authorisations (the request is processed in a few days), hoping for a positive response to then finish implementing this part of our application. Knowing that it will be necessary to test behind.
 
 We could, and should, have anticipated this problem by preparing the request well in advance (by starting the process in Sprint 1) and not waiting for the last sprint. Afterwards, our software evolved so much that it was hard at first to submit a sprint 1 version to Meta.
 
 The old Instagram API that could be queried easily has been deleted by [Meta](https://developers.facebook.com/blog/post/2018/01/30/instagram-graph-api-updates/) since 2018.
 
-The observation is similar for Facebook. Need to go through the `App Review`.
+The observation is similar to Facebook. Need to go through the `App Review`.
+
+### Use of Raspberry Pi
+
+The use of Raspberry Pi was originally planned for the project, but unfortunately, we encountered difficulties in obtaining one, which resulted in this aspect of the project being abandoned. 
+
+If we had been able to procure a Raspberry Pi, we could have tested the software on it to determine its functionality. However, this was not a major issue as we were able to test the software on a computer or any other device that supports a web browser.
