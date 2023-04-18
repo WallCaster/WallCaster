@@ -7,8 +7,6 @@ def isNsfw(images):
 
     path = "/app/src/filters/nsfw/last_image_analized.jpg"
 
-    print("Debut Filtrage NSFW")
-
     try:
 
         for image in images:
@@ -27,13 +25,10 @@ def isNsfw(images):
 
             index = scores.index(max(scores))
 
-            if index > 1:
-                print("NSFW DETECTED")
+            if index > 1 or neutral_score < 0.6 or drawing_score < 0.6:
                 return True
     
     except:
-        print("Error while filtering NSFW")
-        return False
+        return True
     
-    print("No NSFW detected")
     return False
