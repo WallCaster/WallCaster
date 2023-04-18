@@ -333,15 +333,15 @@ For our project we have chosen to use **Docker Compose** because our project req
 
 ### Language
 
-- TypeScript (Backend, Frontend client and Frontend Admin)
-- Python (Filters)
+- TypeScript (Backend, Frontend client and Frontend Admin) : We chose to work with NodeJS so TypeScript was mandatory.
+- Python (Filters) : Python was obvious choice for this tack, beacause the major part of filters with artificial intelligence are written in Python.
 
 ### Framework 
 
 #### Backend
 
-- NodeJS
-- Flask (Python) for the Rest API
+- NodeJS : It is a standart for backend project, there is a lot of documentation and libraries available. Also, we all knew before starting the project.
+- Flask (Python) for the Rest API : It is a micro-framework for Python, it is very simple to use and create a Rest API with it. Furthermore, it is very light and fast.
 
 #### Frontend
 
@@ -351,15 +351,15 @@ For our project we have chosen to use **Docker Compose** because our project req
 ### Test tools
 
 - Static test : 
-  - ESLint 
-  - Code Review
+  - ESLint : It is included by default in our code editor (VSCode).
+  - Code Review 
 
 - Dynamic test (unit testing & integration test) : 
-  - Jest
+  - Jest : Jest is the leader for testing in JavaScript.
 
 ## Deployment tools
 
-- Docker / Docker Compose
+- Docker / Docker Compose : Docker is a standart for containerization.
 - Naming conventions :
   - [Microsoft TypeScript conventions](https://makecode.com/extensions/naming-conventions)
 
