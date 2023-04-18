@@ -320,9 +320,16 @@ Source code management tools, also known as version control or revision control 
 
 For our project we have chosen to use **Git** because Super-fast and efficient performance, Cross-platform, code changes can be very easily and clearly tracked and easily maintainable and robust.
 
-### Continous development
 
-- DockerCompose
+### Continous development
+Continuous development, also known as continuous integration and continuous delivery (CI/CD), is a software development practice that aims to deliver software updates more frequently and with higher quality. It involves a continuous process of building, testing, and deploying software changes.
+ome popular examples include:
+- GitLab : A web-based Git repository manager that includes built-in continuous integration and deployment features.
+- Kubernetes: An open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.
+- Travis CI: A cloud-based continuous integration service that is widely used for building and testing software projects.
+- etc.
+
+For our project we have chosen to use **Docker Compose** because our project requires multiple services and Docker Compose can be a good choice because it allows we to define and manage all those services in a single file, which makes it easier to maintain and deploy our application. Additionally, Docker Compose can help we ensure that our application runs consistently across different environments, as it allows we to define the configuration of each service and specify dependencies between services.
 
 ### Language
 
