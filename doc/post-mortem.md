@@ -47,18 +47,18 @@ Being able to test would have helped to complete the analysis report, for the sy
 
 ## Retrospective (04/18/2022) - End of sprint 3
 
-Il était exprimé dans le cahier des charges que l'utilisateur puisse choisir de récupérer du contenu d'Instagram (des posts) suivant des hashtags qu'il aurait donnés.
-En se rendant sur le site développeur de [Meta](https://developers.facebook.com/docs/instagram-api/guides/hashtag-search/), il existe l'API *Hashtag Search* qui correspond à nos besoins : 
-- sur une période de 7 jours il est possible d'interroger 30 hashtags uniques d'un compte [Instagram Buisiness](https://business.instagram.com/getting-started?locale=fr_FR) ou [Creator](https://help.instagram.com/2358103564437429).
-- cependant un compte Instagram Basic ne fonctionne pas
+It was expressed in the specification that the user could choose to retrieve content from Instagram (posts) following hashtags they gave.
+By going to the developer site of [Meta](https://developers.facebook.com/docs/instagram-api/guides/hashtag-search/), there is the *Hashtag Search* API which corresponds to our needs: 
+- over a period of 7 days it is possible to query 30 unique hashtags from an [Instagram Buisiness](https://business.instagram.com/getting-started?locale=fr_FR) or [Creator](https://help.instagram.com/2358103564437429) account.
+- but an Instagram Basic account does not work.
 
-Il réside cependant deux problèmes majeurs : 
-- il faut disposer de l'autorisation [instagram_basic](https://developers.facebook.com/docs/permissions/reference/instagram_basic)
-- ainsi que de la fonctionnalité [Instagram Public Access Content](https://developers.facebook.com/docs/features-reference/instagram-public-content-access)
-Cependant pour les obtenir il faut soumettre l'entiereté de notre application au processus [Contrôle App](https://developers.facebook.com/docs/app-review) de Meta. Le processus est très pointilleux et lourd à mettre en place, nous ne pensons pas avoir le temps de demander les autorisations à Meta (la demande est traitée en quelques jours), en espérant une réponse positive pour ensuite finir d'implémenter cette partie de notre application. Sachant qu'il faudra derrière tester.
+However, there are two major problems: 
+- you need the [instagram_basic](https://developers.facebook.com/docs/permissions/reference/instagram_basic) authorization
+- as well as the [Instagram Public Access Content](https://developers.facebook.com/docs/features-reference/instagram-public-content-access)
+In order to do get these we need to submit our entire application to Meta's [App Review](https://developers.facebook.com/docs/app-review) process. The process is very fussy and cumbersome to set up, we don't think we have time to ask Meta for the authorisations (the request is processed in a few days), hoping for a positive response to then finish implementing this part of our application. Knowing that it will be necessary to test behind.
 
-Nous aurions pu, dû même anticiper ce problème en préparant la demande bien en amont (en commençant les démarches dès le sprint 1) et ne pas attendre le dernier sprint. Après notre logiciel a tellement évolué qu'il était dur au début de soumettre une version du sprint 1 à Meta.
+We could, and should, have anticipated this problem by preparing the request well in advance (by starting the process in Sprint 1) and not waiting for the last sprint. Afterwards, our software evolved so much that it was hard at first to submit a sprint 1 version to Meta.
 
-L'ancienne API Instagram qui pouvait être interrogée facilement a été supprimée par [Meta](https://developers.facebook.com/blog/post/2018/01/30/instagram-graph-api-updates/) progressivement depuis 2018.
+The old Instagram API that could be queried easily has been deleted by [Meta](https://developers.facebook.com/blog/post/2018/01/30/instagram-graph-api-updates/) since 2018.
 
-Le constat est similaire pour Facebook. Besoin de passer par le `Contrôle App`.
+The observation is similar for Facebook. Need to go through the `App Review`.
