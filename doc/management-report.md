@@ -1,178 +1,188 @@
-# Rappel des besoins et des éléments principaux de la solution
+# Reminder of needs and main elements of the solution
 
-Our solution consist of a software and a hardware part. The software part is a web application that will be used to configure the content to display dynamically. The hardware part are multiples RaspberryPi devices that are connected to the monitors to display the selected content.
+Our solution consists of a software and a hardware component. The software component is a web application that will be used to dynamically configure the content to be displayed. The hardware component consists of multiple Raspberry Pi devices that are connected to the monitors to display the selected content.
 
-From a software point of view, we have the following services:
-- Backend server retrieving posts from different social networks by applying behavioral filters and ban words filters
-- Frontend client displaying posts on different screens linked to a RaspberryPi
-- Frontend administrator providing the configuration that the backend must take.
+From a software perspective, we have the following services:
 
-# Estimation (planning, ressources) et description du déroulement du projet (démarche, jalons, outils, réunions)
+- Backend server that retrieves posts from different social networks by applying behavioral filters and banned words filters.
+- Frontend client that displays posts on different screens linked to a Raspberry Pi.
+- Frontend administrator that provides the configuration that the backend must use.
 
-For the progress of the project, we use the agile project management method using a Kanban (directly accessible via the github project) to define the tasks of the current sprint. In addition, a meeting (daily) is held at each start of TP in order to agree on the progress of tasks. Finally, at the end of each TP, another meeting is held to distribute any tasks that we can advance before the next lab session.
+# Estimation (planning, resources) and description of project progress (approach, milestones, tools, meetings)
 
-# Description des rôles et des responsabilités
+For the progress of the project, we are using the agile project management method with a Kanban board (accessible via GitHub) to define tasks for the current sprint. Additionally, a daily meeting is held at the start of each work session to discuss the progress of tasks. Finally, at the end of each work session, another meeting is held to assign any tasks that can be progressed before the next lab session.
 
-## Week 1 (11/29/2022)
+# Description of roles and responsibilities
 
-- Kilian : veille API Twitter
-- Yanis : veille Raspberry PI
-- Louis-Gabriel : veille API LinkedIn
-- Bastien : veille API Facebook/Intagram
-- Kouame : veille filtrage IA
-- Cody : veille technologique
 
-## Week 2 (12/06/2022)
+## Week 1 (29/11/2022)
 
-Documents d'analyse et d'architecture :
+- Kilian: Twitter API monitoring
+- Yanis: Raspberry Pi monitoring
+- Louis-Gabriel: LinkedIn API monitoring
+- Bastien: Facebook/Instagram API monitoring
+- Kouame: AI filtering monitoring
+- Cody: Technological monitoring
 
-- Kilian : modèle statique (visual paradigm), modèle dynamique, cadre de production
-- Yanis : modèle du domaine métier
-- Louis-Gabriel : rappel du besoin, diagramme de séquence système "API extraire post"
-- Bastien : description de l'écosystème
-- Kouame : critères de succès, diagramme de séquence système "Supprimer POST"
-- Cody : principe de solution
+## Week 2 (06/12/2022)
 
-## Week 3 (12/13/2022)
+Analysis and architecture documents:
 
-To complete !
+- Kilian: Static model (visual paradigm), dynamic model, production framework
+- Yanis: Business domain model
+- Louis-Gabriel: Need reminder, system sequence diagram "Extract POST API"
+- Bastien: Ecosystem description
+- Kouame: Success criteria, system sequence diagram "Delete POST"
+- Cody: Solution principle
 
-## "Bonus" day (01/05/2023)
+## Week 3 (13/12/2022)
 
-Préparation oral :
+To be completed!
 
-- Kilian : fin corrections diagrammes et préparation des slides
-- Yanis : correction documentation, dockerisation projet pour permettre une démo pendant l'oral, slides 
-- Louis-Gabriel : correction documentation, préparation des slides et écriture de l'introduction
-- Bastien : correction documentation et préparation des slides
-- Kouame : préparation des slides
-- Cody : dockerisation et mise en ligne des différents conteneurs, préparation des slides
+## "Bonus" day (05/01/2023)
 
-## Week 4 (01/06/2023)
+Oral presentation preparation:
+
+- Kilian: Finalizing diagram corrections and preparing slides
+- Yanis: Document correction, Dockerization of the project for a live demo during the presentation, slides
+- Louis-Gabriel: Document correction, slide preparation, and introduction writing
+- Bastien: Document correction and slide preparation
+- Kouame: Slide preparation
+- Cody: Dockerization and deployment of different containers, slide preparation
+
+## Week 4 (06/01/2023)
 
 Oral presentation
 
-## Week 5 (01/31/2023)
+## Week 5 (31/01/2023)
 
-- Kilian : intégration API Twitter
-- Louis-Gabriel : création filtres en Python, premières recherches, tutoriel Flask
-- Bastien : création filtres en Python, premières recherches, tutoriel Flask
-- Kouame : recherches, entraînement modèle
-- Cody : frontend administration
+- Kilian: Twitter API integration
+- Louis-Gabriel: Python filter creation, initial research, Flask tutorial
+- Bastien: Python filter creation, initial research, Flask tutorial
+- Kouame: Research, model training
+- Cody: Frontend administration
 
-# Gestion du déroulement du projet (suivi du planning, comptes rendus de réunions...)
 
-## Compte-rendu de réunions
+We have used the tool GitHub Kanban to assign tasks at the beginning of each sprint. Here is a quick screenshot of what it looks like :
+![image](assets/Kanban.png)
 
-### 11/29/2022 with Zoltan MIKLOS
+If you wish to have a closer look at it, [it is available on GitHub](https://github.com/WallCaster/WallCaster/issues).
 
-Filtrage : problème ambiguïté des mots 
-Combiner des outils existants, et les adapter.
-Transfer Learning (réentrainement modèle existant)
-Ou mettre le modèle ? (coté front ou back)
-Quels comptes surveiller ?
-Filtrer le contenu inutile et les fakes (fausses conférences qui usurpent l'identité des personnes pour les faire payer)
-Plusieurs couches de filtrage (manuelle (modérateur) et automatique). Par mots-clés.
+This tool also helped us to check which tasks remained. It was often completed with new goals because our products owners had some new or more precise ideas.
 
-### 12/06/2022 with Benoît COMBEMALE
+# Project management (schedule monitoring, meeting minutes...)
 
-Objectif du jour : sprint 0, ce matin document d'analyse, cet après-midi document d'architecture.
-Mise en place, choix des outils de dev, gestion de projet, choix des librairies.
-Définir un scrum master qui s'assure que tout le monde sait quoi faire à chaque moment.
-Si jamais des questions sur le filtrage, demander Z.Miklos.
+## Meeting minutes
 
-### 12/13/2022 with Benoît COMBEMALE (morning)
+### 29/11/2022 with Zoltan MIKLOS
 
-Faire sous cas diagramme use case,
-Mode publish/subscribe : maintenir une liste de clients en permanence => un peu overkill selon Benoît Combemale.
-Refaire diagramme avec norme UML document architecture, les calculs dans le client ou dans le serveur ?
-Un diagramme de composants et un de déploiement.
-Client directement dans les raspberry ?
-Mettre le frontend dans le serveur ?
-Le back expose une page web. 
-Faire un docker-compose à la fin.
-Pour les user stories :
-    Change filter diffusion : ajouter une user story pour ajouter mots bannis
-    Set-up Raspberry-pi : refaire : "As an admin I want to convert the client to the server."
-    Manage phots : le photographe a-t-il un rôle à part ou alors il donne ses photos à l'admin qui gère tout, dans ce as il disparaît ?
-    Extraire posts : refaire du point de vue de l'utilisateur, ce qui est marqué est une tâche implicite d'une user story
-    Filtrage des posts : détailler beaucoup plus, notamment au niveau du réseau de neurones, ce qu'il prend en entrée... 
-    
-Est-ce que les mots bannis ne sont-ils pas à apprendre par le réseau de neurones car cela peut être long et fastidieux pour l'admin de faire tout le dictionnaire.
+Filtering: ambiguity issue with words
+Combining existing tools and adapting them.
+Transfer Learning (retraining existing model)
+Where to place the model? (frontend or backend)
+Which accounts to monitor?
+Filtering out irrelevant content and fakes (false conferences that impersonate people to make them pay)
+Multiple layers of filtering (manual (moderator) and automatic). Based on keywords.
 
-Pour le filtrage, pas forcément pour le premier prototype, mais regarder s'il y a déjà des modèles préentraînés pour filtrer du contenu explicite.
 
-### 12/13/2022 with Benoît COMBEMALE and Johann BOURCIER (afternoon)
+### 06/12/2022 with Benoît COMBEMALE
 
-Revoir les diagrammes de composants et de déploiement.
-Attention : REST est sans état. Faire du RESTFull ou changer d'API.
-Diagramme de composants : mettre la liste des méthodes utilisées pour la connexion entre deux composants.
+Objective of the day: sprint 0, document analysis in the morning, architecture document in the afternoon.
+Setting up, choosing development tools, project management, library choices.
+Appointing a scrum master to ensure everyone knows what to do at each moment.
+If there are any questions about filtering, consult Z. Miklos.
+
+### 13/12/2022 with Benoît COMBEMALE (morning)
+
+Create use case diagram under specific cases.
+Publish/subscribe mode: maintaining a client list permanently => a bit overkill according to Benoît Combemale.
+Redo diagram with UML standard for architecture document, calculations in the client or server?
+Component diagram and deployment diagram.
+Client directly on the Raspberry Pi?
+Place the frontend in the server?
+The backend exposes a web page.
+Create a docker-compose at the end.
+For user stories:
+Change filter diffusion: add a user story to add banned words
+Set up Raspberry Pi: redo as "As an admin, I want to convert the client to the server."
+Manage photos: does the photographer have a separate role or do they give their photos to the admin who manages everything, in which case they disappear?
+Extract posts: redo from the user's perspective, what is marked is an implicit task of a user story
+Post filtering: provide more details, especially regarding the input of the neural network...
+
+Should banned words not be learned by the neural network, as it could be time-consuming and tedious for the admin to create the entire dictionary?
+
+For filtering, not necessarily for the first prototype, but check if there are already pre-trained models for filtering explicit content.
+
+### 13/12/2022 with Benoît COMBEMALE and Johann BOURCIER (afternoon)
+
+Review component and deployment diagrams.
+Note: REST is stateless. Use RESTful or change the API.
+Component diagram: list the methods used for connection between two components.
 
 ### January 2023
 
 The beginning of the month was dedicated to the oral training and presentation **(01/06/2023)**. Then some rest dedicated to the end of the semester.
 
-### 02/01/2023
+### 01/02/2023
 
 No meeting with our project owners.
 
-### 02/07/2023 with Johann BOURCIER
+### 07/02/2023 with Johann BOURCIER
 
-Ne pas utiliser le terme prototype, mais produit, car il est final avec peu de fonctionnalités.
-Faire les tests à chaque sprint, sur les fonctionnalités implémentées.
-Être précis sur les fonctionnalités attendues car elles seront revues à la revue de sprint.
-Définir la date de fin de sprint (impérativement), quoiqu'il arrive. Le but est de pouvoir s'évaluer. L'objectif est de bien gérer le projet.
-Attention tâches (dev) != fonctionnalités (clients).
+Do not use the term "prototype," but "product," as it is the final version with limited functionalities. Test each implemented feature at every sprint. Be precise about the expected functionalities as they will be reviewed at the sprint review. Define the end date of the sprint (imperatively), no matter what happens. The goal is to be able to evaluate progress and manage the project well. Note that tasks (development) are not equal to functionalities (client).
 
-### 02/14/2023 with Johann BOURCIER
+### 14/02/2023 with Johann BOURCIER
 
-Aujourd'hui réunion fin de sprint : 
-- démo
-- retrospective (ce qui a marché, pas marché, à faire entre nous) pour en ressortir deux ou trois actions
-- plannification du prochain sprint (envoyer les objectifs par mail)
+Today is the sprint review meeting:
 
-Définir date de fin sprint 2
+- Demo
+- Retrospective (what worked, what didn't, actions to be taken within the team) to identify two or three actions
+- Planning for the next sprint (send objectives via email)
+- Define the end date for sprint 2.
 
-Attention réfléchir en détails à l'histoire utilisateur pour pouvoir connecter plusieurs écrans (au niveau du panel utilisateur).
+Be sure to carefully think through user stories in detail to be able to connect multiple screens (in terms of user panel).
 
-### 02/27/2023 with Benoît COMBEMALE and Johann BOURCIER
+### 27/02/2023 with Benoît COMBEMALE and Johann BOURCIER
 
-Début sprint 2 :
-- petite nouvelle démonstration avec nos enseignants et quelques fonctionnalités en plus (en cours de préparation)
-- régler souci hashtag ict4s (connaît pas users ?)
+Start of sprint 2:
 
-### 03/07/2023 with Benoît COMBEMALE and one of his teamate?
+- Small demonstration with our teachers and some additional functionalities (in progress of preparation)
+- Resolve issue with hashtag ict4s (doesn't recognize users?)
 
-Ajout d'une nouvelle histoire utilisateur précisant l'ajout de photos par le photographe sur le serveur. Il devra pouvoir utiliser une clé USB ou alors les envoyer depuis un serveur distant. Cependant l'interface pour lui doit être simple et l'action rapide (il n'est pas forcément informaticien).
-Discussion pour le stockage de notre système soit sur un serveur de l'IRISA, ou un(e) serveur/machine virtuelle de l'ISTIC. Dans tous les cas, Docker et il faudra faire un bon README pour faciliter l'installation. Si machine virtuelle de l'ISTIC, voir pour ouvrir les ports et autoriser l'accès de l'extérieur avec la DSI.
-Les Raspberry Pi sont commandés, normalement livraison en fin de mois.
+### 07/03/2023 with Benoît COMBEMALE and Romain LEFEUVRE
 
-### 03/14/2023 with Benoît COMBEMALE and one of his teamate?
+Add a new user story specifying the ability for the photographer to upload photos to the server. They should be able to use a USB key or send them from a remote server. However, the interface for them should be simple and the action should be quick (as they may not be computer-savvy). Discuss options for storing our system on an IRISA server or an ISTIC server/virtual machine. In either case, Docker should be used, and a comprehensive README should be provided to facilitate installation. If using an ISTIC virtual machine, consider opening ports and allowing external access with DSI approval. Raspberry Pis have been ordered, expected delivery by the end of the month.
 
-Nouvelle fonctionnalité bonus (si jamais sprint fini trop en avance): ajout d'un QR code sur les écrans connectés aux Raspberry Pi pour pouvoir le scanner, ouvrant pour l'utilisateur/spectateur le même affichage sur son téléphone.
-Ajouter sélection de la langue des tweets voulus dans le panneau administratif.
-Corriger bogue hashtag "ict4s".
-Se remettre au clair sur comment fonctionne le filtre "sentiment" : est-ce un modèle préentraîné ? ou prend-il ses données ? ... Notamment il peut être intéressant d'en discuter avec Zoltan MIKLOS, pour vérifier si la méthodologie employée est la bonne.
+### 14/03/2023 with Benoît COMBEMALE
 
-Comme le sprint va être fini en avance (de deux semaines), il est important pendant la rétrospective de s'interroger sur quels éléments ont mené à ce phénomène (surestimation) pour essayer d'améliorer le prochain sprint dans son déroulement.
+New bonus feature (in case the sprint finishes too early): Add a QR code to the screens connected to the Raspberry Pis for users/viewers to scan, which would display the same content on their phones. Add language selection for desired tweets in the admin panel. Fix bug with hashtag "ict4s". Clarify how the "sentiment" filter works: Is it a pre-trained model or does it use its own data? It may be worth discussing with Zoltan MIKLOS to ensure the methodology being used is correct.
 
-### 03/21/2023 with Benoît COMBEMALE
+As the sprint is expected to finish early (two weeks ahead of schedule), during the retrospective, it's important to reflect on the factors that led to this phenomenon (possible overestimation) in order to improve the next sprint's execution.
 
-- Think of an algorithm to know if we will stream a tweet or a picture (which proportion ? 50% / 50%). Adapt the rate to suit the cache's contain.
-- The demo with the Twitter's hashtag must work next week (for the end of the sprint).
+### 21/03/2023 with Benoît COMBEMALE
 
-### 03/28/2023 with Benoît COMBEMALE
+- Develop an algorithm to determine the proportion of tweets versus pictures to be streamed, taking into account the contents of the cache.
+- Ensure that the demo with the Twitter hashtag is functional by next week, before the end of the sprint.
 
-- Intersection entre les recherches twitters, le hashtag, et l'@ pour avoir le plus de contenu possible.
-- Regarder URL à la fin des tweets.
-- Ajouter une icone poubelle à chaque post dans la queue.
-- Réorganiser date pour avoir une liste entre 0 et 7.
-- Faire fichiers de configuration et de déploiement pour Romain (il fera les tests en interne) et vite.
-- Si panne et besoin de relancer, il faut voir si tout se relance correctement.
+### 28/03/2023 with Benoît COMBEMALE
 
-### 04/11/2023 with Benoît COMBEMALE
+- Explore options for intersecting Twitter searches, hashtags, and mentions to gather maximum content.
+- Review URLs at the end of tweets.
+- Add a delete icon for each post in the queue.
+- Reorganize dates to create a list ranging from 0 to 7.
+- Create configuration and deployment files for Romain to conduct internal testing quickly.
+- Verify if the system restarts correctly in case of a breakdown.
 
-- Sprint ends on 04/18/2023.
-- It is important to have a discussion with Romain LEFEUVRE (romain.lefeuvre@inria.fr) about the readme and the Raspberry Pi setups.
+### 11/04/2023 with Benoît COMBEMALE
 
-# Description et gestion des exigences
+- Sprint ends on 18/04/2023.
+- Schedule a discussion with Romain LEFEUVRE (romain.lefeuvre@inria.fr) regarding the readme and the setup of Raspberry Pi.
+
+### 18/04/2023 with Hélène FEUILLATRE, Zoltan MIKLOS
+
+- Be careful, we must have a demonstration of the final product during the oral presentation (within 15 minutes). 
+- We can have a small video just in case (demo effect about the NSFW filter for example).
+- During the presentation, we must be persuasive (like if we sell the product).
+- The ordered Raspberry Pi have not be received, so we will use ancient ones without Wifi.
+
+# Description and Management of Requirements

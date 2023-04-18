@@ -16,7 +16,7 @@ Finally, the last part of this sprint was devoted to the creation of a prototype
   - collaboration
   - tools
 
-Sprint 0 ends Tuesday **01/06/2023**.
+Sprint 0 ends Tuesday **06/01/2023**.
 
 # Sprint 1
 
@@ -33,7 +33,7 @@ The sprint review and the retrospective will allow us to check our progress and 
 - [ ] As an administrator, I can choose to allow picture broadcasts.
 - [x] As a viewer, I can see on displays, posts coming from Twitter that rotate at a given interval.
 
-Sprint 1 ends Tuesday **02/14/2023.**
+Sprint 1 ends Tuesday **14/02/2023.**
 
 # Sprint 2
 
@@ -49,7 +49,7 @@ Sprint 1 ends Tuesday **02/14/2023.**
 - [x] As an administrator, I can select the language I want the system to use to fetch posts in the admin panel.
 - [x] As a viewer, I can see posts with photos or videos on the screen. (3h)
 
-Sprint 1 ends Tuesday **03/28/2023.**
+Sprint 1 ends Tuesday **28/03/2023.**
 
 # Sprint 3
 
@@ -60,9 +60,9 @@ Sprint 1 ends Tuesday **03/28/2023.**
 - [ ] As an admin, I can select different groups of screens in order that they do not display the same content.
 - [ ] As an admin, I can choose to fetch contents from Instagram (fail, see post-mortem.md)
 - [ ] As an admin, I can set up and deploy the system easily thanks to well-written documentation 
-- [ ] As an admin, I can filter social networks' content thanks to a enhanced filter (sentiment one)
+- [X] As an admin, I can filter social networks' content thanks to a enhanced filter (sentiment one)
 - [ ] As an admin, I can connect the system to each screen thanks a Raspberry Pi (one for each screen).
 - [ ] As an admin, I can can search the Twitter posts with some keywords.
-- [ ] As a spectator, I can scan a QR code on the screen with my smartphone to have the same display in my favorite web browser.
+- [X] As a spectator, I can scan a QR code on the screen with my smartphone to have the same display in my favorite web browser.
 
-Sprint 3 ends Tuesday **04/18/2023 or 05/02/2023** `A DETERMINER !!!!!!!!!!!!!!!!`
+Sprint 3 ends Tuesday **18/04/2023**
