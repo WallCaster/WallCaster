@@ -47,7 +47,7 @@ Being able to test would have helped to complete the analysis report, for the sy
 
 ## Retrospective (04/18/2022) - End of sprint 3
 
-### Adding more media types
+### The **Meta** unexpected problem
 
 It was expressed in the specification that the user could choose to retrieve content from Instagram (posts) following hashtags they gave.
 By going to the developer site of [Meta](https://developers.facebook.com/docs/instagram-api/guides/hashtag-search/), there is the *Hashtag Search* API which corresponds to our needs: 
