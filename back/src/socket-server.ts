@@ -23,6 +23,11 @@ export class SocketServer {
     console.log('listening for connections on port', LISTENING_PORT);
   }
 
+  public kill() {
+    this.server.removeAllListeners();
+    this.server.close();
+  }
+
   public getRoomsIds(): string[] {
     return Array.from(this.rooms.keys());
   }
