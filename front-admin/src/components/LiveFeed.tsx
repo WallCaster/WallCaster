@@ -108,6 +108,11 @@ function Table({
                 descRejected='This post contains images'
                 long
               />
+              <FilterIndicator
+                passed={selected.passedNsfw}
+                descPassed='This post does not contain NSFW images'
+                descRejected='This post contains NSFW images'
+              />
             </div>
             <div className='border-t my-4'></div>
             <div className='flex gap-5 flex-wrap justify-end'>
@@ -234,6 +239,11 @@ function Table({
                         passed={post.passedImages}
                         descPassed='This post does not contain images'
                         descRejected='This post contains images'
+                      />
+                      <FilterIndicator
+                        passed={post.passedNsfw}
+                        descPassed='This post does not contain NSFW images'
+                        descRejected='This post contains NSFW images'
                       />
                     </div>
                     <button
