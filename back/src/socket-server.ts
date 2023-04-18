@@ -76,6 +76,10 @@ export class SocketServer {
       this.app.clearTrash();
     });
 
+    socket.on('clearAll', () => {
+      this.app.clearAll();
+    });
+
     socket.on('restore', (id: string) => {
       this.app.restoreFromTrash(id);
     });

@@ -92,6 +92,11 @@ const AdminPage = () => {
     console.log('Sending images');
     socket.emit('setImages', images);
   }
+  function clearAll() {
+    if (!socket) return;
+    console.log('Clearing all');
+    socket.emit('clearAll');
+  }
 
   function dataURItoFile(dataURI: string, fileName: string): File {
     // Convertir la chaîne base64 en blob
@@ -176,6 +181,7 @@ const AdminPage = () => {
       <AdminForm
         config={config}
         setConfig={(c) => sendConfig(c)}
+        onClear={clearAll}
         onCancel={() => {
           getConfig();
           getImages();
