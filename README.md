@@ -64,6 +64,7 @@ When the docker-compose is up, the following services are available:
 | Backend      | 3001 | yes           | The main backend service (Websocket server)      |
 | Front Client | 80   | yes           | The front-end used by the rasberry pi/web client |
 | Front Admin  | 3000 | no            | The admin pannel front-end                       |
+| Filters API  | 5000 | no            | The python filter middleware using AI            |
 
 ## 4. Deployment and ports
 

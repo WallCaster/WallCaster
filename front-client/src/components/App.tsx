@@ -72,6 +72,13 @@ export const App = () => {
 
   return (
     <div className='relative h-full overflow-hidden'>
+      <button
+        className='absolute bottom-5 left-5 w-fit h-fit opacity-0 hover:opacity-100 transition-all duration-500 text-white'
+        onClick={() => setServerIp('')}
+      >
+        Disconnect
+      </button>
+
       <img
         src={post as string}
         alt=''

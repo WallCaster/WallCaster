@@ -12,6 +12,7 @@ export type FilterData = {
   passedSentiment?: boolean;
   passedBanwords?: boolean;
   passedImages?: boolean;
+  passedNsfw?: boolean;
   filterDate : Date;
 }
 

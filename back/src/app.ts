@@ -76,7 +76,8 @@ export class App {
         if (
           filterData.passedBanwords === false ||
           filterData.passedImages === false ||
-          filterData.passedSentiment === false
+          filterData.passedSentiment === false ||
+          filterData.passedNsfw === false
         ) {
           this.trash.unshift({ ...post, ...filterData });
         } else {
@@ -164,6 +165,12 @@ export class App {
   }
 
   public clearTrash() {
+    this.trash = [];
+    this.socket.sendCacheToAdmin();
+  }
+
+  public clearAll() {
+    this.cache = [];
     this.trash = [];
     this.socket.sendCacheToAdmin();
   }

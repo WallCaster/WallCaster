@@ -84,7 +84,7 @@ function Table({
             <div className='flex overflow-x-auto h-32 overflow-y-hidden gap-1 shrink-0'>
               {selected.content.images &&
                 selected.content.images.map((image, index) => (
-                  <img key={index} src={image} alt={`Image ${index}`} className='h-32 min-w-fit shrink-0' />
+                  <img key={index} src={image} alt={`Image ${index}`} className='h-32 min-w-fit shrink-0 object-cover' />
                 ))}
             </div>
             <div className='border-t my-4'></div>
@@ -107,6 +107,11 @@ function Table({
                 descPassed='This post does not contain images'
                 descRejected='This post contains images'
                 long
+              />
+              <FilterIndicator
+                passed={selected.passedNsfw}
+                descPassed='This post does not contain NSFW images'
+                descRejected='This post contains NSFW images'
               />
             </div>
             <div className='border-t my-4'></div>
@@ -172,12 +177,7 @@ function Table({
                 >
                   Timestamp
                 </th>
-                <th
-                  scope='col'
-                  className='sticky top-0 z-10 border-b hidden sm:table-cell border-gray-300 bg-white bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8'
-                >
-                  Author
-                </th>
+
                 <th
                   scope='col'
                   className='sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter'
@@ -196,7 +196,7 @@ function Table({
               {posts.map((post, index) => (
                 <tr
                   key={post.id}
-                  className='group hover:bg-blue-50 hover:text-blue-700 hover:-translate-x-2 transition-all duration-75 cursor-pointer bg-white relative'
+                  className='group hover:bg-blue-50 hover:text-blue-700 hover:-translate-x-2 transition-all duration-75 cursor-pointer bg-white relative [&>td]:h-12'
                   onClick={() => {
                     setSelected(post);
                   }}
@@ -208,14 +208,6 @@ function Table({
                     )}
                   >
                     {dateToAgo(post.filterDate)}
-                  </td>
-                  <td
-                    className={classNames(
-                      index !== posts.length - 1 ? 'border-b border-gray-200' : '',
-                      'whitespace-nowrap hidden sm:table-cell py-3 pl-3 pr-2 text-sm font-medium sm:pl-6 lg:pl-8',
-                    )}
-                  >
-                    {post.author.name.slice(0, 15) + (post.author.name.length > 15 ? '...' : '')}
                   </td>
                   <td
                     className={classNames(
@@ -232,7 +224,7 @@ function Table({
                       'relative whitespace-nowrap flex items-center justify-end text-right text-sm font-medium',
                     )}
                   >
-                    <div className='flex sm:pr-6 lg:pr-8 py-3 pr-3 pl-2 group-hover:hidden justify-end items-center gap-1'>
+                    <div className='flex sm:pr-6 lg:pr-8 py-3 pr-3 pl-2 group-hover:hidden justify-end items-center gap-1 '>
                       <FilterIndicator
                         passed={post.passedSentiment}
                         descPassed='This post is not negative'
@@ -248,6 +240,11 @@ function Table({
                         descPassed='This post does not contain images'
                         descRejected='This post contains images'
                       />
+                      <FilterIndicator
+                        passed={post.passedNsfw}
+                        descPassed='This post does not contain NSFW images'
+                        descRejected='This post contains NSFW images'
+                      />
                     </div>
                     <button
                       className='hidden
@@ -260,7 +257,6 @@ function Table({
                     >
                       <TrashIconSolid className='w-4 h-4' />
                       <ArrowRightIcon className='w-4 h-4' />
-                      
                     </button>
                   </td>
                 </tr>
