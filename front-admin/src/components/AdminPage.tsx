@@ -18,8 +18,6 @@ const AdminPage = () => {
 
   const socket = useSocket(serverIp, (socket) => {
     socket.on('connect', () => {
-      socket.emit('setadmin', token);
-      socket.emit('getImages', token);
     });
     socket.on('cache', (cache: (Post & FilterData)[]) => {
       setCache(cache);
@@ -35,7 +33,9 @@ const AdminPage = () => {
 
     socket.on('token', (token: string) => {
       setToken(token);
+      socket.emit('setadmin', token);
       socket.emit('getConfig', token);
+      socket.emit('getImages', token);
     });
 
     socket.on('images', (info) => {
