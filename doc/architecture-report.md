@@ -19,7 +19,7 @@
       - [Frontend](#frontend)
     - [Test tools](#test-tools)
   - [Deployment tools](#deployment-tools)
-  - [Coloboratoin tools](#coloboratoin-tools)
+  - [Coloboration tools](#coloboration-tools)
 
 
 # Static model : packages organization, main classes descriptions and their responsabilities
@@ -120,135 +120,76 @@ This diagram represents the UML diagram of the backend.
 One of the class is called "Config" and represent all the parameter of the application. This class is a singleton because only one configuration is nessecary.
 The class "Socket" allows to send informations to the back.
 
-<!--
+<!-- ![image](assets/Class%20Diagram%20Back.png) -->
+
 ```mermaid
 classDiagram
 
 
 class App {
+  -posts_ids : Set~String~
   -cache : List~Post~ 
+  -trash : List~Post~ 
   -apis : List~API~ 
 
   +App()
-  +addAPI(API api)
-  +removeAPI(API api)
-  +addPost(Post post)
-  +removePost(int id)
-}
-
-class Filter {
-  <<abstract>>
-  +Filter(Config config)
-  +apply(List~Post~ posts) List~Post~
-}
-class BanWordsFilter {
-  +BanWordsFilter(Config config)
-  +apply(List~Post~ posts) List~Post~
-}
-class NegativeFilter {
-  +NegativeFilter(Config config)
-  +apply(List~Post~ posts) List~Post~
+  +restart()
+  +addPosts(post: List~Post~)
+  +getNextPost() Post | null
+  +moveToTrash(id: string)
+  +restoreFromTrash(id: string)
+  +removeDefinitively(id: string)
+  +writeInLogsFile(filename: string, logs: any)
+  +saveImageToDisk(images: Buffer[])
+  +filterPost(post: Post)
 }
 
 class SocketServer {
+  -rooms : Map~String~SocketId[]~
+  -clients : Map~SocketId~io.Socket~
+
   +SocketServer()
-  +onConnect()
-  +onDisconnect()
-  +onNewPost()
-  +onNewConfig()
-  +sendPost(Post post)
-  +sendConfig(Config config)
+  +onConnect(socket: io.Socket)
+  +onDisconnect(socket: io.Socket)
+  +sendPostToAll(post: Post)
+  +sendPostToRoom(room: string, post: Post)
+  +sendImageToRoom(room: string, path: string)
+  +sendCacheToAdmin()
+  +sendImagesToAdmin()
 }
 
-class Config {
-  -numberOfScreens : int
-  -dateRange : int
-  -forbiddenWords : List~String~
-  -whiteListAuthors : List~String~ 
-  -whiteListHashtags : List~String~ 
-  -allowSound : bool 
-  -allowVideo : bool 
-  -allowImage : bool 
+class ConfigManager {
+  -config : Config
 
-  +writeConfigToFile(fileName : string) : void
-  +readConfigFromFile(fileName : string)) : void
-  +toString() String
+  +writeConfigToFile(fileName : string) void
+  +readConfigFromFile(fileName : string) void
 }
 
-class Post {
-  -id : int 
-  -content : String 
-  -author : String 
-  -date : Date 
-  -url : String 
-  +Post(String content, String author, Date date, String url, PostImage image, SocialNetwork source)
-  +Post(String content, String author, Date date, String url, SocialNetwork source)
-  -getUniqueID() int
-  +toString() String
-}
 
 class API {
   <<abstract>>
-  -base_url : String 
-  -api_key : String 
-  -hashTag$ : List~String~ 
-  +API(String base_url)*
-  +searchPostFromHashtag()* Post
-  +defineHashTag(String hashtag)$
-}
-
-class PostImage {
-  -url : String 
-  +PostImage(String url)
-  +getURL()
-}
-
-class SocialNetwork {
-  <<enum>>
-  TWITTER
-  INSTAGRAM
-  FACEBOOK
-  LINKEDIN
+  -apiName: ApiType
+  -running: boolean 
+  -interval : Timer
+  +API(apiName: ApiType)
+  +fetchPosts(): Promise~Post[]~
+  +start(app: App)
+  +stop()
 }
 
 class TwitterAPI {
-  
+  +fetchPosts(): Promise~Post[]~
 }
 
-class LinkedInAPI {
-  
-}
-
-class InstagramAPI {
-  
-}
-
-class FacebookAPI {
-   
-}
-
-App "1" --o "*" Filter
 App "1" --o "1" SocketServer
 App "1" --o "1" API
-App "1" - -> "*" Post : postsFiltered
-Filter "1" - -> "1" Config : config
-Filter <|-- BanWordsFilter 
-Filter <|-- NegativeFilter
 
-Post "*" - -> "0..1" PostImage : image
-Config "1" - -> "0..*" SocialNetwork : socialNetworkAccepted
-SocketServer "1" - -> "1" Config : config
-API "1" - -> "1" Config : config
-Post "1" - -> "1" SocialNetwork : source
+SocketServer "1" --> "1" ConfigManager : config
+API "1" --> "1" ConfigManager : config
 API <|-- TwitterAPI
-API <|-- LinkedInAPI
-API <|-- InstagramAPI
-API <|-- FacebookAPI
+```
 
-
-``` 
--->
-
+During development, the architecture within the backend underwent some changes to be better adapted to the technical constraints encountered during development. Indeed, the Filter class became a simple function filterPost(post: Post) within the App class. This function makes a request to our Flask microservice filter-processor, which performs all the filters on the posts (banned_words, nsfw, sentiment).
 
 ## Frontend Clients
 
