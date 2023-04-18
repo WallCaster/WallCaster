@@ -7,23 +7,33 @@ def isNsfw(images):
 
     path = "/app/src/filters/nsfw/last_image_analized.jpg"
 
-    for image in images:
+    print("Debut Filtrage NSFW")
 
-        urllib.request.urlretrieve(image, path)
+    try:
 
-        res = predict.classify(model, path)
-        
-        neutral_score = res[path]["neutral"]
-        drawing_score = res[path]["drawings"]
-        hentai_score = res[path]["hentai"]
-        porn_score = res[path]["porn"]
-        sexy_score = res[path]["sexy"]
+        for image in images:
 
-        scores = [neutral_score, drawing_score, hentai_score, porn_score, sexy_score]
+            urllib.request.urlretrieve(image, path)
+            
+            res = predict.classify(model, path)
+            
+            neutral_score = res[path]["neutral"]
+            drawing_score = res[path]["drawings"]
+            hentai_score = res[path]["hentai"]
+            porn_score = res[path]["porn"]
+            sexy_score = res[path]["sexy"]
 
-        index = scores.index(max(scores))
+            scores = [neutral_score, drawing_score, hentai_score, porn_score, sexy_score]
 
-        if index > 1:
-            return True
+            index = scores.index(max(scores))
+
+            if index > 1:
+                print("NSFW DETECTED")
+                return True
     
+    except:
+        print("Error while filtering NSFW")
+        return False
+    
+    print("No NSFW detected")
     return False
