@@ -181,9 +181,16 @@ As the sprint is expected to finish early (two weeks ahead of schedule), during 
 - Sprint ends on 18/04/2023.
 - Schedule a discussion with Romain LEFEUVRE (romain.lefeuvre@inria.fr) regarding the readme and the setup of Raspberry Pi.
 
-### 18/04/2023 with Hélène FEUILLATRE, Zoltan MIKLOS
+### 18/04/2023 with Hélène FEUILLATRE, Zoltan MIKLOS, Benoît COMBEMALE and Romain LEFEUVRE
 
 - Be careful, we must have a demonstration of the final product during the oral presentation (within 15 minutes). 
 - We can have a small video just in case (demo effect about the NSFW filter for example).
 - During the presentation, we must be persuasive (like if we sell the product).
 - The ordered Raspberry Pi have not be received, so we will use ancient ones without Wifi.
+
+- Deployment will be managed by the product owners (aborted Raspberry Pi).
+- Add a login system to protect the administration page (protect the endpoints).
+- Generate a secure header with a token.
+- Have a cookie to store authentication?
+
+# Description and Management of Requirements
