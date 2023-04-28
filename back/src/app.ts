@@ -112,7 +112,7 @@ export class App {
   // Method to write logs in a file
   public writeInLogsFile(filename: string, logs: any) {
     writeFileSync(join(filename), JSON.stringify(logs)+"\n", {
-      flag: 'a+',
+      flag: 'a',
     });
   }
 
