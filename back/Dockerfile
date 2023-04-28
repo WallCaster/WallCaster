@@ -13,6 +13,9 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+# Bind logs.json file to container
+VOLUME /usr/src/app/logs.json
+
 RUN npm run build
 
 EXPOSE 3001
