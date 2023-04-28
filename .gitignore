@@ -140,7 +140,6 @@ filter-processor/src/filters/sentiment/trained_data.pickle
 back/logs.json
 back/src/settings.json
 back/src/settings.json
-back/assets/*.*
 back/logs.json
 .vscode/settings.json
 filter-processor/src/filters/nsfw/last_image_analized.jpg
