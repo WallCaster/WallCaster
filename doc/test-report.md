@@ -12,6 +12,8 @@ The testing approach adopted for the Wallcaster app backend was unit testing. Un
 
 The scope of testing was limited to the backend of the Wallcaster app, which is responsible for handling various functionalities such as user authentication, data retrieval and storage, API communication, and other server-side operations. The backend code was thoroughly tested to ensure that it is robust, reliable, and meets the expected requirements.
 
+Another part test was the banned words filter in Python.
+
 ## Test Results
 
 The unit testing conducted on the backend code using Jest yielded positive results. All the tests were passed successfully, indicating that the backend code is functioning as expected and meeting the defined requirements. The tests covered different scenarios, including positive and negative test cases, edge cases, and boundary conditions, to ensure comprehensive testing of the backend functionality.
@@ -34,5 +36,6 @@ Based on the testing conducted, the following recommendations are provided for f
 - Consider incorporating automated testing techniques, such as integration testing and end-to-end testing, to further improve the overall testing coverage of the app.
 
 ## References
-Jest documentation: https://jestjs.io/docs/en/getting-started
-Wallcaster app documentation and requirements.
+- Jest documentation: https://jestjs.io/docs/en/getting-started
+- unittest documentation : https://docs.python.org/3/library/unittest.html
+- Wallcaster app's documentation and requirements.

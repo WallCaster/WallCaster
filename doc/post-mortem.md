@@ -54,7 +54,7 @@ By going to the developer site of [Meta](https://developers.facebook.com/docs/in
 - over a period of 7 days it is possible to query 30 unique hashtags from an [Instagram Buisiness](https://business.instagram.com/getting-started?locale=fr_FR) or [Creator](https://help.instagram.com/2358103564437429) account.
 - but an Instagram Basic account does not work.
 
-However, there are two major problems: 
+However, there are still two major problems: 
 - you need the [instagram_basic](https://developers.facebook.com/docs/permissions/reference/instagram_basic) authorization
 - as well as the [Instagram Public Access Content](https://developers.facebook.com/docs/features-reference/instagram-public-content-access)
 
@@ -64,7 +64,7 @@ We could, and should, have anticipated this problem by preparing the request wel
 
 The old Instagram API that could be queried easily has been deleted by [Meta](https://developers.facebook.com/blog/post/2018/01/30/instagram-graph-api-updates/) since 2018.
 
-The observation is similar to Facebook. Need to go through the `App Review`.
+The observation is similar for Facebook. Need to go through the `App Review`.
 
 ### Use of Raspberry Pi
 

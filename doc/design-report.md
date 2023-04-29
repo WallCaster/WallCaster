@@ -49,7 +49,7 @@ Sprint 1 ends Tuesday **14/02/2023.**
 - [x] As an administrator, I can select the language I want the system to use to fetch posts in the admin panel.
 - [x] As a viewer, I can see posts with photos or videos on the screen. (3h)
 
-Sprint 1 ends Tuesday **28/03/2023.**
+Sprint 2 ends Tuesday **28/03/2023.**
 
 # Sprint 3
 
