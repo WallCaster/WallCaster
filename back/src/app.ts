@@ -39,8 +39,6 @@ export class App {
       for (let room of this.socket.getRoomsIds()) {
 
         const files = readdirSync("assets")
-        // Delete the .gitingore file from the list of files
-        files.splice(files.indexOf(".gitignore"), 1)
 
         // Calcul the ratio between the cache and the images to define the probability to send a post or an image
         const random = Math.random();
@@ -112,7 +110,7 @@ export class App {
   // Method to write logs in a file
   public writeInLogsFile(filename: string, logs: any) {
     writeFileSync(join(filename), JSON.stringify(logs)+"\n", {
-      flag: 'a',
+      flag: 'a+'
     });
   }
 

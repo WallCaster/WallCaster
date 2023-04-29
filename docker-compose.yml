@@ -11,6 +11,8 @@ services:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     ports:
       - 3001:3001
+    volumes:
+        - ./logs.json:/usr/src/app/logs.json
     depends_on:
        - filter-processor
 

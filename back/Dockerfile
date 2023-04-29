@@ -13,11 +13,11 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-# Bind logs.json file to container
-VOLUME /usr/src/app/logs.json
-
 RUN npm run build
 
 EXPOSE 3001
+
+# Remove .gitignore file from assets folder
+RUN rm /usr/src/app/assets/.gitignore
 
 CMD [ "node", "build/index.js" ]
