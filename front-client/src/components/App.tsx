@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react';
 import { useEffect, useState } from 'react';
-import { useTimeoutFn } from 'react-use';
+import * as reactUse from 'react-use';
 import useSocket from '../../hooks/useSocket';
 import type { Post } from '../types/post';
 import { PostCard } from './PostCard';
@@ -32,7 +32,7 @@ export const App = () => {
   const [nextPost, setNextPost] = useState<Post | string | null>(null);
   const [serverIp, setServerIp] = useState('http://localhost:3001');
   let [isShowing, setIsShowing] = useState(true);
-  let [, , resetIsShowing] = useTimeoutFn(() => setIsShowing(true), 400);
+  let [, , resetIsShowing] = reactUse.useTimeoutFn(() => setIsShowing(true), 400);
   const socket = useSocket(serverIp, (socket) => {
     socket.on('post', (p) => {
       updatePost(p);
