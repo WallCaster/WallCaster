@@ -13,4 +13,11 @@ import { App } from '../components/App';
   <body class='h-full'>
     <App client:only="react"  />
   </body>
+  <style>
+    @media (max-width: 768px) {
+      html {
+        font-size: 10px !important;
+      }
+    }
+  </style>
 </html>
