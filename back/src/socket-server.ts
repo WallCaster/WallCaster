@@ -73,10 +73,10 @@ export class SocketServer {
       configManager.config = config;
       configManager.writeConfigToFile();
       this.app.restart();
-      socket.emit('config', configManager.config);
+      this.server.to('admin').emit('config', configManager.config);
     });
 
-    socket.on('setadmin', (token) => {
+    socket.on('setadmin', (token: string) => {
       if (token !== this.token) return;
       socket.join('admin');
       this.sendCacheToAdmin();

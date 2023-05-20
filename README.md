@@ -75,8 +75,9 @@ For deployment, you will need to expose the `3001` and the `80` ports to the int
 
 All the configuration is done through the admin panel on the [localhost:3000](http://localhost:3000) page.
 
-**Note:** All the data is logged in the `logs.json` file.
-**Note:** The configuration is stored in the `back/src/config.json` file. 
+**Notes:** 
+- All the data is logged in the `logs.json` file.
+- The configuration is stored in the `back/src/config.json` file. 
 
 ## 3.1. Live feed
 

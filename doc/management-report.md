@@ -38,7 +38,7 @@ Analysis and architecture documents:
 
 ## Week 3 (13/12/2022)
 
-To be completed!
+Same items as last week.
 
 ## "Bonus" day (05/01/2023)
 
@@ -192,5 +192,3 @@ As the sprint is expected to finish early (two weeks ahead of schedule), during 
 - Add a login system to protect the administration page (protect the endpoints).
 - Generate a secure header with a token.
 - Have a cookie to store authentication?
-
-# Description and Management of Requirements

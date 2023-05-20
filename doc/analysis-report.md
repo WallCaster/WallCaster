@@ -9,10 +9,10 @@
   - [1.2 - Criteria for success](#12---criteria-for-success)
 - [2 - Model of the business domain : UML model of the manipulated notions, relations and explanations](#2---model-of-the-business-domain--uml-model-of-the-manipulated-notions-relations-and-explanations)
   - [2.1 - Use case diagram](#21---use-case-diagram)
-  - [2.2 - Diagrame de Séquence Système](#22---diagrame-de-séquence-système)
+  - [2.2 - System sequence diagram](#22---system-sequence-diagram)
     - [2.2.1 - Manage photos](#221---manage-photos)
     - [2.2.2 - Fitler posts](#222---fitler-posts)
-    - [2.2.3 - Sequence Supprimer post](#223---sequence-supprimer-post)
+    - [2.2.3 - Delete posts](#223---delete-posts)
     - [2.2.4 - Change wanted contents](#224---change-wanted-contents)
     - [2.2.5 - Set-up RaspberryPi](#225---set-up-raspberrypi)
   - [2.3 - User Story](#23---user-story)
@@ -23,7 +23,7 @@
     - [2.3.5 - Set-up RaspberryPi](#235---set-up-raspberrypi)
     - [2.3.6 - Display posts / photos](#236---display-posts--photos)
 - [3 - Description of the ecosystem: presentation of the elements with which the system will have to integrate, the constraints to be respected](#3---description-of-the-ecosystem-presentation-of-the-elements-with-which-the-system-will-have-to-integrate-the-constraints-to-be-respected)
-- [4 - Principe de solution : description externe de la solution proposée (le quoi, pas le comment)](#4---principe-de-solution--description-externe-de-la-solution-proposée-le-quoi-pas-le-comment)
+- [4 - Solution principle: external description of the proposed solution (the what, not the how)](#4---solution-principle-external-description-of-the-proposed-solution-the-what-not-the-how)
 
 <br/>
 
@@ -87,7 +87,7 @@ flowchart LR
 
 > This diagram shows what each actor is doing on the system. There are 3 actors, 2 primary and 1 secondary. The primary ones are the administrator and the APIs. The secondary one is the spectator.
 
-## 2.2 - Diagrame de Séquence Système
+## 2.2 - System sequence diagram
 
 ### 2.2.1 - Manage photos
 
@@ -127,7 +127,7 @@ sequenceDiagram
 ```
 <br/>
 
-- Scenario exception : Photo to large
+- Exception scenario : Photo too large
 
 
 ```mermaid
@@ -143,7 +143,7 @@ S ->> Admin : Upload failed the picture is too heavy
 
 <br/>
 
-- Scenario exception : connection error
+- Exception scenario : connection error
 
 ```mermaid
 sequenceDiagram
@@ -212,7 +212,7 @@ sequenceDiagram
 
 <br/>
 
-### 2.2.3 - Sequence Supprimer post
+### 2.2.3 - Delete posts
 
 - Nominative Scenario
 
@@ -421,10 +421,12 @@ Our system will have to communicate with various social network APIs in order to
   - Constraints:
     - Have a Facebook developer account 
     - Have an Instagram developer account
+    - Pass Meta's `App Review` process
 
 - Facebook Graph API:
   - Constraints:
     - Impossible to get the public Facebook feed via the Facebook SDK so find an alternative
+    - Pass Meta's `App Review` process
 
 - API to filter posts according to several criteria
 

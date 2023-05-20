@@ -49,7 +49,7 @@ Sprint 1 ends Tuesday **14/02/2023.**
 - [x] As an administrator, I can select the language I want the system to use to fetch posts in the admin panel.
 - [x] As a viewer, I can see posts with photos or videos on the screen. (3h)
 
-Sprint 1 ends Tuesday **28/03/2023.**
+Sprint 2 ends Tuesday **28/03/2023.**
 
 # Sprint 3
 
@@ -58,10 +58,10 @@ Sprint 1 ends Tuesday **28/03/2023.**
 
 - [ ] As an admin, I can select different groups of screens in order that they do not display the same content.
 - [ ] As an admin, I can choose to fetch contents from Instagram (fail, see post-mortem.md)
-- [ ] As an admin, I can set up and deploy the system easily thanks to well-written documentation 
+- [x] As an admin, I can set up and deploy the system easily thanks to well-written documentation 
 - [X] As an admin, I can filter social networks' content thanks to a enhanced filter (sentiment one)
 - [ ] As an admin, I can connect the system to each screen thanks a Raspberry Pi (one for each screen).
-- [ ] As an admin, I can can search the Twitter posts with some keywords.
+- [x] As an admin, I can can search the Twitter posts with some keywords.
 - [X] As a spectator, I can scan a QR code on the screen with my smartphone to have the same display in my favorite web browser.
 
 Sprint 3 ends Tuesday **18/04/2023**

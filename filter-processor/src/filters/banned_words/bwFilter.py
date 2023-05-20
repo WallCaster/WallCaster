@@ -1,46 +1,54 @@
 from typing import List
-import re
 from unidecode import unidecode
 
-def check_banned_words(banned_words : List[str], text : str):
+
+'''
+Function check_banned_words
+Be careful, the filter is a little bit intransigent. Do not put a character alone (like 'a', 'b') or even a empty string ("") in the banned words filter, because the method find() search for a \
+substring matching in the text. 
+@param bannedWords, a list of string containing all the banned words to check
+@param text, the text to check
+@return, true if a banned word has been detected, false otherwise
+'''
+def check_banned_words(bannedWords : List[str], text : str):
 
     # First step, we have to split all the string in words, each of them seperated with spaces.
-    text_splited : list[str] = text.split()
+    textSplited : list[str] = text.split()
 
     # Then we have to convert the text to lowercase
-    for i in range(len(text_splited)):
-        text_splited[i] = text_splited[i].lower()
+    for i in range(len(textSplited)):
+        textSplited[i] = textSplited[i].lower()
 
-    print("\nText to filter in lowercase :", text_splited)
+    # print("\nText to filter in lowercase :", textSplited)
 
     # Convert all banned words in lowercase.
-    banned_words_lower : list[str] = []
-    for j in range(len(banned_words)):
-        banned_words_lower.append(banned_words[j].lower())
+    bannedWordsLower : list[str] = []
+    for j in range(len(bannedWords)):
+        bannedWordsLower.append(bannedWords[j].lower())
 
-    print("Banned words in lowercase :", banned_words_lower)
+    # print("Banned words in lowercase :", bannedWordsLower)
 
     # Replace all letters with an accent (à, é, è etc.) for the same letter without it.
-    banned_words_without_accents : list[str] = []
-    for word in banned_words_lower:
-        banned_words_without_accents.append(unidecode(word))
+    bannedWordsWithoutAccents : list[str] = []
+    for word in bannedWordsLower:
+        bannedWordsWithoutAccents.append(unidecode(word))
     
-    print("Banned words without accents :", banned_words_without_accents)
+    # print("Banned words without accents :", bannedWordsWithoutAccents)
 
     
-    final_text = ""
-    final_text = final_text.join(text_splited)
+    finalText = ""
+    finalText = finalText.join(textSplited)
 
-    print("Final text :", final_text)
+    # print("Final text :", finalText)
 
     # Same thing for the post.
-    final_text_without_accents = unidecode(final_text)
+    finalTextWithoutAccents = unidecode(finalText)
 
-    print("Final text without accents :", final_text_without_accents)
+    # print("Final text without accents :", finalTextWithoutAccents)
 
     # Then for each word, we have to checked if it is in the banned_words_without_accents list.
-    for banned_word in banned_words_without_accents:
-        if final_text_without_accents.find(banned_word) != -1:
+    for banned_word in bannedWordsWithoutAccents:
+        if finalTextWithoutAccents.find(banned_word) != -1:
             return True
 
     # No banned words has been detected, the post can be displayed, return Fasle.
