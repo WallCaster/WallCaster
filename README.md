@@ -122,4 +122,4 @@ The **probability** of a photo being displayed is based on the number of posts a
 - [Kouame Aime Israel ANGORA](https://github.com/akai-code)
 - [Louis-Gabriel CAPLIEZ](https://github.com/EdgeOfMemory-cloud) 
 - Bastien FAISANT
-- [Kilian CORNEC](https://github.com/Kali-ki)
+- Kilian CORNEC
